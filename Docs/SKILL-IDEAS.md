@@ -20,4 +20,4 @@ A running backlog of candidate skills to build. Move an idea into the [Skills ta
 
 Good skill candidates are **narrow, repeatable tasks with a clear "done" state** — the kind of thing you'd otherwise re-explain to the agent every time. If an idea is really "be a good engineer," it's too broad to be a skill.
 
-Before building, check the [`agent-tool-builder`](../Skills) pattern and the existing [`readme-builder-mfs`](../Skills/readme-builder-mfs/SKILL.md) skill for structure. See [`USING-SKILLS.md`](./USING-SKILLS.md) for the authoring workflow.
+Before building, check the existing [`readme-builder-mfs`](../Skills/Documentation/readme-builder-mfs/SKILL.md) skill for structure. See [`USING-SKILLS.md`](./USING-SKILLS.md) for the authoring workflow.

@@ -6,13 +6,16 @@ How to install, invoke, and author the custom Agent Skills in this repo.
 
 A **Skill** is a reusable, model-invocable capability packaged as a single `SKILL.md` file. It teaches an agent (Claude Code and compatible CLIs) how to perform a specific task well. The agent loads the skill's instructions only when the skill is invoked, so skills keep specialized knowledge out of the base context until it's needed.
 
-Every skill lives in its own folder under [`../Skills/`](../Skills):
+Skills are grouped by **category** under [`../Skills/`](../Skills); each skill lives in its own folder inside its category:
 
 ```
 Skills/
-└── <skill-name>/
-    └── SKILL.md   # YAML frontmatter (name, description) + instructions
+└── <Category>/          # e.g. Documentation, Image-Gen
+    └── <skill-name>/
+        └── SKILL.md      # YAML frontmatter (name, description) + instructions
 ```
+
+Categories are just folders that group related skills (e.g. `Documentation`, `Image-Gen`). Add a new category folder when a skill doesn't fit an existing one.
 
 ## Anatomy of a SKILL.md
 
@@ -34,7 +37,10 @@ Instructions the agent loads on invocation...
 Skills are picked up from an agent's skills directory. Two options:
 
 1. **Point at this repo** — configure your agent's skills path to include this repo's `Skills/` folder.
-2. **Copy an individual skill** — copy a single `<skill-name>/` folder into your agent's skills directory.
+2. **Copy an individual skill** — copy a single `<skill-name>/` folder (the leaf folder, not its category) into your agent's skills directory.
+
+> [!NOTE]
+> The category folders (`Documentation/`, `Image-Gen/`) are a repo-organization convention. Most agents discover skills by the leaf `<skill-name>/` folder that contains the `SKILL.md`, so when copying a skill out, copy that leaf folder — the category level doesn't need to be preserved.
 
 For **Claude Code**, place (or symlink) a skill folder under one of:
 
@@ -52,15 +58,15 @@ The folder name should match the skill's `name`. Restart or reload the agent so 
 
 ## Authoring a new skill
 
-1. Create `Skills/<skill-name>/SKILL.md`.
+1. Create `Skills/<Category>/<skill-name>/SKILL.md` — put it in the category folder that fits (e.g. `Documentation`, `Image-Gen`), or add a new category folder if none fits.
 2. Write the frontmatter — a unique `name` and a description that leads with the capability and names the trigger conditions.
 3. Write the body: purpose, when-to-use, principles, a concrete execution checklist, and explicit anti-patterns. Concrete examples beat abstract advice.
 4. Keep it self-contained — the agent won't have your surrounding conversation when the skill loads.
-5. Add a row to the **Skills** table in the repo [`../README.md`](../README.md).
+5. Add a row to the matching category table in the repo [`../README.md`](../README.md) (create the category section if it's new).
 6. If it's worth documenting further (design rationale, longer usage notes), add a doc here in `Docs/`.
 
 > [!TIP]
-> The [`readme-builder-mfs`](../Skills/readme-builder-mfs/SKILL.md) skill is a good reference implementation — it shows the frontmatter + when-to-use + principles + checklist + anti-patterns structure.
+> The [`readme-builder-mfs`](../Skills/Documentation/readme-builder-mfs/SKILL.md) skill is a good reference implementation — it shows the frontmatter + when-to-use + principles + checklist + anti-patterns structure.
 
 ## Testing a skill
 
