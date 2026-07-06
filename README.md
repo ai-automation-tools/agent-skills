@@ -10,18 +10,32 @@ A personal collection of custom **Agent Skills** — reusable, model-invocable c
 
 ## 📦 Skills
 
+Each skill lives in its own folder under [`Skills/`](./Skills).
+
 | Skill | Description |
 |:---|:---|
-| [**readme-builder-mfs**](./Documentation/readme-builder-mfs/SKILL.md) | Build professional README files that render flawlessly in both GitHub and Obsidian, using pure native markdown (no diagrams). |
+| [**readme-builder-mfs**](./Skills/readme-builder-mfs/SKILL.md) | Build professional README files that render flawlessly in both GitHub and Obsidian, using pure native markdown (no diagrams). |
+
+## 📖 Docs
+
+Usage guides and skill ideas live under [`Docs/`](./Docs).
+
+| Doc | Description |
+|:---|:---|
+| [**Using Skills**](./Docs/USING-SKILLS.md) | How to install, invoke, and author skills — plus what a `SKILL.md` looks like. |
+| [**Skill Ideas**](./Docs/SKILL-IDEAS.md) | Running backlog of candidate skills to build. |
 
 ## 🗂️ Structure
 
-Each skill lives in its own folder containing a `SKILL.md` file:
-
 ```
 My-Custom-Skills/
-└── <skill-name>/
-    └── SKILL.md   # frontmatter (name, description) + instructions
+├── README.md
+├── Skills/
+│   └── <skill-name>/
+│       └── SKILL.md   # frontmatter (name, description) + instructions
+└── Docs/
+    ├── USING-SKILLS.md
+    └── SKILL-IDEAS.md
 ```
 
 A `SKILL.md` starts with YAML frontmatter naming the skill and describing when to use it, followed by the instructions the agent loads on invocation:
@@ -37,4 +51,6 @@ Instructions for the agent...
 
 ## 🚀 Using a Skill
 
-Point your agent's skills directory at this repo (or copy an individual skill folder into it), then invoke by name. In Claude Code, skills surface as `/skill-name`.
+Point your agent's skills directory at this repo's [`Skills/`](./Skills) folder (or copy an individual skill folder into it), then invoke by name. In Claude Code, skills surface as `/skill-name`.
+
+See [**Using Skills**](./Docs/USING-SKILLS.md) for install locations, invocation, and the full authoring workflow.
