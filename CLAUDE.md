@@ -112,7 +112,7 @@ There is no repo-wide test runner. Skill-specific `evals/` (e.g. `recipe-validat
 ## Conventions & hygiene
 
 - **Windows-first.** PowerShell 7+ for shell work; forward slashes in paths/JSON work fine. Invoke Python scripts explicitly (`python skills/<name>/scripts/<script>.py …`).
-- **Markdown.** These docs target both GitHub and Obsidian rendering — pure native markdown, GitHub-style callouts (`> [!NOTE]`), no Mermaid/diagrams (matches the `readme-builder-mfs` philosophy).
+- **Markdown.** These docs target both GitHub and Obsidian rendering — pure native markdown, GitHub-style callouts (`> [!NOTE]`), diagrams sparingly and only when they earn their place, never by default (matches the `readme-builder-mfs` philosophy).
 - **Never commit:** secrets (`.env*`, `*.key`), OS cruft, and per-skill `reports/` run output (all covered by `.gitignore` — verify before committing).
 - **Git.** Remote is `michaelschecht/My-Custom-Skills`, branch `main`. Commit/push **only when Mike asks.** Imperative-mood subjects matching the existing log ("Organize skills into category folders"). Small, focused commits.
 - **Read before editing.** Match the style and structure of the skill/doc you're changing. When a task targets one skill, read its `SKILL.md` (and its `references/`) first.
