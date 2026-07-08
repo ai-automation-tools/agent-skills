@@ -9,3 +9,15 @@ desktop.ini
 .env
 .env.*
 *.key
+
+# Agent-local working state (installed skills, backups, temp) — not part of the repo
+.claude/
+
+# Skill run output — local only, never committed (distinct from tracked evals/)
+reports/
+**/reports/
+
+# Python
+__pycache__/
+*.pyc
+.venv/

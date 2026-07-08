@@ -9,6 +9,7 @@ A running backlog of candidate skills to build. Move an idea into the [Skills ta
 
 | Idea | What it would do |
 |:---|:---|
+| **repo-doc-structure** | Scaffold a repo's documentation layout — standard `docs/` tree, README/CONTRIBUTING/CHANGELOG stubs, and a consistent structure across projects. _(Category: Github.)_ |
 | **commit-msg-mfs** | Write clean, imperative-mood commit messages matched to a repo's existing log style (conventional vs. plain). |
 | **changelog-keeper** | Maintain a `CHANGELOG.md` in Keep-a-Changelog format from a range of commits. |
 | **obsidian-note-mfs** | Author Obsidian-flavored notes with correct frontmatter, wikilinks, callouts, and tags for the AI Lab vault. |
