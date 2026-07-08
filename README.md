@@ -2,15 +2,26 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Type-Agent%20Skills-8B5CF6?style=for-the-badge" alt="Agent Skills">
+  <img src="https://img.shields.io/badge/Skills-3-2ea44f?style=for-the-badge" alt="3 Skills">
   <img src="https://img.shields.io/badge/Owner-michaelschecht-0078D4?style=for-the-badge&logo=github&logoColor=white" alt="Owner">
   <img src="https://img.shields.io/badge/Visibility-Private-6B7280?style=for-the-badge" alt="Private">
 </p>
 
-A personal collection of custom **Agent Skills** — reusable, model-invocable capabilities packaged as `SKILL.md` files with YAML frontmatter. Each skill teaches an agent (Claude Code and compatible CLIs) how to perform a specific task well.
+A personal collection of custom **Agent Skills** — reusable, model-invocable capabilities packaged as `SKILL.md` files with YAML frontmatter. Each skill teaches an agent (Claude Code and compatible CLIs) how to perform one specific task well, loading only when invoked so specialized knowledge stays out of base context until it's needed.
 
-## 📦 Skills
+## 📦 Skill Catalog
 
-Skills are grouped by **category** under [`Skills/`](./Skills); each lives in its own folder (`Skills/<Category>/<skill-name>/`). Each skill below has its own table linking every part of it in the repo — the skill instructions, its helpers, and its supporting data.
+Every skill lives in its own folder under a category: `Skills/<Category>/<skill-name>/`. Start here for the one-line summary, then jump to the detailed section below for links to each skill's instructions, helpers, and supporting data.
+
+| Skill | Category | What it does |
+|:---|:---|:---|
+| [**🍳 recipe-validator**](./Skills/Cooking/recipe-validator/SKILL.md) | Cooking | Validates recipes for food safety, nutrition, quantities, and allergens — a deterministic scanner plus agent judgment. |
+| [**📝 readme-builder-mfs**](./Skills/Documentation/readme-builder-mfs/SKILL.md) | Documentation | Builds README files that render flawlessly in both GitHub and Obsidian using pure native markdown. |
+| [**🖼️ News-Images**](./Skills/Image-Gen/News-Images/SKILL.md) | Image-Gen | Generates cartoon-editorial news collages and montages across daily/weekly/monthly/yearly cadences. |
+
+## 🧩 Skills
+
+Each skill below has its own table linking every part of it in the repo — the instructions, its helpers, and its supporting data.
 
 ### 🍳 recipe-validator · _Cooking_
 
@@ -27,7 +38,7 @@ Validate recipes for food safety, nutrition, quantities, allergen labeling, and 
 
 ### 📝 readme-builder-mfs · _Documentation_
 
-Build professional README files that render flawlessly in both GitHub and Obsidian, using pure native markdown (no diagrams).
+Build professional README files that render flawlessly in both GitHub and Obsidian, using pure native markdown. Favors clean, text-first layouts and adds a diagram only when it genuinely clarifies — never by default.
 
 | Part | Link |
 |:---|:---|
@@ -48,7 +59,7 @@ Generate cartoon-editorial news collages (6-panel grids) and news montages (sing
 
 ## 📖 Docs
 
-Usage guides and skill ideas live under [`Docs/`](./Docs).
+Usage guides and the build backlog live under [`Docs/`](./Docs).
 
 | Doc | Description |
 |:---|:---|
@@ -64,7 +75,7 @@ Supporting material that lives **outside** the portable skill folders, under [`R
 | [**Skill-Data**](./Resources/Skill-Data) | Per-skill examples, sample outputs, and image assets. Mirrors the `Skills/` category tree (`Skill-Data/<Category>/<skill-name>/`). |
 | [**Links**](./Resources/Links) | Curated external references for building Agent Skills. |
 
-## 🗂️ Structure
+## 🗂️ Repository Structure
 
 ```
 My-Custom-Skills/
@@ -104,6 +115,10 @@ Instructions for the agent...
 
 ## 🚀 Using a Skill
 
-Point your agent's skills directory at this repo's [`Skills/`](./Skills) folder (or copy an individual skill folder into it), then invoke by name. In Claude Code, skills surface as `/skill-name`.
+1. Point your agent's skills directory at this repo's [`Skills/`](./Skills) folder, or copy an individual `<skill-name>/` folder into it.
+2. Invoke the skill by name — in Claude Code, skills surface as `/skill-name`.
+3. For install locations, invocation details, and the full authoring workflow, see [**Using Skills**](./Docs/USING-SKILLS.md).
 
-See [**Using Skills**](./Docs/USING-SKILLS.md) for install locations, invocation, and the full authoring workflow.
+<p align="center">
+  Maintained by <a href="https://github.com/michaelschecht">michaelschecht</a> · Built for <a href="https://claude.com/claude-code">Claude Code</a> &amp; compatible agents · See <a href="./CLAUDE.md">CLAUDE.md</a> for contributor guidance
+</p>
