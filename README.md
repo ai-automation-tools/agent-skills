@@ -7,8 +7,6 @@
   <img src="https://img.shields.io/badge/Visibility-Private-6B7280?style=for-the-badge" alt="Private">
 </p>
 
-A personal collection of custom **Agent Skills** — reusable, model-invocable capabilities packaged as `SKILL.md` files with YAML frontmatter. Each skill teaches an agent (Claude Code and compatible CLIs) how to perform one specific task well, loading only when invoked so specialized knowledge stays out of base context until it's needed.
-
 ## 📦 Skill Catalog
 
 Every skill lives in its own folder under a category: `Skills/<Category>/<skill-name>/`. Start here for the one-line summary, then jump to the detailed section below for links to each skill's instructions, helpers, and supporting data.
@@ -20,8 +18,6 @@ Every skill lives in its own folder under a category: `Skills/<Category>/<skill-
 | [**🖼️ News-Images**](./Skills/Image-Gen/News-Images/SKILL.md) | Image-Gen | Generates cartoon-editorial news collages and montages across daily/weekly/monthly/yearly cadences. |
 
 ## 🧩 Skills
-
-Each skill below has its own table linking every part of it in the repo — the instructions, its helpers, and its supporting data.
 
 ### 🍳 recipe-validator · _Cooking_
 
@@ -74,28 +70,6 @@ Supporting material that lives **outside** the portable skill folders, under [`R
 |:---|:---|
 | [**Skill-Data**](./Resources/Skill-Data) | Per-skill examples, sample outputs, and image assets. Mirrors the `Skills/` category tree (`Skill-Data/<Category>/<skill-name>/`). |
 | [**Links**](./Resources/Links) | Curated external references for building Agent Skills. |
-
-## 🗂️ Repository Structure
-
-```
-My-Custom-Skills/
-├── README.md                       # this index
-├── CLAUDE.md                       # guidance for agents maintaining the repo
-├── Skills/
-│   └── <Category>/                 # e.g. Cooking, Documentation, Image-Gen
-│       └── <skill-name>/
-│           ├── SKILL.md            # frontmatter (name, description) + instructions
-│           ├── scripts/            # optional deterministic helpers
-│           ├── references/         # optional standards the SKILL cites
-│           ├── prompts/            # optional prompt templates
-│           └── evals/              # optional tracked test cases
-├── Docs/
-│   ├── USING-SKILLS.md             # install / invoke / author guide
-│   └── SKILL-IDEAS.md              # backlog of candidate skills
-└── Resources/                      # supporting material that lives OUTSIDE the portable skills
-    ├── Skill-Data/                 # per-skill examples & assets, mirrors the Skills/ tree
-    └── Links/                      # curated external references for skill-building
-```
 
 Categories group related skills. Current categories: **Cooking** (recipe tooling), **Documentation** (READMEs, guides, reference docs), and **Image-Gen** (image-generation workflows). Add a new category folder under `Skills/` whenever a skill doesn't fit an existing one.
 
