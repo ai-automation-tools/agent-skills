@@ -2,7 +2,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Type-Agent%20Skills-8B5CF6?style=for-the-badge" alt="Agent Skills">
-  <img src="https://img.shields.io/badge/Skills-3-2ea44f?style=for-the-badge" alt="3 Skills">
+  <img src="https://img.shields.io/badge/Skills-4-2ea44f?style=for-the-badge" alt="4 Skills">
   <img src="https://img.shields.io/badge/Owner-michaelschecht-0078D4?style=for-the-badge&logo=github&logoColor=white" alt="Owner">
   <img src="https://img.shields.io/badge/Visibility-Private-6B7280?style=for-the-badge" alt="Private">
 </p>
@@ -15,6 +15,7 @@ Every skill lives in its own folder under a category: `Skills/<Category>/<skill-
 |:---|:---|:---|
 | [**🍳 recipe-validator**](./Skills/Cooking/recipe-validator/SKILL.md) | Cooking | Validates recipes for food safety, nutrition, quantities, and allergens — a deterministic scanner plus agent judgment. |
 | [**📝 readme-builder-mfs**](./Skills/Documentation/readme-builder-mfs/SKILL.md) | Documentation | Builds README files that render flawlessly in both GitHub and Obsidian using pure native markdown. |
+| [**🎯 readme-header-mfs**](./Skills/Documentation/readme-header-mfs/SKILL.md) | Documentation | Builds the centered hero-header block (logo, tagline, nav row, badges) at the top of a repo's root README, matching the Live-Apps house style. |
 | [**🖼️ News-Images**](./Skills/Image-Gen/News-Images/SKILL.md) | Image-Gen | Generates cartoon-editorial news collages and montages across daily/weekly/monthly/yearly cadences. |
 
 ## 🧩 Skills
@@ -42,6 +43,16 @@ Build professional README files that render flawlessly in both GitHub and Obsidi
 | 🗂️ **Skill-Data** | [`Resources/Skill-Data/Documentation/readme-builder-mfs/`](./Resources/Skill-Data/Documentation/readme-builder-mfs/README.md) |
 | 🖼️ **Screenshots** | [`Images/Screenshots/`](./Resources/Skill-Data/Documentation/readme-builder-mfs/Images/Screenshots/README.md) |
 | 🎞️ **GIFs** | [`Images/GIFs/`](./Resources/Skill-Data/Documentation/readme-builder-mfs/Images/GIFs) |
+
+### 🎯 readme-header-mfs · _Documentation_
+
+Build just the hero header at the top of a repo's root README — top anchor, centered logo, two-line tagline, "Explore the docs" link, a nav row, hero badges (`for-the-badge`), and inline tech badges (`flat-square`), closed by a `---`. A narrow companion to `readme-builder-mfs` that keeps every repo opening on the same house style.
+
+| Part | Link |
+|:---|:---|
+| 📄 **Skill** | [`SKILL.md`](./Skills/Documentation/readme-header-mfs/SKILL.md) |
+| 🗂️ **Skill-Data** | [`Resources/Skill-Data/Documentation/readme-header-mfs/`](./Resources/Skill-Data/Documentation/readme-header-mfs/README.md) |
+| 📐 **Examples** | [`Examples/`](./Resources/Skill-Data/Documentation/readme-header-mfs/Examples/README.md) — real headers from TaskHub, Agent-Chat, AI-Automation-Library |
 
 ### 🖼️ News-Images · _Image-Gen_
 
