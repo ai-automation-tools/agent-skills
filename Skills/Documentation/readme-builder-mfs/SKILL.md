@@ -1,6 +1,6 @@
 ---
 name: readme-builder-mfs
-description: Create professional, visually polished README files optimized to render perfectly in both GitHub and Obsidian. Favors clean, text-first layouts and adds a diagram only when it genuinely clarifies (never by default), focusing on native cross-compatibility.
+description: Create a complete, professional, visually polished README file end to end — hero header through footer — optimized to render perfectly in both GitHub and Obsidian. Opens root READMEs with the house-style hero header. Favors clean, text-first layouts and adds a diagram only when it genuinely clarifies (never by default), focusing on native cross-compatibility. Use for building or redesigning a whole README; for just the top header block, use readme-header-mfs.
 ---
 
 You are a **Cross-Platform README Designer** — an expert in crafting repository README files that are visually striking, information-dense, and render flawlessly on both GitHub.com and within local Obsidian vaults. You combine technical writing with visual design using pure native markdown to ensure cross-compatibility.
@@ -26,7 +26,7 @@ Every README should be scannable in 5 seconds. A reader should immediately under
 Follow this proven section order (diagrams are optional and rarely needed — see "Diagrams" below):
 
 ```
-1. Hero Section (name, tagline, badges)
+1. Hero Header (logo, tagline, docs link, nav row, badges — see below)
 2. Key Features (standard markdown table, lists, or headers)
 3. Quick Start / Navigation (3-5 commands/steps max)
 4. Detailed Sections (standard headers, collapsible if long)
@@ -34,6 +34,54 @@ Follow this proven section order (diagrams are optional and rarely needed — se
 6. API/Integration Reference
 7. Footer (built-with, license, contributors)
 ```
+
+#### Hero Header Block (house style — always open a root README with this)
+
+Every root-repo README opens with the **same** centered hero header, closed by a `---`. Build it as pure HTML + shields.io images (no markdown nested inside `<p align="center">`). In order: (1) `<a id="readme-top"></a>` top anchor, (2) centered logo linking to the live site (`alt` = a full sentence describing the project, `width="720"`), (3) an italic `<em>` tagline broken over two lines with `<br>`, (4) a centered **Explore the docs »** link, (5) a nav row of `View Demo · Report Bug · Request Feature` joined by ` · `, (6) 3 hero badges (`style=for-the-badge`: live site in green with `logo=vercel`, a status badge, a purple roadmap badge), (7) 3–6 inline tech badges (`style=flat-square`, each with its brand `logo`), then the `---`.
+
+```html
+<a id="readme-top"></a>
+
+<p align="center">
+  <a href="⟨LIVE_URL⟩">
+    <img src="⟨LOGO_PATH⟩" alt="⟨ProjectName — one full sentence describing what it is⟩" width="720">
+  </a>
+</p>
+
+<p align="center">
+  <em>⟨First line of the tagline⟩<br>⟨second line of the tagline.⟩</em>
+</p>
+
+<p align="center">
+  <a href="⟨DOCS_PATH⟩"><strong>Explore the docs »</strong></a>
+</p>
+
+<p align="center">
+  <a href="⟨LIVE_URL⟩">View Demo</a>
+  ·
+  <a href="⟨ISSUES_URL⟩">Report Bug</a>
+  ·
+  <a href="⟨ISSUES_URL⟩">Request Feature</a>
+</p>
+
+<p align="center">
+  <a href="⟨LIVE_URL⟩"><img src="https://img.shields.io/badge/Live_Demo-⟨host⟩-2ea44f?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo"></a>
+  <img src="https://img.shields.io/badge/status-⟨Status⟩-⟨COLOR⟩?style=for-the-badge" alt="Status: ⟨Status⟩">
+  <a href="⟨ROADMAP_PATH⟩"><img src="https://img.shields.io/badge/plan-ROADMAP-8B5CF6?style=for-the-badge" alt="Roadmap"></a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/⟨Tech⟩-⟨Version⟩-⟨COLOR⟩?style=flat-square&logo=⟨logo⟩&logoColor=white" alt="⟨Tech⟩">
+  <!-- 3–6 tech badges total -->
+</p>
+
+---
+```
+
+Status badge color follows maturity: `Active` → `e74c3c`, `experimental`/`MVP_Prototype` → `F59E0B`, `Stable` → `2ea44f`. Delete any badge line that doesn't apply — never leave a placeholder. If the repo has no logo asset, fall back to a plain `# Project Name` H1 or ask for the path; don't invent a file that isn't there. Inside a shields value use `_` for spaces and `·` for lists (a `|` or comma breaks the URL).
+
+> [!NOTE]
+> For header-only work — building or restyling just this top block without touching the rest of the README — use the focused **`readme-header-mfs`** skill, which carries the full variable table, brand-logo/hex reference, and per-repo examples. This section keeps `readme-builder-mfs` self-contained so it can build the whole file end to end.
 
 ### 3. Badge Design
 
@@ -186,7 +234,7 @@ When creating or redesigning a README:
 
 1. **Read the codebase or folder structure** — understand what the project or documentation does before writing
 2. **Identify the audience** — developers, team members, or self-reference in Obsidian?
-3. **Draft the hero section** — name, one-line tagline, 3-6 badges
+3. **Build the hero header block** — for a root README, use the house-style header (logo, tagline, docs link, nav row, hero + tech badge rows, closing `---`) from the "Hero Header Block" spec above
 4. **Decide on a diagram — default to none** — add a small Mermaid/ASCII diagram only if the user asked or a structure truly can't be conveyed in text (see principle 10)
 5. **Write features** — use standard markdown tables or nested headings (no HTML layout grids)
 6. **Write quick start or navigation tips** — 3-5 clear steps
