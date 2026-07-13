@@ -15,7 +15,7 @@ Every skill lives in its own folder under a category: `Skills/<Category>/<skill-
 |:---|:---|:---|
 | [**🍳 recipe-validator**](./Skills/Cooking/recipe-validator/SKILL.md) | Cooking | Validates recipes for food safety, nutrition, quantities, and allergens — a deterministic scanner plus agent judgment. |
 | [**📝 readme-builder-mfs**](./Skills/Documentation/readme-builder-mfs/SKILL.md) | Documentation | Builds README files — root logo hero plus folder/section headers wired into a navigable tree — that render flawlessly in both GitHub and Obsidian using pure native markdown. |
-| [**🎯 readme-header-mfs**](./Skills/Documentation/readme-header-mfs/SKILL.md) | Documentation | Builds the centered hero-header block (logo, tagline, nav row, badges) at the top of a repo's root README, matching the Live-Apps house style. |
+| [**🎯 readme-header-mfs**](./Skills/Documentation/readme-header-mfs/SKILL.md) | Documentation | Builds the centered header block atop any README — the full logo hero for a repo root, or the lighter emoji-title + tagline + badge-row header for folder/subfolder READMEs — matching the Live-Apps house style. |
 | [**🖼️ News-Images**](./Skills/Image-Gen/News-Images/SKILL.md) | Image-Gen | Generates cartoon-editorial news collages and montages across daily/weekly/monthly/yearly cadences. |
 
 ## 🧩 Skills
@@ -46,7 +46,7 @@ Build professional README files that render flawlessly in both GitHub and Obsidi
 
 ### 🎯 readme-header-mfs · _Documentation_
 
-Build just the hero header at the top of a repo's root README — top anchor, centered logo, two-line tagline, "Explore the docs" link, a nav row, hero badges (`for-the-badge`), and inline tech badges (`flat-square`), closed by a `---`. A narrow companion to `readme-builder-mfs` that keeps every repo opening on the same house style.
+Build just the header block atop any README — closed by a `---` — in two flavors. **Root hero:** top anchor, centered logo, two-line tagline, "Explore the docs" link, a nav row, hero badges (`for-the-badge`), and inline tech badges (`flat-square`). **Folder/section header:** an emoji-led centered `<h1>` title, a one-line tagline, and a single `for-the-badge` badge row — for the README at the root of `docs/` and every folder/subfolder. A narrow companion to `readme-builder-mfs` that keeps every README opening on the same house style.
 
 | Part | Link |
 |:---|:---|
