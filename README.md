@@ -14,7 +14,7 @@ Every skill lives in its own folder under a category: `Skills/<Category>/<skill-
 | Skill | Category | What it does |
 |:---|:---|:---|
 | [**🍳 recipe-validator**](./Skills/Cooking/recipe-validator/SKILL.md) | Cooking | Validates recipes for food safety, nutrition, quantities, and allergens — a deterministic scanner plus agent judgment. |
-| [**📝 readme-builder-mfs**](./Skills/Documentation/readme-builder-mfs/SKILL.md) | Documentation | Builds README files that render flawlessly in both GitHub and Obsidian using pure native markdown. |
+| [**📝 readme-builder-mfs**](./Skills/Documentation/readme-builder-mfs/SKILL.md) | Documentation | Builds README files — root logo hero plus folder/section headers wired into a navigable tree — that render flawlessly in both GitHub and Obsidian using pure native markdown. |
 | [**🎯 readme-header-mfs**](./Skills/Documentation/readme-header-mfs/SKILL.md) | Documentation | Builds the centered hero-header block (logo, tagline, nav row, badges) at the top of a repo's root README, matching the Live-Apps house style. |
 | [**🖼️ News-Images**](./Skills/Image-Gen/News-Images/SKILL.md) | Image-Gen | Generates cartoon-editorial news collages and montages across daily/weekly/monthly/yearly cadences. |
 
