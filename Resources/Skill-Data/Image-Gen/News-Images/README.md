@@ -1,8 +1,12 @@
 # News-Images — Skill-Data
 
-Supporting material and example outputs for the [`News-Images`](../../../../Skills/Image-Gen/News-Images/SKILL.md) skill.
+## What the skill does
 
-The skill generates eight variants — daily / weekly / monthly / yearly × collage / montage. Drop representative generated images here (one per variant is plenty) so the expected look of each cadence/shape is documented without bloating the skill folder.
+[`News-Images`](../../../../Skills/Image-Gen/News-Images/SKILL.md) turns recent major **U.S.** news into bright **cartoon-editorial** imagery. It generates **eight** variants — a matrix of four cadences (**daily / weekly / monthly / yearly**) × two shapes (**collage**, a 6-panel grid, and **montage**, a single unified scene). The skill handles the whole job: researching the stories, laying out the image, and producing the final PNG. It's self-contained and not tied to any repository or automation pipeline.
+
+## About this folder
+
+Supporting material and example outputs for the skill. Drop representative generated images here (one per variant is plenty) so the expected look of each cadence/shape is documented without bloating the skill folder.
 
 ## Suggested layout
 

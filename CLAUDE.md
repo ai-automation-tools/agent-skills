@@ -18,6 +18,8 @@ My-Custom-Skills/
 ├── README.md                       # public index — Skills table by category + Docs table
 ├── CLAUDE.md                       # this file
 ├── .gitignore
+├── scripts/
+│   └── install-skills.ps1          # mirror every leaf skill into ~/.claude/skills/ (repo tooling, not a skill)
 ├── Docs/
 │   ├── USING-SKILLS.md             # install / invoke / author guide
 │   └── SKILL-IDEAS.md              # backlog of candidate skills

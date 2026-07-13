@@ -34,10 +34,20 @@ Instructions the agent loads on invocation...
 
 ## Installing / making a skill available
 
-Skills are picked up from an agent's skills directory. Two options:
+Skills are picked up from an agent's skills directory. Three options:
 
-1. **Point at this repo** — configure your agent's skills path to include this repo's `Skills/` folder.
-2. **Copy an individual skill** — copy a single `<skill-name>/` folder (the leaf folder, not its category) into your agent's skills directory.
+1. **Run the install script (recommended for Claude Code)** — from the repo root, run the bundled installer. It mirrors every leaf skill folder into `~/.claude/skills/<name>/` (whole folder, so `scripts/`/`references/`/`prompts/`/`evals/` come along; local `reports/` output never does):
+
+   ```powershell
+   pwsh scripts/install-skills.ps1              # install all skills
+   pwsh scripts/install-skills.ps1 -Skill recipe-validator   # just one
+   pwsh scripts/install-skills.ps1 -List        # show what would install
+   pwsh scripts/install-skills.ps1 -WhatIf      # dry run
+   ```
+
+   Re-run it after editing any skill. Restart the Claude Code session to reload the catalog.
+2. **Point at this repo** — configure your agent's skills path to include this repo's `Skills/` folder.
+3. **Copy an individual skill** — copy a single `<skill-name>/` folder (the leaf folder, not its category) into your agent's skills directory.
 
 > [!NOTE]
 > The category folders (`Documentation/`, `Image-Gen/`) are a repo-organization convention. Most agents discover skills by the leaf `<skill-name>/` folder that contains the `SKILL.md`, so when copying a skill out, copy that leaf folder — the category level doesn't need to be preserved.

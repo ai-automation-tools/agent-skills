@@ -1,6 +1,12 @@
 # recipe-validator — Skill-Data
 
-Example outputs and supporting material for the [`recipe-validator`](../../../../Skills/Cooking/recipe-validator/SKILL.md) skill. These are demonstrations, not inputs the skill reads at runtime.
+## What the skill does
+
+[`recipe-validator`](../../../../Skills/Cooking/recipe-validator/SKILL.md) validates food recipes for **safety** and **quality**. It checks safe cooking temperatures and dangerous ingredients/techniques (food safety); per-serving sodium, saturated fat, and added sugar against health standards; ingredient quantities and ratios versus comparable recipes; allergen-labeling completeness; and overall recipe coherence — then reports findings **ranked by severity with concrete fixes**, for a single recipe or a whole folder. It's a *hybrid* skill: a deterministic `scripts/scan_recipes.py` does the repeatable checks, the `references/` hold the standards, and the skill body applies judgment.
+
+## About this folder
+
+Example outputs and supporting material for the skill. These are demonstrations, not inputs the skill reads at runtime.
 
 ## Contents
 

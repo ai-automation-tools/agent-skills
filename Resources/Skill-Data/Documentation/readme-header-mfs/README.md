@@ -1,6 +1,12 @@
 # readme-header-mfs — Skill-Data
 
-Reference exemplars for the [`readme-header-mfs`](../../../../Skills/Documentation/readme-header-mfs/SKILL.md) skill — the centered hero-header block (logo, tagline, docs link, nav row, and two badge rows) it stamps at the top of a repo's root README, matching the Mikes_AI_Lab Live-Apps house style.
+## What the skill does
+
+[`readme-header-mfs`](../../../../Skills/Documentation/readme-header-mfs/SKILL.md) builds **just the centered header block** at the top of any README (nothing below the first `---`), in two flavors matching the Mikes_AI_Lab Live-Apps house style: the full **logo hero** for a repo-root README (logo, tagline, docs link, nav row, two badge rows), or the lighter **folder/section header** for any non-root README (emoji `<h1>` title, one-line tagline, a single badge row). It's the narrow companion to `readme-builder-mfs`, which builds the whole README body and footer.
+
+## About this folder
+
+Reference exemplars for the skill — real header blocks and rendered screenshots the pattern is modeled on.
 
 ## Contents
 
