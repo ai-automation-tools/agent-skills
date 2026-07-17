@@ -81,6 +81,17 @@ For a **new category**, also mention it in `README.md`'s "Structure" prose and (
 
 The public **`README.md`** and **`Docs/`** are the source of truth for *what skills exist and how to use them* — never let them drift from the actual `Skills/` tree.
 
+### Composite ("mega") skills — keep them synced with their sources
+
+Some skills **compose** other skills rather than standing alone. When you touch a source skill, the composite that depends on it can silently go stale — so treat them as a unit.
+
+**`repo-builder-mfs` is the composite of record.** It orchestrates three source skills — [`readme-builder-mfs`](./Skills/Documentation/readme-builder-mfs/SKILL.md), [`readme-header-mfs`](./Skills/Documentation/readme-header-mfs/SKILL.md), and [`repo-docs-mfs`](./Skills/Documentation/repo-docs-mfs/SKILL.md) — and adds its own repo-layout rules on top (root README ← builder, other READMEs ← header, docs tree ← docs, web/app artifacts under `src/`/`site/`).
+
+> [!IMPORTANT]
+> **Whenever you change any of those three source skills, review and update [`repo-builder-mfs`](./Skills/Documentation/repo-builder-mfs/SKILL.md) in the same commit.** If a source skill's behavior, tiers, header rules, layout guidance, or "division of labor" shifts, reflect it in the mega skill's composition table, workflow, and anti-patterns so the two never disagree. `repo-builder-mfs` must not restate a source skill's internals — it references them — but it must stay accurate about *what each source now does*. Also refresh its Skill-Data (`Resources/Skill-Data/Documentation/repo-builder-mfs/`) if the target layout/examples change.
+
+**General rule:** before finishing an edit to any skill, check whether another skill *composes* or *references* it (grep the `Skills/` tree for the skill's `name`), and update those dependents too. Add the same "keep synced" note here if you build another composite.
+
 ---
 
 ## Authoring a new skill
