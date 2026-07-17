@@ -2,7 +2,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Type-Agent%20Skills-8B5CF6?style=for-the-badge" alt="Agent Skills">
-  <img src="https://img.shields.io/badge/Skills-4-2ea44f?style=for-the-badge" alt="4 Skills">
+  <img src="https://img.shields.io/badge/Skills-5-2ea44f?style=for-the-badge" alt="5 Skills">
   <img src="https://img.shields.io/badge/Owner-michaelschecht-0078D4?style=for-the-badge&logo=github&logoColor=white" alt="Owner">
   <img src="https://img.shields.io/badge/Visibility-Private-6B7280?style=for-the-badge" alt="Private">
 </p>
@@ -16,6 +16,7 @@ Every skill lives in its own folder under a category: `Skills/<Category>/<skill-
 | [**🍳 recipe-validator**](./Skills/Cooking/recipe-validator/SKILL.md) | Cooking | Validates recipes for food safety, nutrition, quantities, and allergens — a deterministic scanner plus agent judgment. |
 | [**📝 readme-builder-mfs**](./Skills/Documentation/readme-builder-mfs/SKILL.md) | Documentation | Builds README files — root logo hero plus folder/section headers wired into a navigable tree — that render flawlessly in both GitHub and Obsidian using pure native markdown. |
 | [**🎯 readme-header-mfs**](./Skills/Documentation/readme-header-mfs/SKILL.md) | Documentation | Builds the centered header block atop any README — the full logo hero for a repo root, or the lighter emoji-title + tagline + badge-row header for folder/subfolder READMEs — matching the Live-Apps house style. |
+| [**🌳 repo-docs-mfs**](./Skills/Documentation/repo-docs-mfs/SKILL.md) | Documentation | Defines a repo's docs *structure* — the recursive tree of README index files (root → docs hub → each sub-folder README → the documents) that makes every doc reachable by clicking, and audits a repo for the missing indexes that break the chain. |
 | [**🖼️ News-Images**](./Skills/Image-Gen/News-Images/SKILL.md) | Image-Gen | Generates cartoon-editorial news collages and montages across daily/weekly/monthly/yearly cadences. |
 
 ## 🧩 Skills
@@ -53,6 +54,14 @@ Build just the header block atop any README — closed by a `---` — in two fla
 | 📄 **Skill** | [`SKILL.md`](./Skills/Documentation/readme-header-mfs/SKILL.md) |
 | 🗂️ **Skill-Data** | [`Resources/Skill-Data/Documentation/readme-header-mfs/`](./Resources/Skill-Data/Documentation/readme-header-mfs/README.md) |
 | 📐 **Examples** | [`Examples/`](./Resources/Skill-Data/Documentation/readme-header-mfs/Examples/README.md) — real headers from TaskHub, Agent-Chat, AI-Automation-Library |
+
+### 🌳 repo-docs-mfs · _Documentation_
+
+Define and build the documentation **structure** for any repo or doc library — the recursive tree of `README.md` index files that lets a reader start at the root and click down to any document (root README → `docs/` hub → each sub-folder's own README → the final documents), wiring the down-links and up-links so every folder is a two-way door. Owns the topology (where indexes go + how they link); pairs with `readme-builder-mfs` / `readme-header-mfs` for the visual styling of each file.
+
+| Part | Link |
+|:---|:---|
+| 📄 **Skill** | [`SKILL.md`](./Skills/Documentation/repo-docs-mfs/SKILL.md) |
 
 ### 🖼️ News-Images · _Image-Gen_
 
