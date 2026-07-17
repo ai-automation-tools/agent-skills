@@ -62,6 +62,8 @@ Define and build the documentation **structure** for any repo or doc library —
 | Part | Link |
 |:---|:---|
 | 📄 **Skill** | [`SKILL.md`](./Skills/Documentation/repo-docs-mfs/SKILL.md) |
+| 🗂️ **Skill-Data** | [`Resources/Skill-Data/Documentation/repo-docs-mfs/`](./Resources/Skill-Data/Documentation/repo-docs-mfs/README.md) |
+| 🌲 **Examples** | [`Examples/`](./Resources/Skill-Data/Documentation/repo-docs-mfs/Examples/README.md) — the annotated reference tree + a completed Tier-3 index (from the Enterprise-Network repo) |
 
 ### 🖼️ News-Images · _Image-Gen_
 
