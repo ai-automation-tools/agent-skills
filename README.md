@@ -2,7 +2,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Type-Agent%20Skills-8B5CF6?style=for-the-badge" alt="Agent Skills">
-  <img src="https://img.shields.io/badge/Skills-5-2ea44f?style=for-the-badge" alt="5 Skills">
+  <img src="https://img.shields.io/badge/Skills-6-2ea44f?style=for-the-badge" alt="6 Skills">
   <img src="https://img.shields.io/badge/Owner-michaelschecht-0078D4?style=for-the-badge&logo=github&logoColor=white" alt="Owner">
   <img src="https://img.shields.io/badge/Visibility-Private-6B7280?style=for-the-badge" alt="Private">
 </p>
@@ -17,6 +17,7 @@ Every skill lives in its own folder under a category: `Skills/<Category>/<skill-
 | [**📝 readme-builder-mfs**](./Skills/Documentation/readme-builder-mfs/SKILL.md) | Documentation | Builds README files — root logo hero plus folder/section headers wired into a navigable tree — that render flawlessly in both GitHub and Obsidian using pure native markdown. |
 | [**🎯 readme-header-mfs**](./Skills/Documentation/readme-header-mfs/SKILL.md) | Documentation | Builds the centered header block atop any README — the full logo hero for a repo root, or the lighter emoji-title + tagline + badge-row header for folder/subfolder READMEs — matching the Live-Apps house style. |
 | [**🌳 repo-docs-mfs**](./Skills/Documentation/repo-docs-mfs/SKILL.md) | Documentation | Defines a repo's docs *structure* — the recursive tree of README index files (root → docs hub → each sub-folder README → the documents) that makes every doc reachable by clicking, and audits a repo for the missing indexes that break the chain. |
+| [**🏗️ repo-builder-mfs**](./Skills/Documentation/repo-builder-mfs/SKILL.md) | Documentation | The end-to-end repo builder — composes the three skills below to scaffold or reorganize a whole repo/folder/vault: root README (`readme-builder-mfs`), every other README (`readme-header-mfs`), a navigable docs tree (`repo-docs-mfs`), and a clean layout where web-app artifacts live under `src/`/`site/`, not the root. |
 | [**🖼️ News-Images**](./Skills/Image-Gen/News-Images/SKILL.md) | Image-Gen | Generates cartoon-editorial news collages and montages across daily/weekly/monthly/yearly cadences. |
 
 ## 🧩 Skills
@@ -64,6 +65,16 @@ Define and build the documentation **structure** for any repo or doc library —
 | 📄 **Skill** | [`SKILL.md`](./Skills/Documentation/repo-docs-mfs/SKILL.md) |
 | 🗂️ **Skill-Data** | [`Resources/Skill-Data/Documentation/repo-docs-mfs/`](./Resources/Skill-Data/Documentation/repo-docs-mfs/README.md) |
 | 🌲 **Examples** | [`Examples/`](./Resources/Skill-Data/Documentation/repo-docs-mfs/Examples/README.md) — the annotated reference tree + a completed Tier-3 index (from the Enterprise-Network repo) |
+
+### 🏗️ repo-builder-mfs · _Documentation_
+
+The **mega / orchestrator** skill: builds or reorganizes a whole repo, project folder, doc library, or Obsidian vault end to end by composing the three skills above. The root README follows `readme-builder-mfs` (logo hero + full body); every other README follows `readme-header-mfs` (centered emoji-title section header) with a `readme-builder-mfs` body/footer; the docs structure follows `repo-docs-mfs` (the recursive README index tree). It adds the layout rule that ties them together — for a **web-app** repo, all web/app artifacts live under `src/` (framework apps) or `site/` (static sites), keeping the root to documentation + meta + required config.
+
+| Part | Link |
+|:---|:---|
+| 📄 **Skill** | [`SKILL.md`](./Skills/Documentation/repo-builder-mfs/SKILL.md) |
+| 🧩 **Composes** | [`readme-builder-mfs`](./Skills/Documentation/readme-builder-mfs/SKILL.md) · [`readme-header-mfs`](./Skills/Documentation/readme-header-mfs/SKILL.md) · [`repo-docs-mfs`](./Skills/Documentation/repo-docs-mfs/SKILL.md) |
+| 🗂️ **Skill-Data** | [`Resources/Skill-Data/Documentation/repo-builder-mfs/`](./Resources/Skill-Data/Documentation/repo-builder-mfs/README.md) |
 
 ### 🖼️ News-Images · _Image-Gen_
 
