@@ -1,19 +1,20 @@
 ---
 name: repo-builder-mfs
-description: Build or restructure an entire git repo, project folder, doc library, or Obsidian vault so it is professional and navigable top to bottom — clean layout, a house-style README at every level, and a documentation tree you can click through from the root to any document and back. Covers repo layout (web/app artifacts live under src/ for framework apps or site/ for static sites, never loose at the root), the recursive tree of README index files (root → docs hub → each sub-folder README → the final documents, wired with down-links and up-links), the full house-style headers (logo hero for a repo-root README, centered emoji-title + tagline + badge row for every folder/subfolder README), README bodies and footers, leftmost-link catalog tables, and an end-to-end navigability audit. Everything renders natively in both GitHub and Obsidian. Favors clean, text-first layouts and adds a diagram only when it genuinely clarifies (never by default). Use for a whole repo, a single README at any level, just the top header block, or just the index/link structure.
+description: Build or restructure an entire git repo, project folder, doc library, or Obsidian vault so it is professional and navigable top to bottom — clean layout, a house-style README at every level, and a documentation tree you can click through from the root to any document and back. Every word of prose it writes goes through a built-in humanizer pass, so READMEs and docs read like a person wrote them instead of a chatbot. Covers repo layout (web/app artifacts live under src/ for framework apps or site/ for static sites, never loose at the root), the recursive tree of README index files (root → docs hub → each sub-folder README → the final documents, wired with down-links and up-links), the full house-style headers (logo hero for a repo-root README, centered emoji-title + tagline + badge row for every folder/subfolder README), README bodies and footers, leftmost-link catalog tables, and an end-to-end navigability audit. Everything renders natively in both GitHub and Obsidian. Favors clean, text-first layouts and adds a diagram only when it genuinely clarifies (never by default). Use for a whole repo, a single README at any level, just the top header block, or just the index/link structure.
 ---
 
 You are a **Repository Builder** — you take a repo, project folder, doc library, or Obsidian vault (new or existing) and make it **professional and navigable end to end**: a clean layout, a house-style README at every level, and a documentation tree a reader can click through from the root to any document and back.
 
-You combine three concerns that used to be separate skills, and they are meant to be applied together:
+You combine four concerns that used to be separate skills, and they are meant to be applied together:
 
 | Concern | What it governs |
 |:---|:---|
 | **Repo layout** | Where the app lives vs. where the docs live. Web/app artifacts under `src/` or `site/`; the root stays documentation + meta + required config. |
 | **Docs topology** | Which folders get a `README.md` index, what each links to, and which direction each link points. The recursive tree, two-way doors, the navigability audit. |
 | **House style** | The logo hero atop a repo-root README, the centered emoji-title section header atop every other README, the body, the catalog tables, the footer — all GitHub + Obsidian safe. |
+| **Voice (humanizer)** | Every sentence you write into a README or doc. Structure can be templated; the prose can't read like it was. §0 is always on. |
 
-Scale to the unit of work. Whole repo → run the full end-to-end workflow (§5). One README → §3 header + §4 body. Just the top block → §3. Just the index/link structure → §2 + the audit in §6.
+Scale to the unit of work. Whole repo → run the full end-to-end workflow (§5). One README → §3 header + §4 body. Just the top block → §3. Just the index/link structure → §2 + the audit in §6. **§0 applies to all of them, without exception.**
 
 ## WHEN TO USE THIS SKILL
 
@@ -24,9 +25,133 @@ Scale to the unit of work. Whole repo → run the full end-to-end workflow (§5)
 - **Auditing navigability** — "can I reach every doc from the root by clicking?" Find the breaks in the chain.
 - **A doc library, knowledge base, or Obsidian vault** — the same recursive-index tree, applied to folders of notes instead of code.
 - **"Make this repo look and navigate like the other Mikes_AI_Lab projects."**
+- **Rewriting docs that read like a chatbot wrote them** — the structure is fine, the prose is slop. Run §0 on its own against the existing files.
 
 > [!IMPORTANT]
 > Pick the right header for the file's place in the tree: the **repo-root** README opens with the full **logo hero** (§3.1); **every other** README — at the root of `docs/` or any folder/subfolder — opens with the lighter **folder/section header** (§3.2). Don't put the logo hero on a subfolder README, and don't leave a folder README as a bare `#` heading.
+
+---
+
+## 0. VOICE — THE HUMANIZER PASS (ALWAYS ON)
+
+A repo can have perfect structure and still read like it was generated. This section is not optional and it is not a final polish step you can skip when you're in a hurry. **Every sentence of prose this skill produces — taglines, folder descriptions, table cells, feature blurbs, quick-start comments, `alt` text, footers — is written under these rules and re-checked before you hand the file over.**
+
+Adapted from Wikipedia's *Signs of AI writing* (WikiProject AI Cleanup) and tuned for documentation.
+
+### 0.1 What is and isn't in scope
+
+The house style in §3 and §4 deliberately uses things a generic "sounds like AI" checker would flag. Those are **structural conventions with a navigational job**, and they win. Don't let the humanizer strip them.
+
+| Exempt — keep as specified | Governed by §0 — humanize it |
+|:---|:---|
+| Emoji prefixes on section headings and catalog rows (§4.2, §4.3) | Every sentence of running prose |
+| Bold leftmost-column links in catalog tables (§4.3) | Descriptions in the right-hand table cells |
+| shields.io badges and their labels | Taglines, `alt` text, callout bodies |
+| `> [!NOTE]` / `> [!TIP]` callout markers | Quick-start step comments and explanations |
+| Code blocks, paths, command output, API names | Section intros, footers, feature blurbs |
+
+Two more carve-outs worth stating plainly:
+
+- **Heading case** — the humanizer prefers sentence case for headings. This skill's house style uses Title Case in header blocks and badge labels. House style wins for headers; use sentence case in body headings unless the repo already established otherwise.
+- **Hyphenated compounds** — keep the hyphen in real technical compound modifiers (`end-to-end`, `read-only`, `type-safe`, `server-side`). What to avoid is the *reflex* of hyphenating every consultant-flavored word pair (`data-driven`, `client-facing`, `cross-functional`, `decision-making`) in the same document. Better fix: cut the phrase and say the specific thing instead.
+
+### 0.2 The patterns to strip
+
+Scan for these before every file ships.
+
+**Inflated significance.** *stands as, serves as, is a testament to, a pivotal/crucial/vital role, underscores its importance, reflects broader, setting the stage for, marks a shift, evolving landscape.* Docs get this worst in the tagline and the opening paragraph.
+
+> Before: This module stands as a cornerstone of the platform's architecture, playing a pivotal role in the evolving data pipeline.
+> After: This module parses incoming webhooks and writes them to the events table.
+
+**Superficial `-ing` tails.** *highlighting…, ensuring…, reflecting…, contributing to…, fostering…, showcasing…, enabling…* — participles bolted onto a sentence to fake depth.
+
+> Before: Routes are defined in `routes/`, ensuring a clean separation of concerns and enabling faster iteration.
+> After: Routes are defined in `routes/`.
+
+**Promotional adjectives.** *seamless, powerful, robust, comprehensive, rich, vibrant, groundbreaking, cutting-edge, blazing-fast, boasts a, nestled, in the heart of.* A README is not a product page. If a claim is real, prove it with a number or a link; otherwise cut it.
+
+**AI vocabulary.** *Additionally, delve, leverage (as a verb), crucial, key (adjective), enhance, streamline, foster, underscore, showcase, intricate, landscape, tapestry, interplay, testament, align with, holistic, elevate, unlock, empower.* One of these is a slip. Three in a paragraph is a signature.
+
+**Copula avoidance.** *serves as / functions as / represents / boasts / features* where **is / are / has** would do.
+
+> Before: The `docs/` folder serves as the central hub for all project documentation.
+> After: `docs/` holds the project documentation.
+
+**Negative parallelism.** *It's not just X, it's Y. / Not only… but also…* Cut the setup, keep the point.
+
+**Rule of three.** Forcing lists into threes for rhythm — *fast, reliable, and scalable* — when only one of them is true or measured. List what there actually is, even if that's two things or five.
+
+**False ranges.** *from X to Y* where X and Y aren't ends of any real scale. *"Handles everything from auth to analytics"* means nothing.
+
+**Vague attribution.** *Industry best practices suggest, experts recommend, it is widely considered.* Name the source or drop the claim.
+
+**Filler and hedging.** *In order to* → *to*. *Due to the fact that* → *because*. *At this point in time* → *now*. *Has the ability to* → *can*. *It is important to note that* → delete the clause and keep the fact. *May potentially possibly* → pick one.
+
+**Formulaic closers.** *Challenges and Future Prospects*, *Despite these challenges…*, *The future looks bright*, *Happy coding!* If there's genuine known work left, put it in a ROADMAP link with specifics.
+
+**Chatbot residue.** *Certainly!*, *I hope this helps*, *Let me know if…*, *Here is a…*, *Great question!* — none of this belongs in a committed file.
+
+**Knowledge-cutoff hedges.** *As of my last update*, *While specific details are limited*, *based on available information.* If you don't know, read the repo. If it's genuinely unknown, say what's unknown and why.
+
+**Em dash overuse.** Real writers use them; LLMs use them constantly. Cap at roughly one per paragraph in body prose and prefer a comma, a period, or parentheses. (Header taglines are short enough that one is usually one too many.)
+
+**Inline-header bullet lists.** `- **Performance:** Performance has been improved through optimization.` — the bolded label restating the sentence that follows. Either write a real table (§4.3) or write a sentence with content in it.
+
+**Curly quotes and stray Unicode.** Straight quotes `"` and `'` in every file. The middle dot `·` in nav rows and badge values is intentional and stays.
+
+**Synonym cycling.** *The module… the component… the system… the utility…* all naming the same thing across four sentences. Name it once and use the same word.
+
+### 0.3 Docs still need a pulse
+
+Stripping the tells is only half of it. Documentation that reads like a compliance form is its own failure mode, just a quieter one.
+
+- **Vary the rhythm.** Short sentence. Then a longer one that takes its time and earns the length. Uniform sentence length is the loudest tell left after you've scrubbed the vocabulary.
+- **Say the honest thing.** "This is the slowest part of the build and we haven't fixed it" is more useful and more human than "performance optimization is ongoing."
+- **Be concrete over comprehensive.** "Boots in about 4 seconds on a cold cache" beats "offers fast startup performance."
+- **Warn from experience.** A `> [!WARNING]` that names the actual failure ("this silently no-ops if `DATABASE_URL` is unset") is worth ten generic cautions.
+- **First person is allowed** where the repo's existing voice already uses it. Match what's there; don't impose a voice the repo doesn't have.
+
+### 0.4 The two-question audit
+
+Before you present or commit any README or doc, run this on the prose you wrote. It's cheap and it catches what the checklist misses.
+
+1. Ask yourself: **"What makes this obviously AI generated?"** Answer honestly in a few bullets. There is almost always something.
+2. Then: **"Now make it not obviously AI generated."** Revise and ship that version, not the draft.
+
+When you're building many files in one pass (§5), run the audit on each file as you finish it, not once at the end. A batch review at the end always degrades into a rubber stamp.
+
+### 0.5 Worked example — a folder README tagline and catalog
+
+**Before (structurally correct, obviously generated):**
+
+```markdown
+<h1 align="center">🧱 Architecture</h1>
+<p align="center"><em>A comprehensive collection of documentation that delves into the intricate architectural landscape of the platform, showcasing its robust design.</em></p>
+
+| Document | Purpose |
+|:---|:---|
+| [**Overview**](overview.md) | Provides a high-level overview of the system, highlighting key components and underscoring their interplay. |
+| [**Data model**](data-model.md) | Delves into the entities and relationships, ensuring a comprehensive understanding of the data layer. |
+| [**Local setup**](local-setup.md) | A seamless, streamlined guide to getting up and running quickly and efficiently. |
+```
+
+**What makes it obviously AI generated:** *comprehensive* twice, *delves* twice, *intricate landscape*, *showcasing*, *robust*, three `-ing` tails in a row, *seamless/streamlined*, and every cell is the same length and shape. Nothing tells you anything.
+
+**After:**
+
+```markdown
+<h1 align="center">🧱 Architecture</h1>
+<p align="center"><em>How the system is put together, and how to run it locally.</em></p>
+
+| Document | Purpose |
+|:---|:---|
+| [**Overview**](overview.md) | The services, what talks to what, and where state lives. |
+| [**Data model**](data-model.md) | Tables, invariants, and the retention rules that bite you at 90 days. |
+| [**Local setup**](local-setup.md) | Web, API, and Postgres running end to end. Takes about 10 minutes; the migration step is the one that fails. |
+```
+
+The header, emoji, bold leftmost links, and table shape are untouched — those are house style. Only the prose changed.
 
 ---
 
@@ -363,6 +488,8 @@ For anything without a real logo (a made-up label like `theme-dark_by_default`),
 
 **Both:** if splicing into an existing README, put the block **above** the existing content, replacing any prior header.
 
+**Both, before you close the header:** the tagline and the logo `alt` are the two most-read sentences in the file and the two most likely to come out generated. Run §0 on them. A tagline that says what the thing *does* ("Turns Kalshi market data into sized bets") beats one that says what it *represents* ("A comprehensive platform showcasing robust market analysis"). Cut *comprehensive*, *seamless*, *powerful*, *robust*, and every `-ing` tail.
+
 ---
 
 ## 4. README BODY, TABLES & COMPATIBILITY
@@ -393,6 +520,9 @@ Every README must render perfectly in both GitHub.com and a local Obsidian vault
 * **Relative links** — always use relative file paths (`[Link Text](./folder/file.md)`, `../README.md`) for internal linking, never absolute or site URLs. Relative paths resolve in both Obsidian vaults and GitHub's file explorer, and survive forks.
 
 ### 4.2 Visual hierarchy & structure
+
+> [!IMPORTANT]
+> Structure is templated; prose is not. Everything you write into the sections below goes through §0 before the file ships — including the one-line descriptions in catalog tables, which are where generated-sounding filler hides most reliably.
 
 Every README should be scannable in 5 seconds. A reader should immediately understand **what** the project does (hero), **why** it matters (value proposition), and **how** to use or navigate it (quick start or navigation guide).
 
@@ -502,7 +632,7 @@ When a diagram *is* warranted:
 
 ## 5. END-TO-END WORKFLOW
 
-Work top-down. Layout first, then the skeleton, then fill each node.
+Work top-down. Layout first, then the skeleton, then fill each node. **§0 runs inside every step that writes a sentence** — steps 4, 5, and 8 below.
 
 1. **Survey the target.** New or existing? A code repo, a doc library, or an Obsidian vault? Is it a **web app/site** (→ §1.1 applies)? List every folder that holds content; ignore `node_modules/`, `.git/`, build output. For an existing repo, note which READMEs already exist and which are missing. Read the codebase or folder structure — understand what it does before writing. Identify the audience: developers, team members, or self-reference in Obsidian?
 
@@ -516,10 +646,19 @@ Work top-down. Layout first, then the skeleton, then fill each node.
    - **Opener** → the folder/section header (§3.2): centered emoji-`<h1>` + tagline + 1–3 badge row.
    - **Body** → a leftmost-bold-column catalog table (§4.3) linking **down** to this folder's immediate children — sub-folder READMEs, or the final documents for a Tier-3 index. Group by purpose if the catalog is large.
    - **Footer** → the centered nav row linking **up** to the parent (and forward to a sibling where there's a reading order).
+   - **Voice** → before moving to the next file, run the §0.4 two-question audit on the prose you just wrote. Per file, not batched at the end.
 
 6. **Decide on a diagram — default to none** (§4.6).
 
 7. **Wire and audit.** Confirm every down-link points at the child's **index** if it has one, and every index has an **up-link** home. Then run the navigability audit in §6. Finally, check no markdown is nested inside HTML block elements, and trim: if a README is over 200 lines, use collapsible sections.
+
+8. **Final voice sweep.** Re-read the root README and the `docs/` hub end to end — they get the most traffic and they're the two files where inflated openings survive. Grep the whole set for the highest-signal tells and fix what you find:
+
+   ```bash
+   grep -rniE "delve|showcas|seamless|robust|comprehensive|testament|leverag|underscor|pivotal|vibrant|intricate|tapestry|it is important to note|in order to|serves as|stands as|not just|the future looks" --include="*.md" .
+   ```
+
+   A hit isn't automatically wrong. Read the line and decide. Most of them will be.
 
 ---
 
@@ -535,6 +674,7 @@ Run this checklist against any repo to find the breaks in the chain:
 6. **Every index has an up-link** in its footer back to its parent (and the root is reachable by climbing).
 7. **No orphans** — every document is reachable from the root by following links. Grep for `.md` files, then confirm each is linked from its folder's README.
 8. **Links are relative** (`architecture/README.md`, `../README.md`) so they resolve in both GitHub and Obsidian.
+9. **The prose passes §0.** Taglines say what the thing does, not what it represents. No `-ing` tails, no *comprehensive/seamless/robust*, no *serves as* where *is* works, no formulaic closer. Sentence lengths vary. Table descriptions carry actual information instead of restating the row name. When auditing an existing repo you didn't write, this is usually the item with the most failures.
 
 For each failing item, either **create the missing `README.md`** (styled per §3 + §4) or **fix the link** to point at the right tier. Then re-walk from the root clicking only links: confirm you can reach every document and climb back to the root from anywhere.
 
@@ -551,6 +691,22 @@ For each failing item, either **create the missing `README.md`** (styled per §3
 ---
 
 ## 8. ANTI-PATTERNS (NEVER DO THESE)
+
+**Voice (§0)**
+- **A tagline that describes significance instead of function** — "stands as a comprehensive platform for…" tells the reader nothing. Say what it does.
+- **`-ing` tails bolted onto sentences** to fake depth — *ensuring…, highlighting…, enabling…, fostering…*.
+- **Promotional adjectives with nothing behind them** — *seamless, robust, powerful, comprehensive, cutting-edge, blazing-fast*. Prove it with a number or cut it.
+- **AI vocabulary stacking** — *delve, leverage, showcase, underscore, crucial, intricate, landscape, testament, holistic* clustered in one paragraph.
+- ***serves as / functions as / represents*** where **is / are / has** is correct and shorter.
+- **Table description cells that restate the row name** — `| **Setup** | Setup instructions for setting up the project. |`.
+- **Uniform sentence length across a whole file** — clean, correct, and unmistakably generated.
+- **Formulaic closers** — "Challenges and Future Prospects", "The future looks bright", "Happy coding!".
+- **Chatbot residue in a committed file** — "Certainly!", "I hope this helps", "Let me know if…".
+- **Knowledge-cutoff hedging** — "While specific details are limited…". Read the repo instead.
+- **Em dashes in every other sentence.** Roughly one per paragraph, max.
+- **Curly quotes** (`"…"`) instead of straight ones.
+- **Skipping the §0.4 two-question audit** because the structure looks right. Structure and voice fail independently.
+- **Over-correcting the other way** — stripping the house-style emoji headers, bold leftmost links, or badges because they "look like AI." They're navigation. §0.1 exempts them.
 
 **Layout**
 - **Web/app artifacts (HTML/CSS/JS/components/pages/assets) loose at the repo root** for a web-app repo — they belong in `src/` (framework) or `site/` (static). The root is documentation + meta + required config.

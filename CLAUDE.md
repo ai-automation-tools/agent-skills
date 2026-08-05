@@ -88,6 +88,9 @@ Before finishing an edit to any skill, check whether another skill *references* 
 > [!NOTE]
 > **Prefer one self-contained skill over a composite.** [`repo-builder-mfs`](./Skills/Documentation/repo-builder-mfs/SKILL.md) used to be an orchestrator that referenced three source skills (`readme-builder-mfs`, `readme-header-mfs`, `repo-docs-mfs`); on 2026-08-05 all four were merged into it and the three sources retired. The composite kept drifting out of sync with its sources, and the split forced a reader to load three files to build one README. If you're tempted to build a new "mega" skill that composes others, prefer folding the content into one skill with clear sections — and if you do build a composite, add a "keep synced" note here naming its sources.
 
+> [!NOTE]
+> **Keep synced — `repo-builder-mfs` §0.** On 2026-08-05 the voice rules from the external [`humanizer`](https://github.com/michaelschecht) skill (local copy: `D:\AI_Agents\Documents\Agent-Resources\Skills\My-Skills\Mikes_Top_Skills\humanizer\SKILL.md`) were adapted into `repo-builder-mfs` §0 rather than referenced, so the builder needs one file to write a README. The copy is **condensed and docs-scoped**, not verbatim: it drops the essay-writing examples, adds §0.1 carve-outs so the house-style emoji headers / bold leftmost links / badges survive the pass, and softens the humanizer's blanket de-hyphenation rule (technical compounds like `end-to-end` keep their hyphens). If the upstream humanizer gains new patterns, fold the docs-relevant ones into §0.2 by hand — there is no automatic sync.
+
 ---
 
 ## Authoring a new skill

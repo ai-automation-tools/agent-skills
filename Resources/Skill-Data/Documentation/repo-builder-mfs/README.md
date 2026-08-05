@@ -2,13 +2,14 @@
 
 ## What the skill does
 
-[`repo-builder-mfs`](../../../../Skills/Documentation/repo-builder-mfs/SKILL.md) is the **end-to-end repo builder** — it scaffolds or reorganizes a whole git repo, project folder, doc library, or Obsidian vault so it's professional and navigable top to bottom. It covers three concerns in one skill:
+[`repo-builder-mfs`](../../../../Skills/Documentation/repo-builder-mfs/SKILL.md) is the **end-to-end repo builder** — it scaffolds or reorganizes a whole git repo, project folder, doc library, or Obsidian vault so it's professional and navigable top to bottom. It covers four concerns in one skill:
 
 | Concern | What it governs |
 |:---|:---|
 | **Repo layout** | For a web-app repo, all web/app artifacts live under `src/` (framework apps) or `site/` (static sites), never scattered at the root. The root stays documentation + meta + required config. |
 | **Docs topology** | The recursive tree of `README.md` index files — root → `docs/` hub → each sub-folder README → the final documents — wired with down-links and up-links so every folder is a two-way door. Plus the navigability audit. |
 | **House style** | The logo hero atop a repo-root README, the centered emoji-title section header atop every other README, the body, the leftmost-link catalog tables, and the footer — all GitHub + Obsidian safe. |
+| **Voice** | A humanizer pass (§0) over every sentence it writes, so the prose doesn't read like a chatbot produced it. Adapted from the `humanizer` skill and scoped to docs: the emoji headers, bold leftmost links, and badges are exempt as navigation; the prose is not. |
 
 > [!NOTE]
 > This skill absorbed three earlier ones — `readme-builder-mfs`, `readme-header-mfs`, and `repo-docs-mfs` — on 2026-08-05. Their exemplars were merged into this folder; nothing was dropped.
