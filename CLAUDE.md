@@ -61,11 +61,11 @@ description: One line that tells the agent WHEN to load this. Lead with capabili
 Instructions the agent loads on invocation…
 ```
 
-- **`name`** — kebab-case, unique across the repo, and **must match the leaf folder name**. (Legacy exception: `News-Images` is PascalCase. Existing names are authoritative — don't rename without cause; prefer kebab-case for anything new. Mike suffixes some personal skills with `-mfs`, e.g. `readme-builder-mfs`.)
+- **`name`** — kebab-case, unique across the repo, and **must match the leaf folder name**. (Legacy exception: `News-Images` is PascalCase. Existing names are authoritative — don't rename without cause; prefer kebab-case for anything new. Mike suffixes some personal skills with `-mfs`, e.g. `repo-builder-mfs`.)
 - **`description`** — the single most important line: the agent reads *only* this to decide whether to load the skill. State the trigger conditions explicitly ("Use when…", "Use whenever the user wants to…"). A vague description = a skill that never auto-invokes. May use YAML block scalar (`>-`) when long.
 - **Body** — loaded only after invocation, so it can be detailed. Aim for: **purpose → when-to-use → principles → a concrete execution checklist → explicit anti-patterns.** Concrete examples beat abstract advice. Must be **self-contained** — the agent won't have the surrounding conversation when the skill loads; don't reference "as discussed above" or repo state that isn't stated in the skill.
 
-**Reference implementations to match:** [`readme-builder-mfs`](./Skills/Documentation/readme-builder-mfs/SKILL.md) (clean frontmatter + when-to-use + principles + checklist + anti-patterns), and [`recipe-validator`](./Skills/Cooking/recipe-validator/SKILL.md) (a **hybrid** skill: a deterministic `scripts/` scanner does the repeatable checks, `references/` hold the standards, the body applies judgment).
+**Reference implementations to match:** [`repo-builder-mfs`](./Skills/Documentation/repo-builder-mfs/SKILL.md) (clean frontmatter + when-to-use + numbered principle sections + workflow + audit + anti-patterns), and [`recipe-validator`](./Skills/Cooking/recipe-validator/SKILL.md) (a **hybrid** skill: a deterministic `scripts/` scanner does the repeatable checks, `references/` hold the standards, the body applies judgment).
 
 ---
 
@@ -81,16 +81,12 @@ For a **new category**, also mention it in `README.md`'s "Structure" prose and (
 
 The public **`README.md`** and **`Docs/`** are the source of truth for *what skills exist and how to use them* — never let them drift from the actual `Skills/` tree.
 
-### Composite ("mega") skills — keep them synced with their sources
+### Cross-skill references — keep dependents in sync
 
-Some skills **compose** other skills rather than standing alone. When you touch a source skill, the composite that depends on it can silently go stale — so treat them as a unit.
+Before finishing an edit to any skill, check whether another skill *references* it (grep the `Skills/` tree for the skill's `name`), and update those dependents in the same commit. Also refresh the skill's Skill-Data folder under `Resources/Skill-Data/<Category>/<skill-name>/` when its examples or target output change.
 
-**`repo-builder-mfs` is the composite of record.** It orchestrates three source skills — [`readme-builder-mfs`](./Skills/Documentation/readme-builder-mfs/SKILL.md), [`readme-header-mfs`](./Skills/Documentation/readme-header-mfs/SKILL.md), and [`repo-docs-mfs`](./Skills/Documentation/repo-docs-mfs/SKILL.md) — and adds its own repo-layout rules on top (root README ← builder, other READMEs ← header, docs tree ← docs, web/app artifacts under `src/`/`site/`).
-
-> [!IMPORTANT]
-> **Whenever you change any of those three source skills, review and update [`repo-builder-mfs`](./Skills/Documentation/repo-builder-mfs/SKILL.md) in the same commit.** If a source skill's behavior, tiers, header rules, layout guidance, or "division of labor" shifts, reflect it in the mega skill's composition table, workflow, and anti-patterns so the two never disagree. `repo-builder-mfs` must not restate a source skill's internals — it references them — but it must stay accurate about *what each source now does*. Also refresh its Skill-Data (`Resources/Skill-Data/Documentation/repo-builder-mfs/`) if the target layout/examples change.
-
-**General rule:** before finishing an edit to any skill, check whether another skill *composes* or *references* it (grep the `Skills/` tree for the skill's `name`), and update those dependents too. Add the same "keep synced" note here if you build another composite.
+> [!NOTE]
+> **Prefer one self-contained skill over a composite.** [`repo-builder-mfs`](./Skills/Documentation/repo-builder-mfs/SKILL.md) used to be an orchestrator that referenced three source skills (`readme-builder-mfs`, `readme-header-mfs`, `repo-docs-mfs`); on 2026-08-05 all four were merged into it and the three sources retired. The composite kept drifting out of sync with its sources, and the split forced a reader to load three files to build one README. If you're tempted to build a new "mega" skill that composes others, prefer folding the content into one skill with clear sections — and if you do build a composite, add a "keep synced" note here naming its sources.
 
 ---
 
@@ -125,7 +121,7 @@ There is no repo-wide test runner. Skill-specific `evals/` (e.g. `recipe-validat
 ## Conventions & hygiene
 
 - **Windows-first.** PowerShell 7+ for shell work; forward slashes in paths/JSON work fine. Invoke Python scripts explicitly (`python skills/<name>/scripts/<script>.py …`).
-- **Markdown.** These docs target both GitHub and Obsidian rendering — pure native markdown, GitHub-style callouts (`> [!NOTE]`), diagrams sparingly and only when they earn their place, never by default (matches the `readme-builder-mfs` philosophy).
+- **Markdown.** These docs target both GitHub and Obsidian rendering — pure native markdown, GitHub-style callouts (`> [!NOTE]`), diagrams sparingly and only when they earn their place, never by default (matches the `repo-builder-mfs` philosophy).
 - **Never commit:** secrets (`.env*`, `*.key`), OS cruft, and per-skill `reports/` run output (all covered by `.gitignore` — verify before committing).
 - **Git.** Remote is `michaelschecht/My-Custom-Skills`, branch `main`. Commit/push **only when Mike asks.** Imperative-mood subjects matching the existing log ("Organize skills into category folders"). Small, focused commits.
 - **Read before editing.** Match the style and structure of the skill/doc you're changing. When a task targets one skill, read its `SKILL.md` (and its `references/`) first.

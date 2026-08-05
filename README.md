@@ -14,10 +14,7 @@ Every skill lives in its own folder under a category: `Skills/<Category>/<skill-
 | Skill | Category | What it does |
 |:---|:---|:---|
 | [**🍳 recipe-validator**](./Skills/Cooking/recipe-validator/SKILL.md) | Cooking | Validates recipes for food safety, nutrition, quantities, and allergens — a deterministic scanner plus agent judgment. |
-| [**📝 readme-builder-mfs**](./Skills/Documentation/readme-builder-mfs/SKILL.md) | Documentation | Builds README files — root logo hero plus folder/section headers wired into a navigable tree — that render flawlessly in both GitHub and Obsidian using pure native markdown. |
-| [**🎯 readme-header-mfs**](./Skills/Documentation/readme-header-mfs/SKILL.md) | Documentation | Builds the centered header block atop any README — the full logo hero for a repo root, or the lighter emoji-title + tagline + badge-row header for folder/subfolder READMEs — matching the Live-Apps house style. |
-| [**🌳 repo-docs-mfs**](./Skills/Documentation/repo-docs-mfs/SKILL.md) | Documentation | Defines a repo's docs *structure* — the recursive tree of README index files (root → docs hub → each sub-folder README → the documents) that makes every doc reachable by clicking, and audits a repo for the missing indexes that break the chain. |
-| [**🏗️ repo-builder-mfs**](./Skills/Documentation/repo-builder-mfs/SKILL.md) | Documentation | The end-to-end repo builder — composes the three skills below to scaffold or reorganize a whole repo/folder/vault: root README (`readme-builder-mfs`), every other README (`readme-header-mfs`), a navigable docs tree (`repo-docs-mfs`), and a clean layout where web-app artifacts live under `src/`/`site/`, not the root. |
+| [**🏗️ repo-builder-mfs**](./Skills/Documentation/repo-builder-mfs/SKILL.md) | Documentation | The end-to-end repo/documentation builder — a clean layout (web-app artifacts under `src/`/`site/`, not the root), a house-style README at every level (root logo hero, folder/section headers), and a navigable docs tree wired with down-links and up-links. Renders flawlessly in both GitHub and Obsidian using pure native markdown. |
 | [**🖼️ News-Images**](./Skills/Image-Gen/News-Images/SKILL.md) | Image-Gen | Generates cartoon-editorial news collages and montages across daily/weekly/monthly/yearly cadences. |
 
 ## 🧩 Skills
@@ -35,46 +32,22 @@ Validate recipes for food safety, nutrition, quantities, allergen labeling, and 
 | 🗂️ **Skill-Data** | [`Resources/Skill-Data/Cooking/recipe-validator/`](./Resources/Skill-Data/Cooking/recipe-validator/README.md) |
 | 📊 **Example output** | [Example-Report-1](./Resources/Skill-Data/Cooking/recipe-validator/Examples/Example-Report-1/recipe-validation-report_2026-07-08.md) |
 
-### 📝 readme-builder-mfs · _Documentation_
-
-Build professional README files that render flawlessly in both GitHub and Obsidian, using pure native markdown. Favors clean, text-first layouts and adds a diagram only when it genuinely clarifies — never by default.
-
-| Part | Link |
-|:---|:---|
-| 📄 **Skill** | [`SKILL.md`](./Skills/Documentation/readme-builder-mfs/SKILL.md) |
-| 🗂️ **Skill-Data** | [`Resources/Skill-Data/Documentation/readme-builder-mfs/`](./Resources/Skill-Data/Documentation/readme-builder-mfs/README.md) |
-| 🖼️ **Screenshots** | [`Images/Screenshots/`](./Resources/Skill-Data/Documentation/readme-builder-mfs/Images/Screenshots/README.md) |
-| 🎞️ **GIFs** | [`Images/GIFs/`](./Resources/Skill-Data/Documentation/readme-builder-mfs/Images/GIFs) |
-
-### 🎯 readme-header-mfs · _Documentation_
-
-Build just the header block atop any README — closed by a `---` — in two flavors. **Root hero:** top anchor, centered logo, two-line tagline, "Explore the docs" link, a nav row, hero badges (`for-the-badge`), and inline tech badges (`flat-square`). **Folder/section header:** an emoji-led centered `<h1>` title, a one-line tagline, and a single `for-the-badge` badge row — for the README at the root of `docs/` and every folder/subfolder. A narrow companion to `readme-builder-mfs` that keeps every README opening on the same house style.
-
-| Part | Link |
-|:---|:---|
-| 📄 **Skill** | [`SKILL.md`](./Skills/Documentation/readme-header-mfs/SKILL.md) |
-| 🗂️ **Skill-Data** | [`Resources/Skill-Data/Documentation/readme-header-mfs/`](./Resources/Skill-Data/Documentation/readme-header-mfs/README.md) |
-| 📐 **Examples** | [`Examples/`](./Resources/Skill-Data/Documentation/readme-header-mfs/Examples/README.md) — real headers from TaskHub, Agent-Chat, AI-Automation-Library |
-
-### 🌳 repo-docs-mfs · _Documentation_
-
-Define and build the documentation **structure** for any repo or doc library — the recursive tree of `README.md` index files that lets a reader start at the root and click down to any document (root README → `docs/` hub → each sub-folder's own README → the final documents), wiring the down-links and up-links so every folder is a two-way door. Owns the topology (where indexes go + how they link); pairs with `readme-builder-mfs` / `readme-header-mfs` for the visual styling of each file.
-
-| Part | Link |
-|:---|:---|
-| 📄 **Skill** | [`SKILL.md`](./Skills/Documentation/repo-docs-mfs/SKILL.md) |
-| 🗂️ **Skill-Data** | [`Resources/Skill-Data/Documentation/repo-docs-mfs/`](./Resources/Skill-Data/Documentation/repo-docs-mfs/README.md) |
-| 🌲 **Examples** | [`Examples/`](./Resources/Skill-Data/Documentation/repo-docs-mfs/Examples/README.md) — the annotated reference tree + a completed Tier-3 index (from the Enterprise-Network repo) |
-
 ### 🏗️ repo-builder-mfs · _Documentation_
 
-The **mega / orchestrator** skill: builds or reorganizes a whole repo, project folder, doc library, or Obsidian vault end to end by composing the three skills above. The root README follows `readme-builder-mfs` (logo hero + full body); every other README follows `readme-header-mfs` (centered emoji-title section header) with a `readme-builder-mfs` body/footer; the docs structure follows `repo-docs-mfs` (the recursive README index tree). It adds the layout rule that ties them together — for a **web-app** repo, all web/app artifacts live under `src/` (framework apps) or `site/` (static sites), keeping the root to documentation + meta + required config.
+The **mega** documentation skill: builds or reorganizes a whole repo, project folder, doc library, or Obsidian vault end to end. Three concerns in one file — **layout** (for a web-app repo, all web/app artifacts under `src/` for framework apps or `site/` for static sites, keeping the root to documentation + meta + required config); **docs topology** (the recursive tree of `README.md` index files — root → `docs/` hub → each sub-folder README → the final documents — wired with down-links and up-links so every folder is a two-way door, plus an 8-point navigability audit); and **house style** (the logo hero atop a repo-root README, the centered emoji-title section header atop every other one, bodies, leftmost-link catalog tables, footers). Pure native markdown, renders in both GitHub and Obsidian; diagrams off by default.
+
+Scale it to the job: a whole repo, one README at any level, just the top header block, or just the index/link structure.
 
 | Part | Link |
 |:---|:---|
 | 📄 **Skill** | [`SKILL.md`](./Skills/Documentation/repo-builder-mfs/SKILL.md) |
-| 🧩 **Composes** | [`readme-builder-mfs`](./Skills/Documentation/readme-builder-mfs/SKILL.md) · [`readme-header-mfs`](./Skills/Documentation/readme-header-mfs/SKILL.md) · [`repo-docs-mfs`](./Skills/Documentation/repo-docs-mfs/SKILL.md) |
 | 🗂️ **Skill-Data** | [`Resources/Skill-Data/Documentation/repo-builder-mfs/`](./Resources/Skill-Data/Documentation/repo-builder-mfs/README.md) |
+| 📐 **Examples** | [`Examples/`](./Resources/Skill-Data/Documentation/repo-builder-mfs/Examples/README.md) — real headers (TaskHub, Agent-Chat, AI-Automation-Library), the annotated docs tree + a completed Tier-3 index, and the target web-app layout |
+| 🖼️ **Screenshots** | [`Images/Screenshots/`](./Resources/Skill-Data/Documentation/repo-builder-mfs/Images/Screenshots/README.md) |
+| 🎞️ **GIFs** | [`Images/GIFs/`](./Resources/Skill-Data/Documentation/repo-builder-mfs/Images/GIFs) |
+
+> [!NOTE]
+> Absorbed `readme-builder-mfs`, `readme-header-mfs`, and `repo-docs-mfs` on 2026-08-05 — those three are retired and their content lives here.
 
 ### 🖼️ News-Images · _Image-Gen_
 

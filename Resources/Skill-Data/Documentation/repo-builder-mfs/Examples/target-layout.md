@@ -6,8 +6,8 @@ The end-state [`repo-builder-mfs`](../../../../../Skills/Documentation/repo-buil
 
 ```
 repo/
-├── README.md ......................... root hero  → readme-builder-mfs
-│     ├─ logo hero header             → readme-header-mfs (root hero)
+├── README.md ......................... root README      → SKILL.md §3.1 + §4
+│     ├─ logo hero header             → §3.1 (root hero)
 │     └─ "What's in here" table links DOWN to each top-level folder README
 │
 ├── LICENSE
@@ -16,14 +16,14 @@ repo/
 ├── .gitignore · .github/
 │
 ├── src/ .............................. ALL app artifacts here (or site/ for static)
-│     ├── README.md                   → readme-header-mfs section header + down-links
+│     ├── README.md                   → §3.2 section header + down-links
 │     ├── app/ · components/ · lib/ · pages/ · assets/ · styles/ …
 │     └── …                             ← NOT at the repo root
 │
 ├── public/ ........................... framework-served static assets (fine at root)
 │
 ├── docs/
-│     ├── README.md ................... docs HUB (Tier 2)  → readme-header-mfs header
+│     ├── README.md ................... docs HUB (Tier 2)  → §3.2 header
 │     │     └─ links DOWN to each section's own README
 │     ├── architecture/
 │     │     ├── README.md ............. section index (Tier 3) → links DOWN to docs
@@ -41,14 +41,15 @@ repo/
       └── README.md ................... section index → down-links to suites
 ```
 
-## What each composed skill contributed
+## Which rule produced each piece
 
-| Piece | Skill | Rule applied |
+| Piece | SKILL.md section | Rule applied |
 |:---|:---|:---|
-| Root `README.md` | `readme-builder-mfs` | Logo hero header + full body; "what's in here" table links down to `src/`, `docs/`, `tests/`. |
-| Every folder `README.md` opener | `readme-header-mfs` | Centered emoji-`<h1>` + tagline + 1–3 badge row (never the logo hero). |
-| The index tree + link direction | `repo-docs-mfs` | Root → `docs/` hub → each section README → the documents; every folder is a two-way door (down-links + up-link footer). |
-| `src/` vs `site/` + clean root | `repo-builder-mfs` | Web/app artifacts under `src/`/`site/`; root keeps README + `docs/` + required config only. |
+| `src/` vs `site/` + clean root | §1 Repo layout | Web/app artifacts under `src/`/`site/`; root keeps README + `docs/` + required config only. |
+| The index tree + link direction | §2 Documentation tree | Root → `docs/` hub → each section README → the documents; every folder is a two-way door (down-links + up-link footer). |
+| Root `README.md` opener | §3.1 Root hero header | Logo, tagline, docs link, nav row, hero + tech badge rows, closing `---`. |
+| Every folder `README.md` opener | §3.2 Folder/section header | Centered emoji-`<h1>` + tagline + 1–3 badge row (never the logo hero). |
+| Bodies, catalog tables, footers | §4 README body | "What's in here" tables link down using the leftmost-bold-column pattern; footers link up. |
 
 ## The two rules that make this "web-app" specific
 

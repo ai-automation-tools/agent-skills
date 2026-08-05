@@ -30,7 +30,7 @@
     Install every skill into ~/.claude/skills.
 
 .EXAMPLE
-    pwsh scripts/install-skills.ps1 -Skill readme-builder-mfs,readme-header-mfs
+    pwsh scripts/install-skills.ps1 -Skill repo-builder-mfs,skill-writer
     Re-install just those two skills.
 
 .EXAMPLE

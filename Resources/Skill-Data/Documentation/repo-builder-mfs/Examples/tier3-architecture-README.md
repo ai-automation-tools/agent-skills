@@ -2,7 +2,7 @@
 
 This is the **missing sub-folder index** from the [reference tree](./reference-tree.md): a complete `docs/architecture/README.md` for the `Enterprise-Network` repo. It's the last index before the documents — it links **down** to the final docs in the folder and **up** to the `docs/` hub, closing the chain `root → docs/README → architecture/README → overview.md`.
 
-Structure is what `repo-docs-mfs` owns; the header + table *styling* below follows [`readme-builder-mfs`](../../../../../Skills/Documentation/readme-builder-mfs/SKILL.md) (centered emoji-title section header, leftmost-bold-column table, centered up-link footer).
+Structure follows [`repo-builder-mfs`](../../../../../Skills/Documentation/repo-builder-mfs/SKILL.md) §2 (the index tree); the header + table styling below follows §3.2 and §4.3 of the same skill (centered emoji-title section header, leftmost-bold-column table, centered up-link footer).
 
 ---
 
