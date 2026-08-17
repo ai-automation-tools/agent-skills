@@ -1,5 +1,5 @@
 ---
-name: News-Images
+name: news-images
 description: Generate cartoon-editorial news imagery — daily, weekly, monthly, and yearly news collages (6-panel grids) and news montages (single unified scenes). Use when asked to make, create, or generate a news collage or news montage for any cadence, or to build a daily/weekly/monthly/yearly news image. Handles story research, layout, and image generation.
 ---
 

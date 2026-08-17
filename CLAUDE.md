@@ -24,7 +24,7 @@ My-Custom-Skills/
 │   ├── USING-SKILLS.md             # install / invoke / author guide
 │   └── SKILL-IDEAS.md              # backlog of candidate skills
 ├── Skills/
-│   └── <Category>/                 # e.g. Cooking, Documentation, Image-Gen
+│   └── <Category>/                 # e.g. Business, Cooking, Documentation, Image-Gen
 │       └── <skill-name>/           # the LEAF folder — this is the portable unit
 │           ├── SKILL.md            # required: frontmatter + instructions
 │           ├── scripts/            # optional: deterministic helpers (Python, etc.)
@@ -40,7 +40,7 @@ My-Custom-Skills/
     └── Links/                        # curated external references for skill-building
 ```
 
-**Current categories:** `Cooking`, `Documentation`, `Image-Gen`. Add a new category folder under `Skills/` only when a skill genuinely fits none of these.
+**Current categories:** `Business`, `Cooking`, `Documentation`, `Image-Gen`. Add a new category folder under `Skills/` only when a skill genuinely fits none of these.
 
 ### Two folders people confuse
 
@@ -61,7 +61,7 @@ description: One line that tells the agent WHEN to load this. Lead with capabili
 Instructions the agent loads on invocation…
 ```
 
-- **`name`** — kebab-case, unique across the repo, and **must match the leaf folder name**. (Legacy exception: `News-Images` is PascalCase. Existing names are authoritative — don't rename without cause; prefer kebab-case for anything new. Mike suffixes some personal skills with `-mfs`, e.g. `repo-builder-mfs`.)
+- **`name`** — kebab-case, unique across the repo, and **must match the leaf folder name**. Every skill follows this now; `News-Images` was the last PascalCase holdout and was renamed to `news-images` on 2026-08-17. Mike suffixes some personal skills with `-mfs`, e.g. `repo-builder-mfs`.
 - **`description`** — the single most important line: the agent reads *only* this to decide whether to load the skill. State the trigger conditions explicitly ("Use when…", "Use whenever the user wants to…"). A vague description = a skill that never auto-invokes. May use YAML block scalar (`>-`) when long.
 - **Body** — loaded only after invocation, so it can be detailed. Aim for: **purpose → when-to-use → principles → a concrete execution checklist → explicit anti-patterns.** Concrete examples beat abstract advice. Must be **self-contained** — the agent won't have the surrounding conversation when the skill loads; don't reference "as discussed above" or repo state that isn't stated in the skill.
 
@@ -87,6 +87,9 @@ Before finishing an edit to any skill, check whether another skill *references* 
 
 > [!NOTE]
 > **Prefer one self-contained skill over a composite.** [`repo-builder-mfs`](./Skills/Documentation/repo-builder-mfs/SKILL.md) used to be an orchestrator that referenced three source skills (`readme-builder-mfs`, `readme-header-mfs`, `repo-docs-mfs`); on 2026-08-05 all four were merged into it and the three sources retired. The composite kept drifting out of sync with its sources, and the split forced a reader to load three files to build one README. If you're tempted to build a new "mega" skill that composes others, prefer folding the content into one skill with clear sections — and if you do build a composite, add a "keep synced" note here naming its sources.
+
+> [!NOTE]
+> **Keep synced — `business-planning-mfs`.** Added 2026-08-17. Its eight analysis passes are condensed from the eight skills in the `Mike_Business` Claude Code project template (`D:\AI_Agents\Documents\Agent-Resources\Templates\CLI_Projects\Claude_Code\Mike_Business\.claude\skills\`): `business-analysis`, `competitive-intel`, `roi-modeling`, `decision-memos`, `product-spec`, `technical-architecture`, `build-estimation`, `shipping-discipline`. Per the note above this is a **fold-in, not a composite** — the content lives in `references/analysis-passes.md` so the skill is portable and doesn't need those eight files present. It also carries a travel copy of the `repo-builder-mfs` header/tree/voice rules in `references/output-templates.md`, for the same reason; if `repo-builder-mfs` is installed the skill defers to it. When either upstream changes, fold the relevant parts in by hand. There is no automatic sync.
 
 > [!NOTE]
 > **Keep synced — `repo-builder-mfs` §0.** On 2026-08-05 the voice rules from the external [`humanizer`](https://github.com/michaelschecht) skill (local copy: `D:\AI_Agents\Documents\Agent-Resources\Skills\My-Skills\Mikes_Top_Skills\humanizer\SKILL.md`) were adapted into `repo-builder-mfs` §0 rather than referenced, so the builder needs one file to write a README. The copy is **condensed and docs-scoped**, not verbatim: it drops the essay-writing examples, adds §0.1 carve-outs so the house-style emoji headers / bold leftmost links / badges survive the pass, and softens the humanizer's blanket de-hyphenation rule (technical compounds like `end-to-end` keep their hyphens). If the upstream humanizer gains new patterns, fold the docs-relevant ones into §0.2 by hand — there is no automatic sync.

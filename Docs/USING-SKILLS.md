@@ -10,12 +10,12 @@ Skills are grouped by **category** under [`../Skills/`](../Skills); each skill l
 
 ```
 Skills/
-└── <Category>/          # e.g. Documentation, Image-Gen
+└── <Category>/          # e.g. Business, Documentation, Image-Gen
     └── <skill-name>/
         └── SKILL.md      # YAML frontmatter (name, description) + instructions
 ```
 
-Categories are just folders that group related skills (e.g. `Documentation`, `Image-Gen`). Add a new category folder when a skill doesn't fit an existing one.
+Categories are just folders that group related skills (e.g. `Business`, `Documentation`, `Image-Gen`). Add a new category folder when a skill doesn't fit an existing one.
 
 ## Anatomy of a SKILL.md
 
@@ -68,7 +68,7 @@ The folder name should match the skill's `name`. Restart or reload the agent so 
 
 ## Authoring a new skill
 
-1. Create `Skills/<Category>/<skill-name>/SKILL.md` — put it in the category folder that fits (e.g. `Documentation`, `Image-Gen`), or add a new category folder if none fits.
+1. Create `Skills/<Category>/<skill-name>/SKILL.md` — put it in the category folder that fits (e.g. `Business`, `Documentation`, `Image-Gen`), or add a new category folder if none fits.
 2. Write the frontmatter — a unique `name` and a description that leads with the capability and names the trigger conditions.
 3. Write the body: purpose, when-to-use, principles, a concrete execution checklist, and explicit anti-patterns. Concrete examples beat abstract advice.
 4. Keep it self-contained — the agent won't have your surrounding conversation when the skill loads.
