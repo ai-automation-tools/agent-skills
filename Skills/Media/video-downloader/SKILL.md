@@ -20,7 +20,8 @@ python scripts/download_video.py "https://www.youtube.com/watch?v=VIDEO_ID"
 ```
 
 Downloads in best available quality as MP4. Output goes to `/mnt/user-data/outputs`
-when that sandbox path exists, otherwise to `~/Downloads`.
+in the sandbox, **`E:\Downloads` on Windows**, and `~/Downloads` elsewhere. The
+directory is created if it does not exist.
 
 ## Options
 

@@ -18,7 +18,12 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
 # /mnt/user-data/outputs only exists in the sandbox; fall back to ~/Downloads locally.
-DEFAULT_OUTPUT = "/mnt/user-data/outputs" if os.path.isdir("/mnt/user-data/outputs") else str(Path.home() / "Downloads")
+if os.path.isdir("/mnt/user-data/outputs"):
+    DEFAULT_OUTPUT = "/mnt/user-data/outputs"   # sandbox
+elif os.name == "nt":
+    DEFAULT_OUTPUT = r"E:\Downloads"            # Mike's downloads live on E:, not C:
+else:
+    DEFAULT_OUTPUT = str(Path.home() / "Downloads")
 
 # yt-dlp needs a JS runtime for YouTube now; use whichever is on PATH.
 JS_RUNTIME = next((r for r in ("deno", "node", "bun") if shutil.which(r)), None)
