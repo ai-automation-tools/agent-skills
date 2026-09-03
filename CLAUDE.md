@@ -40,7 +40,7 @@ My-Custom-Skills/
     └── Links/                        # curated external references for skill-building
 ```
 
-**Current categories:** `Automation`, `Business`, `Cooking`, `Documentation`, `Image-Gen`. Add a new category folder under `Skills/` only when a skill genuinely fits none of these.
+**Current categories:** `Automation`, `Business`, `Cooking`, `Documentation`, `Image-Gen`, `Media`, `Web`. Add a new category folder under `Skills/` only when a skill genuinely fits none of these.
 
 ### Two folders people confuse
 
@@ -90,6 +90,9 @@ Before finishing an edit to any skill, check whether another skill *references* 
 
 > [!NOTE]
 > **Keep synced — `business-planning-mfs`.** Added 2026-08-17. Its eight analysis passes are condensed from the eight skills in the `Mike_Business` Claude Code project template (`D:\AI_Agents\Documents\Agent-Resources\Templates\CLI_Projects\Claude_Code\Mike_Business\.claude\skills\`): `business-analysis`, `competitive-intel`, `roi-modeling`, `decision-memos`, `product-spec`, `technical-architecture`, `build-estimation`, `shipping-discipline`. Per the note above this is a **fold-in, not a composite** — the content lives in `references/analysis-passes.md` so the skill is portable and doesn't need those eight files present. It also carries a travel copy of the `repo-builder-mfs` header/tree/voice rules in `references/output-templates.md`, for the same reason; if `repo-builder-mfs` is installed the skill defers to it. When either upstream changes, fold the relevant parts in by hand. There is no automatic sync.
+
+> [!NOTE]
+> **Keep synced — `project-hub-scaffold-mfs`.** Added 2026-09-03. Its `references/design-system.md` and `references/config-schema.md` are extracted from the live `Hub/hub.mjs` + `Hub/index.html` at `D:\AI_Agents\Documents\My-Documents\My-IT-Tools\HTML-Project-Design\` — the shared engine behind the three running Project Hubs (`Mikes_AI_Lab`, `Mike_IAM`, `Mike_Finance`). No automatic sync: if that source's theme tokens, config schema, or endpoints change, fold the change into this skill's `references/` by hand. The `scripts/scaffold-hub.ps1` helper reads/writes `hub.config.json` directly against that live folder, so if its schema changes the script needs the matching update too.
 
 > [!NOTE]
 > **Keep synced — `repo-builder-mfs` §0.** On 2026-08-05 the voice rules from the external [`humanizer`](https://github.com/michaelschecht) skill (local copy: `D:\AI_Agents\Documents\Agent-Resources\Skills\My-Skills\Mikes_Top_Skills\humanizer\SKILL.md`) were adapted into `repo-builder-mfs` §0 rather than referenced, so the builder needs one file to write a README. The copy is **condensed and docs-scoped**, not verbatim: it drops the essay-writing examples, adds §0.1 carve-outs so the house-style emoji headers / bold leftmost links / badges survive the pass, and softens the humanizer's blanket de-hyphenation rule (technical compounds like `end-to-end` keep their hyphens). If the upstream humanizer gains new patterns, fold the docs-relevant ones into §0.2 by hand — there is no automatic sync.

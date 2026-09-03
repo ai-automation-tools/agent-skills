@@ -2,7 +2,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Type-Agent%20Skills-8B5CF6?style=for-the-badge" alt="Agent Skills">
-  <img src="https://img.shields.io/badge/Skills-4-2ea44f?style=for-the-badge" alt="4 Skills">
+  <img src="https://img.shields.io/badge/Skills-7-2ea44f?style=for-the-badge" alt="7 Skills">
   <img src="https://img.shields.io/badge/Owner-michaelschecht-0078D4?style=for-the-badge&logo=github&logoColor=white" alt="Owner">
   <img src="https://img.shields.io/badge/Visibility-Private-6B7280?style=for-the-badge" alt="Private">
 </p>
@@ -18,6 +18,8 @@ Every skill lives in its own folder under a category: `Skills/<Category>/<skill-
 | [**🍳 recipe-validator**](./Skills/Cooking/recipe-validator/SKILL.md) | Cooking | Validates recipes for food safety, nutrition, quantities, and allergens — a deterministic scanner plus agent judgment. |
 | [**🏗️ repo-builder-mfs**](./Skills/Documentation/repo-builder-mfs/SKILL.md) | Documentation | The end-to-end repo/documentation builder — a clean layout (web-app artifacts under `src/`/`site/`, not the root), a house-style README at every level (root logo hero, folder/section headers), a navigable docs tree wired with down-links and up-links, and a built-in humanizer pass so the prose doesn't read like a chatbot wrote it. Renders in both GitHub and Obsidian using pure native markdown. |
 | [**🖼️ news-images**](./Skills/Image-Gen/news-images/SKILL.md) | Image-Gen | Generates cartoon-editorial news collages and montages across daily/weekly/monthly/yearly cadences. |
+| [**🌐 project-hub-scaffold-mfs**](./Skills/Web/project-hub-scaffold-mfs/SKILL.md) | Web | Scaffolds a new browsable HTML project console matching the existing Project Hub design — same theme, sidebar tree, and navigation — either as a fourth sibling hub sharing the shared engine, a standalone copy for a project that can't depend on it, or a visual-only match for a static page. |
+| [**🎬 video-downloader**](./Skills/Media/video-downloader/SKILL.md) | Media | Downloads YouTube videos with quality/format control (mp4/webm/mkv, audio-only MP3), hardened for Windows with cookie extraction for 403-blocked downloads. |
 
 ## 🧩 Skills
 
@@ -87,6 +89,53 @@ Generate cartoon-editorial news collages (6-panel grids) and news montages (sing
 | 🧾 **Prompts** | [`prompts/`](./Skills/Image-Gen/news-images/prompts) — [daily](./Skills/Image-Gen/news-images/prompts/daily-collage.md) · [weekly](./Skills/Image-Gen/news-images/prompts/weekly-collage.md) · [monthly](./Skills/Image-Gen/news-images/prompts/monthly-collage.md) · [yearly](./Skills/Image-Gen/news-images/prompts/yearly-collage.md) (collage + montage each) |
 | 🗂️ **Skill-Data** | [`Resources/Skill-Data/Image-Gen/news-images/`](./Resources/Skill-Data/Image-Gen/news-images/README.md) |
 
+### 🌐 project-hub-scaffold-mfs · _Web_
+
+Scaffolds a new browsable HTML project console in the same look and behavior as the
+three that already run over `Mikes_AI_Lab`, `Mike_IAM`, and `Mike_Finance`: a dark
+terminal-styled theme, a sidebar file tree, header search, hash-routed navigation with
+in-page Back/Forward, and live markdown rendering. Covers three modes — add a fourth
+sibling hub sharing the existing Node engine (the default), copy the whole engine into a
+project that can't depend on this machine's path, or lift just the visual language for a
+static page with no live scan. The reference docs hold the extracted color tokens,
+layout rules, keyboard shortcuts, and `hub.config.json` schema so scaffolding a new one
+doesn't require re-reading the ~2,500-line source each time.
+
+| Part | Link |
+|:---|:---|
+| 📄 **Skill** | [`SKILL.md`](./Skills/Web/project-hub-scaffold-mfs/SKILL.md) |
+| 💻 **Script** | [`scripts/scaffold-hub.ps1`](./Skills/Web/project-hub-scaffold-mfs/scripts/scaffold-hub.ps1) |
+| 📚 **References** | [`design-system.md`](./Skills/Web/project-hub-scaffold-mfs/references/design-system.md) — theme tokens, layout, keyboard shortcuts · [`config-schema.md`](./Skills/Web/project-hub-scaffold-mfs/references/config-schema.md) — `hub.config.json`, endpoints, the watcher, testing |
+| 🗂️ **Skill-Data** | [`Resources/Skill-Data/Web/project-hub-scaffold-mfs/`](./Resources/Skill-Data/Web/project-hub-scaffold-mfs/README.md) |
+
+> [!NOTE]
+> Built from the live `Hub/` source at
+> `D:\AI_Agents\Documents\My-Documents\My-IT-Tools\HTML-Project-Design\`. No automatic
+> sync — if that source changes in a way that contradicts this skill's `references/`,
+> fold the change in by hand (same convention as the other `-mfs` skills' keep-synced
+> notes in `CLAUDE.md`).
+
+### 🎬 video-downloader · _Media_
+
+Download YouTube videos with control over quality (`best` down to `360p`), container
+(`mp4`/`webm`/`mkv`), or audio-only MP3 extraction. Derived from the upstream
+`video-downloader` skill in `awesome-claude-skills`, with Windows-specific fixes: an
+output directory that actually exists locally (`E:\Downloads` here, `~/Downloads`
+elsewhere, instead of the sandbox-only path upstream hardcodes), UTF-8 stdout so a status
+emoji doesn't crash the console, JS-runtime auto-detection for yt-dlp's challenge
+solving, and cookie extraction for the `403 Forbidden` failures a stale extractor causes.
+
+| Part | Link |
+|:---|:---|
+| 📄 **Skill** | [`SKILL.md`](./Skills/Media/video-downloader/SKILL.md) |
+| 🐍 **Script** | [`scripts/download_video.py`](./Skills/Media/video-downloader/scripts/download_video.py) |
+| 🗂️ **Skill-Data** | [`Resources/Skill-Data/Media/video-downloader/`](./Resources/Skill-Data/Media/video-downloader/README.md) |
+
+> [!NOTE]
+> Provenance and the exact list of local fixes are in the skill's own **Provenance**
+> section — re-syncing the upstream clone won't overwrite this copy, but it won't deliver
+> the fixes either.
+
 ## 📖 Docs
 
 Usage guides and the build backlog live under [`Docs/`](./Docs).
@@ -105,7 +154,7 @@ Supporting material that lives **outside** the portable skill folders, under [`R
 | [**Skill-Data**](./Resources/Skill-Data) | Per-skill examples, sample outputs, and image assets. Mirrors the `Skills/` category tree (`Skill-Data/<Category>/<skill-name>/`). |
 | [**Links**](./Resources/Links) | Curated external references for building Agent Skills. |
 
-Categories group related skills. Current categories: **Automation** (job/email/notification templates), **Business** (analysis, strategy, planning), **Cooking** (recipe tooling), **Documentation** (READMEs, guides, reference docs), and **Image-Gen** (image-generation workflows). Add a new category folder under `Skills/` whenever a skill doesn't fit an existing one.
+Categories group related skills. Current categories: **Automation** (job/email/notification templates), **Business** (analysis, strategy, planning), **Cooking** (recipe tooling), **Documentation** (READMEs, guides, reference docs), **Image-Gen** (image-generation workflows), **Media** (audio/video tooling), and **Web** (browsable HTML project consoles). Add a new category folder under `Skills/` whenever a skill doesn't fit an existing one.
 
 > [!NOTE]
 > A skill's own `<skill-name>/` folder is the **portable unit** — copy it into an agent's skills directory and it works standalone. Bulky examples, screenshots, and sample outputs live under [`Resources/Skill-Data/`](./Resources) instead, so the portable skill stays lean.
