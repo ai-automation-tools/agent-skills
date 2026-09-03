@@ -44,6 +44,8 @@ House email templates for Mike's AI Lab automations, alerts, and reports: a plai
 | Part | Link |
 |:---|:---|
 | 📄 **Skill** | [`SKILL.md`](./Skills/Automation/email-template-mfs/SKILL.md) |
+| 🗂️ **Skill-Data** | [`Resources/Skill-Data/Automation/email-template-mfs/`](./Resources/Skill-Data/Automation/email-template-mfs/README.md) |
+| 📐 **Examples** | [`Examples/`](./Resources/Skill-Data/Automation/email-template-mfs/Examples/README.md) — a real, live-verified Template C email body + the notes from checking the skill against it |
 
 ### 🍳 recipe-validator · _Cooking_
 
