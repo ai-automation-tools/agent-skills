@@ -40,7 +40,7 @@ My-Custom-Skills/
     └── Links/                        # curated external references for skill-building
 ```
 
-**Current categories:** `Business`, `Cooking`, `Documentation`, `Image-Gen`. Add a new category folder under `Skills/` only when a skill genuinely fits none of these.
+**Current categories:** `Automation`, `Business`, `Cooking`, `Documentation`, `Image-Gen`. Add a new category folder under `Skills/` only when a skill genuinely fits none of these.
 
 ### Two folders people confuse
 

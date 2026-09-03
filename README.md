@@ -14,6 +14,7 @@ Every skill lives in its own folder under a category: `Skills/<Category>/<skill-
 | Skill | Category | What it does |
 |:---|:---|:---|
 | [**📈 business-planning-mfs**](./Skills/Business/business-planning-mfs/SKILL.md) | Business | Runs a business idea through eight analysis passes — sizing, competitors, an ROI model, a decision memo, then spec/architecture/estimate/plan if the memo greenlights it — and writes the result out as a linked doc repo in the `repo-builder-mfs` style. |
+| [**✉️ email-template-mfs**](./Skills/Automation/email-template-mfs/SKILL.md) | Automation | House email templates for Mike's AI Lab automations — a plain inline-styled notification/footer template, a dark-banner report template, and an inline light-card digest template — with guidance on which applies and how they combine. |
 | [**🍳 recipe-validator**](./Skills/Cooking/recipe-validator/SKILL.md) | Cooking | Validates recipes for food safety, nutrition, quantities, and allergens — a deterministic scanner plus agent judgment. |
 | [**🏗️ repo-builder-mfs**](./Skills/Documentation/repo-builder-mfs/SKILL.md) | Documentation | The end-to-end repo/documentation builder — a clean layout (web-app artifacts under `src/`/`site/`, not the root), a house-style README at every level (root logo hero, folder/section headers), a navigable docs tree wired with down-links and up-links, and a built-in humanizer pass so the prose doesn't read like a chatbot wrote it. Renders in both GitHub and Obsidian using pure native markdown. |
 | [**🖼️ news-images**](./Skills/Image-Gen/news-images/SKILL.md) | Image-Gen | Generates cartoon-editorial news collages and montages across daily/weekly/monthly/yearly cadences. |
@@ -35,6 +36,14 @@ The rule underneath all of it: every number traces to a source or carries an `[a
 
 > [!NOTE]
 > The eight passes are condensed from the `Mike_Business` Claude Code project template (`Agent-Resources/Templates/CLI_Projects/Claude_Code/Mike_Business/.claude/skills/`). No automatic sync — see the note in [`CLAUDE.md`](./CLAUDE.md).
+
+### ✉️ email-template-mfs · _Automation_
+
+House email templates for Mike's AI Lab automations, alerts, and reports: a plain inline-styled notification body + shared footer (the AI-Automation-Library fleet's IAM/artifact emails), a dark banner/wrapper report document (Portfolio Pilot), and an inline light-card digest (the n8n newsletter workflows — IAM, Cybersecurity, Energy, Geopolitics briefings). Documents which template applies to a given email, how they combine (report as attachment/link vs. inlined digest), and the exact source files each was reverse-engineered from.
+
+| Part | Link |
+|:---|:---|
+| 📄 **Skill** | [`SKILL.md`](./Skills/Automation/email-template-mfs/SKILL.md) |
 
 ### 🍳 recipe-validator · _Cooking_
 
@@ -94,7 +103,7 @@ Supporting material that lives **outside** the portable skill folders, under [`R
 | [**Skill-Data**](./Resources/Skill-Data) | Per-skill examples, sample outputs, and image assets. Mirrors the `Skills/` category tree (`Skill-Data/<Category>/<skill-name>/`). |
 | [**Links**](./Resources/Links) | Curated external references for building Agent Skills. |
 
-Categories group related skills. Current categories: **Business** (analysis, strategy, planning), **Cooking** (recipe tooling), **Documentation** (READMEs, guides, reference docs), and **Image-Gen** (image-generation workflows). Add a new category folder under `Skills/` whenever a skill doesn't fit an existing one.
+Categories group related skills. Current categories: **Automation** (job/email/notification templates), **Business** (analysis, strategy, planning), **Cooking** (recipe tooling), **Documentation** (READMEs, guides, reference docs), and **Image-Gen** (image-generation workflows). Add a new category folder under `Skills/` whenever a skill doesn't fit an existing one.
 
 > [!NOTE]
 > A skill's own `<skill-name>/` folder is the **portable unit** — copy it into an agent's skills directory and it works standalone. Bulky examples, screenshots, and sample outputs live under [`Resources/Skill-Data/`](./Resources) instead, so the portable skill stays lean.
