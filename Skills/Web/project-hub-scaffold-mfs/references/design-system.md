@@ -1,10 +1,9 @@
-# Design system — extracted from `Hub/index.html`
+# Design system — extracted from a reference `Hub/index.html`
 
-Everything here is pulled from the live source at
-`D:\AI_Agents\Documents\My-Documents\My-IT-Tools\HTML-Project-Design\Hub\index.html`. If
-you're touching Mode A or B, you don't need this file — you're reusing the file directly.
-This is for Mode C (visual-language-only match) and for understanding what you're looking
-at when you do touch the shared source.
+Everything here is pulled from the live source of the reference `Hub/index.html` this
+skill scaffolds against. If you're touching Mode A or B, you don't need this file — you're
+reusing the file directly. This is for Mode C (visual-language-only match) and for
+understanding what you're looking at when you do touch the shared source.
 
 ## Typography
 

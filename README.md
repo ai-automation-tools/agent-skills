@@ -14,11 +14,11 @@ Every skill lives in its own folder under a category: `Skills/<Category>/<skill-
 | Skill | Category | What it does |
 |:---|:---|:---|
 | [**📈 business-planning-mfs**](./Skills/Business/business-planning-mfs/SKILL.md) | Business | Runs a business idea through eight analysis passes — sizing, competitors, an ROI model, a decision memo, then spec/architecture/estimate/plan if the memo greenlights it — and writes the result out as a linked doc repo in the `repo-builder-mfs` style. |
-| [**✉️ email-template-mfs**](./Skills/Automation/email-template-mfs/SKILL.md) | Automation | House email templates for Mike's AI Lab automations — a plain inline-styled notification/footer template, a dark-banner report template, and an inline light-card digest template — with guidance on which applies and how they combine. |
+| [**✉️ email-template-mfs**](./Skills/Automation/email-template-mfs/SKILL.md) | Automation | Three reusable HTML email templates — a plain inline-styled notification/footer, a dark-banner report, and an inline light-card digest — with guidance on which applies to a given automation email and how they combine. |
 | [**🍳 recipe-validator**](./Skills/Cooking/recipe-validator/SKILL.md) | Cooking | Validates recipes for food safety, nutrition, quantities, and allergens — a deterministic scanner plus agent judgment. |
 | [**🏗️ repo-builder-mfs**](./Skills/Documentation/repo-builder-mfs/SKILL.md) | Documentation | The end-to-end repo/documentation builder — a clean layout (web-app artifacts under `src/`/`site/`, not the root), a house-style README at every level (root logo hero, folder/section headers), a navigable docs tree wired with down-links and up-links, and a built-in humanizer pass so the prose doesn't read like a chatbot wrote it. Renders in both GitHub and Obsidian using pure native markdown. |
 | [**🖼️ news-images**](./Skills/Image-Gen/news-images/SKILL.md) | Image-Gen | Generates cartoon-editorial news collages and montages across daily/weekly/monthly/yearly cadences. |
-| [**🌐 project-hub-scaffold-mfs**](./Skills/Web/project-hub-scaffold-mfs/SKILL.md) | Web | Scaffolds a new browsable HTML project console matching the existing Project Hub design — same theme, sidebar tree, and navigation — either as a fourth sibling hub sharing the shared engine, a standalone copy for a project that can't depend on it, or a visual-only match for a static page. |
+| [**🌐 project-hub-scaffold-mfs**](./Skills/Web/project-hub-scaffold-mfs/SKILL.md) | Web | Scaffolds a new browsable HTML project console matching an existing "Hub" install's design — same theme, sidebar tree, and navigation — either as a sibling hub sharing that engine, a standalone copy for a project that can't depend on it, or a visual-only match for a static page. |
 | [**🎬 video-downloader**](./Skills/Media/video-downloader/SKILL.md) | Media | Downloads YouTube videos with quality/format control (mp4/webm/mkv, audio-only MP3), hardened for Windows with cookie extraction for 403-blocked downloads. |
 
 ## 🧩 Skills
@@ -37,11 +37,11 @@ The rule underneath all of it: every number traces to a source or carries an `[a
 | 📐 **Examples** | [Target output tree](./Resources/Skill-Data/Business/business-planning-mfs/Examples/target-output-tree.md) · [worked root README](./Resources/Skill-Data/Business/business-planning-mfs/Examples/example-root-README.md) |
 
 > [!NOTE]
-> The eight passes are condensed from the `Mike_Business` Claude Code project template (`Agent-Resources/Templates/CLI_Projects/Claude_Code/Mike_Business/.claude/skills/`). No automatic sync — see the note in [`CLAUDE.md`](./CLAUDE.md).
+> The eight passes are condensed from a set of standard business-analysis disciplines (market sizing, competitive intelligence, ROI modeling, decision memos, product spec, technical architecture, build estimation, shipping discipline).
 
 ### ✉️ email-template-mfs · _Automation_
 
-House email templates for Mike's AI Lab automations, alerts, and reports: a plain inline-styled notification body + shared footer (the AI-Automation-Library fleet's IAM/artifact emails), a dark banner/wrapper report document (Portfolio Pilot), and an inline light-card digest (the n8n newsletter workflows — IAM, Cybersecurity, Energy, Geopolitics briefings). Documents which template applies to a given email, how they combine (report as attachment/link vs. inlined digest), and the exact source files each was reverse-engineered from.
+Three reusable HTML email templates for automations, alerts, and reports: a plain inline-styled notification body + shared footer (system alerts), a dark banner/wrapper report document (a generated analysis/report), and an inline light-card digest (a multi-item newsletter or briefing). Documents which template applies to a given email and how they combine (report as attachment/link vs. inlined digest).
 
 | Part | Link |
 |:---|:---|
@@ -72,7 +72,7 @@ Scale it to the job: a whole repo, one README at any level, just the top header 
 |:---|:---|
 | 📄 **Skill** | [`SKILL.md`](./Skills/Documentation/repo-builder-mfs/SKILL.md) |
 | 🗂️ **Skill-Data** | [`Resources/Skill-Data/Documentation/repo-builder-mfs/`](./Resources/Skill-Data/Documentation/repo-builder-mfs/README.md) |
-| 📐 **Examples** | [`Examples/`](./Resources/Skill-Data/Documentation/repo-builder-mfs/Examples/README.md) — real headers (TaskHub, Agent-Chat, AI-Automation-Library), the annotated docs tree + a completed Tier-3 index, and the target web-app layout |
+| 📐 **Examples** | [`Examples/`](./Resources/Skill-Data/Documentation/repo-builder-mfs/Examples/README.md) — worked headers, the annotated docs tree + a completed Tier-3 index, and the target web-app layout |
 | 🖼️ **Screenshots** | [`Images/Screenshots/`](./Resources/Skill-Data/Documentation/repo-builder-mfs/Images/Screenshots/README.md) |
 | 🎞️ **GIFs** | [`Images/GIFs/`](./Resources/Skill-Data/Documentation/repo-builder-mfs/Images/GIFs) |
 
@@ -91,13 +91,12 @@ Generate cartoon-editorial news collages (6-panel grids) and news montages (sing
 
 ### 🌐 project-hub-scaffold-mfs · _Web_
 
-Scaffolds a new browsable HTML project console in the same look and behavior as the
-three that already run over `Mikes_AI_Lab`, `Mike_IAM`, and `Mike_Finance`: a dark
-terminal-styled theme, a sidebar file tree, header search, hash-routed navigation with
-in-page Back/Forward, and live markdown rendering. Covers three modes — add a fourth
-sibling hub sharing the existing Node engine (the default), copy the whole engine into a
-project that can't depend on this machine's path, or lift just the visual language for a
-static page with no live scan. The reference docs hold the extracted color tokens,
+Scaffolds a new browsable HTML project console in the same look and behavior as an
+existing "Hub" install: a dark terminal-styled theme, a sidebar file tree, header search,
+hash-routed navigation with in-page Back/Forward, and live markdown rendering. Covers
+three modes — add a sibling hub sharing an existing Node engine (the default), copy the
+whole engine into a project that can't depend on that engine's path, or lift just the
+visual language for a static page with no live scan. The reference docs hold the extracted color tokens,
 layout rules, keyboard shortcuts, and `hub.config.json` schema so scaffolding a new one
 doesn't require re-reading the ~2,500-line source each time.
 
@@ -109,21 +108,19 @@ doesn't require re-reading the ~2,500-line source each time.
 | 🗂️ **Skill-Data** | [`Resources/Skill-Data/Web/project-hub-scaffold-mfs/`](./Resources/Skill-Data/Web/project-hub-scaffold-mfs/README.md) |
 
 > [!NOTE]
-> Built from the live `Hub/` source at
-> `D:\AI_Agents\Documents\My-Documents\My-IT-Tools\HTML-Project-Design\`. No automatic
-> sync — if that source changes in a way that contradicts this skill's `references/`,
-> fold the change in by hand (same convention as the other `-mfs` skills' keep-synced
-> notes in `CLAUDE.md`).
+> Built from a live `Hub/` reference implementation. No automatic sync — if that source
+> changes in a way that contradicts this skill's `references/`, fold the change in by
+> hand (same convention as the other `-mfs` skills' keep-synced notes in `CLAUDE.md`).
 
 ### 🎬 video-downloader · _Media_
 
 Download YouTube videos with control over quality (`best` down to `360p`), container
 (`mp4`/`webm`/`mkv`), or audio-only MP3 extraction. Derived from the upstream
 `video-downloader` skill in `awesome-claude-skills`, with Windows-specific fixes: an
-output directory that actually exists locally (`E:\Downloads` here, `~/Downloads`
-elsewhere, instead of the sandbox-only path upstream hardcodes), UTF-8 stdout so a status
-emoji doesn't crash the console, JS-runtime auto-detection for yt-dlp's challenge
-solving, and cookie extraction for the `403 Forbidden` failures a stale extractor causes.
+output directory that actually exists locally (`~/Downloads`, instead of the sandbox-only
+path upstream hardcodes), UTF-8 stdout so a status emoji doesn't crash the console,
+JS-runtime auto-detection for yt-dlp's challenge solving, and cookie extraction for the
+`403 Forbidden` failures a stale extractor causes.
 
 | Part | Link |
 |:---|:---|

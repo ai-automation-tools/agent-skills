@@ -1,8 +1,8 @@
 <a id="readme-top"></a>
 
 <p align="center">
-  <a href="https://taskhub.mikesailab.com">
-    <img src="images/TaskHub-Images/logos/dark/landscape-01-command-grid.svg" alt="TaskHub — one control plane for scheduled tasks" width="720">
+  <a href="https://taskconsole.example.com">
+    <img src="images/TaskConsole-Images/logos/dark/landscape-01-command-grid.svg" alt="TaskConsole — one control plane for scheduled tasks" width="720">
   </a>
 </p>
 
@@ -15,15 +15,15 @@
 </p>
 
 <p align="center">
-  <a href="https://taskhub.mikesailab.com">View Demo</a>
+  <a href="https://taskconsole.example.com">View Demo</a>
   ·
-  <a href="https://github.com/michaelschecht/taskhub/issues">Report Bug</a>
+  <a href="https://github.com/exampleorg/taskconsole/issues">Report Bug</a>
   ·
-  <a href="https://github.com/michaelschecht/taskhub/issues">Request Feature</a>
+  <a href="https://github.com/exampleorg/taskconsole/issues">Request Feature</a>
 </p>
 
 <p align="center">
-  <a href="https://taskhub.mikesailab.com"><img src="https://img.shields.io/badge/Live_Demo-taskhub.mikesailab.com-2ea44f?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo"></a>
+  <a href="https://taskconsole.example.com"><img src="https://img.shields.io/badge/Live_Demo-taskconsole.example.com-2ea44f?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo"></a>
   <img src="https://img.shields.io/badge/status-MVP_Prototype-F59E0B?style=for-the-badge" alt="Status: MVP Prototype">
   <a href="docs/ROADMAP.md"><img src="https://img.shields.io/badge/plan-ROADMAP-8B5CF6?style=for-the-badge" alt="Roadmap"></a>
 </p>

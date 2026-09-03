@@ -229,4 +229,4 @@ Run this. Every failure here is one somebody else would have found.
 ---
 
 > [!NOTE]
-> The eight passes are adapted from the `Mike_Business` Claude Code project template (`Templates/CLI_Projects/Claude_Code/Mike_Business/.claude/skills/`) — `business-analysis`, `competitive-intel`, `roi-modeling`, `decision-memos`, `product-spec`, `technical-architecture`, `build-estimation`, `shipping-discipline`. The content here is condensed and re-scoped for one-shot use on a single idea, not a verbatim copy. When the upstream template changes, fold the relevant parts into `references/analysis-passes.md` by hand — there is no automatic sync.
+> The eight passes are adapted from a set of standard business-analysis disciplines — market sizing, competitive intelligence, ROI modeling, decision memos, product spec, technical architecture, build estimation, and shipping discipline — condensed and re-scoped here for one-shot use on a single idea rather than run as separate tools.

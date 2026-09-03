@@ -1,11 +1,11 @@
-# Reference tree — `Enterprise-Network`
+# Reference tree — `Acme-Dashboard`
 
-The `Repos/Draft/Enterprise-Network/Repo` repo implements **Tiers 1 and 2** of the index tree well, and shows exactly where **Tier 3** is missing. This is the concrete example [`repo-builder-mfs`](../../../../../Skills/Documentation/repo-builder-mfs/SKILL.md) §2 (the documentation tree) is modeled on.
+The `Acme-Dashboard` repo implements **Tiers 1 and 2** of the index tree well, and shows exactly where **Tier 3** is missing. This is the concrete example [`repo-builder-mfs`](../../../../../Skills/Documentation/repo-builder-mfs/SKILL.md) §2 (the documentation tree) is modeled on.
 
 ## The tree, annotated tier by tier
 
 ```
-Repo/
+Acme-Dashboard/
 ├── README.md ......................... TIER 1  (root index — full logo hero)
 │     └─ "What's in here" table links DOWN to each top-level folder README:
 │           src/ · prisma/ · infra/ · docs/ · tests/

@@ -13,7 +13,7 @@ description: >-
   balanced, or well-made, or mentions reviewing recipe nutrition, salt/fat/sugar
   content, or food-safety issues — even if they don't use the word "validate."
   The recipe location is a parameter, so it works on any folder of recipe
-  markdown, not just this repo.
+  markdown.
 ---
 
 # Recipe validator
@@ -24,8 +24,8 @@ The engine is a hybrid. A **script does the objective, repetitive checks** the s
 
 ## Inputs
 
-- **Location** — a recipe `.md` file, or a folder of them. If the user doesn't say, default to this repo's `My-Library/Cooking/Recipes/` (all three families: Recipe-of-the-Week, My-Recipes, Regions). Confirm the path if it's ambiguous.
-- **Output** — for a single recipe, report inline. For a folder, write the markdown report **into this skill's own `reports/` folder** — `skills/recipe-validator/reports/recipe-validation-report_<YYYY-MM-DD>.md` (create the folder if missing; it's gitignored, so run outputs stay local and never clutter the repo) — plus the raw `scan_<YYYY-MM-DD>.json` beside it, and give a short inline summary. Ask if the user wants a different destination (e.g. when validating a folder outside this repo). *(Don't confuse `reports/` — run output — with `evals/`, the tracked test-case definitions.)*
+- **Location** — a recipe `.md` file, or a folder of them. If the user doesn't say, ask which recipe or folder to validate.
+- **Output** — for a single recipe, report inline. For a folder, write the markdown report **into this skill's own `reports/` folder** — `skills/recipe-validator/reports/recipe-validation-report_<YYYY-MM-DD>.md` (create the folder if missing; it's gitignored, so run outputs stay local and never clutter the repo) — plus the raw `scan_<YYYY-MM-DD>.json` beside it, and give a short inline summary. Ask if the user wants a different destination. *(Don't confuse `reports/` — run output — with `evals/`, the tracked test-case definitions.)*
 
 ## Workflow
 
@@ -107,4 +107,4 @@ Lead with the recipes that need fixes, group by verdict, and keep each finding t
 
 - **Don't invent facts.** If you're unsure whether an ingredient is present or a temp is safe, say so and point to the reference rather than guessing. A validator that hallucinates problems is worse than none.
 - **Scale gracefully.** Hundreds of recipes: batch the scan, prioritize by the scan's `max_severity`, and don't burn the context reading clean recipes you can trust from the parse.
-- **General-purpose.** Nothing here is repo-specific except the default path — point `scan_recipes.py` at any recipe folder. If a recipe format differs (no frontmatter, different nutrition layout), the scanner degrades gracefully and you fill the gaps by reading.
+- **General-purpose.** Point `scan_recipes.py` at any recipe folder. If a recipe format differs (no frontmatter, different nutrition layout), the scanner degrades gracefully and you fill the gaps by reading.

@@ -20,8 +20,6 @@ if hasattr(sys.stdout, "reconfigure"):
 # /mnt/user-data/outputs only exists in the sandbox; fall back to ~/Downloads locally.
 if os.path.isdir("/mnt/user-data/outputs"):
     DEFAULT_OUTPUT = "/mnt/user-data/outputs"   # sandbox
-elif os.name == "nt":
-    DEFAULT_OUTPUT = r"E:\Downloads"            # Mike's downloads live on E:, not C:
 else:
     DEFAULT_OUTPUT = str(Path.home() / "Downloads")
 

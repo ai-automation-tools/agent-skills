@@ -1,19 +1,19 @@
-# Config schema & architecture — extracted from `Hub/hub.mjs`
+# Config schema & architecture — extracted from a reference `Hub/hub.mjs`
 
-Source of truth: `D:\AI_Agents\Documents\My-Documents\My-IT-Tools\HTML-Project-Design\Hub\hub.mjs`
-and its `README.md`. This file exists so Mode A/B scaffolding doesn't require re-reading
-~2,500 lines of source every time — but if something here disagrees with the live file,
-the live file wins and this doc should be corrected.
+Source of truth: the `Hub/hub.mjs` engine you're pointing this skill at, and its
+`README.md`. This file exists so Mode A/B scaffolding doesn't require re-reading ~2,500
+lines of source every time — but if something here disagrees with the live file, the live
+file wins and this doc should be corrected.
 
 ## `hub.config.json`
 
 ```json
 {
-  "name": "Mikes_AI_Lab",
-  "dir": "D:/AI_Agents/Projects/Mikes_AI_Lab",
+  "name": "MyProject",
+  "dir": "D:/dev/MyProject",
   "port": 4273,
-  "title": "Project Hub — Mikes_AI_Lab",
-  "favicon": { "glyph": "/", "ink": "#5fe3a1", "line": "#2f6b52" },
+  "title": "Project Hub — MyProject",
+  "favicon": { "glyph": "M", "ink": "#5fe3a1", "line": "#2f6b52" },
   "repoScope": { "groups": ["Live_Apps", "Other_Apps", "Tools", "Draft"] }
 }
 ```
@@ -22,10 +22,10 @@ the live file wins and this doc should be corrected.
 |:---|:---:|:---|:---|
 | `name` | ✅ | non-empty string | Display name of the workspace root; the label on the tree's top node. |
 | `dir` | ✅ | must exist on disk | Absolute path to the workspace. Backslashes and a trailing slash are normalized — write it with forward slashes for portability. |
-| `port` | ✅ | integer, `1024`–`65535`, unique across sibling configs | The port this hub serves on. House convention on this machine is `427x` (started at `4273`/`4274`/`4275`; avoid `4173`/`5173` — Vite's own preview defaults, already claimed by a project on this machine). |
+| `port` | ✅ | integer, `1024`–`65535`, unique across sibling configs | The port this hub serves on. Pick a house convention (e.g. a `427x` block) and avoid `4173`/`5173` — Vite's own preview defaults, easy to collide with on a dev machine. |
 | `title` | optional | string | Browser tab title. Defaults to `Project Hub — <name>`. |
 | `favicon` | optional | `{ glyph, ink, line }` | `glyph` = 1–2 characters, `ink`/`line` = hex colors. The favicon SVG is built server-side from these three values — no image asset needed. |
-| `repoScope` | optional | `{ groups: string[] }` **or** `{ pathPrefix: string }`, never both | Which repos reach the overview's repo table. `groups` for a `Repos/<group>/` tier (Mikes_AI_Lab's `Live_Apps`/`Other_Apps`/`Tools`/`Draft`); `pathPrefix` for a flat `Repos/` (IAM, Finance both use `"Repos"`); omit entirely to scope every repo the scanner finds anywhere under `dir`. |
+| `repoScope` | optional | `{ groups: string[] }` **or** `{ pathPrefix: string }`, never both | Which repos reach the overview's repo table. `groups` for a `Repos/<group>/` tier (e.g. `Live_Apps`/`Other_Apps`/`Tools`/`Draft`); `pathPrefix` for a flat `Repos/` folder; omit entirely to scope every repo the scanner finds anywhere under `dir`. |
 
 `loadConfig()` throws (rather than silently defaulting) on: unreadable/non-JSON file,
 missing `name`/`dir`/`port`, a `dir` that doesn't exist, a `port` outside range, or both
@@ -35,29 +35,33 @@ new config, don't just eyeball it.
 
 ## Shared roots (`ROOTS`) and user runtimes (`USER_RUNTIMES`)
 
-Every hub scans three roots, not just its own `dir`:
+Every hub can scan more than just its own `dir` — a typical engine also carries a couple
+of extra shared roots so every hub surfaces the same cross-project docs/skills alongside
+its own workspace:
 
 ```js
 const ROOTS = [
   { name: CONFIG.name, dir: CONFIG.dir, tint: 'var(--green)' },
-  { name: 'Documents', dir: 'D:/AI_Agents/Documents', tint: 'var(--red)' },
-  { name: 'My Custom Skills', dir: 'D:/AI_Agents/Documents/Agent-Resources/Skills/.My-Custom-Skills', tint: 'var(--magenta)' },
+  { name: 'Shared Docs', dir: '<absolute path to a shared docs folder>', tint: 'var(--red)' },
+  { name: 'Shared Skills', dir: '<absolute path to a shared skills folder>', tint: 'var(--magenta)' },
 ];
 ```
 
-`Documents` and `My Custom Skills` are hardcoded and identical across all three existing
-hubs — they're what let every hub show the same shared user-scope docs and skills
-alongside its own project-specific `dir`.
+Any extra roots beyond `ROOTS[0]` are hardcoded in the engine and identical across every
+sibling hub — that's what lets every hub show the same shared, machine-wide content
+alongside its own project-specific `dir`. Whether an install has zero, two, or five of
+these depends entirely on that install; adjust the example above to match yours.
 
-`USER_RUNTIMES` is a second hardcoded list — `~/.claude`, `~/.codex`, `~/.gemini`,
-`~/.agents`, `~/.config/opencode` — each entry naming its `dirs` (skills, agents,
-commands, hooks, …), top-level `files` to surface, and config paths for MCP servers /
-installed plugins. This is what populates the **User CLIs** section, identical across
-every hub because it reflects the machine's home directory, not the workspace.
+`USER_RUNTIMES` is a second hardcoded list — home-directory tool folders such as
+`~/.claude`, `~/.codex`, `~/.gemini`, or whatever agent CLIs the install cares about —
+each entry naming its `dirs` (skills, agents, commands, hooks, …), top-level `files` to
+surface, and config paths for MCP servers / installed plugins. This is what populates the
+**User CLIs** section, identical across every hub because it reflects the machine's home
+directory, not the workspace.
 
 **Mode A never touches either constant** — a new hub just gets a new `ROOTS[0]`
-(`CONFIG.name`/`CONFIG.dir`) for free from its own config; the other two roots and every
-user runtime come along automatically.
+(`CONFIG.name`/`CONFIG.dir`) for free from its own config; the other roots and every user
+runtime come along automatically.
 
 **Mode B** (a standalone copy shipped outside this machine's layout) is exactly the case
 where you *do* edit these two constants — drop `Documents`/`My Custom Skills` if the new
@@ -119,7 +123,7 @@ scaffolding a new hub:
 
 Nothing about adding a hub requires coordinating with the others beyond a unique port and
 a unique config file. Both `discoverHubs()` (server-side, powers `/api/hubs` and the
-header's hub-switcher dropdown) and `Watch-Hubs.ps1` (the 15-minute health-check
-scheduled task) find hubs the same way — walking `HTML-Project-Design\` for sibling
-folders that hold a `hub.config.json` — so a new Mode A hub is picked up by both
-automatically. Nothing to register by hand.
+header's hub-switcher dropdown) and any external health-check watcher find hubs the same
+way — walking the shared engine's parent folder for sibling folders that hold a
+`hub.config.json` — so a new Mode A hub is picked up by both automatically. Nothing to
+register by hand.

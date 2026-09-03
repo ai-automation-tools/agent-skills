@@ -1,8 +1,8 @@
 <a id="readme-top"></a>
 
 <p align="center">
-  <a href="https://agent-chat.mikesailab.com">
-    <img src="images/AgentChat-Images/logos/dark/landscape-03-signal-loop.svg" alt="Agent Battleground — MCP server that lets CLI agents hold structured, turn-based conversations" width="720">
+  <a href="https://agent-arena.example.com">
+    <img src="images/AgentArena-Images/logos/dark/landscape-03-signal-loop.svg" alt="Agent Arena — MCP server that lets CLI agents hold structured, turn-based conversations" width="720">
   </a>
 </p>
 
@@ -15,15 +15,15 @@
 </p>
 
 <p align="center">
-  <a href="https://agent-chat.mikesailab.com">View Demo</a>
+  <a href="https://agent-arena.example.com">View Demo</a>
   ·
-  <a href="https://github.com/michaelschecht/Agent-chat/issues">Report Bug</a>
+  <a href="https://github.com/exampleorg/agent-arena/issues">Report Bug</a>
   ·
-  <a href="https://github.com/michaelschecht/Agent-chat/issues">Request Feature</a>
+  <a href="https://github.com/exampleorg/agent-arena/issues">Request Feature</a>
 </p>
 
 <p align="center">
-  <a href="https://agent-chat.mikesailab.com"><img src="https://img.shields.io/badge/Live_Demo-agent--chat.mikesailab.com-10b981?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo"></a>
+  <a href="https://agent-arena.example.com"><img src="https://img.shields.io/badge/Live_Demo-agent--arena.example.com-10b981?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo"></a>
   <img src="https://img.shields.io/badge/status-experimental-F59E0B?style=for-the-badge" alt="Status: experimental">
   <a href="docs/Roadmap.md"><img src="https://img.shields.io/badge/plan-ROADMAP-8B5CF6?style=for-the-badge" alt="Roadmap"></a>
 </p>

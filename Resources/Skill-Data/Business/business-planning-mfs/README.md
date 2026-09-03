@@ -14,7 +14,7 @@ Two things define it. **The gate:** passes 5–8 only run if the memo says build
 The output follows the [`repo-builder-mfs`](../../../../Skills/Documentation/repo-builder-mfs/SKILL.md) house style — a root index carrying the verdict, a README in every pipeline folder, down-links and up-links, and a humanizer pass over the prose.
 
 > [!NOTE]
-> The eight passes are adapted from the `Mike_Business` Claude Code project template at `D:\AI_Agents\Documents\Agent-Resources\Templates\CLI_Projects\Claude_Code\Mike_Business\.claude\skills\`. The skill's `references/analysis-passes.md` is a condensed, re-scoped version for one-shot use on a single idea — not a copy. There is no automatic sync; fold upstream changes in by hand.
+> The eight passes are adapted from a set of standard business-analysis disciplines (market sizing, competitive intelligence, ROI modeling, decision memos, product spec, technical architecture, build estimation, shipping discipline). The skill's `references/analysis-passes.md` is a condensed, re-scoped version for one-shot use on a single idea.
 
 ## About this folder
 

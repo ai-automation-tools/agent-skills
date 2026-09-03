@@ -24,7 +24,7 @@ Scale to the unit of work. Whole repo → run the full end-to-end workflow (§5)
 - **Building the header only** — the top block of a README, without touching the rest of the file.
 - **Auditing navigability** — "can I reach every doc from the root by clicking?" Find the breaks in the chain.
 - **A doc library, knowledge base, or Obsidian vault** — the same recursive-index tree, applied to folders of notes instead of code.
-- **"Make this repo look and navigate like the other Mikes_AI_Lab projects."**
+- **"Make this repo look and navigate like the rest of my projects."** — matching an existing house style across a portfolio of repos.
 - **Rewriting docs that read like a chatbot wrote them** — the structure is fine, the prose is slop. Run §0 on its own against the existing files.
 
 > [!IMPORTANT]
@@ -392,8 +392,8 @@ In order:
 ```html
 <!-- docs/README.md — a hub page: top anchor + audience/plan/back-to-root badges -->
 <a id="docs-top"></a>
-<h1 align="center">📚 TaskHub Documentation</h1>
-<p align="center"><em>Everything you need to install, configure, use, and extend TaskHub.</em></p>
+<h1 align="center">📚 Acme Dashboard Documentation</h1>
+<p align="center"><em>Everything you need to install, configure, use, and extend Acme Dashboard.</em></p>
 <p align="center">
   <img src="https://img.shields.io/badge/audience-users_&_builders-8B5CF6?style=for-the-badge" alt="Audience">
   <a href="ROADMAP.md"><img src="https://img.shields.io/badge/plan-ROADMAP-2ea44f?style=for-the-badge" alt="Roadmap"></a>
@@ -402,7 +402,7 @@ In order:
 
 <!-- docs/agent-tools/mcp/README.md — a leaf section: no anchor, two topical badges -->
 <h1 align="center">🔌 MCP Servers</h1>
-<p align="center"><em>Model Context Protocol servers that give the TaskHub build agent live capabilities.</em></p>
+<p align="center"><em>Model Context Protocol servers that give the build agent live capabilities.</em></p>
 <p align="center">
   <img src="https://img.shields.io/badge/config-.mcp.json-2ea44f?style=for-the-badge" alt=".mcp.json">
   <img src="https://img.shields.io/badge/servers-7-8B5CF6?style=for-the-badge" alt="7 servers">
@@ -488,7 +488,7 @@ For anything without a real logo (a made-up label like `theme-dark_by_default`),
 
 **Both:** if splicing into an existing README, put the block **above** the existing content, replacing any prior header.
 
-**Both, before you close the header:** the tagline and the logo `alt` are the two most-read sentences in the file and the two most likely to come out generated. Run §0 on them. A tagline that says what the thing *does* ("Turns Kalshi market data into sized bets") beats one that says what it *represents* ("A comprehensive platform showcasing robust market analysis"). Cut *comprehensive*, *seamless*, *powerful*, *robust*, and every `-ing` tail.
+**Both, before you close the header:** the tagline and the logo `alt` are the two most-read sentences in the file and the two most likely to come out generated. Run §0 on them. A tagline that says what the thing *does* ("Turns raw market data into sized bets") beats one that says what it *represents* ("A comprehensive platform showcasing robust market analysis"). Cut *comprehensive*, *seamless*, *powerful*, *robust*, and every `-ing` tail.
 
 ---
 

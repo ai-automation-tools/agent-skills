@@ -28,7 +28,8 @@
 
 .PARAMETER Port
     Port for this hub. Must be 1024-65535 and not already used by a sibling
-    hub.config.json under HubDesignRoot. House convention on this machine is 427x.
+    hub.config.json under HubDesignRoot. Pick whatever port-block convention your
+    existing hubs use (if any).
 
 .PARAMETER Title
     Optional browser-tab title. Defaults to "Project Hub — <Name>".
@@ -37,7 +38,7 @@
     1-2 character favicon glyph. Defaults to the first letter of -Name, uppercased.
 
 .PARAMETER Ink
-    Favicon accent hex. Defaults to a mid green distinct from the AI Lab hub's.
+    Favicon accent hex. Defaults to a mid green — pick one distinct from your other hubs'.
 
 .PARAMETER Line
     Favicon line hex (darker shade of -Ink). Defaults to a matching darker green.
@@ -51,7 +52,9 @@
     Mutually exclusive with -RepoScopeGroups.
 
 .PARAMETER HubDesignRoot
-    Path to HTML-Project-Design/. Defaults to this machine's canonical location.
+    Path to the folder that holds the shared Hub/ engine and its sibling
+    Project-Hub-* config folders (Mode A) or that the engine is copied out of (Mode B).
+    Required — no default, since this path is specific to each install.
 
 .PARAMETER Standalone
     Switch. Selects Mode B: copies the Hub/ engine into -TargetDir instead of adding a
@@ -61,15 +64,18 @@
     Mode B only: where to copy the Hub/ engine + write its hub.config.json.
 
 .EXAMPLE
-    .\scaffold-hub.ps1 -Name "MyNewProject" -Dir "D:\AI_Agents\Projects\MyNewProject" -Port 4276
+    .\scaffold-hub.ps1 -Name "MyNewProject" -Dir "C:\Work\MyNewProject" -Port 4276 `
+        -HubDesignRoot "C:\Tools\HTML-Project-Design"
 
 .EXAMPLE
     .\scaffold-hub.ps1 -Name "ClientSite" -Dir "C:\Work\ClientSite" -Port 4300 `
+        -HubDesignRoot "C:\Tools\HTML-Project-Design" `
         -RepoScopePathPrefix "Repos" -Glyph "C" -Ink "#e0a458" -Line "#6d5424"
 
 .EXAMPLE
     .\scaffold-hub.ps1 -Standalone -Name "PortableConsole" -Dir "C:\Work\OtherRepo" `
-        -Port 4400 -TargetDir "C:\Work\OtherRepo\tools\project-console"
+        -Port 4400 -HubDesignRoot "C:\Tools\HTML-Project-Design" `
+        -TargetDir "C:\Work\OtherRepo\tools\project-console"
 #>
 [CmdletBinding()]
 param(
@@ -82,7 +88,7 @@ param(
     [string] $Line = '#2f6b52',
     [string[]] $RepoScopeGroups,
     [string] $RepoScopePathPrefix,
-    [string] $HubDesignRoot = 'D:\AI_Agents\Documents\My-Documents\My-IT-Tools\HTML-Project-Design',
+    [Parameter(Mandatory)] [string] $HubDesignRoot,
     [switch] $Standalone,
     [string] $TargetDir
 )
@@ -172,5 +178,5 @@ if ($Standalone) {
     Write-Host 'Next:'
     Write-Host "  cd `"$hubEngine`"; npm test"
     Write-Host "  cd `"$newFolder`"; .\Start-Hub.ps1"
-    Write-Host "Then update HTML-Project-Design\README.md's Project Hub Consoles + What's in here tables (see ../SKILL.md step 7)."
+    Write-Host "Then update $HubDesignRoot's README (or wherever the hub family is tracked) with the new hub (see ../SKILL.md step 7)."
 }
