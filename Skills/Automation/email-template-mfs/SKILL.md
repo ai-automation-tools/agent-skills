@@ -1,6 +1,6 @@
 ---
 name: email-template-mfs
-description: "Three reusable HTML email templates for automation systems — a plain inline-styled notification/alert template, a dark banner/wrapper report template, and an inline light-card digest template. Use whenever building or sending an automation email, alert, or a report that gets emailed or attached."
+description: "Three reusable HTML email templates for automation systems — a plain inline-styled notification/alert template, a dark banner/wrapper report template, and an inline light-card digest template — plus which tool actually sends them (Resend API by default, Gmail MCP for read/label only, AgentMail retired). Use whenever building or sending an automation email, alert, or a report that gets emailed or attached."
 ---
 
 # Email Template
@@ -337,3 +337,18 @@ Rules:
 **Workflow-tool digests (Template C):** the agent/job emits Markdown → a shared render step turns it into Template C's light-card HTML → that HTML is optionally archived somewhere durable → the sender delivers it as **both** the inline HTML body and a `.html` attachment, picking up Template A's footer automatically via the shared footer helper. Don't build a separate short Template A body for these — inline the full digest, unlike the Template B report flow.
 
 Regardless of which body template: subject line and label conventions come from Template A, and the footer is always appended by a shared helper — it's not something you hand-write per template.
+
+---
+
+## Sending it
+
+Templates only produce HTML/text — something still has to call an email API. Default to this table rather than hand-rolling a new sender:
+
+| Mechanism | Use when | Notes |
+|---|---|---|
+| **Resend API** (default) | Any new automation email | `send_email.py` at `My-AI-Tools\MCP-and-APIs\Resend-API\` — CLI + importable, needs only `requests` + `RESEND_API_KEY`. `--html`/`--html-file` for template B/C bodies, `--text` for template A, `--file` for attachments, `--tag` for fleet labels. Its `README.md` covers account/DNS, traps, and per-caller key resolution (Hetzner cron, n8n, Claude routines, DeepSeek Harness). |
+| **Gmail MCP** (`mcp__gmail__*`) | Searching, labeling, or filtering existing mail | No send tool in this install — read and label management only, not a sending path. |
+| **AgentMail** (`agentmail` skill) | Legacy reference only | Sending has been paused fleet-wide (403 `message_rejected`) since the Resend migration — don't wire new automations to it. |
+| Raw SMTP | A one-off script with no automation-fleet context | Otherwise reuse `send_email.py` instead of a new SMTP client. |
+
+Call `send_email.py` (or `email_provider.py`, the dual-provider shim, if the sender must survive a Resend outage) with whichever template's rendered HTML — don't build a new sender per automation.

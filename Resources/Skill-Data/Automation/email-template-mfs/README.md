@@ -12,6 +12,16 @@
 
 All three came from reading real senders, not guessing at a house style — see `Examples/` for a verified live example.
 
+## Sending mechanism
+
+The skill also names the tool that actually calls an email API — a template alone doesn't send anything:
+
+| Mechanism | Role |
+|:---|:---|
+| **Resend API** | Default sender for new automations — `send_email.py` at `My-Documents\My-AI-Tools\MCP-and-APIs\Resend-API\` |
+| **Gmail MCP** (`mcp__gmail__*`) | Read/search/label existing mail only — this install has no send tool |
+| **AgentMail** | Legacy — sending is paused fleet-wide since the Resend migration |
+
 ## About this folder
 
 Reference exemplars for the skill — real output pulled from a live send, kept to verify the skill's claims and to show what "correct" looks like. These are not files the skill reads at runtime.
