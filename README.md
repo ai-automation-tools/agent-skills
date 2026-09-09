@@ -2,7 +2,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Type-Agent%20Skills-8B5CF6?style=for-the-badge" alt="Agent Skills">
-  <img src="https://img.shields.io/badge/Skills-7-2ea44f?style=for-the-badge" alt="7 Skills">
+  <img src="https://img.shields.io/badge/Skills-8-2ea44f?style=for-the-badge" alt="8 Skills">
   <img src="https://img.shields.io/badge/Owner-michaelschecht-0078D4?style=for-the-badge&logo=github&logoColor=white" alt="Owner">
   <img src="https://img.shields.io/badge/Visibility-Private-6B7280?style=for-the-badge" alt="Private">
 </p>
@@ -15,6 +15,7 @@ Every skill lives in its own folder under a category: `Skills/<Category>/<skill-
 |:---|:---|:---|
 | [**📈 business-planning-mfs**](./Skills/Business/business-planning-mfs/SKILL.md) | Business | Runs a business idea through eight analysis passes — sizing, competitors, an ROI model, a decision memo, then spec/architecture/estimate/plan if the memo greenlights it — and writes the result out as a linked doc repo in the `repo-builder-mfs` style. |
 | [**✉️ email-template-mfs**](./Skills/Automation/email-template-mfs/SKILL.md) | Automation | Three reusable HTML email templates — a plain inline-styled notification/footer, a dark-banner report, and an inline light-card digest — with guidance on which applies to a given automation email and how they combine. |
+| [**🚦 task-router**](./Skills/Automation/task-router/SKILL.md) | Automation | Sizes a request before any work starts — answer inline, hand it to one subagent, recon-then-plan, or fan out — then picks the model to run it on under a subscription-only policy (docs and basic research are Sonnet, complex work is Opus, Fable never). |
 | [**🍳 recipe-validator**](./Skills/Cooking/recipe-validator/SKILL.md) | Cooking | Validates recipes for food safety, nutrition, quantities, and allergens — a deterministic scanner plus agent judgment. |
 | [**🏗️ repo-builder-mfs**](./Skills/Documentation/repo-builder-mfs/SKILL.md) | Documentation | The end-to-end repo/documentation builder — a clean layout (web-app artifacts under `src/`/`site/`, not the root), a house-style README at every level (root logo hero, folder/section headers), a navigable docs tree wired with down-links and up-links, and a built-in humanizer pass so the prose doesn't read like a chatbot wrote it. Renders in both GitHub and Obsidian using pure native markdown. |
 | [**🖼️ news-images**](./Skills/Image-Gen/news-images/SKILL.md) | Image-Gen | Generates cartoon-editorial news collages and montages across daily/weekly/monthly/yearly cadences. |
@@ -48,6 +49,24 @@ Three reusable HTML email templates for automations, alerts, and reports: a plai
 | 📄 **Skill** | [`SKILL.md`](./Skills/Automation/email-template-mfs/SKILL.md) |
 | 🗂️ **Skill-Data** | [`Resources/Skill-Data/Automation/email-template-mfs/`](./Resources/Skill-Data/Automation/email-template-mfs/README.md) |
 | 📐 **Examples** | [`Examples/`](./Resources/Skill-Data/Automation/email-template-mfs/Examples/README.md) — a real, live-verified Template C email body + the notes from checking the skill against it |
+
+### 🚦 task-router · _Automation_
+
+Decides **how much machinery a request deserves** before the work starts, then picks the model to run it on. Four shapes — answer it inline with no agent at all, hand it to one subagent, do recon or a plan first and then act, or fan out across parallel agents — chosen from six countable signals rather than a feel for how big the job sounds: do I know which files change, how many, how many independent dimensions, is it reversible, would two readings give different work, does the answer already exist.
+
+Two rules do most of the work. **Risk overrides size** — a one-line change that deploys to production is not a Tier 0 edit. And **ambiguity is not complexity** — if two readings of the request produce different work, that is a question to ask, not a bigger fan-out to launch.
+
+The model policy is a hard constraint, not a preference: `haiku` only for mechanical no-judgment passes, `sonnet` as the default and specifically for **documentation updates and basic research** (both read as cheap and neither is), `opus` for genuinely complex work, and **`fable` for nothing, ever** — it is the one tier that bills as direct API tokens instead of against the subscription, and the Agent tool accepts it silently.
+
+The skill also serves as the **authorization to delegate**: the standing rule elsewhere is not to spawn subagents unless something explicitly asks, so without this skill the higher tiers are unreachable — and it only authorizes the tier it actually selects.
+
+| Part | Link |
+|:---|:---|
+| 📄 **Skill** | [`SKILL.md`](./Skills/Automation/task-router/SKILL.md) |
+| 🗂️ **Skill-Data** | [`Resources/Skill-Data/Automation/task-router/`](./Resources/Skill-Data/Automation/task-router/README.md) |
+
+> [!NOTE]
+> The skill's **§6 Calibration** table doubles as its test fixture — fourteen worked examples spanning every tier. Check a disputed routing decision against the nearest row before overriding it.
 
 ### 🍳 recipe-validator · _Cooking_
 
