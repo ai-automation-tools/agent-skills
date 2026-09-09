@@ -68,19 +68,20 @@ a dark forest green for paper).
 #app (flex row, full viewport height / --zoom)
 ├── aside            284px fixed, collapses to 0 via #app.rail (Ctrl+B / the «/» toggle)
 │   ├── .ex-head       glyph + "Explorer" label + "collapse all"
+│   ├── #pins          collapsed Bookmarks and Recent lists
 │   ├── #tree          the scrollable node tree (role="tree")
 │   └── .ex-foot       current file + live/scanning status dot
 └── main (flex column, fills remaining width)
     ├── header         42px, fixed height
-    │     sidetoggle · back/forward · breadcrumbs · search · hub-switcher · theme · rescan
+    │     sidetoggle · back/forward · breadcrumbs · search · theme · rescan
     └── #view          the scrollable content pane — everything else renders here
 ```
 
 - The sidebar toggle lives in the **header**, not the sidebar itself, so it stays in a
   fixed spot regardless of collapsed state, and stays clear of the explorer's own
   "collapse all" (which folds tree nodes, a different action from hiding the panel).
-- The header's control order, left to right: sidebar toggle → **Back/Forward** → 
-  breadcrumbs → (grow) → search → hub switcher (hidden unless ≥2 hubs are discoverable) →
+- The header's control order, left to right: sidebar toggle → **Back/Forward** →
+  breadcrumbs → (grow) → search →
   theme picker → rescan button.
 - `#view` is the only scrolling container for content; `.page` inside it caps at
   `max-width: 1200px`, centered, with `22px 24px 48px` padding.
@@ -161,9 +162,7 @@ children.
   `references/config-schema.md` for the security model this pairs with.
 - Tables render with `display:block; overflow-x:auto` so a wide table scrolls inside
   itself instead of blowing out the page width.
-- `> [!NOTE]` / `[!TIP]` / `[!WARNING]` GitHub-style callouts currently render as plain
-  blockquotes (no distinct styling yet — tracked as backlog item #35 in
-  `Docs/ROADMAP.md`).
+- GitHub-style NOTE/TIP/WARNING callouts render as styled alert boxes; preserve the renderer and theme styles together.
 
 ## Cards, tables, and the stat strip
 
@@ -183,3 +182,14 @@ children.
 Reuse these primitives rather than inventing new card/table shapes — a new section that
 doesn't fit `.card`/`.trow`/`.stat` patterns will look like it belongs to a different
 product.
+
+## Updates through 2026-09-09
+
+The default landing page combines mounted Projects; each project shows stats,
+repos, Readmes, Project CLIs, then User CLIs. Header hub switching is retired.
+`Ctrl+D` toggles bookmarks; missing pins retain copy actions and disable launch.
+Heading routes use `#<encoded-id>?heading=<heading>`; search uses `#?q=<query>` with
+optional `scoped=1` and `limit=`. Back restores search results. Reader tools include
+outline, source view, copy-code buttons, width/font controls and print. Folder views
+switch between cards and sortable lists. HTML/PDF use dedicated previews; Pictures
+loads lazily. See [current features](current-features.md) before changing these flows.

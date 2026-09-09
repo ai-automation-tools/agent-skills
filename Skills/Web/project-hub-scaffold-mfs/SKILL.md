@@ -1,212 +1,92 @@
 ---
 name: project-hub-scaffold-mfs
 description: >-
-  Scaffold a new browsable HTML project console — a live, zero-dependency Node
-  server + vanilla-JS explorer UI with a dark terminal-style theme, sidebar tree,
-  header controls, hash-based Back/Forward navigation, and markdown rendering —
-  as a new sibling of an existing "Hub" install, a standalone portable copy, or a
-  visual-language-only static match. Use when the user wants to "set up an HTML
-  site for this project", "add a project hub for X", "give this project a
-  browsable console like my other ones", "scaffold a doc browser", or is starting
-  a new project/folder and wants a live HTML layer over it that matches an
-  existing hub's look, navigation, and behavior.
+  Add a workspace to an existing Project Hub, scaffold a portable installation of
+  its zero-dependency Node server and HTML explorer, or match its visual design.
+  Use when asked to add a project hub, scaffold a document browser, or give a
+  workspace the same live browsable console as an existing Hub installation.
 ---
 
-You are scaffolding a **Project Hub** — a local, zero-dependency Node.js server plus a
-vanilla-JS single-page UI that scans a workspace live (repos, agent runtimes, skills,
-commands, docs) and serves it as a dark, terminal-styled console with a sidebar tree,
-search, and markdown rendering. This skill assumes the user already has at least one
-running instance of this engine (their "Hub") somewhere on their machine, built from a
-prior use of this same skill or pattern — you're adding a **sibling** hub (or a
-completely independent standalone one) that looks, navigates, and behaves identically to
-it, never a from-scratch reimplementation of the UI.
+# Project Hub scaffold
 
-**Find the engine before doing anything else.** Ask the user where their existing `Hub/`
-engine lives (the folder containing `hub.mjs` + `index.html`, with sibling config folders
-next to it — e.g. `Project-Hub-<Name>/hub.config.json`), or look for it if they've pointed
-you at the general area. Everything below calls this the **hub design root**. A typical
-layout:
+Reuse an existing Project Hub engine: a local filesystem scanner and vanilla-JS
+explorer. Find the checkout containing `Hub/hub.mjs` and `Hub/index.html` from the
+user's context; ask for its location only if it cannot be found. Do not reconstruct
+the engine from screenshots. Read its README and [config reference](references/config-schema.md).
+The engine is the source of truth if this reference has drifted.
 
+## Choose the mode
+
+- **A — add a workspace (default).** Add `Projects/<Name>/hub.config.json` to the
+  existing installation. One server scans all projects and shared roots. No new
+  port, launcher, engine copy, or hub-switcher entry is needed.
+- **B — portable installation.** Use when the project must carry its own engine.
+  Copy the complete runtime and tests into `Hub/`, the launcher and example into
+  `Project-Hub/`, and create `Projects/<Name>/`. Each machine supplies its own
+  ignored configs. Independent copies need their own future engine updates.
+- **C — visual match.** For an explicitly static page, read the
+  [design system](references/design-system.md) and reuse the actual theme and
+  layout from `Hub/index.html`. Explain that scanning, native launch actions,
+  previews, and server-backed search require A or B.
+
+## Workflow
+
+1. Inspect the existing server config, project configs, and target folder. Preserve
+   existing work. Project display names and folders must be unique; `dir` must
+   exist. Choose either repo groups or a path prefix ending in `/`, or omit scope.
+2. Run [scripts/scaffold-hub.ps1](scripts/scaffold-hub.ps1) for A or B. It refuses
+   existing destinations. A writes only a project config. B copies an allowlist of
+   engine files, license, launchers and examples; it never copies scan output,
+   credentials, personal configs, screenshots, or design archives.
+3. In B, select an available port and `base`; shared roots default to empty. Verify
+   the configured port is free before starting. Roots come from configuration and
+   user runtimes use the current home directory: do not edit source constants for
+   machine paths. The runtime scans supported user-scope agent folders as well as
+   configured roots; disclose that scope to the user.
+4. Run `npm test` from `Hub/`. Fresh clones validate example shapes without needing
+   personal configs; installed configs are checked when present. Separately check
+   all configured directories exist. Tests do not prove a port is free or a page works.
+5. New project configs are discovered at **startup**. Restart the existing server
+   through `Project-Hub/Start-Hub.ps1 -Restart -NoBrowser` when authorized by the
+   setup task, then check `/api/health` and `/api/scan`. Use the configured port.
+   Never terminate a foreign process to claim a port.
+6. Verify the Projects landing page, target workspace, sidebar, search, a rendered
+   document, and Back/Forward in a browser. Use a temporary fixture installation
+   for script validation; do not start a second scanner over real private roots.
+7. Link the skill and setup instructions from the project's README. Keep personal
+   roots, ports in instance inventories, and editor wiring in ignored local files.
+   Scheduled tasks and workspace auto-start are optional integrations, not actions
+   every scaffold should install. Public source publication is separate from
+   exposing the local server over a network.
+
+## Helper usage
+
+PowerShell 7; use paths appropriate to the user's machine:
+
+```powershell
+# A: mount another workspace in the shared process
+./scripts/scaffold-hub.ps1 -HubDesignRoot C:/Tools/ProjectHub `
+  -Name Demo -Dir C:/Work/Projects/Demo -RepoScopePathPrefix Repos/
+
+# B: new standalone installation (destination must not exist)
+./scripts/scaffold-hub.ps1 -HubDesignRoot C:/Tools/ProjectHub `
+  -Name Demo -Dir C:/Work/Projects/Demo -Standalone `
+  -TargetDir C:/Tools/DemoHub -Base C:/Work -Port 4400
 ```
-<hub design root>\
-├── Hub\                     the ONE program — hub.mjs, index.html, Start-Hub.ps1, tests
-├── Project-Hub-<A>\         config pointing the program at workspace A   (:4273)
-├── Project-Hub-<B>\         config pointing the program at workspace B   (:4274)
-└── Docs\ROADMAP.md          optional — an audit history of what shipped and why
-```
 
-**Read `references/design-system.md` and `references/config-schema.md` in this skill
-before scaffolding anything.** They hold the color tokens, layout rules, keyboard
-shortcuts, config schema, and endpoint list extracted from a reference implementation, so
-you don't need to re-read `hub.mjs`/`index.html` end to end every time. If either
-reference ever looks stale against the user's actual live files, trust the live files and
-update the reference.
+## Current behavior to preserve
 
-## WHEN TO USE THIS SKILL
+Read [current features](references/current-features.md) when extending or checking
+an installation. It covers the shared Projects landing page, lazy Pictures,
+sandboxed HTML/PDF report reading, search and heading routes, bookmarks and Recent,
+folder sorting, Markdown reader tools, help panels, and watchdog behavior.
+Read the design reference only for UI work; adding a workspace needs no UI edit.
 
-- **A new project/repo wants the same browsable console** other workspaces on this
-  machine already have — same theme, same sidebar/tree, same search, same navigation.
-- **"Set up an HTML site for this project"** where the project is a folder of code, docs,
-  or both, and the ask is for a live, scanning explorer rather than a static page someone
-  hand-maintains.
-- **Adding another workspace** to an existing hub family.
-- **A project needs its own standalone copy** of this console — shipped inside a repo
-  that lives outside the hub design root, or that must not depend on any path specific to
-  the current machine.
-- **Not** for building a generic marketing site, landing page, or one-off static page —
-  that's a different job (`frontend-design` skill, or plain hand-authored HTML). This
-  skill is specifically the *live workspace-scanning console* pattern, and it requires an
-  existing reference `Hub/` engine to scaffold against (Mode A/B) or copy the look of
-  (Mode C) — it does not build that engine from scratch.
+## Avoid
 
-## THE THREE MODES
-
-Pick one. Mode A is the default — reach for B or C only when its trigger condition is
-true.
-
-### Mode A — add a sibling hub (default)
-
-Use this whenever the new project is something the shared engine can point `dir` at: a
-repo or folder that exists on this machine, whether or not it's part of the user's
-existing hub family. This is the 5-minute path and the one that keeps getting every
-future engine fix for free, because every sibling hub shares the same `Hub/hub.mjs` +
-`Hub/index.html` — nothing is copied.
-
-> [!TIP]
-> `scripts/scaffold-hub.ps1` automates steps 2–4 below (folder, `hub.config.json`, the
-> `Start-Hub.ps1` shim) for Mode A, or the whole file copy + config for Mode B
-> (`-Standalone -TargetDir <path>`). It checks port uniqueness against every sibling
-> config before writing and refuses to overwrite an existing folder. It does **not** run
-> `npm test`, start the server, or touch the docs in step 7 — do those yourself.
-
-1. **Pick a name, a port, and a favicon glyph.** Name = the workspace's own name (matches
-   its folder/repo name). Port = next unused port in whatever block the existing sibling
-   configs use (check every sibling `hub.config.json`'s `port` — the test suite rejects a
-   collision). Glyph = one or two characters distinct from the other hubs' — pick
-   something that reads at 10px, e.g. a single letter or a simple symbol.
-2. **Make the folder** `Project-Hub-<Name>` next to the other `Project-Hub-*` folders
-   under the hub design root.
-3. **Write `hub.config.json`** in it — see `references/config-schema.md` for every field.
-   Minimum viable config:
-   ```json
-   {
-     "name": "<Name>",
-     "dir": "<absolute path to the workspace, forward slashes>",
-     "port": <unused 1024-65535, house convention is 427x>,
-     "title": "Project Hub — <Name>",
-     "favicon": { "glyph": "<1-2 chars>", "ink": "<hex>", "line": "<darker hex>" }
-   }
-   ```
-   Add `"repoScope": { "groups": [...] }` only if the workspace has a `Repos/<group>/`
-   tier; use `"repoScope": { "pathPrefix": "Repos" }` for a flat `Repos/` folder; omit
-   `repoScope` entirely to scope every repo found.
-4. **Copy `Start-Hub.ps1`** from any sibling folder into the new folder **byte-for-byte**
-   — it is a generic shim that reads `$PSScriptRoot` and needs no edit. Do not write a new
-   one.
-5. **Run `npm test` from `Hub\`.** It validates the new config parses, its `dir` exists,
-   and its port doesn't collide with a sibling's.
-6. **Start it and verify:** `cd Project-Hub-<Name>; .\Start-Hub.ps1` then load
-   `http://127.0.0.1:<port>` and confirm the overview renders, the sidebar tree walks the
-   new workspace, and (once a second hub is also running) the hub-switcher dropdown in
-   the header lists both.
-7. **Wire it into the docs**, matching what the existing sibling hubs already do:
-   - The hub design root's own `README.md`, if it tracks the hub family in a table — add a
-     row for the new one.
-   - The new workspace's own root `README.md`, if it has a "Live sites" or tooling table
-     (mirrors §"Live Sites" parsing — `parseLiveSites()` reads that table live).
-   - If the workspace has a `.code-workspace` file, add whatever `folderOpen` task /
-     auto-run rule the other sibling hubs use, so the hub self-launches on window open.
-8. **Do not duplicate `hub.mjs` or `index.html`.** If you find yourself editing UI or
-   scanner logic to fit the new workspace, that change belongs in the shared `Hub/`
-   source (it should already generalize — `ROOTS`, `USER_RUNTIMES`, and `repoScope` exist
-   precisely so a new workspace never needs source changes) — fix it there, not in a copy.
-
-### Mode B — standalone copy (only when the project must not depend on the shared engine's machine)
-
-Use this only when the target project must carry its own copy of the tool — e.g. it
-ships as part of a repo that isn't already in the user's hub family and can't assume the
-hub design root exists on whatever machine runs it.
-
-1. Copy `Hub\hub.mjs`, `Hub\index.html`, `Hub\Start-Hub.ps1`, `Hub\package.json`, and
-   (if you want its test coverage) `Hub\hub.test.mjs` into the new project — e.g. under
-   `tools/project-console/`. `scripts/scaffold-hub.ps1 -Standalone -TargetDir <path>` does
-   this copy for you.
-2. Write a `hub.config.json` beside the copy, same schema as Mode A (the script does this
-   too, from the same parameters as Mode A).
-3. Edit the copy's `ROOTS` and `USER_RUNTIMES` constants near the top of `hub.mjs` (see
-   `references/config-schema.md`) — they're hardcoded for the extra shared roots and
-   `~/.claude`/`~/.codex`/… layout of the **source** machine. Drop or replace whatever
-   doesn't apply to the new project's environment.
-4. Run it with `node hub.mjs --config hub.config.json` or via the copied
-   `Start-Hub.ps1 -ConfigDir .`.
-5. Everything in `references/design-system.md` still applies unchanged — it's the same
-   `index.html`, so the theme, layout, and navigation need no rework. Only the scanner
-   inputs (`ROOTS`/`USER_RUNTIMES`) are project-specific.
-6. This copy is now independent of the source hub — a fix made in the shared engine will
-   **not** reach it. Note that trade-off to the user explicitly; it's why Mode A is the
-   default.
-
-### Mode C — match the visual language only, no live server
-
-Use this only when the ask is a **static** page (a single doc, a small hand-authored
-site, something with no filesystem to scan) that should merely *look and navigate* like
-the hubs — not run the scanner/watcher engine at all.
-
-1. Pull the four theme blocks (`html[data-theme="…"]` CSS custom properties), the
-   `IBM Plex Mono`/`IBM Plex Sans` font pair, the `--zoom` scaling pattern, and the layout
-   classes straight out of `Hub\index.html` — see `references/design-system.md` for the
-   exact tokens and where each is used. Don't reinvent the palette by eye.
-2. Keep the same structural shell (sidebar + header + content pane) and the same markdown
-   typography rules (`.md h1/h2/h3`, code, tables, callouts) so a document dropped into
-   either system reads identically.
-3. Say plainly to the user that this is a **visual-language-only** match: no live scan,
-   no watcher, no search index, no hash-routed history. If any of those turn out to be
-   wanted after all, that's Mode A or B, not this.
-
-## DECIDING BETWEEN THE THREE
-
-| Question | Answer → Mode |
-|:---|:---|
-| Does the project live somewhere the existing `Hub/hub.mjs` can `dir:` point at, and is it fine depending on that shared engine? | Yes → **A** |
-| Must the console ship *inside* the project itself, independent of the source machine? | Yes → **B** |
-| Is there nothing to scan — just a page that should look and navigate the same? | Yes → **C** |
-
-Default to **A** unless the user's phrasing rules it out (a repo destined for another
-machine, a project with no live filesystem to browse, or an explicit "just make it look
-like that, no server").
-
-## EXECUTION CHECKLIST
-
-1. Ask (or infer from context) which mode applies, using the table above. If genuinely
-   ambiguous, ask — a wrong mode means redoing the scaffold.
-2. Read `references/config-schema.md` for the exact `hub.config.json` fields, `ROOTS`/
-   `USER_RUNTIMES` shape, and the endpoint list.
-3. Read `references/design-system.md` if the mode touches the UI at all (A, B, and C all
-   do).
-4. Run the mode's numbered steps above.
-5. **Verify before calling it done:** run `npm test` (Mode A/B) and load the page in a
-   browser — confirm the overview renders, the sidebar tree matches the target `dir`,
-   search returns hits, and (Mode A/B) `/api/health` returns 200.
-6. Update the docs the new hub's siblings already update (step 7 of Mode A) — a hub that
-   works but isn't listed anywhere is half-finished.
-
-## ANTI-PATTERNS
-
-- **Reimplementing the UI from a screenshot** instead of reusing `index.html` verbatim
-  (Mode A/B) or lifting its actual CSS tokens (Mode C). The whole point of this skill is
-  that every hub in the family is indistinguishable in look and behavior — eyeballing the
-  colors produces drift the next redesign won't catch.
-- **Forking `hub.mjs`/`index.html` in Mode A.** If the shared engine can't yet do
-  something the new workspace needs, fix the shared source (it's designed to generalize
-  via config) — don't fork it per hub. That's exactly the kind of triplication a shared
-  engine exists to avoid.
-- **Skipping `npm test` before declaring the config valid.** The test suite exists
-  specifically to catch a bad `dir`, a colliding `port`, or invalid JSON before the
-  server ever starts.
-- **Leaving the new hub undocumented.** A hub not listed anywhere will be forgotten the
-  next time someone looks for what's running on which port.
-- **Choosing a port outside the existing house block** without a reason — check what
-  ports (like `4173`/`5173`) are already claimed by other dev tooling on the machine
-  before picking one.
-- **Picking Mode B by default.** It costs future fixes; only take it when the project
-  truly can't depend on the shared engine's path.
+- Creating `Project-Hub-<Name>` and a separate server per workspace: that is the retired layout.
+- Copying only `hub.mjs` and `index.html`: the runtime imports other modules.
+- Hardcoding an owner's drive, user profile, scheduled-task name, or project list.
+- Committing `hub.config.json`, `scan.json`, logs, or private design exports.
+- Claiming current-file sanitization also removes Git history or hosted attachments.
+- Claiming browser checks, native launches, or scheduled tasks passed without executing them.

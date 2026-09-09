@@ -19,7 +19,7 @@ Every skill lives in its own folder under a category: `Skills/<Category>/<skill-
 | [**🍳 recipe-validator**](./Skills/Cooking/recipe-validator/SKILL.md) | Cooking | Validates recipes for food safety, nutrition, quantities, and allergens — a deterministic scanner plus agent judgment. |
 | [**🏗️ repo-builder-mfs**](./Skills/Documentation/repo-builder-mfs/SKILL.md) | Documentation | The end-to-end repo/documentation builder — a clean layout (web-app artifacts under `src/`/`site/`, not the root), a house-style README at every level (root logo hero, folder/section headers), a navigable docs tree wired with down-links and up-links, and a built-in humanizer pass so the prose doesn't read like a chatbot wrote it. Renders in both GitHub and Obsidian using pure native markdown. |
 | [**🖼️ news-images**](./Skills/Image-Gen/news-images/SKILL.md) | Image-Gen | Generates cartoon-editorial news collages and montages across daily/weekly/monthly/yearly cadences. |
-| [**🌐 project-hub-scaffold-mfs**](./Skills/Web/project-hub-scaffold-mfs/SKILL.md) | Web | Scaffolds a new browsable HTML project console matching an existing "Hub" install's design — same theme, sidebar tree, and navigation — either as a sibling hub sharing that engine, a standalone copy for a project that can't depend on it, or a visual-only match for a static page. |
+| [**🌐 project-hub-scaffold-mfs**](./Skills/Web/project-hub-scaffold-mfs/SKILL.md) | Web | Scaffolds a new browsable HTML project console matching an existing "Hub" install's design — same theme, sidebar tree, and navigation — by adding a workspace to its shared server, creating a portable installation, or matching the visual design of a static page. |
 | [**🎬 video-downloader**](./Skills/Media/video-downloader/SKILL.md) | Media | Downloads YouTube videos with quality/format control (mp4/webm/mkv, audio-only MP3), hardened for Windows with cookie extraction for 403-blocked downloads. |
 
 ## 🧩 Skills
@@ -113,7 +113,7 @@ Generate cartoon-editorial news collages (6-panel grids) and news montages (sing
 Scaffolds a new browsable HTML project console in the same look and behavior as an
 existing "Hub" install: a dark terminal-styled theme, a sidebar file tree, header search,
 hash-routed navigation with in-page Back/Forward, and live markdown rendering. Covers
-three modes — add a sibling hub sharing an existing Node engine (the default), copy the
+three modes — add a workspace to the shared server (the default), copy the
 whole engine into a project that can't depend on that engine's path, or lift just the
 visual language for a static page with no live scan. The reference docs hold the extracted color tokens,
 layout rules, keyboard shortcuts, and `hub.config.json` schema so scaffolding a new one
@@ -123,7 +123,7 @@ doesn't require re-reading the ~2,500-line source each time.
 |:---|:---|
 | 📄 **Skill** | [`SKILL.md`](./Skills/Web/project-hub-scaffold-mfs/SKILL.md) |
 | 💻 **Script** | [`scripts/scaffold-hub.ps1`](./Skills/Web/project-hub-scaffold-mfs/scripts/scaffold-hub.ps1) |
-| 📚 **References** | [`design-system.md`](./Skills/Web/project-hub-scaffold-mfs/references/design-system.md) — theme tokens, layout, keyboard shortcuts · [`config-schema.md`](./Skills/Web/project-hub-scaffold-mfs/references/config-schema.md) — `hub.config.json`, endpoints, the watcher, testing |
+| 📚 **References** | [`design-system.md`](./Skills/Web/project-hub-scaffold-mfs/references/design-system.md) — theme tokens, layout, keyboard shortcuts · [`config-schema.md`](./Skills/Web/project-hub-scaffold-mfs/references/config-schema.md) — server/workspace configs, endpoints, watcher, testing · [`current-features.md`](./Skills/Web/project-hub-scaffold-mfs/references/current-features.md) — current reader, search, reports, pictures, bookmarks and folder views |
 | 🗂️ **Skill-Data** | [`Resources/Skill-Data/Web/project-hub-scaffold-mfs/`](./Resources/Skill-Data/Web/project-hub-scaffold-mfs/README.md) |
 
 > [!NOTE]
