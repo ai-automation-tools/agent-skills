@@ -1,11 +1,36 @@
-# My Custom Skills
+<a id="readme-top"></a>
+
+<h1 align="center">🧩 Agent Skills</h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Type-Agent%20Skills-8B5CF6?style=for-the-badge" alt="Agent Skills">
-  <img src="https://img.shields.io/badge/Skills-8-2ea44f?style=for-the-badge" alt="8 Skills">
-  <img src="https://img.shields.io/badge/Owner-michaelschecht-0078D4?style=for-the-badge&logo=github&logoColor=white" alt="Owner">
-  <img src="https://img.shields.io/badge/Visibility-Private-6B7280?style=for-the-badge" alt="Private">
+  <em>Portable capabilities for Claude Code and compatible agents —<br>each one a single <code>SKILL.md</code> the agent loads only when it needs it.</em>
 </p>
+
+<p align="center">
+  <a href="./Docs/USING-SKILLS.md"><strong>Explore the docs »</strong></a>
+</p>
+
+<p align="center">
+  <a href="#-skill-catalog">Catalog</a> ·
+  <a href="#-using-a-skill">Install</a> ·
+  <a href="./Docs/USING-SKILLS.md">Authoring guide</a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/skills-8-2ea44f?style=for-the-badge" alt="8 skills">
+  <img src="https://img.shields.io/badge/format-SKILL.md-8B5CF6?style=for-the-badge" alt="SKILL.md format">
+  <img src="https://img.shields.io/badge/agent-Claude%20Code-D97757?style=for-the-badge" alt="Built for Claude Code">
+  <a href="https://github.com/ai-automation-tools"><img src="https://img.shields.io/badge/org-ai--automation--tools-0078D4?style=for-the-badge&logo=github&logoColor=white" alt="ai-automation-tools"></a>
+</p>
+
+---
+
+A **Skill** is a folder with a `SKILL.md` in it: YAML frontmatter naming the skill and saying
+when it applies, then the instructions the agent reads once it decides to load it. Nothing sits
+in the agent's context until that moment, so a library this size costs nothing to keep installed.
+
+Every skill here is **self-contained**. Copy one folder into your agent's skills directory and it
+works — no shared runtime, no config, nothing to register.
 
 ## 📦 Skill Catalog
 
@@ -192,6 +217,22 @@ Instructions for the agent...
 2. Invoke the skill by name — in Claude Code, skills surface as `/skill-name`.
 3. For install locations, invocation details, and the full authoring workflow, see [**Using Skills**](./Docs/USING-SKILLS.md).
 
+## 🔗 Related repositories
+
+Part of the [**ai-automation-tools**](https://github.com/ai-automation-tools) organization.
+
+| Repo | How it relates |
+|:---|:---|
+| [**project-hub**](https://github.com/ai-automation-tools/project-hub) | Browsable local console for a CLI-agent workspace. Ships a travel copy of [`project-hub-scaffold-mfs`](./Skills/Web/project-hub-scaffold-mfs/SKILL.md) so the skill works without this repo present — **this repo is the canonical copy**; change it here first. |
+| [**Agent-chat**](https://github.com/ai-automation-tools/Agent-chat) | MCP server that lets two CLI agents hold a structured conversation. |
+| [**cronsole**](https://github.com/ai-automation-tools/cronsole) | Scheduled-task control plane across Task Scheduler, Claude Code routines and Gemini Triggers. |
+
+---
+
 <p align="center">
-  Maintained by <a href="https://github.com/michaelschecht">michaelschecht</a> · Built for <a href="https://claude.com/claude-code">Claude Code</a> &amp; compatible agents · See <a href="./CLAUDE.md">CLAUDE.md</a> for contributor guidance
+  Built for <a href="https://claude.com/claude-code">Claude Code</a> and compatible agents ·
+  <a href="./Docs/USING-SKILLS.md">Using Skills</a> ·
+  <a href="./CLAUDE.md">Contributor guide</a>
 </p>
+
+<p align="right"><sub><a href="#readme-top">back to top</a></sub></p>

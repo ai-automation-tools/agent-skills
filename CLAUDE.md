@@ -1,7 +1,8 @@
-# CLAUDE.md — My Custom Skills
+# CLAUDE.md — Agent Skills
 
-> **Repo:** `github.com/ai-automation-tools/My-Custom-Skills` (private) · **Owner:** Mike (`mikeschecht@gmail.com`, GH `michaelschecht`) · **Branch:** `main` (this repo does **not** use the lab-wide `mike_desktop` convention).
-> **Ecosystem context:** this repo is one entry in the Agent-Skills index at [`../README.md`](../README.md). That index is background; **this file is authoritative for work inside `My-Custom-Skills/`.**
+> **Repo:** `github.com/ai-automation-tools/agent-skills` (public) · **Branch:** `main` — this repo deliberately does **not** use the lab-wide `mike_desktop` convention, and that exception is stated here rather than discovered.
+> **Renamed 2026-09-10** from `My-Custom-Skills`; the local clone moved to `Repos/Tools/agent-skills` in the same pass. GitHub redirects the old path, but repoint any clone with `git remote set-url` — a redirect keeps pushes working and tells you nothing.
+> **Ecosystem context:** this repo is one entry in a wider Agent-Skills index kept in a personal Obsidian vault, which since 2026-09-10 is no longer this repo's parent folder. That index is background; **this file is authoritative for work inside `agent-skills/`.**
 
 ## Your role
 
@@ -14,7 +15,7 @@ A **Skill** = a single `SKILL.md` (YAML frontmatter + instructions) that an agen
 ## Repository layout
 
 ```
-My-Custom-Skills/
+agent-skills/
 ├── README.md                       # public index — Skills table by category + Docs table
 ├── CLAUDE.md                       # this file
 ├── .gitignore
@@ -89,13 +90,13 @@ Before finishing an edit to any skill, check whether another skill *references* 
 > **Prefer one self-contained skill over a composite.** [`repo-builder-mfs`](./Skills/Documentation/repo-builder-mfs/SKILL.md) used to be an orchestrator that referenced three source skills (`readme-builder-mfs`, `readme-header-mfs`, `repo-docs-mfs`); on 2026-08-05 all four were merged into it and the three sources retired. The composite kept drifting out of sync with its sources, and the split forced a reader to load three files to build one README. If you're tempted to build a new "mega" skill that composes others, prefer folding the content into one skill with clear sections — and if you do build a composite, add a "keep synced" note here naming its sources.
 
 > [!NOTE]
-> **Keep synced — `business-planning-mfs`.** Added 2026-08-17. Its eight analysis passes are condensed from the eight skills in the `Mike_Business` Claude Code project template (`D:\AI_Agents\Documents\Agent-Resources\Templates\CLI_Projects\Claude_Code\Mike_Business\.claude\skills\`): `business-analysis`, `competitive-intel`, `roi-modeling`, `decision-memos`, `product-spec`, `technical-architecture`, `build-estimation`, `shipping-discipline`. Per the note above this is a **fold-in, not a composite** — the content lives in `references/analysis-passes.md` so the skill is portable and doesn't need those eight files present. It also carries a travel copy of the `repo-builder-mfs` header/tree/voice rules in `references/output-templates.md`, for the same reason; if `repo-builder-mfs` is installed the skill defers to it. When either upstream changes, fold the relevant parts in by hand. There is no automatic sync.
+> **Keep synced — `business-planning-mfs`.** Added 2026-08-17. Its eight analysis passes are condensed from the eight skills in a private Claude Code project template (its `.claude/skills/` folder, kept outside this repo): `business-analysis`, `competitive-intel`, `roi-modeling`, `decision-memos`, `product-spec`, `technical-architecture`, `build-estimation`, `shipping-discipline`. Per the note above this is a **fold-in, not a composite** — the content lives in `references/analysis-passes.md` so the skill is portable and doesn't need those eight files present. It also carries a travel copy of the `repo-builder-mfs` header/tree/voice rules in `references/output-templates.md`, for the same reason; if `repo-builder-mfs` is installed the skill defers to it. When either upstream changes, fold the relevant parts in by hand. There is no automatic sync.
 
 > [!NOTE]
-> **Keep synced — `project-hub-scaffold-mfs`.** Added 2026-09-03. Its `references/design-system.md` and `references/config-schema.md` are extracted from the live `Hub/hub.mjs` + `Hub/index.html` at `D:\AI_Agents\Documents\My-Documents\My-IT-Tools\HTML-Project-Design\` — the single shared server mounting workspace configs from `Projects/<Name>/hub.config.json`. No automatic sync: if that source's theme tokens, config schema, or endpoints change, fold the change into this skill's `references/` by hand. The `scripts/scaffold-hub.ps1` helper reads/writes `hub.config.json` directly against that live folder, so if its schema changes the script needs the matching update too.
+> **Keep synced — `project-hub-scaffold-mfs`.** Added 2026-09-03. Its `references/design-system.md` and `references/config-schema.md` are extracted from the live `Hub/hub.mjs` + `Hub/index.html` at the [`project-hub`](https://github.com/ai-automation-tools/project-hub) repo (local clone: `Repos/Tools/project-hub`) — the single shared server mounting workspace configs from `Projects/<Name>/hub.config.json`. No automatic sync: if that source's theme tokens, config schema, or endpoints change, fold the change into this skill's `references/` by hand. The `scripts/scaffold-hub.ps1` helper reads/writes `hub.config.json` directly against that live folder, so if its schema changes the script needs the matching update too.
 
 > [!NOTE]
-> **Keep synced — `repo-builder-mfs` §0.** On 2026-08-05 the voice rules from the external [`humanizer`](https://github.com/michaelschecht) skill (local copy: `D:\AI_Agents\Documents\Agent-Resources\Skills\My-Skills\Mikes_Top_Skills\humanizer\SKILL.md`) were adapted into `repo-builder-mfs` §0 rather than referenced, so the builder needs one file to write a README. The copy is **condensed and docs-scoped**, not verbatim: it drops the essay-writing examples, adds §0.1 carve-outs so the house-style emoji headers / bold leftmost links / badges survive the pass, and softens the humanizer's blanket de-hyphenation rule (technical compounds like `end-to-end` keep their hyphens). If the upstream humanizer gains new patterns, fold the docs-relevant ones into §0.2 by hand — there is no automatic sync.
+> **Keep synced — `repo-builder-mfs` §0.** On 2026-08-05 the voice rules from the external `humanizer` skill (kept outside this repo) were adapted into `repo-builder-mfs` §0 rather than referenced, so the builder needs one file to write a README. The copy is **condensed and docs-scoped**, not verbatim: it drops the essay-writing examples, adds §0.1 carve-outs so the house-style emoji headers / bold leftmost links / badges survive the pass, and softens the humanizer's blanket de-hyphenation rule (technical compounds like `end-to-end` keep their hyphens). If the upstream humanizer gains new patterns, fold the docs-relevant ones into §0.2 by hand — there is no automatic sync.
 
 ---
 
@@ -132,7 +133,7 @@ There is no repo-wide test runner. Skill-specific `evals/` (e.g. `recipe-validat
 - **Windows-first.** PowerShell 7+ for shell work; forward slashes in paths/JSON work fine. Invoke Python scripts explicitly (`python skills/<name>/scripts/<script>.py …`).
 - **Markdown.** These docs target both GitHub and Obsidian rendering — pure native markdown, GitHub-style callouts (`> [!NOTE]`), diagrams sparingly and only when they earn their place, never by default (matches the `repo-builder-mfs` philosophy).
 - **Never commit:** secrets (`.env*`, `*.key`), OS cruft, and per-skill `reports/` run output (all covered by `.gitignore` — verify before committing).
-- **Git.** Remote is `ai-automation-tools/My-Custom-Skills`, branch `main` (moved from `michaelschecht/` on 2026-09-09; the old path redirects, but repoint any clone with `git remote set-url`). Commit/push **only when Mike asks.** Imperative-mood subjects matching the existing log ("Organize skills into category folders"). Small, focused commits.
+- **Git.** Remote is `ai-automation-tools/agent-skills`, branch `main` (moved from `michaelschecht/` 2026-09-09, renamed from `My-Custom-Skills` 2026-09-10; both old paths redirect, but repoint any clone with `git remote set-url`). Commit/push **only when Mike asks.** Imperative-mood subjects matching the existing log ("Organize skills into category folders"). Small, focused commits.
 - **Read before editing.** Match the style and structure of the skill/doc you're changing. When a task targets one skill, read its `SKILL.md` (and its `references/`) first.
 
 ---
