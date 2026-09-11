@@ -20,33 +20,63 @@ agent-skills/
 ├── CLAUDE.md                       # this file
 ├── .gitignore
 ├── scripts/
-│   └── install-skills.ps1          # mirror every leaf skill into ~/.claude/skills/ (repo tooling, not a skill)
+│   └── install-skills.ps1          # mirror leaf skills into a skills dir (repo tooling, not a skill)
 ├── Docs/
 │   ├── USING-SKILLS.md             # install / invoke / author guide
 │   └── SKILL-IDEAS.md              # backlog of candidate skills
 ├── Skills/
-│   └── <Category>/                 # e.g. Business, Cooking, Documentation, Image-Gen
-│       └── <skill-name>/           # the LEAF folder — this is the portable unit
-│           ├── SKILL.md            # required: frontmatter + instructions
-│           ├── scripts/            # optional: deterministic helpers (Python, etc.)
-│           ├── references/         # optional: standards/knowledge the body cites
-│           ├── prompts/            # optional: prompt templates the skill follows
-│           ├── evals/              # optional: TRACKED test-case definitions
-│           └── reports/            # optional: gitignored RUN OUTPUT (never committed)
+│   ├── Core/                       # TIER 1 — portable, installs to ~/.claude/skills
+│   │   ├── README.md
+│   │   └── <Category>/             # e.g. Business, Cooking, Documentation, Image-Gen
+│   │       └── <skill-name>/       # the LEAF folder — this is the portable unit
+│   │           ├── SKILL.md        # required: frontmatter + instructions
+│   │           ├── scripts/        # optional: deterministic helpers (Python, etc.)
+│   │           ├── references/     # optional: standards/knowledge the body cites
+│   │           ├── prompts/        # optional: prompt templates the skill follows
+│   │           ├── evals/          # optional: TRACKED test-case definitions
+│   │           └── reports/        # optional: gitignored RUN OUTPUT (never committed)
+│   └── Projects/                   # TIER 2 — ADDITIONAL skills for one org repo, installed
+│       │                           #   into that repo on top of the skills it already owns
+│       ├── README.md               # the tier test + per-project index + taken names
+│       └── <repo-slug>/            # agent-chat · cronsole · edge-radar · edge-spectrum · project-hub
+│           ├── README.md           # what the repo is, what it already ships, its traps
+│           └── <skill-name>/       # same leaf shape as Core
 └── Resources/
     ├── Skill-Data/
-    │   └── <Category>/<skill-name>/  # per-skill supporting data, MIRRORS the Skills tree
-    │       ├── README.md             #   (examples, screenshots, sample outputs, notes)
-    │       ├── Examples/ · Images/   #   heavy/reference assets that shouldn't bloat the skill
-    └── Links/                        # curated external references for skill-building
+    │   ├── Core/<Category>/<skill-name>/     # per-skill supporting data, MIRRORS the Skills tree
+    │   │   ├── README.md                     #   (examples, screenshots, sample outputs, notes)
+    │   │   ├── Examples/ · Images/           #   heavy assets that shouldn't bloat the skill
+    │   └── Projects/<repo-slug>/<skill-name>/
+    └── Links/                                # curated external references for skill-building
 ```
 
-**Current categories:** `Automation`, `Business`, `Cooking`, `Documentation`, `Image-Gen`, `Media`, `Web`. Add a new category folder under `Skills/` only when a skill genuinely fits none of these.
+### The two tiers
+
+One question decides where a skill goes: **would you invoke it from a repo other than the one it
+was written for?**
+
+| | `Skills/Core/` | `Skills/Projects/<repo>/` |
+|:---|:---|:---|
+| **Holds** | Portable — assumes nothing about the cwd | **Additional** skills for one org repo. Names that repo's files, schema, commands, or protocol |
+| **Installs to** | User scope, `~/.claude/skills` | That repo's `.claude/skills`, so it loads only there |
+| **Command** | `install-skills.ps1 -Core` (the default) | `install-skills.ps1 -Project <repo> -Destination <clone>/.claude/skills` |
+
+The test is **where you invoke it**, not what it is about. `project-hub-scaffold` is Core despite
+being named for an org product, because you run it from whatever repo is *getting* a hub.
+
+Skills install **flat** as `<skills-dir>/<name>/`, so the nesting vanishes at install time. That
+has two consequences: names must be unique **across the whole repo** (the install script throws on
+a collision rather than silently overwriting), and a project skill at user scope would follow you
+into every unrelated session — which is why a bare install run covers Core only.
+
+**Current Core categories:** `Automation`, `Business`, `Cooking`, `Documentation`, `Image-Gen`, `Media`, `Web`. Add a new one only when a skill genuinely fits none of these.
+
+**Current projects:** `agent-chat`, `cronsole`, `edge-radar`, `edge-spectrum`, `project-hub` — the org's repos, slug lowercased regardless of how the repo itself is cased.
 
 ### Two folders people confuse
 
-- **`Skills/<Cat>/<name>/`** — the skill itself. This LEAF folder is the unit that gets copied into an agent's skills directory; it must be **self-contained and portable** (category level is a repo convenience, not part of the skill).
-- **`Resources/Skill-Data/<Cat>/<name>/`** — bulky supporting material *about* a skill (example runs, screenshots, sample reports, design notes). Keep it here, **not** inside the skill folder, so the portable skill stays lean. The Skill-Data tree mirrors the `Skills/` category/name path exactly.
+- **`Skills/<Tier>/…/<name>/`** — the skill itself. This LEAF folder is the unit that gets copied into an agent's skills directory; it must be **self-contained and portable** (tier and category levels are a repo convenience, not part of the skill).
+- **`Resources/Skill-Data/<Tier>/…/<name>/`** — bulky supporting material *about* a skill (example runs, screenshots, sample reports, design notes). Keep it here, **not** inside the skill folder, so the portable skill stays lean. The Skill-Data tree mirrors the `Skills/` path exactly.
 - Inside a skill: **`evals/`** = tracked test cases (committed); **`reports/`** = local run output (gitignored). Never mix them up.
 
 ---
@@ -66,7 +96,7 @@ Instructions the agent loads on invocation…
 - **`description`** — the single most important line: the agent reads *only* this to decide whether to load the skill. State the trigger conditions explicitly ("Use when…", "Use whenever the user wants to…"). A vague description = a skill that never auto-invokes. May use YAML block scalar (`>-`) when long.
 - **Body** — loaded only after invocation, so it can be detailed. Aim for: **purpose → when-to-use → principles → a concrete execution checklist → explicit anti-patterns.** Concrete examples beat abstract advice. Must be **self-contained** — the agent won't have the surrounding conversation when the skill loads; don't reference "as discussed above" or repo state that isn't stated in the skill.
 
-**Reference implementations to match:** [`repo-docs-builder`](./Skills/Documentation/repo-docs-builder/SKILL.md) (clean frontmatter + when-to-use + numbered principle sections + workflow + audit + anti-patterns), and [`recipe-validator`](./Skills/Cooking/recipe-validator/SKILL.md) (a **hybrid** skill: a deterministic `scripts/` scanner does the repeatable checks, `references/` hold the standards, the body applies judgment).
+**Reference implementations to match:** [`repo-docs-builder`](./Skills/Core/Documentation/repo-docs-builder/SKILL.md) (clean frontmatter + when-to-use + numbered principle sections + workflow + audit + anti-patterns), and [`recipe-validator`](./Skills/Core/Cooking/recipe-validator/SKILL.md) (a **hybrid** skill: a deterministic `scripts/` scanner does the repeatable checks, `references/` hold the standards, the body applies judgment).
 
 ---
 
@@ -74,20 +104,26 @@ Instructions the agent loads on invocation…
 
 Whenever you **add, rename, remove, or recategorize a skill**, update *all* of:
 
-1. **`README.md`** → the matching category table (create the `### Category` section if new). Row = linked skill name + one-line description.
-2. **`Docs/SKILL-IDEAS.md`** → if the skill came from the backlog, remove/strike its idea row.
-3. **The leaf folder name, the `name:` frontmatter, and the `Resources/Skill-Data/` mirror path** must all agree.
+1. **Pick the tier first** — apply the invoke-it-anywhere test. Core and Projects have different install targets, so getting this wrong puts a repo-specific skill in every session's catalog.
+2. **`README.md`** → for Core, the matching category table (create the `### Category` section if new). Row = linked skill name + one-line description.
+3. **`Skills/Core/README.md`** or **`Skills/Projects/<repo>/README.md`** → the tier's own catalog.
+4. **`Docs/SKILL-IDEAS.md`** → if the skill came from the backlog, remove/strike its idea row.
+5. **The leaf folder name, the `name:` frontmatter, and the `Resources/Skill-Data/` mirror path** must all agree.
 
-For a **new category**, also mention it in `README.md`'s "Structure" prose and (if relevant) `Docs/USING-SKILLS.md`.
+For a **new category**, also mention it in `README.md`'s "Structure" prose and (if relevant) `Docs/USING-SKILLS.md`. For a **new project**, add the folder, its README, and a row in `Skills/Projects/README.md`.
 
 The public **`README.md`** and **`Docs/`** are the source of truth for *what skills exist and how to use them* — never let them drift from the actual `Skills/` tree.
 
 ### Cross-skill references — keep dependents in sync
 
-Before finishing an edit to any skill, check whether another skill *references* it (grep the `Skills/` tree for the skill's `name`), and update those dependents in the same commit. Also refresh the skill's Skill-Data folder under `Resources/Skill-Data/<Category>/<skill-name>/` when its examples or target output change.
+Before finishing an edit to any skill, check whether another skill *references* it (grep the `Skills/` tree for the skill's `name`), and update those dependents in the same commit. Also refresh the skill's Skill-Data folder under `Resources/Skill-Data/<Tier>/…/<skill-name>/` when its examples or target output change.
+
+**The project tier is additive.** Every org repo keeps its own skills — a shipped `skills/` and a tracked `.claude/skills/`, both edited in that repo. `Skills/Projects/<repo>/` is a second layer installed on top. Never move a repo's skills into here, and never assume a name is free: installs are flat, so an overlay can overwrite a skill the repo owns. Each project README lists the taken names, and the installer marks rows `New` or `Replaced` plus warns when a `-Project` install replaced anything.
+
+**One real duplicate exists.** `project-hub-scaffold` sits here (Core) *and* in the `project-hub` repo, byte-identical, with no sync. This repo is canonical — edit here, republish, never hand-edit that copy. It is a one-off to resolve, not a pattern to copy.
 
 > [!NOTE]
-> **Prefer one self-contained skill over a composite.** [`repo-docs-builder`](./Skills/Documentation/repo-docs-builder/SKILL.md) used to be an orchestrator that referenced three source skills (`readme-builder-mfs`, `readme-header-mfs`, `repo-docs-mfs`); on 2026-08-05 all four were merged into it and the three sources retired. The composite kept drifting out of sync with its sources, and the split forced a reader to load three files to build one README. If you're tempted to build a new "mega" skill that composes others, prefer folding the content into one skill with clear sections — and if you do build a composite, add a "keep synced" note here naming its sources.
+> **Prefer one self-contained skill over a composite.** [`repo-docs-builder`](./Skills/Core/Documentation/repo-docs-builder/SKILL.md) used to be an orchestrator that referenced three source skills (`readme-builder-mfs`, `readme-header-mfs`, `repo-docs-mfs`); on 2026-08-05 all four were merged into it and the three sources retired. The composite kept drifting out of sync with its sources, and the split forced a reader to load three files to build one README. If you're tempted to build a new "mega" skill that composes others, prefer folding the content into one skill with clear sections — and if you do build a composite, add a "keep synced" note here naming its sources.
 
 > [!NOTE]
 > **Keep synced — `business-plan-builder`.** Added 2026-08-17. Its eight analysis passes are condensed from the eight skills in a private Claude Code project template (its `.claude/skills/` folder, kept outside this repo): `business-analysis`, `competitive-intel`, `roi-modeling`, `decision-memos`, `product-spec`, `technical-architecture`, `build-estimation`, `shipping-discipline`. Per the note above this is a **fold-in, not a composite** — the content lives in `references/analysis-passes.md` so the skill is portable and doesn't need those eight files present. It also carries a travel copy of the `repo-docs-builder` header/tree/voice rules in `references/output-templates.md`, for the same reason; if `repo-docs-builder` is installed the skill defers to it. When either upstream changes, fold the relevant parts in by hand. There is no automatic sync.
@@ -102,10 +138,10 @@ Before finishing an edit to any skill, check whether another skill *references* 
 
 ## Authoring a new skill
 
-1. Create `Skills/<Category>/<skill-name>/SKILL.md` in the fitting category (or a new one).
+1. Decide the tier (invoke-it-anywhere → Core, else Projects), then create `Skills/Core/<Category>/<skill-name>/SKILL.md` or `Skills/Projects/<repo-slug>/<skill-name>/SKILL.md`.
 2. Write frontmatter: unique kebab-case `name` (== folder), and a trigger-rich `description` (capability first, then "Use when…").
 3. Write the body: purpose, when-to-use, principles, a concrete step-by-step checklist, and explicit anti-patterns. Keep it self-contained.
-4. Add optional assets only if they earn their place: `scripts/` for deterministic/repeatable work, `references/` for standards the body cites, `prompts/` for templates, `evals/` for tracked test cases. Put bulky examples/screenshots under `Resources/Skill-Data/<Category>/<skill-name>/`, not in the skill.
+4. Add optional assets only if they earn their place: `scripts/` for deterministic/repeatable work, `references/` for standards the body cites, `prompts/` for templates, `evals/` for tracked test cases. Put bulky examples/screenshots under the matching `Resources/Skill-Data/` mirror path, not in the skill.
 5. Update `README.md` (+ `SKILL-IDEAS.md`) per the standing instructions above.
 6. The `/skill-writer` skill (available in this environment) is the canonical guide for authoring — prefer it for structure/frontmatter questions.
 
