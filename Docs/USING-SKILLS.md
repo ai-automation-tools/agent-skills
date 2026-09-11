@@ -63,7 +63,7 @@ The folder name should match the skill's `name`. Restart or reload the agent so 
 
 ## Invoking a skill
 
-- **Explicitly** — type `/<skill-name>` in Claude Code (e.g. `/repo-builder-mfs`).
+- **Explicitly** — type `/<skill-name>` in Claude Code (e.g. `/repo-docs-builder`).
 - **Automatically** — the agent may load a skill on its own when your request matches the skill's `description`. This is why a precise, trigger-rich description matters.
 
 ## Authoring a new skill
@@ -76,7 +76,7 @@ The folder name should match the skill's `name`. Restart or reload the agent so 
 6. If it's worth documenting further (design rationale, longer usage notes), add a doc here in `Docs/`.
 
 > [!TIP]
-> The [`repo-builder-mfs`](../Skills/Documentation/repo-builder-mfs/SKILL.md) skill is a good reference implementation — it shows the frontmatter + when-to-use + principles + workflow + anti-patterns structure.
+> The [`repo-docs-builder`](../Skills/Documentation/repo-docs-builder/SKILL.md) skill is a good reference implementation — it shows the frontmatter + when-to-use + principles + workflow + anti-patterns structure.
 
 ## Testing a skill
 

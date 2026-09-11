@@ -2,14 +2,15 @@
 name: task-router
 description: >-
   Decide how much machinery a request deserves before starting it — answer inline,
-  delegate to one subagent, recon-then-plan, or fan out across agents — and pick the
-  model tier to match under a subscription-only cost policy (Haiku/Sonnet/Opus; never
-  Fable). Use when a request's size or blast radius is unclear, before spawning any
-  subagent or workflow, when choosing which model an agent should run on, or when the
-  user asks "how should we approach this", "is this a big job", "what's the best way to
-  tackle this", "route this", "delegate this", "who should do this", or "which model
-  should handle this". Also use when a task spans several repos, domains, or unknown
-  files, and before any multi-agent fan-out to confirm the fan-out is actually warranted.
+  delegate to one subagent, recon-then-plan, or fan out across agents — and pick a
+  model tier to match, so a two-line answer doesn't cost a five-agent workflow. Use
+  when a request's size or blast radius is unclear, before spawning any subagent or
+  workflow, when choosing which model an agent should run on, or when the user asks
+  "how should we approach this", "is this a big job", "what's the best way to tackle
+  this", "route this", "delegate this", "who should do this", or "which model should
+  handle this". Also use when a task spans several repos, domains, or unknown files,
+  and before any multi-agent fan-out to confirm the fan-out is actually warranted.
+  The cost policy is a parameter — set it once and the routing table follows it.
 ---
 
 # Task Router
@@ -40,22 +41,30 @@ Tier 0 by inspection, and routing it is ceremony.
 
 This is a **hard constraint**, not a preference. It comes before any efficiency argument.
 
-### 🚫 Never `fable`
+### 🚫 The excluded tier
 
-Never pass `model: fable` (Fable 5.1, `claude-fable-5-1`) to the Agent tool, a workflow
-agent, or any subagent — **it bills as direct API tokens rather than against the
-subscription.** There is no task in this environment that justifies it. If a task seems
-to want Fable, it wants Opus. The Agent tool accepts `fable` silently, so nothing will
-warn you; the guard is this rule.
+Most setups have at least one model tier that is off-limits — it bills outside the plan,
+it isn't approved, or it costs more than any task here justifies. **Name that tier
+explicitly and never pass it**, because tool APIs accept a model name silently: nothing
+warns you that you just left your billing plan. If a task seems to want the excluded
+tier, it wants the highest permitted one instead.
+
+> **Worked example — the setup this skill was written against.** A Claude Max
+> subscription where `fable` (Fable 5.1, `claude-fable-5-1`) bills as direct API tokens
+> rather than against the subscription, so it is excluded outright. Substitute your own
+> excluded tier; the routing logic below doesn't change.
 
 ### The tiers
+
+Named for Claude models below. On another provider, map the three roles — *mechanical*,
+*default*, *hard* — onto the equivalent tiers and keep the table's logic.
 
 | Model | Use for | Never for |
 |:---|:---|:---|
 | **`haiku`** (Haiku 4.5) | Purely mechanical, no-judgment passes — grep sweeps, file inventories, mass renames, formatting, link checks | Anything deciding *what* to change |
 | **`sonnet`** (Sonnet 5) | **The default.** Documentation updates, basic research and fact-gathering, features, refactors, tests, standard review, release notes | — |
 | **`opus`** (Opus 5) | Genuinely complex work — architecture, security audits, root-cause debugging, cross-system migrations, anything where a wrong answer is expensive to *detect* | Bulk mechanical work |
-| **`fable`** | **Nothing. Ever.** | Everything — see above |
+| *the excluded tier* | **Nothing. Ever.** | Everything — see above |
 
 **Documentation and basic research are `sonnet`, not `haiku`.** They read as cheap but
 they are judgment work: what to include, what's stale, what the source actually says.
@@ -179,7 +188,7 @@ re-check §2 before overriding it.
 
 ## Anti-patterns
 
-- **Passing `model: fable`.** Ever, for anything. It leaves the subscription and bills tokens.
+- **Passing the excluded model tier.** Ever, for anything — nothing warns you that you just left your billing plan.
 - **Sending documentation or research to `haiku`** because it "looks cheap." Both are
   judgment work — they are `sonnet`.
 - **Fanning out to look thorough.** Three agents on one dimension is one agent plus noise.

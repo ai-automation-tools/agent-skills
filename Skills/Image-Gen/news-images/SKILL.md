@@ -70,4 +70,4 @@ Prefer the `nanobanana` MCP tool (Gemini image, 4K, subject consistency) or anot
 - Save the finished PNG to the location the user specifies. If none is given, save to the current working directory and report the full path.
 - Use the filename convention in each prompt's *Save* section (it encodes the variant and period, e.g. `Daily-News-Collage_7-6-26.png`).
 - **Optional:** if the user wants a companion metadata note, write a Markdown file with the same base name capturing the period covered, the timestamp/title shown in the image, the selected stories **with source URLs**, and the embedded captions/labels.
-- **Optional:** if the user asks to have it emailed, use the local `agentmail` skill — each prompt lists a standardized subject/body.
+- **Optional:** if the user asks to have it emailed, hand the PNG to whatever email skill or sender is available — each prompt lists a standardized subject/body to use.
