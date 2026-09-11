@@ -35,8 +35,9 @@ agent-skills/
 │   │           ├── prompts/        # optional: prompt templates the skill follows
 │   │           ├── evals/          # optional: TRACKED test-case definitions
 │   │           └── reports/        # optional: gitignored RUN OUTPUT (never committed)
-│   └── Projects/                   # TIER 2 — welded to one org repo, installs INTO that repo
-│       ├── README.md               # the tier test + per-project index
+│   └── Projects/                   # TIER 2 — ADDITIONAL skills for one org repo, installed
+│       │                           #   into that repo on top of the skills it already owns
+│       ├── README.md               # the tier test + per-project index + taken names
 │       └── <repo-slug>/            # agent-chat · cronsole · edge-radar · edge-spectrum · project-hub
 │           ├── README.md           # what the repo is, what it already ships, its traps
 │           └── <skill-name>/       # same leaf shape as Core
@@ -56,7 +57,7 @@ was written for?**
 
 | | `Skills/Core/` | `Skills/Projects/<repo>/` |
 |:---|:---|:---|
-| **Holds** | Portable — assumes nothing about the cwd | Names one repo's files, schema, commands, or protocol |
+| **Holds** | Portable — assumes nothing about the cwd | **Additional** skills for one org repo. Names that repo's files, schema, commands, or protocol |
 | **Installs to** | User scope, `~/.claude/skills` | That repo's `.claude/skills`, so it loads only there |
 | **Command** | `install-skills.ps1 -Core` (the default) | `install-skills.ps1 -Project <repo> -Destination <clone>/.claude/skills` |
 
@@ -117,7 +118,9 @@ The public **`README.md`** and **`Docs/`** are the source of truth for *what ski
 
 Before finishing an edit to any skill, check whether another skill *references* it (grep the `Skills/` tree for the skill's `name`), and update those dependents in the same commit. Also refresh the skill's Skill-Data folder under `Resources/Skill-Data/<Tier>/…/<skill-name>/` when its examples or target output change.
 
-**Published copies are a dependency too.** Several skills also exist inside the org repo they serve — this repo is canonical, the copy over there is a travel copy. There is no automatic sync, so after editing one, republish it (`install-skills.ps1 -Project <repo> -Destination <clone>/.claude/skills`) in the same commit. Never hand-edit the published copy; that divergence is silent.
+**The project tier is additive.** Every org repo keeps its own skills — a shipped `skills/` and a tracked `.claude/skills/`, both edited in that repo. `Skills/Projects/<repo>/` is a second layer installed on top. Never move a repo's skills into here, and never assume a name is free: installs are flat, so an overlay can overwrite a skill the repo owns. Each project README lists the taken names, and the installer marks rows `New` or `Replaced` plus warns when a `-Project` install replaced anything.
+
+**One real duplicate exists.** `project-hub-scaffold` sits here (Core) *and* in the `project-hub` repo, byte-identical, with no sync. This repo is canonical — edit here, republish, never hand-edit that copy. It is a one-off to resolve, not a pattern to copy.
 
 > [!NOTE]
 > **Prefer one self-contained skill over a composite.** [`repo-docs-builder`](./Skills/Core/Documentation/repo-docs-builder/SKILL.md) used to be an orchestrator that referenced three source skills (`readme-builder-mfs`, `readme-header-mfs`, `repo-docs-mfs`); on 2026-08-05 all four were merged into it and the three sources retired. The composite kept drifting out of sync with its sources, and the split forced a reader to load three files to build one README. If you're tempted to build a new "mega" skill that composes others, prefer folding the content into one skill with clear sections — and if you do build a composite, add a "keep synced" note here naming its sources.

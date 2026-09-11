@@ -1,7 +1,7 @@
 <h1 align="center">🌐 project-hub skills</h1>
 
 <p align="center">
-  <em>Skills welded to <a href="https://github.com/ai-automation-tools/project-hub"><code>project-hub</code></a> — they only make sense while you are working in that repo.</em>
+  <em>Additional skills for <a href="https://github.com/ai-automation-tools/project-hub"><code>project-hub</code></a> — an overlay on top of the skills that repo already owns.</em>
 </p>
 
 <p align="center">
@@ -16,21 +16,32 @@
 
 ## What lives here
 
-Skills that fail the portability test — they name this repo's files, commands, schema, or
-protocol, so invoking them anywhere else is meaningless. A skill you would reach for from
-*any* repo belongs in [`Skills/Core/`](../../Core/) instead, even if it was written while
-working on this one.
+**Additional** skills for this repo — an overlay on top of the ones the repo already owns, not
+a copy of them and not a place to move them to. The repo's own skills stay in the repo.
 
-## Skills already shipped from the repo itself
+What qualifies: anything that fails the portability test, because it names this repo's files,
+commands, schema, or protocol, so invoking it anywhere else is meaningless. A skill you would
+reach for from *any* repo belongs in [`Skills/Core/`](../../Core/) instead, even if it was
+written while working on this one.
+
+## ⛔ Names already taken in that repo
+
+Skills install **flat**, so publishing a skill here under a name the repo already uses will
+overwrite it. Check this list before naming anything new — and prefix with the project slug
+whenever there is any doubt.
 
 None here — `project-hub-scaffold` is **core**, not a project skill, because you invoke it from whatever repo you are adding a hub to.
+
+**Maintainer skills** — tracked in `.claude/skills/`, for contributors working on the repo:
+
+none
 
 > [!NOTE]
 > The repo carries a published copy of `project-hub-scaffold` at `Skills/`. This repo is canonical; that copy is a travel copy so the skill works without this repo present. Edit here, then republish.
 
 ## Adding one
 
-1. Create `<skill-name>/SKILL.md` here. Prefix the name with the project (`project-hub-…`) unless
+1. Check the taken-names list above, then create `<skill-name>/SKILL.md` here. Prefix the name with the project (`project-hub-…`) unless
    the skill *is* the project's namesake — two skills cannot share a name inside one agent.
 2. Install it to the repo, not to user scope:
    `pwsh scripts/install-skills.ps1 -Project project-hub -Destination <clone>/.claude/skills`

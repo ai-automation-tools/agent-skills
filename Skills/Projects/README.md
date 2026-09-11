@@ -1,8 +1,8 @@
 <h1 align="center">🗂️ Project skills</h1>
 
 <p align="center">
-  <em>Skills welded to one repo in the <strong>ai-automation-tools</strong> org —<br>
-  they name that repo's files, schema, or protocol, so they mean nothing anywhere else.</em>
+  <em>Additional skills for one repo in the <strong>ai-automation-tools</strong> org —<br>
+  an overlay on top of the skills that repo already owns, not a copy of them.</em>
 </p>
 
 <p align="center">
@@ -30,18 +30,51 @@ globally would put six irrelevant skills in your catalog every time you opened a
 The test is about **where you invoke it**, not what it is about. A skill can be *about* one
 project and still be Core if you reach for it from outside.
 
+## ➕ These are additional, not a mirror
+
+**Every org repo keeps its own skills.** What lives here is a second, additive layer on top —
+skills that belong to a project but were never part of that repo's own set.
+
+| | Lives | Who owns it |
+|:---|:---|:---|
+| **Shipped** | `<repo>/skills/` | The repo. Product surface — what a consumer of the app gets |
+| **Maintainer** | `<repo>/.claude/skills/` *(tracked in git)* | The repo. For contributors working on that codebase |
+| **Additional** | **here**, `Skills/Projects/<repo>/` | This repo. Installed as an overlay, on top of both |
+
+So this is not a place to move a repo's skills to, and nothing here replaces one. A repo's own
+skills stay in that repo and are edited there.
+
+> [!WARNING]
+> **Skills install flat, so an overlay can clobber.** Publishing a skill named `cronsole` into
+> cronsole's `.claude/skills` overwrites whatever already sits at that name. Each project README
+> below lists what its repo already ships — **read that list as a name-collision checklist before
+> naming a new skill here**, and prefix with the project slug when in any doubt. The install
+> script marks each row `New` or `Replaced` so a clobber is visible rather than silent.
+
+### The one genuine duplicate
+
+`project-hub-scaffold` is the exception that proves the rule: it exists in **both** this repo
+(as a Core skill) and the `project-hub` repo, byte-identical, with nothing keeping it that way.
+There, **this repo is canonical** — edit here, then republish with the install script. Never
+hand-edit that copy; the first divergent edit would be silent. That is a one-off to resolve, not
+the model for this tier.
+
 ## 📂 The projects
 
-| Project | Skills in the org today | Where they ship from |
-|:---|:---|:---|
-| [💬 **agent-chat**](./agent-chat/README.md) | 7 conversation-protocol skills + `humanizer` | `Agent-chat/skills/` |
-| [⏱️ **cronsole**](./cronsole/README.md) | `cronsole`, `source-doctor`, + a connect-pack | `cronsole/skills/` and `backend/src/tools/` |
-| [📡 **edge-radar**](./edge-radar/README.md) | `edge-radar`, `edge-radar-analysis`, `betting-logic-review` | `Edge-Radar/skills/` |
-| [🌐 **project-hub**](./project-hub/README.md) | — (`project-hub-scaffold` is Core) | `project-hub/Skills/` *(travel copy)* |
+The middle column is what each repo **already owns** — names you cannot reuse here. The right
+column is what this tier adds on top.
+
+| Project | Already in its own repo (names taken) | Added here |
+|:---|:---|:-:|
+| [💬 **agent-chat**](./agent-chat/README.md) | 7 conversation-protocol skills + `humanizer`, plus 4 maintainer skills | — |
+| [⏱️ **cronsole**](./cronsole/README.md) | `cronsole`, `source-doctor`, a connect-pack, plus 2 maintainer skills | — |
+| [📡 **edge-radar**](./edge-radar/README.md) | `edge-radar`, `edge-radar-analysis`, `betting-logic-review`, plus 6 maintainer skills | — |
+| [🌐 **project-hub**](./project-hub/README.md) | `project-hub-scaffold` *(duplicate of the Core copy)* | — |
 | [📉 **edge-spectrum**](./edge-spectrum/README.md) | none | — |
 
 Each project's README records what already exists in its own repo and the traps that come with
-it — a name collision, a non-`main` default branch, skills that are really slash commands.
+it — a name already claimed twice, a non-`main` default branch, skills that are really slash
+commands whose names are a user-facing interface.
 
 ## 🧭 Where a project skill installs
 
@@ -56,16 +89,6 @@ Several org repos deliberately **track** `.claude/skills/` in git (cronsole's `.
 so in as many words), so an install there is a commit other contributors get. That is the point —
 but it also means a careless install shows up in someone else's diff. Check what the target repo
 tracks before you publish into it.
-
-## 🔁 Canonical here, published there
-
-Where a skill exists both here and in its project repo, **this repo is canonical.** The copy over
-there is a travel copy so the skill works for someone who cloned only that repo.
-
-There is no automatic sync, and that is the known failure mode — `project-hub-scaffold` was
-already byte-identical in two repos with nothing keeping it that way, and the first divergent
-edit would have been silent. So: **edit here, then republish with the install script.** Never
-hand-edit a published copy.
 
 ---
 

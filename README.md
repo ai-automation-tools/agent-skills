@@ -39,7 +39,7 @@ written for?**
 
 | | [**🧩 Core**](./Skills/Core/README.md) | [**🗂️ Projects**](./Skills/Projects/README.md) |
 |:---|:---|:---|
-| **Holds** | Portable capabilities that assume nothing about where you are standing | Skills welded to one repo in the [`ai-automation-tools`](https://github.com/ai-automation-tools) org |
+| **Holds** | Portable capabilities that assume nothing about where you are standing | **Additional** skills for one repo in the [`ai-automation-tools`](https://github.com/ai-automation-tools) org — an overlay, not a copy of what that repo already owns |
 | **Path** | `Skills/Core/<Category>/<name>/` | `Skills/Projects/<repo>/<name>/` |
 | **Installs to** | User scope — `~/.claude/skills` | That repo's `.claude/skills`, so it loads only there |
 | **Command** | `install-skills.ps1 -Core` | `install-skills.ps1 -Project <repo> -Destination <clone>/.claude/skills` |
@@ -52,10 +52,19 @@ Why it matters: skills install **flat**, as `<skills-dir>/<name>/`. Putting six 
 at user scope means carrying them into every unrelated session — so project skills go to the repo
 instead, and the install script refuses to publish them to user scope by accident.
 
+**Every org repo keeps its own skills.** A repo's shipped `skills/` and its tracked
+`.claude/skills/` stay where they are and are edited there. This tier is a second layer on top,
+for skills that belong to a project but were never part of its own set — nothing here replaces
+one, and nothing gets moved out of a project repo into here.
+
 > [!NOTE]
 > **Names must be unique across the entire repo**, both tiers and every category, because the
 > nesting disappears at install time. The install script fails loudly on a collision rather than
 > letting one skill silently overwrite another.
+>
+> The same flatness means a project skill can land on a name its **target repo** already uses.
+> Each project's README lists those names as a checklist, and the installer marks every row
+> `New` or `Replaced` so an overlay that clobbers something is visible rather than silent.
 
 ## 📦 Skill Catalog
 
@@ -263,8 +272,10 @@ For install locations, invocation details, and the full authoring workflow, see
 [**Using Skills**](./Docs/USING-SKILLS.md).
 
 > [!IMPORTANT]
-> Where a skill exists both here and in a project repo, **this repo is canonical** — edit here,
-> then republish. There is no automatic sync, and a hand-edited published copy diverges silently.
+> One skill genuinely exists in two places: `project-hub-scaffold`, here as a Core skill and in
+> the [`project-hub`](https://github.com/ai-automation-tools/project-hub) repo, byte-identical
+> with nothing keeping it so. **This repo is canonical** — edit here, then republish; a
+> hand-edited copy over there diverges silently. That is a one-off to resolve, not the pattern.
 
 ## 🔗 Related repositories
 

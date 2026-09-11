@@ -18,8 +18,8 @@
     Skills come in two tiers and they do NOT install to the same place:
 
       Skills/Core/<Category>/<name>/   portable      -> user scope (~/.claude/skills)
-      Skills/Projects/<repo>/<name>/   welded to one -> that repo's .claude/skills
-                                       org repo
+      Skills/Projects/<repo>/<name>/   additional,   -> that repo's .claude/skills
+                                       per org repo    (an OVERLAY — the repo keeps its own)
 
     A bare run installs the Core tier only, so a project skill can never leak into
     user scope by accident and clutter the catalog of every unrelated session.
@@ -146,6 +146,10 @@ $results = foreach ($leaf in $leaves) {
     $name   = $leaf.Name
     $target = Join-Path $Destination $name
 
+    # Project skills install as an OVERLAY on repos that already own skills, and installs are
+    # flat — so say whether this landed on empty space or on top of something.
+    $state = if (Test-Path $target) { 'Replaced' } else { 'New' }
+
     if ($PSCmdlet.ShouldProcess($target, "Mirror skill '$name'")) {
         if (Test-Path $target) { Remove-Item $target -Recurse -Force }
         Copy-Item -Path $leaf.FullName -Destination $Destination -Recurse -Force
@@ -155,11 +159,22 @@ $results = foreach ($leaf in $leaves) {
             Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
 
         $fileCount = (Get-ChildItem -Path $target -Recurse -File).Count
-        [pscustomobject]@{ Skill = $name; Files = $fileCount; Target = $target }
+        [pscustomobject]@{ Skill = $name; State = $state; Files = $fileCount; Target = $target }
     }
 }
 
 if ($results) {
     $results | Format-Table -AutoSize
+
+    # A first-ever 'Replaced' on a project install means we landed on a skill the repo owned.
+    if ($PSCmdlet.ParameterSetName -eq 'Project') {
+        $hit = $results | Where-Object State -eq 'Replaced'
+        if ($hit) {
+            Write-Warning ("Overwrote {0} existing skill folder(s) at the destination: {1}. " -f
+                $hit.Count, ($hit.Skill -join ', '))
+            Write-Warning "If any of those were the repo's own skills rather than a previous install from here, restore them with git and rename the skill in this repo."
+        }
+    }
+
     Write-Host "Done. Restart any open Claude Code session to reload the skill catalog." -ForegroundColor Green
 }

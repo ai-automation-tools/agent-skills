@@ -14,7 +14,8 @@ Skills/
 │   └── <Category>/          # e.g. Business, Documentation, Image-Gen
 │       └── <skill-name>/
 │           └── SKILL.md     # YAML frontmatter (name, description) + instructions
-└── Projects/                # welded to one org repo — installs into THAT repo
+└── Projects/                # ADDITIONAL skills for one org repo — installs into THAT repo,
+    │                        # on top of the skills it already owns
     └── <repo-slug>/         # agent-chat · cronsole · edge-radar · …
         └── <skill-name>/
             └── SKILL.md
