@@ -8,12 +8,11 @@ description: >-
   completeness, and recipe coherence — then reports findings ranked by severity
   with concrete fixes. Use this whenever the user wants to check, validate,
   review, audit, quality-check, or "sanity-check" one recipe or a whole folder
-  of recipes (for this repo, the recipes live under
-  My-Library/Cooking/Recipes), asks whether a recipe is safe, healthy,
-  balanced, or well-made, or mentions reviewing recipe nutrition, salt/fat/sugar
-  content, or food-safety issues — even if they don't use the word "validate."
-  The recipe location is a parameter, so it works on any folder of recipe
-  markdown.
+  of recipes, asks whether a recipe is safe, healthy, balanced, or well-made, or
+  mentions reviewing recipe nutrition, salt/fat/sugar content, or food-safety
+  issues — even if they don't use the word "validate." The recipe location is a
+  parameter, so it works on a single file, a folder, or an entire recipe
+  collection in any layout.
 ---
 
 # Recipe validator
