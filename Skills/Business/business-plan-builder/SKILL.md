@@ -2,22 +2,19 @@
 name: business-plan-builder
 description: >-
   Take a business idea — a one-line hunch, a napkin pitch, or a finished
-  proposal — and run the whole business-analysis pipeline over it, then write
-  the result out as a navigable documentation repo. Runs eight passes in order:
-  market sizing and framing (TAM/SAM/SOM, JTBD, Five Forces), competitive
-  intelligence with graded evidence, a quantitative ROI model with a
-  sensitivity sweep, and a decision memo that makes the call — then, only if
-  the memo greenlights it, a product spec, a costed architecture, a ranged
-  build estimate, and a sliced build plan. Every number is traceable to a
-  source or tagged as an assumption. The output is a folder of linked markdown
-  built to the repo-docs-builder house style — root index, per-folder README
-  indexes, down-links and up-links, humanized prose. Use whenever the user
-  hands over a business idea, startup idea, product idea, app idea, side
-  hustle, or venture and wants it evaluated, researched, sized, modeled,
-  pressure-tested, planned, written up, or turned into documentation — phrases
-  like "here's my business idea", "is this worth building", "evaluate this
-  idea", "write up a business plan", "should I build this", "flesh this out",
-  "do the full analysis on this", "turn this into a plan".
+  proposal — and run the whole business-analysis pipeline over it, writing the
+  result out as a navigable folder of linked markdown. Eight passes in order:
+  market sizing (TAM/SAM/SOM, JTBD, Five Forces), competitive intelligence with
+  graded evidence, an ROI model with a sensitivity sweep, and a decision memo
+  that makes the call — then, only if the memo greenlights it, a product spec, a
+  costed architecture, a ranged build estimate, and a sliced build plan. Every
+  number traces to a source or is tagged as an assumption. Use whenever the user
+  hands over a business idea, startup idea, product idea, app idea, side hustle,
+  or venture and wants it evaluated, researched, sized, modeled, pressure-tested,
+  planned, written up, or turned into documentation — phrases like "here's my
+  business idea", "is this worth building", "evaluate this idea", "write up a
+  business plan", "should I build this", "do the full analysis on this", "turn
+  this into a plan".
 ---
 
 # Business plan builder
