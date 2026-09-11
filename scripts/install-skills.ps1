@@ -15,31 +15,60 @@
     recopied, so files you deleted in the repo disappear from the install too.
     Per-skill reports/ output (gitignored local run output) is never copied.
 
+    Skills come in two tiers and they do NOT install to the same place:
+
+      Skills/Core/<Category>/<name>/   portable      -> user scope (~/.claude/skills)
+      Skills/Projects/<repo>/<name>/   welded to one -> that repo's .claude/skills
+                                       org repo
+
+    A bare run installs the Core tier only, so a project skill can never leak into
+    user scope by accident and clutter the catalog of every unrelated session.
+
 .PARAMETER Destination
     Where to install. Defaults to "$HOME/.claude/skills".
 
+.PARAMETER Core
+    Install the Core tier (Skills/Core/**). This is the default when neither -Core
+    nor -Project is given.
+
+.PARAMETER Project
+    Install the project skills for one org repo (Skills/Projects/<name>/**).
+    Point -Destination at that repo's .claude/skills — several org repos track
+    that folder in git, so the install lands in a commit other contributors get.
+
 .PARAMETER Skill
     Install only the named skill(s) (match the leaf folder / frontmatter name).
-    Omit to install every skill in the repo.
+    Narrows whichever tier was selected.
 
 .PARAMETER List
     List the skills that would be installed and exit (no copying).
 
 .EXAMPLE
     pwsh scripts/install-skills.ps1
-    Install every skill into ~/.claude/skills.
+    Install every Core skill into ~/.claude/skills.
 
 .EXAMPLE
-    pwsh scripts/install-skills.ps1 -Skill repo-docs-builder,skill-writer
-    Re-install just those two skills.
+    pwsh scripts/install-skills.ps1 -Core -Skill repo-docs-builder
+    Re-install one Core skill.
+
+.EXAMPLE
+    pwsh scripts/install-skills.ps1 -Project cronsole -Destination D:/repos/cronsole/.claude/skills
+    Publish cronsole's project skills into the cronsole clone.
+
+.EXAMPLE
+    pwsh scripts/install-skills.ps1 -List
+    Show every skill in the repo with its tier, and exit.
 
 .EXAMPLE
     pwsh scripts/install-skills.ps1 -WhatIf
     Show what would be copied without changing anything.
 #>
-[CmdletBinding(SupportsShouldProcess)]
+[CmdletBinding(SupportsShouldProcess, DefaultParameterSetName = 'Core')]
 param(
     [string]   $Destination = (Join-Path $HOME '.claude/skills'),
+    [Parameter(ParameterSetName = 'Core')]    [switch] $Core,
+    [Parameter(ParameterSetName = 'Project')] [string] $Project,
+    [Parameter(ParameterSetName = 'All')]     [switch] $All,
     [string[]] $Skill,
     [switch]   $List
 )
@@ -54,10 +83,35 @@ if (-not (Test-Path $SkillsRoot)) {
     throw "Skills/ folder not found at '$SkillsRoot'. Run this from within the repo."
 }
 
+# Which tier are we installing? -List with no tier means "show everything".
+$SearchRoot = switch ($PSCmdlet.ParameterSetName) {
+    'Project' {
+        $p = Join-Path $SkillsRoot "Projects/$Project"
+        if (-not (Test-Path $p)) {
+            $known = (Get-ChildItem (Join-Path $SkillsRoot 'Projects') -Directory |
+                      Select-Object -ExpandProperty Name) -join ', '
+            throw "No project '$Project' under Skills/Projects. Known projects: $known"
+        }
+        $p
+    }
+    'All'     { $SkillsRoot }
+    default   { if ($List) { $SkillsRoot } else { Join-Path $SkillsRoot 'Core' } }
+}
+
 # A leaf skill = any folder directly containing a SKILL.md.
-$leaves = Get-ChildItem -Path $SkillsRoot -Recurse -File -Filter 'SKILL.md' |
+$leaves = Get-ChildItem -Path $SearchRoot -Recurse -File -Filter 'SKILL.md' |
     ForEach-Object { $_.Directory } |
     Sort-Object FullName
+
+# Names install flat, so a collision silently overwrites. Catch it here instead.
+$dupes = $leaves | Group-Object Name | Where-Object Count -gt 1
+if ($dupes) {
+    $detail = $dupes | ForEach-Object {
+        "  {0}: {1}" -f $_.Name, (($_.Group.FullName |
+            ForEach-Object { $_.Substring($RepoRoot.Length).TrimStart('\','/') }) -join ' , ')
+    }
+    throw "Duplicate skill name(s) — they would overwrite each other on install:`n$($detail -join "`n")"
+}
 
 if ($Skill) {
     $leaves = $leaves | Where-Object { $_.Name -in $Skill }
@@ -68,11 +122,16 @@ if ($Skill) {
 if (-not $leaves) { Write-Warning 'No skills found to install.'; return }
 
 if ($List) {
-    Write-Host "Skills found under $SkillsRoot :" -ForegroundColor Cyan
     $leaves | ForEach-Object {
-        $rel = $_.FullName.Substring($RepoRoot.Length).TrimStart('\','/')
-        "  - {0,-22} ({1})" -f $_.Name, $rel
-    }
+        $rel   = $_.FullName.Substring($SkillsRoot.Length).TrimStart('\','/') -replace '\\','/'
+        $parts = $rel -split '/'
+        [pscustomobject]@{
+            Skill = $_.Name
+            Tier  = $parts[0]
+            Group = if ($parts.Count -ge 3) { $parts[1] } else { '-' }
+            Path  = "Skills/$rel"
+        }
+    } | Format-Table -AutoSize
     return
 }
 
