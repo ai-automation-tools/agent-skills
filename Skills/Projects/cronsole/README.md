@@ -24,6 +24,20 @@ commands, schema, or protocol, so invoking it anywhere else is meaningless. A sk
 reach for from *any* repo belongs in [`Skills/Core/`](../../Core/) instead, even if it was
 written while working on this one.
 
+## 📦 What this tier adds
+
+Two skills, split by **which source the job runs on**. Both cover *which shape a scheduled job
+should be* before you create it — the half the repo's own `cronsole` skill deliberately leaves
+alone, since that one covers the mechanics of creating a task once you know what you want.
+
+| Skill | Covers | Parts |
+|:---|:---|:---|
+| [**🪟 cronsole-windows-jobs**](./cronsole-windows-jobs/SKILL.md) | Windows Task Scheduler. Four archetypes — an unattended agent CLI run, a wrapped maintenance script, a service watchdog/lifecycle quartet, a plain command — plus registering, verifying, and handing the job to Cronsole. | [`agent-job`](./cronsole-windows-jobs/references/agent-job.md) · [`maintenance-job`](./cronsole-windows-jobs/references/maintenance-job.md) · [`service-jobs`](./cronsole-windows-jobs/references/service-jobs.md) · [`register-and-verify`](./cronsole-windows-jobs/references/register-and-verify.md) · a runnable wrapper, registrar and windowless shim in [`scripts/`](./cronsole-windows-jobs/scripts/) |
+| [**☁️ cronsole-claude-routines**](./cronsole-claude-routines/SKILL.md) | The `CLAUDE_CODE` source — scheduled agent routines in the cloud. Four routine types, the eight-point prompt contract, the one-open-PR rule nothing enforces for you, and the connector's two doors. | [`routine-types`](./cronsole-claude-routines/references/routine-types.md) · [`cronsole-side`](./cronsole-claude-routines/references/cronsole-side.md) |
+
+Both are written so a stranger who clones cronsole can use them — no machine-specific paths, no
+one person's job names, and the notification step is transport-agnostic.
+
 ## ⛔ Names already taken in that repo
 
 Skills install **flat**, so publishing a skill here under a name the repo already uses will

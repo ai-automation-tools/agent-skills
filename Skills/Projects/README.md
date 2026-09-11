@@ -67,7 +67,7 @@ column is what this tier adds on top.
 | Project | Already in its own repo (names taken) | Added here |
 |:---|:---|:-:|
 | [💬 **agent-chat**](./agent-chat/README.md) | 7 conversation-protocol skills + `humanizer`, plus 4 maintainer skills | — |
-| [⏱️ **cronsole**](./cronsole/README.md) | `cronsole`, `source-doctor`, a connect-pack, plus 2 maintainer skills | — |
+| [⏱️ **cronsole**](./cronsole/README.md) | `cronsole`, `source-doctor`, a connect-pack, plus 2 maintainer skills | `cronsole-windows-jobs` · `cronsole-claude-routines` |
 | [📡 **edge-radar**](./edge-radar/README.md) | `edge-radar`, `edge-radar-analysis`, `betting-logic-review`, plus 6 maintainer skills | — |
 | [🌐 **project-hub**](./project-hub/README.md) | `project-hub-scaffold` *(duplicate of the Core copy)* | — |
 | [📉 **edge-spectrum**](./edge-spectrum/README.md) | none | — |
