@@ -38,7 +38,7 @@ into that repo instead, so it doesn't clutter the catalog of every unrelated ses
 | **Media** | [`video-downloader`](./Media/video-downloader/SKILL.md) | YouTube downloads with quality and format control, hardened for Windows. |
 | **Web** | [`project-hub-scaffold`](./Web/project-hub-scaffold/SKILL.md) | Stands up a browsable HTML console over a folder of documents. **Core, not a project skill** — you invoke it from the repo that is *getting* a hub. |
 
-Full prose on each — references, scripts, examples — is in the [repository README](../../README.md#-skills).
+Follow the skill links above for instructions, references, and scripts. Browse [Resources](../../Resources/README.md) for examples and supporting material.
 
 ## 📥 Installing
 
