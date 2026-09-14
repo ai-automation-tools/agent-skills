@@ -24,6 +24,19 @@ commands, schema, or protocol, so invoking it anywhere else is meaningless. A sk
 reach for from *any* repo belongs in [`Skills/Core/`](../../Core/) instead, even if it was
 written while working on this one.
 
+## 📦 What this tier adds
+
+Two skills, split by **which half of a strategy's life** they cover. Both sit upstream of the
+repo's own `/edge-radar`, which runs a scan once you already know what you want.
+
+| Skill | Covers | Parts |
+|:---|:---|:---|
+| [**🎛️ edge-radar-strategy-profiles**](./edge-radar-strategy-profiles/SKILL.md) | Designing a strategy as a `.env.<name>` overlay instead of a fork — the two sizing lanes and which knob binds where, subaccount bankroll isolation, the dry-run → pilot → live ladder, comparing two books in one trade log, and killing one cleanly. | [`knobs`](./edge-radar-strategy-profiles/references/knobs.md) · [`launch-and-kill`](./edge-radar-strategy-profiles/references/launch-and-kill.md) |
+| [**🔬 edge-radar-strategy-evidence**](./edge-radar-strategy-evidence/SKILL.md) | Proving one. Routing a question to the right tool in `scripts/backtest/`, reporting the model-vs-market Brier **pair**, what each sample size can carry, the diagnostics that catch a fake edge fast, and zero-risk shadow rows when a freeze blocks its own evidence. | [`tool-map`](./edge-radar-strategy-evidence/references/tool-map.md) · [`shadow-book`](./edge-radar-strategy-evidence/references/shadow-book.md) |
+
+Both are repo-specific by design — they name this repo's gates, env keys, scripts and settled
+numbers, so they fail the portability test on purpose.
+
 ## ⛔ Names already taken in that repo
 
 Skills install **flat**, so publishing a skill here under a name the repo already uses will
@@ -34,7 +47,8 @@ whenever there is any doubt.
 
 **Maintainer skills** — tracked in `.claude/skills/`, for contributors working on the repo:
 
-`ax-workspace-cookbook`, `design-doc-mermaid-main`, `document-writer`, `footballbin-predictions`, `kalshi-markets`, `market-mechanics-betting`
+`document-writer`, `footballbin-predictions`, `kalshi-markets`, `market-mechanics-betting`
+*(`ax-workspace-cookbook` and `design-doc-mermaid-main` were removed 2026-09-14.)*
 
 > [!NOTE]
 > The only repo whose skills are written as first-class slash commands — they declare `allowed-tools` and `argument-hint`. Renaming one changes a user-facing command, so treat these names as an interface. Its default branch is `master`, the only one in the org.

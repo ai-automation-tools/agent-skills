@@ -68,7 +68,7 @@ column is what this tier adds on top.
 |:---|:---|:-:|
 | [💬 **agent-chat**](./agent-chat/README.md) | 7 conversation-protocol skills + `humanizer`, plus 4 maintainer skills | — |
 | [⏱️ **cronsole**](./cronsole/README.md) | `cronsole`, `source-doctor`, a connect-pack, plus 2 maintainer skills | `cronsole-windows-jobs` · `cronsole-claude-routines` |
-| [📡 **edge-radar**](./edge-radar/README.md) | `edge-radar`, `edge-radar-analysis`, `betting-logic-review`, plus 6 maintainer skills | — |
+| [📡 **edge-radar**](./edge-radar/README.md) | `edge-radar`, `edge-radar-analysis`, `betting-logic-review`, plus 4 maintainer skills | `edge-radar-strategy-profiles` · `edge-radar-strategy-evidence` |
 | [🌐 **project-hub**](./project-hub/README.md) | `project-hub-scaffold` *(duplicate of the Core copy)* | — |
 | [📉 **edge-spectrum**](./edge-spectrum/README.md) | none | — |
 
