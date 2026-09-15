@@ -70,7 +70,7 @@ column is what this tier adds on top.
 | [⏱️ **cronsole**](./cronsole/README.md) | `cronsole`, `source-doctor`, a connect-pack, plus 2 maintainer skills | `cronsole-windows-jobs` · `cronsole-claude-routines` |
 | [📡 **edge-radar**](./edge-radar/README.md) | `edge-radar`, `edge-radar-analysis`, `betting-logic-review`, plus 4 maintainer skills | `edge-radar-strategy-profiles` · `edge-radar-strategy-evidence` |
 | [🌐 **project-hub**](./project-hub/README.md) | `project-hub-scaffold` *(duplicate of the Core copy)* | — |
-| [📉 **edge-spectrum**](./edge-spectrum/README.md) | none | — |
+| [📉 **edge-spectrum**](./edge-spectrum/README.md) | none — the only repo in the org with no skills of its own | `edge-spectrum-hub-tool` · `edge-spectrum-dataset` · `edge-spectrum-endpoint` |
 
 Each project's README records what already exists in its own repo and the traps that come with
 it — a name already claimed twice, a non-`main` default branch, skills that are really slash
