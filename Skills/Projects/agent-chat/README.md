@@ -14,6 +14,22 @@
 
 **The repo:** MCP server letting two CLI agents hold a structured conversation over a SQLite message bus.
 
+## 📚 The skills
+
+| Skill | Use it for |
+|:---|:---|
+| [**agent-chat-conv-types**](./agent-chat-conv-types/SKILL.md) | Adding or changing a conversation format — a new `conv_type`, a sub-type preset, a seat role, an extra role, a type that produces a deliverable. Decides type-vs-preset first, then walks the multi-file ritual. |
+| [**agent-chat-delivery**](./agent-chat-delivery/SKILL.md) | The push half — delivery sinks, the Notifications tab, the opt-in list, the stall watchdog. Carries `config/delivery.json`'s shape and working ntfy / Slack / Discord / folder / command examples. |
+| [**agent-chat-run-triage**](./agent-chat-run-triage/SKILL.md) | A live run that is stuck, silent, ending early, or missing from the UI. Diagnoses from the DB outward, with copy-paste SQL probes and the rotation rules that explain most of it. |
+
+Each names this repo's modules, tables and scripts, so none of them passes the portability test —
+that is why they are here and not in [`Skills/Core/`](../../Core/).
+
+They deliberately do **not** overlap the repo's own set: the shipped skills teach an agent how to
+*participate* in a conversation, and the maintainer skills cover schema, export, the web UI and
+adding a CLI. These three cover the parts nothing else did — conversation **structure**, the
+**push** half, and **diagnosis**.
+
 ## What lives here
 
 **Additional** skills for this repo — an overlay on top of the ones the repo already owns, not
