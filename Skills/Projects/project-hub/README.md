@@ -19,6 +19,16 @@
 **Additional** skills for this repo — an overlay on top of the ones the repo already owns, not
 a copy of them and not a place to move them to. The repo's own skills stay in the repo.
 
+| Skill | Covers |
+|:---|:---|
+| [**`project-hub-scan`**](./project-hub-scan/SKILL.md) | The scanner and serve layer in `Hub/hub.mjs` — the filter chain, the node `kind` vocabulary, the `BUCKETS`/`USER_RUNTIMES` tables, the `resolveId()` deny gate, scan caching and the watcher |
+| [**`project-hub-client`**](./project-hub-client/SKILL.md) | The single-file interface, `Hub/index.html` — the `renderPage()` view dispatch, the eight theme blocks, `S` state and `reindex()`, hash routes, localStorage keys, the `%NONCE%` contract |
+| [**`project-hub-demo`**](./project-hub-demo/SKILL.md) | The hosted demo — `Demo/build-demo.mjs`, the fixture, the `sub()` literal assertions against `index.html`, the `demo.js` shim, and the Pages deploy |
+
+All three are maintainer skills: you invoke them while working **on** the hub's own code,
+which is what keeps them out of Core. `project-hub-scaffold` is the opposite case and lives
+in [`Skills/Core/`](../../Core/) — you run that one from whatever repo is *getting* a hub.
+
 What qualifies: anything that fails the portability test, because it names this repo's files,
 commands, schema, or protocol, so invoking it anywhere else is meaningless. A skill you would
 reach for from *any* repo belongs in [`Skills/Core/`](../../Core/) instead, even if it was
@@ -30,7 +40,9 @@ Skills install **flat**, so publishing a skill here under a name the repo alread
 overwrite it. Check this list before naming anything new — and prefix with the project slug
 whenever there is any doubt.
 
-None here — `project-hub-scaffold` is **core**, not a project skill, because you invoke it from whatever repo you are adding a hub to.
+`project-hub-scaffold-mfs` — the repo's travel copy of the Core scaffold skill, at `Skills/`.
+Nothing else. Everything here is prefixed `project-hub-…`, so the only name to keep clear of
+is that one.
 
 **Maintainer skills** — tracked in `.claude/skills/`, for contributors working on the repo:
 

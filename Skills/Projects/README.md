@@ -69,7 +69,7 @@ column is what this tier adds on top.
 | [💬 **agent-chat**](./agent-chat/README.md) | 7 conversation-protocol skills + `humanizer`, plus 4 maintainer skills | `agent-chat-conv-types` · `agent-chat-delivery` · `agent-chat-run-triage` |
 | [⏱️ **cronsole**](./cronsole/README.md) | `cronsole`, `source-doctor`, a connect-pack, plus 2 maintainer skills | `cronsole-windows-jobs` · `cronsole-claude-routines` |
 | [📡 **edge-radar**](./edge-radar/README.md) | `edge-radar`, `edge-radar-analysis`, `betting-logic-review`, plus 4 maintainer skills | `edge-radar-strategy-profiles` · `edge-radar-strategy-evidence` |
-| [🌐 **project-hub**](./project-hub/README.md) | `project-hub-scaffold` *(duplicate of the Core copy)* | — |
+| [🌐 **project-hub**](./project-hub/README.md) | `project-hub-scaffold` *(duplicate of the Core copy)* | `project-hub-scan` · `project-hub-client` · `project-hub-demo` |
 | [📉 **edge-spectrum**](./edge-spectrum/README.md) | none — the only repo in the org with no skills of its own | `edge-spectrum-hub-tool` · `edge-spectrum-dataset` · `edge-spectrum-endpoint` |
 
 Each project's README records what already exists in its own repo and the traps that come with
