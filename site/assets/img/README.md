@@ -38,10 +38,14 @@
 
 ## 📦 Current state
 
-`repo-docs-builder` ships with four captures copied from
-`Resources/Skill-Data/Core/Documentation/repo-docs-builder/Images/Screenshots/`, so the gallery
-and lightbox have something real to show. Replace them with your own whenever you like — the
-filenames are all that matters.
+Two cards have images, six are waiting:
+
+- **`repo-docs-builder`** ships with four captures copied from
+  `Resources/Skill-Data/Core/Documentation/repo-docs-builder/Images/Screenshots/`, so the gallery
+  and lightbox have something real to show.
+- **`project-hub-scaffold`** has two: the workspace dashboard and the markdown viewer.
+
+Replace any of them whenever you like. The filenames are all that matters.
 
 ---
 

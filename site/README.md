@@ -63,6 +63,49 @@ One `<article class="card">` block per skill in `index.html`. To add, remove or 
 
 GitHub Pages serves this as-is: point Pages at the repo root and set the source folder to `/site`. Any static host works the same way.
 
+## 🚧 Action items
+
+What's left before this page is finished, in rough order of what matters most.
+
+### 📸 Screenshots
+
+Seven cards started empty, and the page is built around the images.
+
+- [ ] Capture the six Core skills still missing one: `business-plan-builder`, `recipe-validator`, `html-email-templates`, `task-router`, `news-images`, `video-downloader`.
+- [ ] Decide whether the four seeded `repo-docs-builder` images stay. They're rendered examples lifted from the skill's own `Resources/` folder, so they show the output a run produces rather than the skill at work.
+- [ ] Compress what goes in. `repo-docs-builder-2.png` alone is 274 KB; the same capture as a 1600 px WebP would be a fraction of that.
+
+### 🌐 Hosting
+
+Nothing serves the page yet.
+
+- [ ] Turn on GitHub Pages: source `main`, folder `/site`.
+- [ ] Add the resulting URL to the repo's About panel so people can find it.
+- [ ] Add an `og:image` (a 1200 × 630 crop of the hero) and a `twitter:card`. A shared link previews as bare text right now.
+
+### 🔁 Copy that drifts
+
+The card text is written into `index.html` and repeats each `SKILL.md`. Nothing keeps the two in step.
+
+- [ ] Re-read the eight taglines and feature lists against the current `SKILL.md` files.
+- [ ] Pick a sync story: a manual pass whenever a skill changes, or a small script that generates the card blocks from the frontmatter.
+- [ ] Re-check the project list against `Skills/Projects/`, since the repo README is the source of truth and this page copies it.
+
+### ♿ Accessibility
+
+- [ ] Give the filter chips `aria-pressed`, so the selected category is announced instead of only coloured.
+- [ ] Keep focus inside the lightbox while it's open, and hand it back to the card that opened it.
+- [ ] Rewrite the screenshot `alt` text to describe the image itself rather than name the skill.
+- [ ] Check `--text-faint` (`#6d7484`) against the card background. It measures roughly 4:1, under the 4.5:1 that body text needs.
+
+### 🧹 Smaller things
+
+- [ ] Test the breakpoints on a real phone. The layout has only been checked at desktop widths.
+- [ ] Fill the last grid row. Eight cards in three columns leaves one slot empty; `grid-column: span 2` on one card would close it, or leave it as is.
+- [ ] Give the hero panel a no-JS fallback line, so it isn't blank when the script fails to load.
+- [ ] Add `site/` to the layout diagram in `CLAUDE.md`, which still shows the tree without it.
+- [ ] Add a link check across the READMEs and the card links, so a renamed skill fails loudly instead of 404ing quietly.
+
 ---
 
 <p align="center">
