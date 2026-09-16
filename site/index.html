@@ -55,7 +55,7 @@
         <h1>Capabilities the agent loads <em>only</em> when it needs them.</h1>
         <p class="lead">
           A skill is one <code>SKILL.md</code> — YAML frontmatter and a set of instructions — that
-          stays out of the model's context until it's invoked. This is the Core catalog: eight
+          stays out of the model's context until it's invoked. This is the Core catalog: seven
           portable skills that assume nothing about the repository you're standing in.
         </p>
         <div class="hero-cta">
@@ -64,8 +64,8 @@
         </div>
 
         <dl class="stats">
-          <div><dt>Core skills</dt><dd>08</dd></div>
-          <div><dt>Categories</dt><dd>07</dd></div>
+          <div><dt>Core skills</dt><dd>07</dd></div>
+          <div><dt>Categories</dt><dd>06</dd></div>
           <div><dt>Files per skill</dt><dd>01</dd></div>
           <div><dt>Dependencies</dt><dd>00</dd></div>
         </dl>
@@ -101,13 +101,12 @@
       </header>
 
       <div class="filters reveal" role="group" aria-label="Filter skills by category">
-        <button class="chip is-active" data-filter="all">All <span>8</span></button>
+        <button class="chip is-active" data-filter="all">All <span>7</span></button>
         <button class="chip" data-filter="automation">Automation <span>2</span></button>
         <button class="chip" data-filter="business">Business <span>1</span></button>
         <button class="chip" data-filter="cooking">Cooking <span>1</span></button>
         <button class="chip" data-filter="documentation">Documentation <span>1</span></button>
         <button class="chip" data-filter="image-gen">Image-Gen <span>1</span></button>
-        <button class="chip" data-filter="media">Media <span>1</span></button>
         <button class="chip" data-filter="web">Web <span>1</span></button>
       </div>
 
@@ -148,7 +147,7 @@
         <!-- 02 -->
         <article class="card reveal" data-category="business" data-skill="business-plan-builder">
           <div class="card-media">
-            <img class="shot" data-name="business-plan-builder" alt="A business-plan-builder output folder" loading="lazy" decoding="async">
+            <img class="shot" data-name="business-plan-builder" alt="The generated output folder for a Hotel-Loyalty-Club idea, with analysis, decisions, models and research subfolders" loading="lazy" decoding="async">
             <div class="shot-fallback" aria-hidden="true">
               <span class="glyph">📈</span>
               <b>business-plan-builder.png</b>
@@ -180,7 +179,7 @@
         <!-- 03 -->
         <article class="card reveal" data-category="cooking" data-skill="recipe-validator">
           <div class="card-media">
-            <img class="shot" data-name="recipe-validator" alt="A recipe validation report" loading="lazy" decoding="async">
+            <img class="shot" data-name="recipe-validator" alt="A recipe under review: an Indiana pork tenderloin sandwich with its ingredient list and ten numbered steps" loading="lazy" decoding="async">
             <div class="shot-fallback" aria-hidden="true">
               <span class="glyph">🍳</span>
               <b>recipe-validator.png</b>
@@ -212,7 +211,7 @@
         <!-- 04 -->
         <article class="card reveal" data-category="automation" data-skill="html-email-templates">
           <div class="card-media">
-            <img class="shot" data-name="html-email-templates" alt="An HTML email template rendered" loading="lazy" decoding="async">
+            <img class="shot" data-name="html-email-templates" alt="A security advisory digest email: a dark banner heading over tables of new and updated CVEs" loading="lazy" decoding="async">
             <div class="shot-fallback" aria-hidden="true">
               <span class="glyph">✉️</span>
               <b>html-email-templates.png</b>
@@ -244,7 +243,7 @@
         <!-- 05 -->
         <article class="card reveal" data-category="automation" data-skill="task-router">
           <div class="card-media">
-            <img class="shot" data-name="task-router" alt="The task-router decision table" loading="lazy" decoding="async">
+            <img class="shot" data-name="task-router" alt="Routing diagram: a request is sized, then dispatched to one of four tiers from answer inline up to fan out" loading="lazy" decoding="async">
             <div class="shot-fallback" aria-hidden="true">
               <span class="glyph">🚦</span>
               <b>task-router.png</b>
@@ -275,7 +274,7 @@
         <!-- 06 -->
         <article class="card reveal" data-category="image-gen" data-skill="news-images">
           <div class="card-media">
-            <img class="shot" data-name="news-images" alt="A cartoon-editorial news collage" loading="lazy" decoding="async">
+            <img class="shot" data-name="news-images" alt="A cartoon-editorial news montage, the week's stories woven into one illustrated scene" loading="lazy" decoding="async">
             <div class="shot-fallback" aria-hidden="true">
               <span class="glyph">🖼️</span>
               <b>news-images.png</b>
@@ -305,38 +304,6 @@
         </article>
 
         <!-- 07 -->
-        <article class="card reveal" data-category="media" data-skill="video-downloader">
-          <div class="card-media">
-            <img class="shot" data-name="video-downloader" alt="video-downloader running in a terminal" loading="lazy" decoding="async">
-            <div class="shot-fallback" aria-hidden="true">
-              <span class="glyph">🎬</span>
-              <b>video-downloader.png</b>
-              <small>drop a screenshot into site/assets/img/</small>
-            </div>
-            <span class="idx">07</span>
-          </div>
-          <div class="card-body">
-            <span class="cat" data-cat="media"><i aria-hidden="true"></i>Media</span>
-            <h3 class="card-title"><span class="glyph" aria-hidden="true">🎬</span><code>video-downloader</code></h3>
-            <p class="tagline">YouTube downloads with the knobs you actually want.</p>
-            <ul class="feat">
-              <li>Quality caps: best, 1080p, 720p, 480p, 360p, worst</li>
-              <li>Formats: mp4, webm, mkv — or audio-only MP3</li>
-              <li>Windows-hardened: platform-aware output directory</li>
-              <li>UTF-8 console output and automatic JS-runtime detection</li>
-              <li>Cookie extraction for 403-blocked downloads</li>
-            </ul>
-            <div class="card-foot">
-              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill video-downloader" title="Copy install command">
-                <span class="cmd-text">-Skill video-downloader</span>
-                <span class="cmd-icon" aria-hidden="true">copy</span>
-              </button>
-              <a class="link" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Skills/Core/Media/video-downloader/SKILL.md" target="_blank" rel="noopener">SKILL.md <span aria-hidden="true">↗</span></a>
-            </div>
-          </div>
-        </article>
-
-        <!-- 08 -->
         <article class="card reveal" data-category="web" data-skill="project-hub-scaffold">
           <div class="card-media">
             <img class="shot" data-name="project-hub-scaffold" alt="The Project Hub explorer: a sidebar document tree beside a dashboard of workspace repos" loading="lazy" decoding="async">
@@ -345,7 +312,7 @@
               <b>project-hub-scaffold.png</b>
               <small>drop a screenshot into site/assets/img/</small>
             </div>
-            <span class="idx">08</span>
+            <span class="idx">07</span>
           </div>
           <div class="card-body">
             <span class="cat" data-cat="web"><i aria-hidden="true"></i>Web</span>
@@ -456,7 +423,7 @@
 
       <div class="install-cmds reveal">
         <div class="codeblock">
-          <div class="codeblock-head"><span>Core — all eight</span><button class="mini-copy" data-copy="pwsh scripts/install-skills.ps1 -Core" aria-label="Copy command">copy</button></div>
+          <div class="codeblock-head"><span>Core — all seven</span><button class="mini-copy" data-copy="pwsh scripts/install-skills.ps1 -Core" aria-label="Copy command">copy</button></div>
           <pre><code><span class="p">pwsh</span> scripts/install-skills.ps1 <span class="f">-Core</span></code></pre>
         </div>
         <div class="codeblock">

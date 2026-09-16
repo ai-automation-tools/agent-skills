@@ -19,7 +19,6 @@
     { name: "business-plan-builder",line: ["Eight passes, one gate,", "and every number sourced."] },
     { name: "news-images",          line: ["Cartoon-editorial news,", "eight ways."] },
     { name: "html-email-templates", line: ["Emails that survive the", "clients that strip CSS."] },
-    { name: "video-downloader",     line: ["Quality, format, and", "audio-only when you want it."] },
     { name: "project-hub-scaffold", line: ["A clickable document tree,", "no build step required."] }
   ];
 

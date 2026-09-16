@@ -1,7 +1,7 @@
 <h1 align="center">🖥️ Showcase site</h1>
 
 <p align="center">
-  <em>The Core catalog in a browser — eight skill cards, each with a screenshot,<br>
+  <em>The Core catalog in a browser — seven skill cards, each with a screenshot,<br>
   its capabilities, and a one-line install command.</em>
 </p>
 
@@ -19,10 +19,11 @@ Three files and an image folder. No framework, no `package.json`, nothing to com
 
 | File | What it is |
 |:---|:---|
-| [**index.html**](./index.html) | The page: hero, the eight Core skill cards, the project list, the install commands. All of the copy lives here, so it renders before JavaScript runs. |
+| [**index.html**](./index.html) | The page: hero, the seven Core skill cards, the project list, the install commands. All of the copy lives here, so it renders before JavaScript runs. |
 | [**styles.css**](./styles.css) | The dark theme. A card takes its colour from its `data-category`, which means a new category is one accent variable. |
 | [**script.js**](./script.js) | The typewriter hero, category filters, copy buttons, and the screenshot lightbox. |
 | [**assets/img/**](./assets/img/README.md) | The screenshots, plus the naming rules the page follows. |
+| [**assets/diagrams/**](./assets/diagrams/task-router.html) | Sources for any diagram that ships as an image. `task-router.html` is a 1600 × 1000 page that renders to `assets/img/task-router.webp`; edit it and screenshot it again if the tiers change. |
 
 ## 🚀 Run it
 
@@ -69,11 +70,10 @@ What's left before this page is finished, in rough order of what matters most.
 
 ### 📸 Screenshots
 
-Seven cards started empty, and the page is built around the images.
+Every card has an image now.
 
-- [ ] Capture the six Core skills still missing one: `business-plan-builder`, `recipe-validator`, `html-email-templates`, `task-router`, `news-images`, `video-downloader`.
 - [ ] Decide whether the four seeded `repo-docs-builder` images stay. They're rendered examples lifted from the skill's own `Resources/` folder, so they show the output a run produces rather than the skill at work.
-- [ ] Compress what goes in. `repo-docs-builder-2.png` alone is 274 KB; the same capture as a 1600 px WebP would be a fraction of that.
+- [ ] Compress what goes in. Most images are WebP now; the seeded `repo-docs-builder` PNGs still run up to 274 KB.
 
 ### 🌐 Hosting
 
@@ -87,7 +87,7 @@ Nothing serves the page yet.
 
 The card text is written into `index.html` and repeats each `SKILL.md`. Nothing keeps the two in step.
 
-- [ ] Re-read the eight taglines and feature lists against the current `SKILL.md` files.
+- [ ] Re-read the seven taglines and feature lists against the current `SKILL.md` files.
 - [ ] Pick a sync story: a manual pass whenever a skill changes, or a small script that generates the card blocks from the frontmatter.
 - [ ] Re-check the project list against `Skills/Projects/`, since the repo README is the source of truth and this page copies it.
 

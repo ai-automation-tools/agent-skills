@@ -69,7 +69,7 @@ has two consequences: names must be unique **across the whole repo** (the instal
 a collision rather than silently overwriting), and a project skill at user scope would follow you
 into every unrelated session — which is why a bare install run covers Core only.
 
-**Current Core categories:** `Automation`, `Business`, `Cooking`, `Documentation`, `Image-Gen`, `Media`, `Web`. Add a new one only when a skill genuinely fits none of these.
+**Current Core categories:** `Automation`, `Business`, `Cooking`, `Documentation`, `Image-Gen`, `Web`. Add a new one only when a skill genuinely fits none of these.
 
 **Current projects:** `agent-chat`, `cronsole`, `edge-radar`, `edge-spectrum`, `project-hub` — the org's repos, slug lowercased regardless of how the repo itself is cased.
 

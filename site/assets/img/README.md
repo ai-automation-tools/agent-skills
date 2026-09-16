@@ -23,7 +23,6 @@
 | [**html-email-templates**](../../../Skills/Core/Automation/html-email-templates/SKILL.md) | `html-email-templates.png` | `-2`, `-3`, `-4` |
 | [**task-router**](../../../Skills/Core/Automation/task-router/SKILL.md) | `task-router.png` | `-2`, `-3`, `-4` |
 | [**news-images**](../../../Skills/Core/Image-Gen/news-images/SKILL.md) | `news-images.png` | `-2`, `-3`, `-4` |
-| [**video-downloader**](../../../Skills/Core/Media/video-downloader/SKILL.md) | `video-downloader.png` | `-2`, `-3`, `-4` |
 | [**project-hub-scaffold**](../../../Skills/Core/Web/project-hub-scaffold/SKILL.md) | `project-hub-scaffold.png` | `-2`, `-3`, `-4` |
 
 `-2` means the gallery name, so `task-router-2.png` is the second image on the `task-router` card.
@@ -38,12 +37,25 @@
 
 ## 📦 Current state
 
-Two cards have images, six are waiting:
+Every card has an image:
 
 - **`repo-docs-builder`** ships with four captures copied from
   `Resources/Skill-Data/Core/Documentation/repo-docs-builder/Images/Screenshots/`, so the gallery
   and lightbox have something real to show.
 - **`project-hub-scaffold`** has two: the workspace dashboard and the markdown viewer.
+- **`business-plan-builder`** has three: the expanded output tree for one idea, plus the collapsed
+  top level for two others.
+- **`news-images`** has three, converted from PNG to WebP at quality 85 to keep them out of the
+  multi-megabyte range. The card leads with a landscape **montage** (1536 × 1024) because a
+  portrait collage would be cropped to a sliver by the 16:10 card frame; the two portrait
+  **collages** (1024 × 1536) live in the lightbox, where the full panel grid is visible.
+- **`recipe-validator`** has two, also WebP, at quality 92 since the screenshots are mostly text.
+- **`html-email-templates`** has two: a security advisory digest and a job completion notice.
+- **`task-router`** has one, and it isn't a screenshot. `../diagrams/task-router.html` draws the
+  four routing tiers in the site's own palette and renders to exactly 1600 × 1000, so the card
+  frame crops nothing.
+
+The `business-plan-builder` sources are small enough (4–23 KB) that they stayed PNG.
 
 Replace any of them whenever you like. The filenames are all that matters.
 

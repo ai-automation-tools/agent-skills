@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>task-router — diagram source</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#08090d;
+    --line:rgba(255,255,255,.09);
+    --text:#ecebe6;
+    --dim:#a3a9b6;
+    --faint:#6d7484;
+    --amber:#f2b34b;
+    --sans:"Geist",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --mono:"Geist Mono",ui-monospace,Consolas,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1600px;height:1000px;overflow:hidden}
+  body{position:relative;background:var(--ink);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+
+  .fx{position:absolute;inset:0;pointer-events:none}
+  .fx-grid{
+    background-image:
+      linear-gradient(to right,rgba(255,255,255,.03) 1px,transparent 1px),
+      linear-gradient(to bottom,rgba(255,255,255,.03) 1px,transparent 1px);
+    background-size:64px 64px;
+    -webkit-mask-image:radial-gradient(ellipse 85% 70% at 16% 0%,#000,transparent 80%);
+    mask-image:radial-gradient(ellipse 85% 70% at 16% 0%,#000,transparent 80%);
+  }
+  .fx-glow{
+    background:
+      radial-gradient(46% 38% at 12% 8%,rgba(242,179,75,.13),transparent 62%),
+      radial-gradient(46% 42% at 94% 92%,rgba(255,122,107,.10),transparent 66%),
+      radial-gradient(40% 40% at 60% 100%,rgba(167,139,250,.10),transparent 68%);
+  }
+
+  .wires{position:absolute;inset:0;z-index:1}
+  .stage{position:absolute;inset:0;z-index:2}
+
+  .eyebrow{position:absolute;left:72px;top:56px;font-family:var(--mono);font-size:13px;letter-spacing:.2em;color:var(--amber)}
+  h1{position:absolute;left:72px;top:80px;font-size:50px;font-weight:500;letter-spacing:-.025em;line-height:1.05}
+  .sub{position:absolute;left:72px;top:150px;font-size:17px;color:var(--dim)}
+
+  .card{
+    position:absolute;border:1px solid var(--line);border-radius:14px;
+    background:linear-gradient(180deg,rgba(20,24,33,.78),rgba(11,13,19,.78));
+  }
+  .node{top:225px;height:124px;padding:20px 24px}
+  .node .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--faint);margin-bottom:10px}
+  .node .big{font-size:20px;font-weight:500;margin-bottom:7px}
+  .node .sm{font-size:13.5px;color:var(--dim);line-height:1.45}
+
+  .req{left:72px;width:300px}
+  .gate{left:420px;width:300px}
+  .gate .row{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--dim);margin-bottom:7px}
+  .gate .row:last-child{margin-bottom:0}
+  .gate .dot{width:5px;height:5px;border-radius:1px;background:var(--amber);transform:rotate(45deg);flex:none}
+
+  .col{
+    position:absolute;top:420px;width:346px;height:520px;overflow:hidden;
+    border:1px solid var(--line);border-radius:16px;
+    background:linear-gradient(180deg,rgba(20,24,33,.66),rgba(11,13,19,.66));
+    padding:28px 30px;display:flex;flex-direction:column;
+  }
+  .col::before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--c)}
+  .col .wm{
+    position:absolute;right:16px;bottom:-14px;z-index:0;
+    font-family:var(--mono);font-size:158px;font-weight:600;line-height:1;
+    color:color-mix(in srgb,var(--c) 11%,transparent);
+  }
+  .col .chip{
+    position:relative;z-index:1;align-self:flex-start;
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--c);
+    border:1px solid color-mix(in srgb,var(--c) 40%,transparent);
+    background:color-mix(in srgb,var(--c) 12%,transparent);
+    padding:3px 9px;border-radius:6px;
+  }
+  .col .mid{position:relative;z-index:1;margin:auto 0}
+  .col .name{font-size:27px;font-weight:500;letter-spacing:-.01em}
+  .col .desc{font-size:15px;color:var(--dim);line-height:1.55;margin-top:11px}
+  .col .model{
+    position:relative;z-index:1;align-self:flex-start;
+    font-family:var(--mono);font-size:12px;color:var(--faint);
+    border:1px solid var(--line);border-radius:999px;padding:3px 11px;
+  }
+
+  .foot{position:absolute;left:72px;bottom:30px;font-family:var(--mono);font-size:13px;color:var(--faint)}
+</style>
+</head>
+<body>
+
+<div class="fx fx-grid"></div>
+<div class="fx fx-glow"></div>
+
+<svg class="wires" width="1600" height="1000" viewBox="0 0 1600 1000" fill="none">
+  <defs>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5364"/>
+    </marker>
+  </defs>
+  <g stroke="#3a4150" stroke-width="1.5" stroke-linecap="round">
+    <path d="M372,287 H414" marker-end="url(#arw)"/>
+    <path d="M570,349 V390"/>
+    <path d="M570,390 H257 Q245,390 245,402 V414" marker-end="url(#arw)"/>
+    <path d="M570,390 H1343 Q1355,390 1355,402 V414" marker-end="url(#arw)"/>
+    <path d="M615,390 V414" marker-end="url(#arw)"/>
+    <path d="M985,390 V414" marker-end="url(#arw)"/>
+  </g>
+</svg>
+
+<div class="stage">
+
+  <div class="eyebrow">TASK ROUTER</div>
+  <h1>Size the request, then pick the shape</h1>
+  <p class="sub">The wrong shape costs more than the wrong answer.</p>
+
+  <div class="card node req">
+    <div class="lbl">REQUEST</div>
+    <div class="big">One-line ask</div>
+    <div class="sm">Files not yet named. Blast radius unknown.</div>
+  </div>
+
+  <div class="card node gate">
+    <div class="lbl">SIZE</div>
+    <div class="row"><span class="dot"></span>Blast radius</div>
+    <div class="row"><span class="dot"></span>Files known?</div>
+    <div class="row"><span class="dot"></span>Cost policy</div>
+  </div>
+
+  <div class="col" style="--c:#4ade80;left:72px">
+    <div class="wm">0</div>
+    <div class="chip">TIER 0</div>
+    <div class="mid">
+      <div class="name">Answer inline</div>
+      <div class="desc">Small enough to just handle. A two-line answer, no machinery.</div>
+    </div>
+    <div class="model">no subagent</div>
+  </div>
+
+  <div class="col" style="--c:#56b6f2;left:442px">
+    <div class="wm">1</div>
+    <div class="chip">TIER 1</div>
+    <div class="mid">
+      <div class="name">One subagent</div>
+      <div class="desc">A single delegate with one clear job to hand off.</div>
+    </div>
+    <div class="model">small model</div>
+  </div>
+
+  <div class="col" style="--c:#a78bfa;left:812px">
+    <div class="wm">2</div>
+    <div class="chip">TIER 2</div>
+    <div class="mid">
+      <div class="name">Recon, then plan</div>
+      <div class="desc">Explore first, when the files a change touches aren't known yet.</div>
+    </div>
+    <div class="model">mid model</div>
+  </div>
+
+  <div class="col" style="--c:#ff7a6b;left:1182px">
+    <div class="wm">3</div>
+    <div class="chip">TIER 3</div>
+    <div class="mid">
+      <div class="name">Fan out</div>
+      <div class="desc">Parallel agents, then merge. Reserved for genuine breadth.</div>
+    </div>
+    <div class="model">large model</div>
+  </div>
+
+  <div class="foot">The cost policy is a parameter — set it once and the routing table follows it.</div>
+
+</div>
+</body>
+</html>
