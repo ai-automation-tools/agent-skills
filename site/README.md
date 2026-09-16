@@ -24,6 +24,7 @@ Three files and an image folder. No framework, no `package.json`, nothing to com
 | [**script.js**](./script.js) | The typewriter hero, category filters, copy buttons, and the screenshot lightbox. |
 | [**assets/img/**](./assets/img/README.md) | The screenshots, plus the naming rules the page follows. |
 | [**assets/diagrams/**](./assets/diagrams/task-router.html) | Sources for any diagram that ships as an image. `task-router.html` is a 1600 × 1000 page that renders to `assets/img/task-router.webp`; edit it and screenshot it again if the tiers change. |
+| [**CNAME**](./CNAME) | `agent-skills.ai-automation-tools.dev`. Shipped inside the published folder so the custom domain re-asserts itself on every deploy. |
 
 ## 🚀 Run it
 
@@ -62,7 +63,14 @@ One `<article class="card">` block per skill in `index.html`. To add, remove or 
 
 ## 🌐 Publishing
 
-GitHub Pages serves this as-is: point Pages at the repo root and set the source folder to `/site`. Any static host works the same way.
+Live at **[agent-skills.ai-automation-tools.dev](https://agent-skills.ai-automation-tools.dev)**, linked from the org landing page at [ai-automation-tools.dev](https://ai-automation-tools.dev).
+
+[`.github/workflows/pages.yml`](../.github/workflows/pages.yml) uploads this folder to GitHub Pages on any push to `main` that touches `site/`. Nothing is compiled — the artifact is the folder.
+
+> [!NOTE]
+> **The Pages source is a workflow, not a branch folder.** Classic Pages only offers `/` or `/docs` as a source directory, and this site lives in `/site` — so the deployment runs as an Action instead. Leave the repo's Pages setting on **GitHub Actions**; switching it back to *Deploy from a branch* silently stops publishing this folder.
+
+Any static host works the same way: serve `site/` as the document root.
 
 ## 🚧 Action items
 
@@ -77,11 +85,11 @@ Every card has an image now.
 
 ### 🌐 Hosting
 
-Nothing serves the page yet.
+Published by [`pages.yml`](../.github/workflows/pages.yml) to `agent-skills.ai-automation-tools.dev`.
 
-- [ ] Turn on GitHub Pages: source `main`, folder `/site`.
-- [ ] Add the resulting URL to the repo's About panel so people can find it.
-- [ ] Add an `og:image` (a 1200 × 630 crop of the hero) and a `twitter:card`. A shared link previews as bare text right now.
+- [x] Turn on GitHub Pages, source **GitHub Actions**, publishing `site/`.
+- [ ] Add the URL to the repo's About panel so people can find it from GitHub.
+- [ ] Add an `og:image` (a 1200 × 630 crop of the hero) and a `twitter:card`. A shared link previews as bare text right now, and the org landing page now sends traffic here.
 
 ### 🔁 Copy that drifts
 
@@ -103,7 +111,7 @@ The card text is written into `index.html` and repeats each `SKILL.md`. Nothing 
 - [ ] Test the breakpoints on a real phone. The layout has only been checked at desktop widths.
 - [ ] Fill the last grid row. Eight cards in three columns leaves one slot empty; `grid-column: span 2` on one card would close it, or leave it as is.
 - [ ] Give the hero panel a no-JS fallback line, so it isn't blank when the script fails to load.
-- [ ] Add `site/` to the layout diagram in `CLAUDE.md`, which still shows the tree without it.
+- [x] Add `site/` to the layout diagram in `CLAUDE.md`.
 - [ ] Add a link check across the READMEs and the card links, so a renamed skill fails loudly instead of 404ing quietly.
 
 ---

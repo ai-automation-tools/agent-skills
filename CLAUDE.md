@@ -19,6 +19,12 @@ agent-skills/
 ├── README.md                       # public index — Skills table by category + Docs table
 ├── CLAUDE.md                       # this file
 ├── .gitignore
+├── .github/workflows/
+│   └── pages.yml                   # publishes site/ to agent-skills.ai-automation-tools.dev
+├── site/                           # the showcase page — vanilla HTML/CSS/JS, no build step
+│   ├── index.html · styles.css · script.js
+│   ├── CNAME                       # agent-skills.ai-automation-tools.dev
+│   └── assets/img/ · assets/diagrams/
 ├── scripts/
 │   └── install-skills.ps1          # mirror leaf skills into a skills dir (repo tooling, not a skill)
 ├── Docs/

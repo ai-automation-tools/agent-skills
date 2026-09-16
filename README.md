@@ -11,12 +11,14 @@
 </p>
 
 <p align="center">
+  <a href="https://agent-skills.ai-automation-tools.dev">Showcase site</a> ·
   <a href="#-skill-catalog">Catalog</a> ·
   <a href="#-using-a-skill">Install</a> ·
   <a href="./Docs/USING-SKILLS.md">Authoring guide</a>
 </p>
 
 <p align="center">
+  <a href="https://agent-skills.ai-automation-tools.dev"><img src="https://img.shields.io/badge/live-agent--skills.ai--automation--tools.dev-F2B34B?style=for-the-badge" alt="Live at agent-skills.ai-automation-tools.dev"></a>
   <img src="https://img.shields.io/badge/skills-7-2ea44f?style=for-the-badge" alt="7 skills">
   <img src="https://img.shields.io/badge/format-SKILL.md-8B5CF6?style=for-the-badge" alt="SKILL.md format">
   <img src="https://img.shields.io/badge/agent-Claude%20Code-D97757?style=for-the-badge" alt="Built for Claude Code">
@@ -35,7 +37,7 @@ A collection of reusable skills for Claude Code and compatible AI agents. Each s
 |:---|:---|
 | [**🧩 Core**](./Skills/Core/README.md) | Reusable skills that work across repositories and install into your agent's user-level skills directory. |
 | [**🗂️ Projects**](./Skills/Projects/README.md) | Additional skills for specific repositories, installed into the project they belong to. |
-| [**🖥️ Showcase site**](./site/README.md) | A static page that presents every Core skill as a card, with screenshots and install commands. |
+| [**🖥️ Showcase site**](./site/README.md) | A static page that presents every Core skill as a card, with screenshots and install commands. Published at [agent-skills.ai-automation-tools.dev](https://agent-skills.ai-automation-tools.dev). |
 
 ## 📦 Core skills
 
