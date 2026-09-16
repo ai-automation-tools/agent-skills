@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent Skills — the Core catalog</title>
+<meta name="description" content="Eight portable Agent Skills for Claude Code and compatible agents. Each one a single SKILL.md the agent loads only when it needs it.">
+<meta name="theme-color" content="#07080B">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Agent Skills — the Core catalog">
+<meta property="og:description" content="Eight portable Agent Skills. Each one a single SKILL.md the agent loads only when it needs it.">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2307080B'/%3E%3Cpath d='M16 6l9 10-9 10-9-10z' fill='none' stroke='%23F2B34B' stroke-width='2.2'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip" href="#catalog">Skip to catalog</a>
+
+<div class="fx-grid" aria-hidden="true"></div>
+<div class="fx-glow" aria-hidden="true"></div>
+<div class="fx-grain" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="#top" aria-label="Agent Skills home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="20" height="20"><path d="M16 4l10 12-10 12L6 16z" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>
+      </span>
+      <span class="brand-text">agent-skills<em>/core</em></span>
+    </a>
+    <nav class="topnav" aria-label="Sections">
+      <a href="#catalog">Catalog</a>
+      <a href="#projects">Projects</a>
+      <a href="#install">Install</a>
+      <a class="topnav-gh" href="https://github.com/ai-automation-tools/agent-skills" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ─────────────────────────── HERO ─────────────────────────── -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+
+      <div class="hero-copy reveal">
+        <p class="eyebrow"><span class="pulse" aria-hidden="true"></span> SKILL.md · portable capabilities</p>
+        <h1>Capabilities the agent loads <em>only</em> when it needs them.</h1>
+        <p class="lead">
+          A skill is one <code>SKILL.md</code> — YAML frontmatter and a set of instructions — that
+          stays out of the model's context until it's invoked. This is the Core catalog: eight
+          portable skills that assume nothing about the repository you're standing in.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#catalog">Browse the catalog</a>
+          <a class="btn btn-ghost" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Docs/USING-SKILLS.md" target="_blank" rel="noopener">Read the authoring guide <span aria-hidden="true">↗</span></a>
+        </div>
+
+        <dl class="stats">
+          <div><dt>Core skills</dt><dd>08</dd></div>
+          <div><dt>Categories</dt><dd>07</dd></div>
+          <div><dt>Files per skill</dt><dd>01</dd></div>
+          <div><dt>Dependencies</dt><dd>00</dd></div>
+        </dl>
+      </div>
+
+      <div class="hero-panel reveal" aria-hidden="true">
+        <div class="panel-bar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="panel-title">~/.claude/skills/&lt;name&gt;/SKILL.md</span>
+        </div>
+        <pre class="panel-code"><code id="typer"></code><span class="caret"></span></pre>
+        <div class="panel-foot">
+          <span class="panel-tag">invoked on demand</span>
+          <span class="panel-tag">user scope</span>
+          <span class="panel-tag">kebab-case</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ────────────────────────── CATALOG ────────────────────────── -->
+  <section id="catalog" class="catalog">
+    <div class="wrap">
+
+      <header class="section-head reveal">
+        <p class="kicker">01 — Catalog</p>
+        <h2>Core skills</h2>
+        <p class="section-sub">
+          Eight skills across seven categories. Every one installs <em>flat</em> into
+          <code>~/.claude/skills</code>, so a name must be unique across the whole repo.
+        </p>
+      </header>
+
+      <div class="filters reveal" role="group" aria-label="Filter skills by category">
+        <button class="chip is-active" data-filter="all">All <span>8</span></button>
+        <button class="chip" data-filter="automation">Automation <span>2</span></button>
+        <button class="chip" data-filter="business">Business <span>1</span></button>
+        <button class="chip" data-filter="cooking">Cooking <span>1</span></button>
+        <button class="chip" data-filter="documentation">Documentation <span>1</span></button>
+        <button class="chip" data-filter="image-gen">Image-Gen <span>1</span></button>
+        <button class="chip" data-filter="media">Media <span>1</span></button>
+        <button class="chip" data-filter="web">Web <span>1</span></button>
+      </div>
+
+      <div class="grid" id="skillGrid">
+
+        <!-- 01 -->
+        <article class="card reveal" data-category="documentation" data-skill="repo-docs-builder">
+          <div class="card-media">
+            <img class="shot" data-name="repo-docs-builder" alt="A README built by repo-docs-builder" loading="lazy" decoding="async">
+            <div class="shot-fallback" aria-hidden="true">
+              <span class="glyph">🏗️</span>
+              <b>repo-docs-builder.png</b>
+              <small>drop a screenshot into site/assets/img/</small>
+            </div>
+            <span class="idx">01</span>
+          </div>
+          <div class="card-body">
+            <span class="cat" data-cat="documentation"><i aria-hidden="true"></i>Documentation</span>
+            <h3 class="card-title"><span class="glyph" aria-hidden="true">🏗️</span><code>repo-docs-builder</code></h3>
+            <p class="tagline">A repository that reads top to bottom like somebody meant it.</p>
+            <ul class="feat">
+              <li>Layout: app under <code>src/</code> or <code>site/</code>, root stays docs and meta</li>
+              <li>A docs tree wired with down-links and up-links</li>
+              <li>A house-style README at every level, not just the root</li>
+              <li>A humanizer pass over every sentence of prose</li>
+              <li>Renders natively in both GitHub and Obsidian</li>
+            </ul>
+            <div class="card-foot">
+              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill repo-docs-builder" title="Copy install command">
+                <span class="cmd-text">-Skill repo-docs-builder</span>
+                <span class="cmd-icon" aria-hidden="true">copy</span>
+              </button>
+              <a class="link" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Skills/Core/Documentation/repo-docs-builder/SKILL.md" target="_blank" rel="noopener">SKILL.md <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 02 -->
+        <article class="card reveal" data-category="business" data-skill="business-plan-builder">
+          <div class="card-media">
+            <img class="shot" data-name="business-plan-builder" alt="A business-plan-builder output folder" loading="lazy" decoding="async">
+            <div class="shot-fallback" aria-hidden="true">
+              <span class="glyph">📈</span>
+              <b>business-plan-builder.png</b>
+              <small>drop a screenshot into site/assets/img/</small>
+            </div>
+            <span class="idx">02</span>
+          </div>
+          <div class="card-body">
+            <span class="cat" data-cat="business"><i aria-hidden="true"></i>Business</span>
+            <h3 class="card-title"><span class="glyph" aria-hidden="true">📈</span><code>business-plan-builder</code></h3>
+            <p class="tagline">Eight passes from napkin idea to decision memo — with a gate that can say no.</p>
+            <ul class="feat">
+              <li>Market sizing: TAM/SAM/SOM, JTBD, Five Forces</li>
+              <li>Competitive intelligence with graded evidence</li>
+              <li>An ROI model plus a sensitivity sweep</li>
+              <li>A decision memo gates the build half — a no-go is a complete run</li>
+              <li>Output is a linked markdown repo; every number sourced or tagged</li>
+            </ul>
+            <div class="card-foot">
+              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill business-plan-builder" title="Copy install command">
+                <span class="cmd-text">-Skill business-plan-builder</span>
+                <span class="cmd-icon" aria-hidden="true">copy</span>
+              </button>
+              <a class="link" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Skills/Core/Business/business-plan-builder/SKILL.md" target="_blank" rel="noopener">SKILL.md <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 03 -->
+        <article class="card reveal" data-category="cooking" data-skill="recipe-validator">
+          <div class="card-media">
+            <img class="shot" data-name="recipe-validator" alt="A recipe validation report" loading="lazy" decoding="async">
+            <div class="shot-fallback" aria-hidden="true">
+              <span class="glyph">🍳</span>
+              <b>recipe-validator.png</b>
+              <small>drop a screenshot into site/assets/img/</small>
+            </div>
+            <span class="idx">03</span>
+          </div>
+          <div class="card-body">
+            <span class="cat" data-cat="cooking"><i aria-hidden="true"></i>Cooking</span>
+            <h3 class="card-title"><span class="glyph" aria-hidden="true">🍳</span><code>recipe-validator</code></h3>
+            <p class="tagline">A script does the arithmetic. You supply the judgment.</p>
+            <ul class="feat">
+              <li>Food-safety temperatures and dangerous-technique flags</li>
+              <li>Sodium, saturated-fat and added-sugar thresholds per serving</li>
+              <li>Quantity and ratio sanity against comparable recipes</li>
+              <li>Allergen-label completeness and overall coherence</li>
+              <li>Findings ranked by severity, each with a concrete fix</li>
+            </ul>
+            <div class="card-foot">
+              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill recipe-validator" title="Copy install command">
+                <span class="cmd-text">-Skill recipe-validator</span>
+                <span class="cmd-icon" aria-hidden="true">copy</span>
+              </button>
+              <a class="link" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Skills/Core/Cooking/recipe-validator/SKILL.md" target="_blank" rel="noopener">SKILL.md <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 04 -->
+        <article class="card reveal" data-category="automation" data-skill="html-email-templates">
+          <div class="card-media">
+            <img class="shot" data-name="html-email-templates" alt="An HTML email template rendered" loading="lazy" decoding="async">
+            <div class="shot-fallback" aria-hidden="true">
+              <span class="glyph">✉️</span>
+              <b>html-email-templates.png</b>
+              <small>drop a screenshot into site/assets/img/</small>
+            </div>
+            <span class="idx">04</span>
+          </div>
+          <div class="card-body">
+            <span class="cat" data-cat="automation"><i aria-hidden="true"></i>Automation</span>
+            <h3 class="card-title"><span class="glyph" aria-hidden="true">✉️</span><code>html-email-templates</code></h3>
+            <p class="tagline">Three email templates that survive the clients that strip your CSS.</p>
+            <ul class="feat">
+              <li>Template A — inline notification or alert for the body</li>
+              <li>Template B — dark banner report wrapper, attached or linked</li>
+              <li>Template C — light-card digest, safe to inline</li>
+              <li>Shared footer plus subject-line and label conventions</li>
+              <li>Transport-agnostic: Resend, Postmark, SendGrid, SES, SMTP</li>
+            </ul>
+            <div class="card-foot">
+              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill html-email-templates" title="Copy install command">
+                <span class="cmd-text">-Skill html-email-templates</span>
+                <span class="cmd-icon" aria-hidden="true">copy</span>
+              </button>
+              <a class="link" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Skills/Core/Automation/html-email-templates/SKILL.md" target="_blank" rel="noopener">SKILL.md <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 05 -->
+        <article class="card reveal" data-category="automation" data-skill="task-router">
+          <div class="card-media">
+            <img class="shot" data-name="task-router" alt="The task-router decision table" loading="lazy" decoding="async">
+            <div class="shot-fallback" aria-hidden="true">
+              <span class="glyph">🚦</span>
+              <b>task-router.png</b>
+              <small>drop a screenshot into site/assets/img/</small>
+            </div>
+            <span class="idx">05</span>
+          </div>
+          <div class="card-body">
+            <span class="cat" data-cat="automation"><i aria-hidden="true"></i>Automation</span>
+            <h3 class="card-title"><span class="glyph" aria-hidden="true">🚦</span><code>task-router</code></h3>
+            <p class="tagline">Size the job before you spend on it — then pick the model to match.</p>
+            <ul class="feat">
+              <li>Four execution shapes: inline, one subagent, recon-then-plan, fan out</li>
+              <li>Picks a model tier to match the shape it chose</li>
+              <li>The cost policy is a parameter — set it once</li>
+              <li>The authorization gate for delegation, at the tier it selects</li>
+            </ul>
+            <div class="card-foot">
+              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill task-router" title="Copy install command">
+                <span class="cmd-text">-Skill task-router</span>
+                <span class="cmd-icon" aria-hidden="true">copy</span>
+              </button>
+              <a class="link" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Skills/Core/Automation/task-router/SKILL.md" target="_blank" rel="noopener">SKILL.md <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 06 -->
+        <article class="card reveal" data-category="image-gen" data-skill="news-images">
+          <div class="card-media">
+            <img class="shot" data-name="news-images" alt="A cartoon-editorial news collage" loading="lazy" decoding="async">
+            <div class="shot-fallback" aria-hidden="true">
+              <span class="glyph">🖼️</span>
+              <b>news-images.png</b>
+              <small>drop a screenshot into site/assets/img/</small>
+            </div>
+            <span class="idx">06</span>
+          </div>
+          <div class="card-body">
+            <span class="cat" data-cat="image-gen"><i aria-hidden="true"></i>Image-Gen</span>
+            <h3 class="card-title"><span class="glyph" aria-hidden="true">🖼️</span><code>news-images</code></h3>
+            <p class="tagline">Cartoon-editorial news imagery, eight ways.</p>
+            <ul class="feat">
+              <li>Four cadences: daily, weekly, monthly, yearly</li>
+              <li>Collage — a six-panel grid at 1024 × 1536</li>
+              <li>Montage — one continuous scene at 1536 × 1024</li>
+              <li>Researches the stories, lays out the frame, produces the PNG</li>
+              <li>A dedicated prompt file for each of the eight variants</li>
+            </ul>
+            <div class="card-foot">
+              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill news-images" title="Copy install command">
+                <span class="cmd-text">-Skill news-images</span>
+                <span class="cmd-icon" aria-hidden="true">copy</span>
+              </button>
+              <a class="link" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Skills/Core/Image-Gen/news-images/SKILL.md" target="_blank" rel="noopener">SKILL.md <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 07 -->
+        <article class="card reveal" data-category="media" data-skill="video-downloader">
+          <div class="card-media">
+            <img class="shot" data-name="video-downloader" alt="video-downloader running in a terminal" loading="lazy" decoding="async">
+            <div class="shot-fallback" aria-hidden="true">
+              <span class="glyph">🎬</span>
+              <b>video-downloader.png</b>
+              <small>drop a screenshot into site/assets/img/</small>
+            </div>
+            <span class="idx">07</span>
+          </div>
+          <div class="card-body">
+            <span class="cat" data-cat="media"><i aria-hidden="true"></i>Media</span>
+            <h3 class="card-title"><span class="glyph" aria-hidden="true">🎬</span><code>video-downloader</code></h3>
+            <p class="tagline">YouTube downloads with the knobs you actually want.</p>
+            <ul class="feat">
+              <li>Quality caps: best, 1080p, 720p, 480p, 360p, worst</li>
+              <li>Formats: mp4, webm, mkv — or audio-only MP3</li>
+              <li>Windows-hardened: platform-aware output directory</li>
+              <li>UTF-8 console output and automatic JS-runtime detection</li>
+              <li>Cookie extraction for 403-blocked downloads</li>
+            </ul>
+            <div class="card-foot">
+              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill video-downloader" title="Copy install command">
+                <span class="cmd-text">-Skill video-downloader</span>
+                <span class="cmd-icon" aria-hidden="true">copy</span>
+              </button>
+              <a class="link" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Skills/Core/Media/video-downloader/SKILL.md" target="_blank" rel="noopener">SKILL.md <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 08 -->
+        <article class="card reveal" data-category="web" data-skill="project-hub-scaffold">
+          <div class="card-media">
+            <img class="shot" data-name="project-hub-scaffold" alt="A Project Hub document browser" loading="lazy" decoding="async">
+            <div class="shot-fallback" aria-hidden="true">
+              <span class="glyph">🌐</span>
+              <b>project-hub-scaffold.png</b>
+              <small>drop a screenshot into site/assets/img/</small>
+            </div>
+            <span class="idx">08</span>
+          </div>
+          <div class="card-body">
+            <span class="cat" data-cat="web"><i aria-hidden="true"></i>Web</span>
+            <h3 class="card-title"><span class="glyph" aria-hidden="true">🌐</span><code>project-hub-scaffold</code></h3>
+            <p class="tagline">A clickable document tree over any folder — no build, no install.</p>
+            <ul class="feat">
+              <li>A zero-dependency Node server plus a static explorer</li>
+              <li>Mode A — add a workspace to an existing Hub</li>
+              <li>Mode B — a portable installation that carries its own engine</li>
+              <li>Mode C — match an existing Hub page's theme and tree</li>
+              <li>Source: github.com/ai-automation-tools/project-hub (MIT)</li>
+            </ul>
+            <div class="card-foot">
+              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill project-hub-scaffold" title="Copy install command">
+                <span class="cmd-text">-Skill project-hub-scaffold</span>
+                <span class="cmd-icon" aria-hidden="true">copy</span>
+              </button>
+              <a class="link" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Skills/Core/Web/project-hub-scaffold/SKILL.md" target="_blank" rel="noopener">SKILL.md <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────── PROJECTS ───────────────────────── -->
+  <section id="projects" class="projects">
+    <div class="wrap">
+      <header class="section-head reveal">
+        <p class="kicker">02 — Projects</p>
+        <h2>Project skills</h2>
+        <p class="section-sub">
+          A second tier that installs into one repository instead of user scope, so a
+          repo-specific skill never follows you into an unrelated session. Each group below
+          links to its folder in the repo.
+        </p>
+      </header>
+
+      <ul class="proj-list reveal">
+        <li>
+          <a class="proj" href="https://github.com/ai-automation-tools/agent-skills/tree/main/Skills/Projects/agent-chat" target="_blank" rel="noopener">
+            <span class="proj-glyph" aria-hidden="true">💬</span>
+            <span class="proj-main">
+              <span class="proj-name">agent-chat</span>
+              <span class="proj-skills"><code>agent-chat-conv-types</code><code>agent-chat-delivery</code><code>agent-chat-run-triage</code></span>
+            </span>
+            <span class="proj-go" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li>
+          <a class="proj" href="https://github.com/ai-automation-tools/agent-skills/tree/main/Skills/Projects/cronsole" target="_blank" rel="noopener">
+            <span class="proj-glyph" aria-hidden="true">⏱️</span>
+            <span class="proj-main">
+              <span class="proj-name">cronsole</span>
+              <span class="proj-skills"><code>cronsole-windows-jobs</code><code>cronsole-claude-routines</code></span>
+            </span>
+            <span class="proj-go" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li>
+          <a class="proj" href="https://github.com/ai-automation-tools/agent-skills/tree/main/Skills/Projects/edge-radar" target="_blank" rel="noopener">
+            <span class="proj-glyph" aria-hidden="true">📡</span>
+            <span class="proj-main">
+              <span class="proj-name">edge-radar</span>
+              <span class="proj-skills"><code>edge-radar-strategy-profiles</code><code>edge-radar-strategy-evidence</code></span>
+            </span>
+            <span class="proj-go" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li>
+          <a class="proj" href="https://github.com/ai-automation-tools/agent-skills/tree/main/Skills/Projects/edge-spectrum" target="_blank" rel="noopener">
+            <span class="proj-glyph" aria-hidden="true">📉</span>
+            <span class="proj-main">
+              <span class="proj-name">edge-spectrum</span>
+              <span class="proj-skills"><code>edge-spectrum-hub-tool</code><code>edge-spectrum-dataset</code><code>edge-spectrum-endpoint</code></span>
+            </span>
+            <span class="proj-go" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li>
+          <a class="proj" href="https://github.com/ai-automation-tools/agent-skills/tree/main/Skills/Projects/project-hub" target="_blank" rel="noopener">
+            <span class="proj-glyph" aria-hidden="true">🌐</span>
+            <span class="proj-main">
+              <span class="proj-name">project-hub</span>
+              <span class="proj-skills"><code>project-hub-scan</code><code>project-hub-client</code><code>project-hub-demo</code></span>
+            </span>
+            <span class="proj-go" aria-hidden="true">↗</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────── INSTALL ───────────────────────── -->
+  <section id="install" class="install">
+    <div class="wrap install-grid">
+      <div class="install-copy reveal">
+        <p class="kicker">03 — Install</p>
+        <h2>Two tiers, two scopes</h2>
+        <p class="section-sub">
+          <strong>Core</strong> installs at user scope and every session can reach it.
+          <strong>Projects</strong> install into the repo they belong to. A bare run covers
+          Core only, so a project skill never leaks into your global catalog.
+        </p>
+        <a class="link-arrow" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Docs/USING-SKILLS.md" target="_blank" rel="noopener">Full install &amp; authoring guide <span aria-hidden="true">↗</span></a>
+      </div>
+
+      <div class="install-cmds reveal">
+        <div class="codeblock">
+          <div class="codeblock-head"><span>Core — all eight</span><button class="mini-copy" data-copy="pwsh scripts/install-skills.ps1 -Core" aria-label="Copy command">copy</button></div>
+          <pre><code><span class="p">pwsh</span> scripts/install-skills.ps1 <span class="f">-Core</span></code></pre>
+        </div>
+        <div class="codeblock">
+          <div class="codeblock-head"><span>One skill</span><button class="mini-copy" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill task-router" aria-label="Copy command">copy</button></div>
+          <pre><code><span class="p">pwsh</span> scripts/install-skills.ps1 <span class="f">-Core</span> <span class="f">-Skill</span> task-router</code></pre>
+        </div>
+        <div class="codeblock">
+          <div class="codeblock-head"><span>Into a project</span><button class="mini-copy" data-copy="pwsh scripts/install-skills.ps1 -Project cronsole -Destination <clone>/.claude/skills" aria-label="Copy command">copy</button></div>
+          <pre><code><span class="p">pwsh</span> scripts/install-skills.ps1 <span class="f">-Project</span> cronsole <span class="f">-Destination</span> &lt;clone&gt;/.claude/skills</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="18" height="18"><path d="M16 4l10 12-10 12L6 16z" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>
+      </span>
+      <span>agent-skills</span>
+    </div>
+    <p class="footer-note">
+      Portable capabilities for Claude Code and compatible agents. Format:
+      <code>SKILL.md</code>.
+    </p>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="https://github.com/ai-automation-tools/agent-skills" target="_blank" rel="noopener">Repository <span aria-hidden="true">↗</span></a>
+      <a href="https://github.com/ai-automation-tools/agent-skills/blob/main/README.md" target="_blank" rel="noopener">README <span aria-hidden="true">↗</span></a>
+      <a href="https://github.com/ai-automation-tools/agent-skills/blob/main/Docs/USING-SKILLS.md" target="_blank" rel="noopener">Docs <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div>
+</footer>
+
+<!-- ────────────────────────── LIGHTBOX ────────────────────────── -->
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lb-close" type="button" aria-label="Close">✕</button>
+  <button class="lb-nav lb-prev" type="button" aria-label="Previous image">‹</button>
+  <figure class="lb-fig">
+    <img id="lbImg" alt="">
+    <figcaption id="lbCap"></figcaption>
+  </figure>
+  <button class="lb-nav lb-next" type="button" aria-label="Next image">›</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

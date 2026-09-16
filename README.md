@@ -35,6 +35,7 @@ A collection of reusable skills for Claude Code and compatible AI agents. Each s
 |:---|:---|
 | [**🧩 Core**](./Skills/Core/README.md) | Reusable skills that work across repositories and install into your agent's user-level skills directory. |
 | [**🗂️ Projects**](./Skills/Projects/README.md) | Additional skills for specific repositories, installed into the project they belong to. |
+| [**🖥️ Showcase site**](./site/README.md) | A static page that presents every Core skill as a card, with screenshots and install commands. |
 
 ## 📦 Core skills
 
