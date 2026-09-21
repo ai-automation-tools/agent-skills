@@ -114,6 +114,17 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
 
 main, .topbar, .footer { position: relative; z-index: 1; }
 
+/* ---------- Source bar ----------
+   The shared "back to the repo" strip. Same shape on every site in the org:
+   full width at the very top, note on the left, repo link in the right corner.
+   In normal flow (not sticky) so it scrolls away and .topbar takes the top. */
+.src-bar { position: relative; z-index: 2; background: #0a0a0b; border-bottom: 1px solid var(--line); }
+.src-bar-inner { display: flex; align-items: center; gap: 16px; height: 34px; font-size: 12px; }
+.src-note { margin: 0; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; color: var(--text-faint); }
+.src-note strong { font-weight: 600; color: var(--amber); }
+.src-link { margin-left: auto; flex: none; display: inline-flex; align-items: center; gap: 6px; color: var(--text-dim); text-decoration: none; transition: color .2s; }
+.src-link:hover { color: var(--text); }
+
 /* ---------- Topbar ---------- */
 .topbar {
   position: sticky; top: 0; z-index: 50;
@@ -135,8 +146,6 @@ main, .topbar, .footer { position: relative; z-index: 1; }
   padding: 7px 11px; border-radius: 8px; transition: color .2s, background .2s;
 }
 .topnav a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
-.topnav-gh { color: var(--amber) !important; border: 1px solid var(--amber-line); }
-.topnav-gh:hover { background: var(--amber-soft) !important; }
 
 /* ---------- Hero ---------- */
 .hero { padding: clamp(56px, 9vw, 104px) 0 clamp(48px, 7vw, 84px); }
@@ -519,7 +528,7 @@ main, .topbar, .footer { position: relative; z-index: 1; }
 @media (max-width: 760px) {
   .grid { grid-template-columns: 1fr; }
   .proj-list { grid-template-columns: 1fr; }
-  .topnav a:not(.topnav-gh) { display: none; }
+  .topnav { display: none; }
   .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 18px; }
   .footer-links { margin-left: 0; }
 }
