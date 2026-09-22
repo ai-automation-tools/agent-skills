@@ -24,7 +24,9 @@ repo/
 │
 ├── docs/
 │     ├── README.md ................... docs HUB (Tier 2)  → §3.2 header
-│     │     └─ links DOWN to each section's own README
+│     │     └─ links DOWN to each section's own README, plus the two files below
+│     ├── ROADMAP.md ................. action items to launch/promote/monetize → §2.5
+│     ├── CHANGELOG.md ............... every change, newest first → §2.5
 │     ├── architecture/
 │     │     ├── README.md ............. section index (Tier 3) → links DOWN to docs
 │     │     ├── overview.md
@@ -47,6 +49,7 @@ repo/
 |:---|:---|:---|
 | `src/` vs `site/` + clean root | §1 Repo layout | Web/app artifacts under `src/`/`site/`; root keeps README + `docs/` + required config only. |
 | The index tree + link direction | §2 Documentation tree | Root → `docs/` hub → each section README → the documents; every folder is a two-way door (down-links + up-link footer). |
+| `docs/ROADMAP.md` + `docs/CHANGELOG.md` | §2.5 Project documents | Both sit beside the hub. The roadmap holds checkable action items by phase (build → launch-ready → publish → monetize); the changelog records every change, including each roadmap item as it's completed. |
 | Root `README.md` opener | §3.1 Root hero header | Logo, tagline, docs link, nav row, hero + tech badge rows, closing `---`. |
 | Every folder `README.md` opener | §3.2 Folder/section header | Centered emoji-`<h1>` + tagline + 1–3 badge row (never the logo hero). |
 | Bodies, catalog tables, footers | §4 README body | "What's in here" tables link down using the leftmost-bold-column pattern; footers link up. |
