@@ -107,7 +107,7 @@ scanner that reads a user's. Rebuild to see it.
   `commit`). `state` is genuinely produced: `ahead` is an extra local commit, `behind` pushes
   one then resets back off it, `dirty` writes an uncommitted file. **The mix is deliberate —
   a table where every row says `clean` demonstrates nothing.**
-- `Repos/Draft/` has no `.git` by convention, so drafts are correctly absent from `REPOS`.
+- `Repos/Private/Draft/` has no `.git` by convention, so drafts are correctly absent from `REPOS`.
 - Everything invented: every workspace, repo, person and domain is fictional, and commits use
   `team@example.dev`. Keep it that way.
 

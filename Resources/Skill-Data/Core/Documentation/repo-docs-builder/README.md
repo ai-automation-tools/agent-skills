@@ -16,7 +16,7 @@
 
 ## About this folder
 
-Reference exemplars for the skill: real header blocks captured from live repos, the annotated docs-tree structure, the target end-state layout of a fully built repo, and rendered screenshots of the README style it produces. The tree and layout exemplars are modeled on the real `Enterprise-Network` repo (`Repos/Draft/Enterprise-Network/Repo`), whose Next.js app lives under `src/` and whose docs form the root → hub → section tree.
+Reference exemplars for the skill: real header blocks captured from live repos, the annotated docs-tree structure, the target end-state layout of a fully built repo, and rendered screenshots of the README style it produces. The tree and layout exemplars are modeled on the real `Enterprise-Network` repo (`Repos/Private/Draft/Enterprise-Network/Repo`), whose Next.js app lives under `src/` and whose docs form the root → hub → section tree.
 
 ## Contents
 

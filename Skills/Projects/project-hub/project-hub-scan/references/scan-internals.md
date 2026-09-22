@@ -34,7 +34,7 @@ fire a GET with a side effect without ever reading the response.
 | `projects` | the portfolio node | `viewPortfolio` |
 | `section` `group` `folder` | plain directories | `viewFolder` |
 | `repo` | a directory containing `.git` | `viewRepo` |
-| `draft` | `Repos/Draft/*` at depth 2 — pre-repo R&D, doc-filtered like a repo | `viewFolder` |
+| `draft` | `Repos/Private/Draft/*` at depth 2 — pre-repo R&D, doc-filtered like a repo | `viewFolder` |
 | `cli` | `Agents/<vendor>/` at depth 1 with a `CLAUDE.md`/`AGENTS.md` | `viewCli` |
 | `skill` `command` `agent` `hook` `style` `routine` | `BUCKETS`, inside a `CONFIG_DIRS` folder | `viewEntity` |
 | `md` `config` `html` `pdf` `file` | `kindOfFile()` | `viewFile` |
