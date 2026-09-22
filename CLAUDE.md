@@ -29,7 +29,8 @@ agent-skills/
 │   └── install-skills.ps1          # mirror leaf skills into a skills dir (repo tooling, not a skill)
 ├── Docs/
 │   ├── USING-SKILLS.md             # install / invoke / author guide
-│   └── SKILL-IDEAS.md              # backlog of candidate skills
+│   ├── SKILL-IDEAS.md              # backlog of candidate skills
+│   └── ROADMAP.md                  # repo work queue — worked weekly by a roadmap routine
 ├── Skills/
 │   ├── Core/                       # TIER 1 — portable, installs to ~/.claude/skills
 │   │   ├── README.md
@@ -183,6 +184,6 @@ There is no repo-wide test runner. Skill-specific `evals/` (e.g. `recipe-validat
 ## When in doubt
 
 - On skill structure/authoring: read [`Docs/USING-SKILLS.md`](./Docs/USING-SKILLS.md), then the reference skills above, or use `/skill-writer`.
-- On what to build next: [`Docs/SKILL-IDEAS.md`](./Docs/SKILL-IDEAS.md).
+- On what to build next: [`Docs/ROADMAP.md`](./Docs/ROADMAP.md) for repo work, [`Docs/SKILL-IDEAS.md`](./Docs/SKILL-IDEAS.md) for skill ideas.
 - On where a skill lives / how it's grouped: [`README.md`](./README.md) is the index of record.
 - For ambiguous tasks (which category, rename vs new skill, edit vs review), ask one clarifying question rather than guess — a wrong assumption here means a multi-file rename.

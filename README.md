@@ -14,7 +14,8 @@
   <a href="https://agent-skills.ai-automation-tools.dev">Showcase site</a> ·
   <a href="#-skill-catalog">Catalog</a> ·
   <a href="#-using-a-skill">Install</a> ·
-  <a href="./Docs/USING-SKILLS.md">Authoring guide</a>
+  <a href="./Docs/USING-SKILLS.md">Authoring guide</a> ·
+  <a href="./Docs/ROADMAP.md">Roadmap</a>
 </p>
 
 <p align="center">
@@ -65,4 +66,4 @@ Each folder lists the project's existing skills and any additional skills provid
 
 <a id="-using-a-skill"></a>
 
-See the [Using Skills guide](./Docs/USING-SKILLS.md) for installation and authoring instructions, or browse [Resources](./Resources/README.md) for examples and supporting material.
+See the [Using Skills guide](./Docs/USING-SKILLS.md) for installation and authoring instructions, or browse [Resources](./Resources/README.md) for examples and supporting material. What's planned next is in the [roadmap](./Docs/ROADMAP.md).
