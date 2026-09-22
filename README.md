@@ -47,7 +47,7 @@ A collection of reusable skills for Claude Code and compatible AI agents. Each s
 | [**🚦 task-router**](./Skills/Core/Automation/task-router/SKILL.md) | Automation | Chooses a workflow and model tier based on the task. |
 | [**📈 business-plan-builder**](./Skills/Core/Business/business-plan-builder/SKILL.md) | Business | Evaluates business ideas and writes a decision memo and build plan. |
 | [**🍳 recipe-validator**](./Skills/Core/Cooking/recipe-validator/SKILL.md) | Cooking | Checks recipes for food safety, nutrition, quantities, and allergens. |
-| [**🏗️ repo-docs-builder**](./Skills/Core/Documentation/repo-docs-builder/SKILL.md) | Documentation | Organizes repositories and creates linked READMEs and documentation. |
+| [**🏗️ repo-docs-builder**](./Skills/Core/Documentation/repo-docs-builder/SKILL.md) | Documentation | Organizes repositories and creates linked READMEs, a docs tree, and the roadmap + changelog that go with it. |
 | [**🖼️ news-images**](./Skills/Core/Image-Gen/news-images/SKILL.md) | Image-Gen | Generates illustrated news collages and montages. |
 | [**🌐 project-hub-scaffold**](./Skills/Core/Web/project-hub-scaffold/SKILL.md) | Web | Builds a local web interface for browsing project documents. |
 

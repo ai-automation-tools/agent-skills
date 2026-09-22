@@ -1,7 +1,7 @@
 #requires -Version 7
 <#
 .SYNOPSIS
-    Install (copy) this repo's Agent Skills into your Claude Code skills directory.
+    Install (copy) this repo's Agent Skills into an agent CLI's skills directory.
 
 .DESCRIPTION
     Finds every leaf skill folder under Skills/ (a folder that directly contains a
@@ -24,8 +24,25 @@
     A bare run installs the Core tier only, so a project skill can never leak into
     user scope by accident and clutter the catalog of every unrelated session.
 
+    Four agent CLIs read a global skills directory and they are NOT the same path.
+    -AllAgents installs to every one that exists on this machine:
+
+      Claude Code  ~/.claude/skills
+      Codex        ~/.codex/skills
+      agy          ~/.agents/skills          (Antigravity)
+      opencode     ~/.config/opencode/skills
+
+    A CLI whose root folder is absent is skipped rather than created, so the switch
+    never litters ~ with directories for tools you don't have.
+
 .PARAMETER Destination
     Where to install. Defaults to "$HOME/.claude/skills".
+
+.PARAMETER AllAgents
+    Install to the global skills directory of every agent CLI present on this
+    machine (Claude Code, Codex, agy, opencode) instead of a single -Destination.
+    Core tier only - project skills are per-repo by definition, so -Project is
+    rejected here.
 
 .PARAMETER Core
     Install the Core tier (Skills/Core/**). This is the default when neither -Core
@@ -52,6 +69,14 @@
     Re-install one Core skill.
 
 .EXAMPLE
+    pwsh scripts/install-skills.ps1 -AllAgents
+    Install every Core skill into all four agent CLIs' global skills directories.
+
+.EXAMPLE
+    pwsh scripts/install-skills.ps1 -AllAgents -Skill repo-docs-builder
+    Push one updated skill to every agent CLI at once.
+
+.EXAMPLE
     pwsh scripts/install-skills.ps1 -Project cronsole -Destination D:/repos/cronsole/.claude/skills
     Publish cronsole's project skills into the cronsole clone.
 
@@ -70,6 +95,7 @@ param(
     [Parameter(ParameterSetName = 'Project')] [string] $Project,
     [Parameter(ParameterSetName = 'All')]     [switch] $All,
     [string[]] $Skill,
+    [switch]   $AllAgents,
     [switch]   $List
 )
 
@@ -135,46 +161,83 @@ if ($List) {
     return
 }
 
-if (-not (Test-Path $Destination)) {
-    if ($PSCmdlet.ShouldProcess($Destination, 'Create skills directory')) {
-        New-Item -ItemType Directory -Path $Destination -Force | Out-Null
-    }
+# Where this lands: one -Destination, or every agent CLI that's actually installed.
+# The four CLIs read four different global paths — keeping them in sync by hand is
+# how one of them silently goes stale.
+$AgentSkillDirs = [ordered]@{
+    'Claude Code' = Join-Path $HOME '.claude/skills'
+    'Codex'       = Join-Path $HOME '.codex/skills'
+    'agy'         = Join-Path $HOME '.agents/skills'
+    'opencode'    = Join-Path $HOME '.config/opencode/skills'
 }
 
-Write-Host "Installing $($leaves.Count) skill(s) -> $Destination" -ForegroundColor Cyan
-$results = foreach ($leaf in $leaves) {
-    $name   = $leaf.Name
-    $target = Join-Path $Destination $name
-
-    # Project skills install as an OVERLAY on repos that already own skills, and installs are
-    # flat — so say whether this landed on empty space or on top of something.
-    $state = if (Test-Path $target) { 'Replaced' } else { 'New' }
-
-    if ($PSCmdlet.ShouldProcess($target, "Mirror skill '$name'")) {
-        if (Test-Path $target) { Remove-Item $target -Recurse -Force }
-        Copy-Item -Path $leaf.FullName -Destination $Destination -Recurse -Force
-
-        # Never ship local run output.
-        Get-ChildItem -Path $target -Recurse -Directory -Filter 'reports' -ErrorAction SilentlyContinue |
-            Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
-
-        $fileCount = (Get-ChildItem -Path $target -Recurse -File).Count
-        [pscustomobject]@{ Skill = $name; State = $state; Files = $fileCount; Target = $target }
-    }
-}
-
-if ($results) {
-    $results | Format-Table -AutoSize
-
-    # A first-ever 'Replaced' on a project install means we landed on a skill the repo owned.
+$destinations = [ordered]@{}
+if ($AllAgents) {
     if ($PSCmdlet.ParameterSetName -eq 'Project') {
-        $hit = $results | Where-Object State -eq 'Replaced'
-        if ($hit) {
-            Write-Warning ("Overwrote {0} existing skill folder(s) at the destination: {1}. " -f
-                $hit.Count, ($hit.Skill -join ', '))
-            Write-Warning "If any of those were the repo's own skills rather than a previous install from here, restore them with git and rename the skill in this repo."
+        throw "-AllAgents installs to user scope, and project skills belong in one repo's .claude/skills. Use -Project with -Destination instead."
+    }
+    if ($PSBoundParameters.ContainsKey('Destination')) {
+        throw "-AllAgents picks its own destinations. Drop -Destination, or drop -AllAgents."
+    }
+    foreach ($cli in $AgentSkillDirs.GetEnumerator()) {
+        # Test the CLI's root (~/.codex), not the skills folder — the folder may not
+        # exist yet, but creating one for a CLI you don't have is litter.
+        if (Test-Path (Split-Path -Parent $cli.Value)) {
+            $destinations[$cli.Key] = $cli.Value
+        } else {
+            Write-Host ("Skipping {0} — {1} not found on this machine." -f $cli.Key, (Split-Path -Parent $cli.Value)) -ForegroundColor DarkGray
+        }
+    }
+    if (-not $destinations.Count) { throw "None of the known agent CLI folders exist under $HOME. Nothing to install to." }
+} else {
+    $destinations[''] = $Destination
+}
+
+foreach ($dest in $destinations.GetEnumerator()) {
+    $DestPath = $dest.Value
+    $label    = if ($dest.Key) { "$($dest.Key)  " } else { '' }
+
+    if (-not (Test-Path $DestPath)) {
+        if ($PSCmdlet.ShouldProcess($DestPath, 'Create skills directory')) {
+            New-Item -ItemType Directory -Path $DestPath -Force | Out-Null
         }
     }
 
-    Write-Host "Done. Restart any open Claude Code session to reload the skill catalog." -ForegroundColor Green
+    Write-Host "Installing $($leaves.Count) skill(s) -> $label$DestPath" -ForegroundColor Cyan
+    $results = foreach ($leaf in $leaves) {
+        $name   = $leaf.Name
+        $target = Join-Path $DestPath $name
+
+        # Project skills install as an OVERLAY on repos that already own skills, and installs are
+        # flat — so say whether this landed on empty space or on top of something.
+        $state = if (Test-Path $target) { 'Replaced' } else { 'New' }
+
+        if ($PSCmdlet.ShouldProcess($target, "Mirror skill '$name'")) {
+            if (Test-Path $target) { Remove-Item $target -Recurse -Force }
+            Copy-Item -Path $leaf.FullName -Destination $DestPath -Recurse -Force
+
+            # Never ship local run output.
+            Get-ChildItem -Path $target -Recurse -Directory -Filter 'reports' -ErrorAction SilentlyContinue |
+                Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
+
+            $fileCount = (Get-ChildItem -Path $target -Recurse -File).Count
+            [pscustomobject]@{ Skill = $name; State = $state; Files = $fileCount; Target = $target }
+        }
+    }
+
+    if ($results) {
+        $results | Format-Table -AutoSize
+
+        # A first-ever 'Replaced' on a project install means we landed on a skill the repo owned.
+        if ($PSCmdlet.ParameterSetName -eq 'Project') {
+            $hit = $results | Where-Object State -eq 'Replaced'
+            if ($hit) {
+                Write-Warning ("Overwrote {0} existing skill folder(s) at the destination: {1}. " -f
+                    $hit.Count, ($hit.Skill -join ', '))
+                Write-Warning "If any of those were the repo's own skills rather than a previous install from here, restore them with git and rename the skill in this repo."
+            }
+        }
+    }
 }
+
+Write-Host "Done. Restart any open agent session to reload the skill catalog." -ForegroundColor Green
