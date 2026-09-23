@@ -27,14 +27,14 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 ## 2026-09-23
 
 **Added**
-- `org-dev-pipeline` skill in the Automation category. It covers running a GitHub org's repos
-  as a scheduled pipeline (ideate, incubate, a weekly roadmap routine per repo, one PR sweep,
-  and graduation behind scripted gates plus a human approval) and auditing such a fleet.
+- `automated-dev-pipeline` skill in the Automation category. It sets up scheduled AI agents
+  that build projects (ideate, incubate, a weekly roadmap routine per repo, one PR sweep),
+  publish them to a GitHub account or organization behind scripted gates plus a human
+  approval, and keep every repo current through sourced refresh and upkeep jobs. References
+  cover architecture, stage contracts, idea sourcing, keeping repos current, and auditing.
   Written from the live `ai-automation-tools` pipeline. Its machine-specific operator notes
-  stay beside that pipeline's code, not in this repo. The showcase card is a Phase 2 roadmap item.
-  Its `references/idea-sourcing.md` covers feeding the ideate stage from any source (a notes
-  folder, labelled issues, a board export, an idea-card generator, feedback), plus the
-  adapter, dedupe, throttle and fit-criteria rules.
+  stay beside that pipeline's code, not in this repo. The showcase card is a Phase 2 roadmap
+  item.
 
 ## 2026-09-22
 

@@ -1,6 +1,6 @@
 # Idea sourcing: feeding the ideate stage
 
-Ideate is the only stage that looks outside the org. It needs a steady supply of candidate
+Ideate is the only stage that looks outside the pipeline. It needs a steady supply of candidate
 ideas, and every pipeline's supply is different. One person keeps idea notes in a vault,
 another triages GitHub issues, a third runs a job that writes idea cards every night. This
 file covers the part that stays the same: how to connect any source to ideate so it never
@@ -64,12 +64,12 @@ second source or the list gets long.
 2. **List and dedupe** through the adapter.
 3. **Shortlist up to ten**, newest first, spread across as many streams as possible. Read
    each one's summary. Skim, don't analyze.
-4. **Pick one** against the org's fit criteria (below). Record each passed-over idea with a
+4. **Pick one** against your fit criteria (below). Record each passed-over idea with a
    one-line reason in the run summary, **not** in the ledger. A passed-over idea stays
    eligible for a later run, and only analyzed ideas count as seen.
 5. **Plan it** with a business-plan skill that does real web research and ends in a verdict
-   (`business-plan-builder` in this library does). Pose the decision as "should this org
-   build this as its next open-source project, ahead of the other candidates?", and model
+   (`business-plan-builder` in this library does). Pose the decision as "should we
+   build this as our next project, ahead of the other candidates?", and model
    the build estimate on one agent-built roadmap item per sweep.
 6. **Score it 1–10** on how strongly it should be the next repo: the verdict, how strong the
    key assumption is, whether weekly agent work can build it, and how demo-able it is. A
@@ -82,20 +82,20 @@ session length.
 
 ## Fit criteria
 
-Write these down for your org before the first run. They're what makes ideate pick the
+Write these down before the first run. They're what makes ideate pick the
 right idea from a shortlist, and they're the part that varies most between orgs. The
-reference org builds open-source developer tools, so its criteria are:
+reference implementation builds open-source developer tools for a GitHub organization, so its criteria are:
 
 - An unattended agent can build and verify it in weekly increments. It has tests, a CLI or
   a library surface, and no step that needs a human in the loop.
 - It can ship a demo on static hosting (client-side, sample data, no secrets).
-- It's useful to the org's audience (here, developers and automation practitioners).
+- It's useful to the intended audience (here, developers and automation practitioners).
 - There's a plausible route from a public repo to real users.
 
 **Rank low:** ideas that need a licensed data feed, a regulated activity, paid accounts, a
 hardware purchase, or a deadline that will have passed before a repo could ship.
 
-Change the audience and the demo rule to match your org. A game studio wants "playable in
+Change the audience and the demo rule to match what you build. A game studio wants "playable in
 the browser", and a data-tools org wants "runs against a public dataset". Keep the
 agent-buildable rule in any case. An idea the roadmap routine can't make progress on
 takes up an incubation slot and stalls.

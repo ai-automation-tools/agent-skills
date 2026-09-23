@@ -74,7 +74,7 @@ landing page now sends traffic to the site.
   `site/index.html` from each Core skill's `name` and `description`, between marker
   comments, so the copy can't drift from `SKILL.md`. Run it in CI and fail if the output
   differs from what's committed.
-- [ ] **Showcase card for `org-dev-pipeline`.** Core has eight skills since 2026-09-23 but
+- [ ] **Showcase card for `automated-dev-pipeline`.** Core has eight skills since 2026-09-23 but
   the site shows seven. Add its card (category `automation`, glyph 🏭) with a diagram image
   in `site/assets/diagrams/` drawn from the loop in its `SKILL.md`, like `task-router`'s,
   and change "seven" to "eight" in the intro and the install block.

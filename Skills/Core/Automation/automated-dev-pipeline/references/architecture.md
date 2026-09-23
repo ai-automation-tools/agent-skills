@@ -9,17 +9,20 @@
 
 ## Components
 
+Grouped by the three jobs in `SKILL.md`. The keep-current rows are the ones worth adopting
+first if you already have repos; the build and publish rows only matter for new projects.
+
 | Component | Kind | Does | Output |
 |:---|:---|:---|:---|
-| **Ideate** | stage, Sonnet | Picks one unanalysed idea, runs a business-plan skill with web research, and scores it 1–10 | a plan folder + a ledger row (`planned` or `rejected`) |
-| **Incubate** | stage, Opus | Takes the top `planned` plan: local repo, docs, ROADMAP with release gates, private remote via the security wrapper, a weekly roadmap routine, and a sweep target | a private repo + a registered task |
-| **Roadmap routine** | per project, weekly | Works the next unchecked ROADMAP item in a throwaway worktree, verifies it (build/test/lint), ticks it, and opens a PR | a `roadmap/auto-<date>` PR |
-| **PR sweep** | Opus, 2x/week | Hard gates (mergeable, checks, not draft), then a per-prefix review, then a squash-merge or a hold with a comment | merged PRs + an email |
-| **Graduate** | daily; publish script + Sonnet | The script runs the gates, requests approval, and after approval flips to public and re-verifies security. The model then moves the folder, adds landing-page tiles and updates records | a public repo + site tiles |
-| **Upkeep** | Sonnet, weekly | Syncs the landing page with the org by PR, sweeps security controls, fixes homepages, and flags red CI, stuck PRs, coverage gaps, thin runway, blocked gates and stalled projects | a dated report + an optional PR |
-| **Harvest** | Sonnet, weekly | Mirrors portable workspace skills byte for byte into the shared library's Domain tier, with gates (tier, name collision, duplicate, secrets) | one `harvest/auto-*` PR |
-| **Workspace refresh** | Sonnet, weekly, one per workspace | Researches sourced intel for the workspace's field, then fixes the skills that intel makes stale | one `workspace/refresh-*` PR per workspace |
-| **Monthly review** | Sonnet, monthly | Source-cited currency fixes to the shared library's hand-curated tiers | one `skills/monthly-review-*` PR |
+| **Ideate** *(build)* | stage, mid-tier model | Picks one unanalysed idea, runs a business-plan skill with web research, and scores it 1–10 | a plan folder + a ledger row (`planned` or `rejected`) |
+| **Incubate** *(build)* | stage, strongest model | Takes the top `planned` plan: local repo, docs, ROADMAP with release gates, private remote via the security wrapper, a weekly roadmap routine, and a sweep target | a private repo + a registered task |
+| **Roadmap routine** *(build, keep current)* | per repo, weekly | Works the next unchecked ROADMAP item in a throwaway worktree, verifies it (build/test/lint), ticks it, and opens a PR | a `roadmap/auto-<date>` PR |
+| **PR sweep** *(all)* | strongest model, 2x/week | Hard gates (mergeable, checks, not draft), then a per-prefix review, then a squash-merge or a hold with a comment | merged PRs + an email |
+| **Graduate** *(publish)* | daily; publish script + mid-tier model | The script runs the gates, requests approval, and after approval flips to public and re-verifies security. The model then moves the folder, adds landing-page tiles and updates records | a public repo + site tiles |
+| **Upkeep** *(keep current)* | mid-tier model, weekly | Syncs the landing page with what's published, by PR, sweeps security controls, fixes homepages, and flags red CI, stuck PRs, coverage gaps, thin runway, blocked gates and stalled projects | a dated report + an optional PR |
+| **Harvest** *(keep current, optional)* | mid-tier model, weekly | For setups where agent workspaces share a skills library: mirrors portable skills byte for byte into it, with gates (tier, name collision, duplicate, secrets) | one `harvest/auto-*` PR |
+| **Refresh** *(keep current)* | mid-tier model, weekly, one per repo or workspace | Records sourced changes in the repo's field, then fixes what they make stale (see `keeping-current.md`) | one `workspace/refresh-*` PR per workspace |
+| **Periodic review** *(keep current)* | mid-tier model, monthly | Source-cited currency fixes to the shared library's hand-curated tiers | one `skills/monthly-review-*` PR |
 
 ## The weekly rhythm
 
