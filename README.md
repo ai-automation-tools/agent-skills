@@ -15,7 +15,8 @@
   <a href="#-skill-catalog">Catalog</a> ·
   <a href="#-using-a-skill">Install</a> ·
   <a href="./Docs/USING-SKILLS.md">Authoring guide</a> ·
-  <a href="./Docs/ROADMAP.md">Roadmap</a>
+  <a href="./Docs/ROADMAP.md">Roadmap</a> ·
+  <a href="./Docs/CHANGELOG.md">Changelog</a>
 </p>
 
 <p align="center">
@@ -79,4 +80,4 @@ Each folder lists the project's existing skills and any additional skills provid
 
 <a id="-using-a-skill"></a>
 
-See the [Using Skills guide](./Docs/USING-SKILLS.md) for installation and authoring instructions, or browse [Resources](./Resources/README.md) for examples and supporting material. What's planned next is in the [roadmap](./Docs/ROADMAP.md).
+See the [Using Skills guide](./Docs/USING-SKILLS.md) for installation and authoring instructions, or browse [Resources](./Resources/README.md) for examples and supporting material. What's planned next is in the [roadmap](./Docs/ROADMAP.md), and what has already changed is in the [changelog](./Docs/CHANGELOG.md).

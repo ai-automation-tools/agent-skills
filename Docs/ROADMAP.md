@@ -32,9 +32,10 @@ There's no test runner and no CI beyond the Pages deploy. So a renamed skill, a
 `name:` that no longer matches its folder, or a `references/` path that moved only shows
 up once someone installs the skill and it fails.
 
-- [ ] **Start `Docs/CHANGELOG.md`.** Newest first, seeded from the git log at the grain
+- [x] **Start `Docs/CHANGELOG.md`.** Newest first, seeded from the git log at the grain
   that's honest (one line per merged PR). Link it from the README's Docs table next to
-  this file.
+  this file. *(done 2026-09-22: seeded per PR since #1, per change before that; linked
+  from the README nav and "Using a skill" line, since the README has no Docs table)*
 - [ ] **Write `scripts/validate-skills.py`, with no third-party dependencies.** For every
   `SKILL.md` it checks that:
   - the frontmatter parses
@@ -142,6 +143,7 @@ Only `recipe-validator` has evals today.
 
 <p align="center">
   <a href="../README.md">← Repository home</a> ·
+  <a href="CHANGELOG.md">Changelog</a> ·
   <a href="USING-SKILLS.md">Using skills</a> ·
   <a href="SKILL-IDEAS.md">Skill ideas</a> ·
   <a href="#roadmap-top">↑ Back to top</a>
