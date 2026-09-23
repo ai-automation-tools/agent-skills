@@ -30,6 +30,7 @@ agent-skills/
 ├── Docs/
 │   ├── USING-SKILLS.md             # install / invoke / author guide
 │   ├── SKILL-IDEAS.md              # backlog of candidate skills
+│   ├── HARVEST.md                  # ledger of workspace skills mirrored into Core
 │   └── ROADMAP.md                  # repo work queue — worked weekly by a roadmap routine
 ├── Skills/
 │   ├── Core/                       # TIER 1 — portable, installs to ~/.claude/skills
@@ -128,6 +129,9 @@ Before finishing an edit to any skill, check whether another skill *references* 
 **The project tier is additive.** Every org repo keeps its own skills — a shipped `skills/` and a tracked `.claude/skills/`, both edited in that repo. `Skills/Projects/<repo>/` is a second layer installed on top. Never move a repo's skills into here, and never assume a name is free: installs are flat, so an overlay can overwrite a skill the repo owns. Each project README lists the taken names, and the installer marks rows `New` or `Replaced` plus warns when a `-Project` install replaced anything.
 
 **One real duplicate exists.** `project-hub-scaffold` sits here (Core) *and* in the `project-hub` repo, byte-identical, with no sync. This repo is canonical — edit here, republish, never hand-edit that copy. It is a one-off to resolve, not a pattern to copy.
+
+> [!IMPORTANT]
+> **Harvested skills are mirrors. Don't edit them here.** Since 2026-09-22 a weekly Skill Harvest job (Sun 08:00, `\AI-Automation-Tools-Org\Integrate-Projects\`) copies portable skills from the five org agent workspaces (`api-agent`, `business-agent`, `security-agent`, `fullstack-agent`, `media-studio`) into `Skills/Core/`, byte for byte, by `harvest/auto-<date>` PR. [`Docs/HARVEST.md`](./Docs/HARVEST.md) lists every one with its source. Edit the skill in its workspace repo and the next harvest re-syncs it. An edit made here gets flagged, not merged back. The roadmap routine follows the same rule.
 
 > [!NOTE]
 > **Prefer one self-contained skill over a composite.** [`repo-docs-builder`](./Skills/Core/Documentation/repo-docs-builder/SKILL.md) used to be an orchestrator that referenced three source skills (`readme-builder-mfs`, `readme-header-mfs`, `repo-docs-mfs`); on 2026-08-05 all four were merged into it and the three sources retired. The composite kept drifting out of sync with its sources, and the split forced a reader to load three files to build one README. If you're tempted to build a new "mega" skill that composes others, prefer folding the content into one skill with clear sections — and if you do build a composite, add a "keep synced" note here naming its sources.
