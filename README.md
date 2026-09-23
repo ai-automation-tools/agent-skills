@@ -65,6 +65,9 @@ when you ask: `install-skills.ps1 -Domain`. Edit them in their workspace repo; t
 | [**🐛 debugging-methodology**](./Skills/Domain/Engineering/debugging-methodology/SKILL.md) | Engineering | Debugs systematically: reproduce, one hypothesis at a time, bisect, root cause over symptom. |
 | [**⚡ performance-optimization**](./Skills/Domain/Engineering/performance-optimization/SKILL.md) | Engineering | Profiles before optimizing and fixes the biggest bottleneck first. |
 | [**🧪 testing-strategy**](./Skills/Domain/Engineering/testing-strategy/SKILL.md) | Engineering | Decides what to test and at which level, so the suite catches regressions without getting slow or brittle. |
+| [**🌐 api-client-resilience**](./Skills/Domain/API/api-client-resilience/SKILL.md) | API | Writes HTTP clients that fail predictably: timeouts, retries with jitter, circuit breaking, idempotency. |
+| [**🌐 api-integration-testing**](./Skills/Domain/API/api-integration-testing/SKILL.md) | API | Tests API integrations without hammering live services, using fixtures and contract tests. |
+| [**🌐 public-api-evaluation**](./Skills/Domain/API/public-api-evaluation/SKILL.md) | API | Vets a third-party API's auth, limits, licensing, and stability before you integrate. |
 
 ## 🗂️ Project skills
 
