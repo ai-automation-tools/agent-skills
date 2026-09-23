@@ -30,8 +30,9 @@ agent-skills/
 ├── Docs/
 │   ├── USING-SKILLS.md             # install / invoke / author guide
 │   ├── SKILL-IDEAS.md              # backlog of candidate skills
-│   ├── HARVEST.md                  # ledger of workspace skills mirrored into Core
-│   └── ROADMAP.md                  # repo work queue — worked weekly by a roadmap routine
+│   ├── HARVEST.md                  # ledger of workspace skills mirrored into Skills/Domain
+│   ├── ROADMAP.md                  # repo work queue — worked weekly by a roadmap routine
+│   └── CHANGELOG.md                # what changed, newest first — tick a roadmap item and log it together
 ├── Skills/
 │   ├── Core/                       # TIER 1 — portable, installs to ~/.claude/skills
 │   │   ├── README.md
