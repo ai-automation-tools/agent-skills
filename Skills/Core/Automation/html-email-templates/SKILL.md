@@ -23,7 +23,7 @@ Three templates, used together or alone. Pick based on what the email *is* and w
 
 A report email is usually **both A and B (or C)**: template A's footer is appended to every send regardless of which body template produced the content — that's a shared footer helper's job, not a per-template choice. For script/job artifacts, template B stays an attachment/link per the note below. For workflow-tool digests, the fleet can inline template C's *full* HTML as the body **and** still attach the archived `.html` file — both, not either/or.
 
-> **Why not inline Template B into the email body?** Template B relies on CSS custom properties (`var(--x)`), `background-clip: text`, and `backdrop-filter` — Gmail and Outlook strip or mangle all three. It renders correctly in a browser or PDF, not in an email client's DOM. Keep it as an attachment or a hosted link. Template C avoids this problem entirely by using only inline `style="..."` attributes — that's why it's safe to inline.
+> **Why not inline Template B into the email body?** Template B relies on CSS custom properties (`var(--x)`) — Gmail and Outlook still don't support CSS variables, so every themed color in the stylesheet resolves to nothing. `background-clip: text` is only partially supported in the same two clients. (`backdrop-filter` itself is no longer the blocker it once was — Gmail and modern Outlook clients have supported it since January 2024 — but that doesn't rescue the template, since the color system underneath still breaks.) It renders correctly in a browser or PDF, not in an email client's DOM. Keep it as an attachment or a hosted link. Template C avoids this problem entirely by using only inline `style="..."` attributes — that's why it's safe to inline.
 
 ---
 
