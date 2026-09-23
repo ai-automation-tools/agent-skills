@@ -6,7 +6,7 @@ How to install, invoke, and author the custom Agent Skills in this repo.
 
 A **Skill** is a reusable, model-invocable capability packaged as a single `SKILL.md` file. It teaches an agent (Claude Code and compatible CLIs) how to perform a specific task well. The agent loads the skill's instructions only when the skill is invoked, so skills keep specialized knowledge out of the base context until it's needed.
 
-Skills sit in **two tiers** under [`../Skills/`](../Skills), and they do not install to the same place:
+Skills sit in **three tiers** under [`../Skills/`](../Skills), and they do not install to the same place:
 
 ```
 Skills/
@@ -14,6 +14,9 @@ Skills/
 │   └── <Category>/          # e.g. Business, Documentation, Image-Gen
 │       └── <skill-name>/
 │           └── SKILL.md     # YAML frontmatter (name, description) + instructions
+├── Domain/                  # portable FIELD skills mirrored from the org's agent workspaces —
+│   └── <Domain>/            # installs to ~/.claude/skills only with -Domain
+│       └── <skill-name>/
 └── Projects/                # ADDITIONAL skills for one org repo — installs into THAT repo,
     │                        # on top of the skills it already owns
     └── <repo-slug>/         # agent-chat · cronsole · edge-radar · …
@@ -27,6 +30,11 @@ The test is about where you invoke it, not what it is about — `project-hub-sca
 despite being named for an org product, because you run it from whatever repo is *getting* a hub.
 
 Categories inside `Core/` just group related skills. Add one when a skill fits none of them.
+
+[`Domain`](../Skills/Domain/README.md) is the third tier, and you don't author into it. A weekly
+harvest mirrors field skills (engineering, security, business, media, API) from the org's agent
+workspaces into it, which keeps Core a short list. Install them with
+`pwsh scripts/install-skills.ps1 -Domain`, and edit them in their workspace repo.
 
 ## Anatomy of a SKILL.md
 

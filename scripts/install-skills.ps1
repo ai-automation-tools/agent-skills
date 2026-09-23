@@ -18,6 +18,8 @@
     Skills come in two tiers and they do NOT install to the same place:
 
       Skills/Core/<Category>/<name>/   portable      -> user scope (~/.claude/skills)
+      Skills/Domain/<Domain>/<name>/   portable,     -> user scope, only with -Domain
+                                       mirrored from the org's agent workspaces
       Skills/Projects/<repo>/<name>/   additional,   -> that repo's .claude/skills
                                        per org repo    (an OVERLAY — the repo keeps its own)
 
@@ -47,6 +49,10 @@
 .PARAMETER Core
     Install the Core tier (Skills/Core/**). This is the default when neither -Core
     nor -Project is given.
+
+.PARAMETER Domain
+    Install the Domain tier (Skills/Domain/**): field skills mirrored from the org's
+    agent workspaces. User scope like Core, but never part of a bare run.
 
 .PARAMETER Project
     Install the project skills for one org repo (Skills/Projects/<name>/**).
@@ -92,6 +98,7 @@
 param(
     [string]   $Destination = (Join-Path $HOME '.claude/skills'),
     [Parameter(ParameterSetName = 'Core')]    [switch] $Core,
+    [Parameter(ParameterSetName = 'Domain')]  [switch] $Domain,
     [Parameter(ParameterSetName = 'Project')] [string] $Project,
     [Parameter(ParameterSetName = 'All')]     [switch] $All,
     [string[]] $Skill,
@@ -120,6 +127,7 @@ $SearchRoot = switch ($PSCmdlet.ParameterSetName) {
         }
         $p
     }
+    'Domain'  { Join-Path $SkillsRoot 'Domain' }
     'All'     { $SkillsRoot }
     default   { if ($List) { $SkillsRoot } else { Join-Path $SkillsRoot 'Core' } }
 }

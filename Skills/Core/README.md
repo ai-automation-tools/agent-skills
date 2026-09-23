@@ -7,7 +7,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/tier-core-2ea44f?style=for-the-badge" alt="Core tier">
-  <img src="https://img.shields.io/badge/skills-10-0078D4?style=for-the-badge" alt="10 skills">
+  <img src="https://img.shields.io/badge/skills-7-0078D4?style=for-the-badge" alt="7 skills">
   <img src="https://img.shields.io/badge/scope-user-8B5CF6?style=for-the-badge" alt="User scope">
   <a href="../Projects/README.md"><img src="https://img.shields.io/badge/↔-Project_skills-6B7280?style=for-the-badge" alt="Project skills"></a>
 </p>
@@ -25,6 +25,10 @@ a parameter. That parameterisation is what makes a skill core — not the subjec
 A skill that fails the test goes to [`Skills/Projects/<repo>/`](../Projects/README.md) and installs
 into that repo instead, so it doesn't clutter the catalog of every unrelated session.
 
+Portable **field** skills (debugging, pricing, vulnerability disclosure and the like) go to
+[`Skills/Domain/`](../Domain/README.md) instead. They're mirrored from the org's agent
+workspaces and installed only on request, so this catalog stays short.
+
 ## 📦 The catalog
 
 | Category | Skill | What it does |
@@ -34,9 +38,6 @@ into that repo instead, so it doesn't clutter the catalog of every unrelated ses
 | **Business** | [`business-plan-builder`](./Business/business-plan-builder/SKILL.md) | Eight-pass business analysis with a decision memo that gates the build half. Every number traces to a source or is tagged an assumption. |
 | **Cooking** | [`recipe-validator`](./Cooking/recipe-validator/SKILL.md) | Food safety, nutrition thresholds, quantity sanity and allergen labelling, ranked by severity. |
 | **Documentation** | [`repo-docs-builder`](./Documentation/repo-docs-builder/SKILL.md) | Repo layout, a house-style README at every level, a navigable docs tree, and a humanizer pass over the prose. |
-| **Engineering** | [`debugging-methodology`](./Engineering/debugging-methodology/SKILL.md) | Reproduce reliably, test one hypothesis at a time, bisect to localize, fix root cause not symptom. |
-| **Engineering** | [`performance-optimization`](./Engineering/performance-optimization/SKILL.md) | Measure and profile before changing anything, then fix the biggest bottleneck first. |
-| **Engineering** | [`testing-strategy`](./Engineering/testing-strategy/SKILL.md) | Decide what to test and at which level; test behavior not implementation; know where coverage numbers mislead. |
 | **Image-Gen** | [`news-images`](./Image-Gen/news-images/SKILL.md) | Cartoon-editorial news collages and montages across daily/weekly/monthly/yearly cadences. |
 | **Web** | [`project-hub-scaffold`](./Web/project-hub-scaffold/SKILL.md) | Stands up a browsable HTML console over a folder of documents. **Core, not a project skill** — you invoke it from the repo that is *getting* a hub. |
 

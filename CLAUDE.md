@@ -43,6 +43,9 @@ agent-skills/
 │   │           ├── prompts/        # optional: prompt templates the skill follows
 │   │           ├── evals/          # optional: TRACKED test-case definitions
 │   │           └── reports/        # optional: gitignored RUN OUTPUT (never committed)
+│   ├── Domain/                     # TIER 3 — portable FIELD skills mirrored from the five org
+│   │   ├── README.md               #   agent workspaces by the weekly harvest. Opt-in install
+│   │   └── <Domain>/<skill-name>/  #   (-Domain). Engineering · Security · Business · Media · API
 │   └── Projects/                   # TIER 2 — ADDITIONAL skills for one org repo, installed
 │       │                           #   into that repo on top of the skills it already owns
 │       ├── README.md               # the tier test + per-project index + taken names
@@ -58,16 +61,20 @@ agent-skills/
     └── Links/                                # curated external references for skill-building
 ```
 
-### The two tiers
+### The tiers
 
 One question decides where a skill goes: **would you invoke it from a repo other than the one it
 was written for?**
 
-| | `Skills/Core/` | `Skills/Projects/<repo>/` |
-|:---|:---|:---|
-| **Holds** | Portable — assumes nothing about the cwd | **Additional** skills for one org repo. Names that repo's files, schema, commands, or protocol |
-| **Installs to** | User scope, `~/.claude/skills` | That repo's `.claude/skills`, so it loads only there |
-| **Command** | `install-skills.ps1 -Core` (the default) | `install-skills.ps1 -Project <repo> -Destination <clone>/.claude/skills` |
+| | `Skills/Core/` | `Skills/Domain/<Domain>/` | `Skills/Projects/<repo>/` |
+|:---|:---|:---|:---|
+| **Holds** | Portable — assumes nothing about the cwd. A short, hand-picked list | Portable **field** skills mirrored from the org's agent workspaces. Never authored here | **Additional** skills for one org repo. Names that repo's files, schema, commands, or protocol |
+| **Installs to** | User scope, `~/.claude/skills` | User scope, **opt-in** | That repo's `.claude/skills`, so it loads only there |
+| **Command** | `install-skills.ps1 -Core` (the default) | `install-skills.ps1 -Domain` | `install-skills.ps1 -Project <repo> -Destination <clone>/.claude/skills` |
+
+**Domain is the harvest's tier, not an authoring choice.** A new skill you write here is Core or
+Projects. Domain holds only what the weekly Skill Harvest mirrors from the workspaces, grouped by
+field (`Engineering`, `Security`, `Business`, `Media`, `API`), so Core stays short and highlighted.
 
 The test is **where you invoke it**, not what it is about. `project-hub-scaffold` is Core despite
 being named for an org product, because you run it from whatever repo is *getting* a hub.
@@ -77,7 +84,7 @@ has two consequences: names must be unique **across the whole repo** (the instal
 a collision rather than silently overwriting), and a project skill at user scope would follow you
 into every unrelated session — which is why a bare install run covers Core only.
 
-**Current Core categories:** `Automation`, `Business`, `Cooking`, `Documentation`, `Engineering`, `Image-Gen`, `Web`. Add a new one only when a skill genuinely fits none of these.
+**Current Core categories:** `Automation`, `Business`, `Cooking`, `Documentation`, `Image-Gen`, `Web`. Add a new one only when a skill genuinely fits none of these.
 
 **Current projects:** `agent-chat`, `cronsole`, `edge-radar`, `edge-spectrum`, `project-hub` — the org's repos, slug lowercased regardless of how the repo itself is cased.
 
@@ -114,7 +121,7 @@ Whenever you **add, rename, remove, or recategorize a skill**, update *all* of:
 
 1. **Pick the tier first** — apply the invoke-it-anywhere test. Core and Projects have different install targets, so getting this wrong puts a repo-specific skill in every session's catalog.
 2. **`README.md`** → for Core, the matching category table (create the `### Category` section if new). Row = linked skill name + one-line description.
-3. **`Skills/Core/README.md`** or **`Skills/Projects/<repo>/README.md`** → the tier's own catalog.
+3. **`Skills/Core/README.md`**, **`Skills/Domain/README.md`** or **`Skills/Projects/<repo>/README.md`** → the tier's own catalog.
 4. **`Docs/SKILL-IDEAS.md`** → if the skill came from the backlog, remove/strike its idea row.
 5. **The leaf folder name, the `name:` frontmatter, and the `Resources/Skill-Data/` mirror path** must all agree.
 
@@ -131,7 +138,7 @@ Before finishing an edit to any skill, check whether another skill *references* 
 **One real duplicate exists.** `project-hub-scaffold` sits here (Core) *and* in the `project-hub` repo, byte-identical, with no sync. This repo is canonical — edit here, republish, never hand-edit that copy. It is a one-off to resolve, not a pattern to copy.
 
 > [!IMPORTANT]
-> **Harvested skills are mirrors. Don't edit them here.** Since 2026-09-22 a weekly Skill Harvest job (Sun 08:00, `\AI-Automation-Tools-Org\Integrate-Projects\`) copies portable skills from the five org agent workspaces (`api-agent`, `business-agent`, `security-agent`, `fullstack-agent`, `media-studio`) into `Skills/Core/`, byte for byte, by `harvest/auto-<date>` PR. [`Docs/HARVEST.md`](./Docs/HARVEST.md) lists every one with its source. Edit the skill in its workspace repo and the next harvest re-syncs it. An edit made here gets flagged, not merged back. The roadmap routine follows the same rule.
+> **Harvested skills are mirrors. Don't edit them here.** Since 2026-09-22 a weekly Skill Harvest job (Sun 08:00, `\AI-Automation-Tools-Org\Integrate-Projects\`) copies portable skills from the five org agent workspaces (`api-agent`, `business-agent`, `security-agent`, `fullstack-agent`, `media-studio`) into `Skills/Domain/<Domain>/`, byte for byte, by `harvest/auto-<date>` PR. [`Docs/HARVEST.md`](./Docs/HARVEST.md) lists every one with its source. Edit the skill in its workspace repo and the next harvest re-syncs it. An edit made here gets flagged, not merged back. The roadmap routine follows the same rule.
 
 > [!NOTE]
 > **Prefer one self-contained skill over a composite.** [`repo-docs-builder`](./Skills/Core/Documentation/repo-docs-builder/SKILL.md) used to be an orchestrator that referenced three source skills (`readme-builder-mfs`, `readme-header-mfs`, `repo-docs-mfs`); on 2026-08-05 all four were merged into it and the three sources retired. The composite kept drifting out of sync with its sources, and the split forced a reader to load three files to build one README. If you're tempted to build a new "mega" skill that composes others, prefer folding the content into one skill with clear sections — and if you do build a composite, add a "keep synced" note here naming its sources.

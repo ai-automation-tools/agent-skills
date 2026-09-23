@@ -49,6 +49,7 @@
     </a>
     <nav class="topnav" aria-label="Sections">
       <a href="#catalog">Catalog</a>
+      <a href="#domains">Domains</a>
       <a href="#projects">Projects</a>
       <a href="#install">Install</a>
     </nav>
@@ -75,8 +76,8 @@
         </div>
 
         <dl class="stats">
-          <div><dt>Core skills</dt><dd>10</dd></div>
-          <div><dt>Categories</dt><dd>07</dd></div>
+          <div><dt>Core skills</dt><dd>07</dd></div>
+          <div><dt>Categories</dt><dd>06</dd></div>
           <div><dt>Files per skill</dt><dd>01</dd></div>
           <div><dt>Dependencies</dt><dd>00</dd></div>
         </dl>
@@ -106,18 +107,17 @@
         <p class="kicker">01 — Catalog</p>
         <h2>Core skills</h2>
         <p class="section-sub">
-          Ten skills across seven categories. Every one installs <em>flat</em> into
+          Seven skills across six categories. Every one installs <em>flat</em> into
           <code>~/.claude/skills</code>, so a name must be unique across the whole repo.
         </p>
       </header>
 
       <div class="filters reveal" role="group" aria-label="Filter skills by category">
-        <button class="chip is-active" data-filter="all">All <span>10</span></button>
+        <button class="chip is-active" data-filter="all">All <span>7</span></button>
         <button class="chip" data-filter="automation">Automation <span>2</span></button>
         <button class="chip" data-filter="business">Business <span>1</span></button>
         <button class="chip" data-filter="cooking">Cooking <span>1</span></button>
         <button class="chip" data-filter="documentation">Documentation <span>1</span></button>
-        <button class="chip" data-filter="engineering">Engineering <span>3</span></button>
         <button class="chip" data-filter="image-gen">Image-Gen <span>1</span></button>
         <button class="chip" data-filter="web">Web <span>1</span></button>
       </div>
@@ -347,103 +347,35 @@
           </div>
         </article>
 
-        <!-- 08 -->
-        <article class="card reveal" data-category="engineering" data-skill="debugging-methodology">
-          <div class="card-media">
-            <img class="shot" data-name="debugging-methodology" alt="A bisect narrowing a bug down to one commit, hypothesis by hypothesis" loading="lazy" decoding="async">
-            <div class="shot-fallback" aria-hidden="true">
-              <span class="glyph">🐛</span>
-              <b>debugging-methodology.png</b>
-              <small>drop a screenshot into site/assets/img/</small>
-            </div>
-            <span class="idx">08</span>
-          </div>
-          <div class="card-body">
-            <span class="cat" data-cat="engineering"><i aria-hidden="true"></i>Engineering</span>
-            <h3 class="card-title"><span class="glyph" aria-hidden="true">🐛</span><code>debugging-methodology</code></h3>
-            <p class="tagline">Narrowing, not guessing.</p>
-            <ul class="feat">
-              <li>Reproduce reliably before touching anything</li>
-              <li>One hypothesis at a time, tested before the next</li>
-              <li>Bisect to localize — code and data both</li>
-              <li>Read the actual error and stack, not a guess at it</li>
-              <li>Confirm the fix addresses root cause, not symptom</li>
-            </ul>
-            <div class="card-foot">
-              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill debugging-methodology" title="Copy install command">
-                <span class="cmd-text">-Skill debugging-methodology</span>
-                <span class="cmd-icon" aria-hidden="true">copy</span>
-              </button>
-              <a class="link" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Skills/Core/Engineering/debugging-methodology/SKILL.md" target="_blank" rel="noopener">SKILL.md <span aria-hidden="true">↗</span></a>
-            </div>
-          </div>
-        </article>
-
-        <!-- 09 -->
-        <article class="card reveal" data-category="engineering" data-skill="performance-optimization">
-          <div class="card-media">
-            <img class="shot" data-name="performance-optimization" alt="A profiler flame graph pointing at the one bottleneck worth fixing first" loading="lazy" decoding="async">
-            <div class="shot-fallback" aria-hidden="true">
-              <span class="glyph">⚡</span>
-              <b>performance-optimization.png</b>
-              <small>drop a screenshot into site/assets/img/</small>
-            </div>
-            <span class="idx">09</span>
-          </div>
-          <div class="card-body">
-            <span class="cat" data-cat="engineering"><i aria-hidden="true"></i>Engineering</span>
-            <h3 class="card-title"><span class="glyph" aria-hidden="true">⚡</span><code>performance-optimization</code></h3>
-            <p class="tagline">Measure first, or you are guessing.</p>
-            <ul class="feat">
-              <li>Profile before changing anything</li>
-              <li>Fix the biggest bottleneck first</li>
-              <li>N+1 queries and missing indexes</li>
-              <li>Oversized payloads and blocking work on the request path</li>
-              <li>Frontend bundle and render cost</li>
-            </ul>
-            <div class="card-foot">
-              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill performance-optimization" title="Copy install command">
-                <span class="cmd-text">-Skill performance-optimization</span>
-                <span class="cmd-icon" aria-hidden="true">copy</span>
-              </button>
-              <a class="link" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Skills/Core/Engineering/performance-optimization/SKILL.md" target="_blank" rel="noopener">SKILL.md <span aria-hidden="true">↗</span></a>
-            </div>
-          </div>
-        </article>
-
-        <!-- 10 -->
-        <article class="card reveal" data-category="engineering" data-skill="testing-strategy">
-          <div class="card-media">
-            <img class="shot" data-name="testing-strategy" alt="A test pyramid: heavily unit, fewer integration, few end-to-end" loading="lazy" decoding="async">
-            <div class="shot-fallback" aria-hidden="true">
-              <span class="glyph">🧪</span>
-              <b>testing-strategy.png</b>
-              <small>drop a screenshot into site/assets/img/</small>
-            </div>
-            <span class="idx">10</span>
-          </div>
-          <div class="card-body">
-            <span class="cat" data-cat="engineering"><i aria-hidden="true"></i>Engineering</span>
-            <h3 class="card-title"><span class="glyph" aria-hidden="true">🧪</span><code>testing-strategy</code></h3>
-            <p class="tagline">Tests exist to let you change code safely.</p>
-            <ul class="feat">
-              <li>Test shape: heavily unit, fewer integration, few end-to-end</li>
-              <li>Test behavior rather than implementation</li>
-              <li>Write a failing test before a bug fix</li>
-              <li>Know where coverage numbers mislead</li>
-              <li>Use when a suite is slow, flaky, or a bug keeps coming back</li>
-            </ul>
-            <div class="card-foot">
-              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill testing-strategy" title="Copy install command">
-                <span class="cmd-text">-Skill testing-strategy</span>
-                <span class="cmd-icon" aria-hidden="true">copy</span>
-              </button>
-              <a class="link" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Skills/Core/Engineering/testing-strategy/SKILL.md" target="_blank" rel="noopener">SKILL.md <span aria-hidden="true">↗</span></a>
-            </div>
-          </div>
-        </article>
-
       </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────── DOMAINS ────────────────────────── -->
+  <section id="domains" class="projects">
+    <div class="wrap">
+      <header class="section-head reveal">
+        <p class="kicker">02 — Domains</p>
+        <h2>Domain skills</h2>
+        <p class="section-sub">
+          Field knowledge from the org's five agent workspaces, copied here unchanged by a
+          weekly harvest. Portable like Core, but kept separate and installed only when you
+          ask for them with <code>-Domain</code>.
+        </p>
+      </header>
+
+      <ul class="proj-list reveal">
+        <li>
+          <a class="proj" href="https://github.com/ai-automation-tools/agent-skills/tree/main/Skills/Domain/Engineering" target="_blank" rel="noopener">
+            <span class="proj-glyph" aria-hidden="true">🛠️</span>
+            <span class="proj-main">
+              <span class="proj-name">Engineering</span>
+              <span class="proj-skills"><code>debugging-methodology</code><code>performance-optimization</code><code>testing-strategy</code></span>
+            </span>
+            <span class="proj-go" aria-hidden="true">↗</span>
+          </a>
+        </li>
+      </ul>
     </div>
   </section>
 
@@ -451,7 +383,7 @@
   <section id="projects" class="projects">
     <div class="wrap">
       <header class="section-head reveal">
-        <p class="kicker">02 — Projects</p>
+        <p class="kicker">03 — Projects</p>
         <h2>Project skills</h2>
         <p class="section-sub">
           A second tier that installs into one repository instead of user scope, so a
@@ -519,12 +451,13 @@
   <section id="install" class="install">
     <div class="wrap install-grid">
       <div class="install-copy reveal">
-        <p class="kicker">03 — Install</p>
-        <h2>Two tiers, two scopes</h2>
+        <p class="kicker">04 — Install</p>
+        <h2>Three tiers, two scopes</h2>
         <p class="section-sub">
           <strong>Core</strong> installs at user scope and every session can reach it.
+          <strong>Domain</strong> skills install there too, but only when you ask.
           <strong>Projects</strong> install into the repo they belong to. A bare run covers
-          Core only, so a project skill never leaks into your global catalog.
+          Core only, so nothing else leaks into your global catalog.
         </p>
         <a class="link-arrow" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Docs/USING-SKILLS.md" target="_blank" rel="noopener">Full install &amp; authoring guide <span aria-hidden="true">↗</span></a>
       </div>
@@ -537,6 +470,10 @@
         <div class="codeblock">
           <div class="codeblock-head"><span>One skill</span><button class="mini-copy" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill task-router" aria-label="Copy command">copy</button></div>
           <pre><code><span class="p">pwsh</span> scripts/install-skills.ps1 <span class="f">-Core</span> <span class="f">-Skill</span> task-router</code></pre>
+        </div>
+        <div class="codeblock">
+          <div class="codeblock-head"><span>Domain — opt in</span><button class="mini-copy" data-copy="pwsh scripts/install-skills.ps1 -Domain" aria-label="Copy command">copy</button></div>
+          <pre><code><span class="p">pwsh</span> scripts/install-skills.ps1 <span class="f">-Domain</span></code></pre>
         </div>
         <div class="codeblock">
           <div class="codeblock-head"><span>Into a project</span><button class="mini-copy" data-copy="pwsh scripts/install-skills.ps1 -Project cronsole -Destination <clone>/.claude/skills" aria-label="Copy command">copy</button></div>
