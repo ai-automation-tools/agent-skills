@@ -19,6 +19,9 @@ It never pushes to `main`. Each run's changes arrive as one `harvest/auto-<date>
 
 | skill | source repo | status | path | source SHA | date | note |
 |:---|:---|:---|:---|:---|:---|:---|
+| api-client-resilience | api-agent | mirrored | `Skills/Domain/API/api-client-resilience` | `3e60863` | 2026-09-22 | first harvest promotion, new Domain |
+| api-integration-testing | api-agent | mirrored | `Skills/Domain/API/api-integration-testing` | `3e60863` | 2026-09-22 | first harvest promotion, new Domain |
 | debugging-methodology | fullstack-agent | mirrored | `Skills/Domain/Engineering/debugging-methodology` | `6f8bc8d` | 2026-09-22 | moved from Core 2026-09-22 |
 | performance-optimization | fullstack-agent | mirrored | `Skills/Domain/Engineering/performance-optimization` | `6f8bc8d` | 2026-09-22 | moved from Core 2026-09-22 |
+| public-api-evaluation | api-agent | mirrored | `Skills/Domain/API/public-api-evaluation` | `3e60863` | 2026-09-22 | first harvest promotion, new Domain |
 | testing-strategy | fullstack-agent | mirrored | `Skills/Domain/Engineering/testing-strategy` | `6f8bc8d` | 2026-09-22 | moved from Core 2026-09-22 |
