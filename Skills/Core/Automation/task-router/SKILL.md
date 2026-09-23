@@ -63,7 +63,7 @@ Named for Claude models below. On another provider, map the three roles — *mec
 |:---|:---|:---|
 | **`haiku`** (Haiku 4.5) | Purely mechanical, no-judgment passes — grep sweeps, file inventories, mass renames, formatting, link checks | Anything deciding *what* to change |
 | **`sonnet`** (Sonnet 5) | **The default.** Documentation updates, basic research and fact-gathering, features, refactors, tests, standard review, release notes | — |
-| **`opus`** (Opus 5) | Genuinely complex work — architecture, security audits, root-cause debugging, cross-system migrations, anything where a wrong answer is expensive to *detect* | Bulk mechanical work |
+| **`opus`** (Opus 5.5) | Genuinely complex work — architecture, security audits, root-cause debugging, cross-system migrations, anything where a wrong answer is expensive to *detect* | Bulk mechanical work |
 | *the excluded tier* | **Nothing. Ever.** | Everything — see above |
 
 **Documentation and basic research are `sonnet`, not `haiku`.** They read as cheap but

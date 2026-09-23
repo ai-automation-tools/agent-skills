@@ -43,6 +43,15 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 - `repo-docs-builder` now requires a `ROADMAP.md` and a `CHANGELOG.md` in every docs tree
   it builds, and `install-skills.ps1` installs into every agent CLI with one `-AllAgents`
   run. (PR #11)
+- Monthly skill review: `task-router`'s flagship tier now names Opus 5.5, not Opus 5.
+- Monthly skill review: `html-email-templates` no longer blames `backdrop-filter` for
+  Template B being unsafe to inline — Gmail and modern Outlook have supported it since
+  January 2024. CSS custom properties remain the real blocker.
+- Monthly skill review: `project-hub-scaffold`'s `references/design-system.md` theme table
+  grew from four schemes to the eight the live Hub actually ships (`plum`, `nord`, `sepia`,
+  `mono` were missing).
+- Monthly skill review: `edge-spectrum-dataset`'s guard table now lists `check:market`,
+  the CI step the live repo added between `gen:edges --check` and `check:edges`.
 
 **Docs**
 - Started this changelog, seeded from the git log. *(roadmap: Phase 1)*

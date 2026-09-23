@@ -68,6 +68,7 @@ removing one requires `npm run check:edges -- --write-baseline` and an explanati
 | Guard | Holds |
 |:---|:---|
 | `npm run gen:edges -- --check` | all four artifacts byte-match a fresh generation (LF-normalised, so CRLF working trees pass) |
+| `npm run check:market` | guards `dataGenerator.ts`'s simulated market hold — runs between `gen:edges --check` and `check:edges` in CI, but doesn't test the edge dataset itself |
 | `npm run check:edges` | record count matches `provenance-baseline.json`; every category has ≥1 record and no record has an unlisted one; names unique; `a > -100`; `du > 0`; `0 < ced ≤ 100`; the provenance ratchet |
 | `npm run check:spectrum` | the three measures — see [`references/measures.md`](references/measures.md) |
 
