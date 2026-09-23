@@ -45,7 +45,15 @@ schedule is a claim to verify, not evidence.
 - [ ] Is a task whose Last Run Time is older than its interval plus a day flagged? A task that stops firing keeps its last result of 0, so the result code alone never catches it
 - [ ] Is there a documented one-liner to pause and resume the whole fleet?
 
-## 6. Collisions
+## 6. Currency
+
+- [ ] Does every repo in scope have a dependency bot on, with its PRs going through the sweep under their own prefix?
+- [ ] Does every repo have a refresh or review cadence, set by how fast its field moves?
+- [ ] Does every change in a refresh PR cite a primary source? Sample three
+- [ ] Are big upgrades going to the roadmap instead of being attempted in a refresh PR?
+- [ ] Do the pipeline's own prompts name current models and flags?
+
+## 7. Collisions
 
 - [ ] Do long sessions share a start time?
 - [ ] Are there two writers on one branch, for example a direct push to the landing page while its upkeep PR is open?
