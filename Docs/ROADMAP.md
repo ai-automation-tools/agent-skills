@@ -74,6 +74,10 @@ landing page now sends traffic to the site.
   `site/index.html` from each Core skill's `name` and `description`, between marker
   comments, so the copy can't drift from `SKILL.md`. Run it in CI and fail if the output
   differs from what's committed.
+- [ ] **Showcase card for `org-dev-pipeline`.** Core has eight skills since 2026-09-23 but
+  the site shows seven. Add its card (category `automation`, glyph 🏭) with a diagram image
+  in `site/assets/diagrams/` drawn from the loop in its `SKILL.md`, like `task-router`'s,
+  and change "seven" to "eight" in the intro and the install block.
 - [ ] **`og:image` + `twitter:card`.** A 1200×630 crop of the hero, so a shared link
   previews properly (org roadmap P2-8).
 - [ ] **Compress the remaining PNGs.** The seeded `repo-docs-builder` images run up to

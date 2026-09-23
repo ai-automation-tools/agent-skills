@@ -24,6 +24,18 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-09-23
+
+**Added**
+- `org-dev-pipeline` skill in the Automation category. It covers running a GitHub org's repos
+  as a scheduled pipeline (ideate, incubate, a weekly roadmap routine per repo, one PR sweep,
+  and graduation behind scripted gates plus a human approval) and auditing such a fleet.
+  Written from the live `ai-automation-tools` pipeline. Its machine-specific operator notes
+  stay beside that pipeline's code, not in this repo. The showcase card is a Phase 2 roadmap item.
+  Its `references/idea-sourcing.md` covers feeding the ideate stage from any source (a notes
+  folder, labelled issues, a board export, an idea-card generator, feedback), plus the
+  adapter, dedupe, throttle and fit-criteria rules.
+
 ## 2026-09-22
 
 **Added**

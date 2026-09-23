@@ -7,7 +7,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/tier-core-2ea44f?style=for-the-badge" alt="Core tier">
-  <img src="https://img.shields.io/badge/skills-7-0078D4?style=for-the-badge" alt="7 skills">
+  <img src="https://img.shields.io/badge/skills-8-0078D4?style=for-the-badge" alt="8 skills">
   <img src="https://img.shields.io/badge/scope-user-8B5CF6?style=for-the-badge" alt="User scope">
   <a href="../Projects/README.md"><img src="https://img.shields.io/badge/↔-Project_skills-6B7280?style=for-the-badge" alt="Project skills"></a>
 </p>
@@ -34,6 +34,7 @@ workspaces and installed only on request, so this catalog stays short.
 | Category | Skill | What it does |
 |:---|:---|:---|
 | **Automation** | [`html-email-templates`](./Automation/html-email-templates/SKILL.md) | Three HTML email templates that survive the clients that strip your CSS, plus the subject/label/footer conventions that keep automated mail consistent. |
+| **Automation** | [`org-dev-pipeline`](./Automation/org-dev-pipeline/SKILL.md) | Runs a GitHub org's repos as a scheduled pipeline: ideas become scored plans, plans become private repos built one roadmap item per PR, and a repo goes public only after scripted gates and a human approval. Also audits such a fleet for cost, overlap and safety. |
 | **Automation** | [`task-router`](./Automation/task-router/SKILL.md) | Sizes a request before work starts — inline, one subagent, recon-then-plan, or fan out — and picks a model tier to match. |
 | **Business** | [`business-plan-builder`](./Business/business-plan-builder/SKILL.md) | Eight-pass business analysis with a decision memo that gates the build half. Every number traces to a source or is tagged an assumption. |
 | **Cooking** | [`recipe-validator`](./Cooking/recipe-validator/SKILL.md) | Food safety, nutrition thresholds, quantity sanity and allergen labelling, ranked by severity. |
