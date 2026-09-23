@@ -80,6 +80,18 @@ second source or the list gets long.
 One idea per run. With time left over, stop anyway: the throttle decides the pace, not the
 session length.
 
+**When the source already did the research**, skip steps 5–6. Some sources are themselves
+the output of a research job: a weekly card generator that has already checked demand, the
+competing listings and a spec. Re-running a business plan on that repeats paid work. Import
+several ideas per run (with a cap), and spend the model's judgment on picking which ones to
+move forward instead. The single-repo variant in `architecture.md` works this way.
+
+**Web research as a fallback, not a feed.** If the pipeline may look at what people share
+or sell (marketplaces, forums, blogs) when the source runs dry, the brief it writes has to be
+**original**: it names the gap the existing listings leave and links them as inspiration.
+It never copies a file, a model or a listing, and never builds on a trademark. Cap it lower
+than the main source.
+
 ## Fit criteria
 
 Write these down before the first run. They're what makes ideate pick the

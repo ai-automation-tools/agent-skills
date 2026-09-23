@@ -1,6 +1,6 @@
 ---
 name: automated-dev-pipeline
-description: Design, stand up, audit, or operate scheduled AI agents that do development work unattended. They turn ideas into scored plans, plans into private repos built one roadmap item at a time through PRs that a single sweep reviews and merges, and publish finished projects to a GitHub account or organization only through scripted release gates plus a human approval. Then they keep every repo current with today's tools, dependencies, security practice and standards. Use whenever the user wants to automate building, publishing or maintaining repos; add or change a scheduled coding routine or pipeline stage; set up where ideas come from; keep repos from going stale; audit scheduled Claude jobs for cost, overlap or safety; decide what to script versus leave to a model; or put an approval step in front of anything irreversible. Also use when they mention incubate or graduate, PIPELINE.md, release gates, a roadmap routine, a PR sweep, or ask "why didn't the pipeline do X".
+description: Design, stand up, audit, or operate scheduled AI agents that do development work unattended. They turn ideas into plans, build them one roadmap item at a time through PRs that a single sweep reviews and merges, publish only through scripted gates plus a human approval, and keep every repo current. Covers both repo-per-project pipelines and the single-repo variant, where stages are folders and a merge that deploys a site is the publish step. Use whenever the user wants to automate building, publishing or maintaining repos; add or change a scheduled coding routine or pipeline stage; set up where ideas come from; keep repos from going stale; audit scheduled Claude jobs for cost, overlap or safety; decide what to script versus leave to a model; or put an approval step in front of anything irreversible. Also use when they mention incubate or graduate, PIPELINE.md, release gates, a roadmap routine, a PR sweep, or ask "why didn't the pipeline do X".
 ---
 
 # Automated dev pipeline
@@ -22,11 +22,19 @@ The pattern does three jobs. They can be adopted separately:
 The publish target is a parameter: a personal account works the same as an organization.
 "The landing page" is then your profile README or portfolio site, if you keep one.
 
-Read this file first. Then open the reference that matches the job:
+**Not every pipeline makes repos.** In the other common shape, a design library, a docs site or a
+content collection, the stages are **folders inside one repo** (`ideas/ → planning/ →
+in-progress/ → live/`), and publishing means a merge to a branch that deploys a public site.
+The design rules apply unchanged, but incubate and graduate don't exist. See "The single-repo
+variant" in `references/architecture.md`.
+
+Read this file first. Then open the reference that matches the job. **Read both references before
+writing a stage prompt.** Most of what goes wrong on a first build is already written down there.
 
 | Job | Read |
 |:---|:---|
 | Stand up a new pipeline, or add a stage or routine | `references/architecture.md`, then `references/stage-contracts.md` |
+| Build stages as folders inside one repo, with a site that deploys on merge | `references/architecture.md` → "The single-repo variant" |
 | Decide where ideas come from, or connect a new idea source | `references/idea-sourcing.md` |
 | Keep existing repos current, or bring a stale one back up to date | `references/keeping-current.md` |
 | Audit an existing fleet (cost, overlap, safety, drift) | `references/audit-checklist.md` |
@@ -66,7 +74,10 @@ Each rule is here because the reference implementation paid for learning it.
    cached and indexed within minutes. A script runs the gates, then asks for approval on a
    GitHub issue plus an email. It flips visibility only after the issue is closed as
    Completed, and re-runs the gates right before the flip. The model is told never to
-   touch that issue or change visibility.
+   touch that issue or change visibility. **A merge to a branch that deploys a public site is
+   the same kind of step.** Hold any PR that touches the published paths (for example
+   `live/`, or the site folder) with a path gate in the sweep's runner, so a person's merge
+   is what publishes. Everything else can still merge on its own.
 3. **Every write is read back.** A `200` isn't proof. `gh repo create` doesn't turn on
    secret scanning or push protection by itself (and doesn't inherit an organization's
    defaults), and a visibility change can silently turn controls off. So repo creation and
@@ -75,7 +86,11 @@ Each rule is here because the reference implementation paid for learning it.
 4. **Only PRs reach default branches, through one merge gate.** Every routine opens a PR on
    a known branch prefix. One sweep (the strongest model you run) reviews them against
    per-prefix rules and merges. New prefixes are registered in the sweep config, and the
-   upkeep job reads that list instead of keeping its own copy.
+   upkeep job reads that list instead of keeping its own copy. **One exception:** stages that
+   feed each other inside one repo may *share* a prefix. The runner adopts the oldest open
+   PR on a prefix and appends to it, so the week's stages chain on one branch with no merge
+   in between. A repo whose routines need different merge policies gets per-repo prefixes in
+   the sweep config (see `references/stage-contracts.md`).
 5. **Check for work before starting a session.** A cheap deterministic check decides
    whether a stage has anything to do. With nothing to do, it logs `SKIPPED: <reason>` and
    exits 0, with no AI session and, on daily jobs, no email. If the check itself errors,
@@ -97,6 +112,13 @@ Each rule is here because the reference implementation paid for learning it.
 10. **Every currency change cites its source.** A refresh that says "updated to the latest
     version" without a link is a guess. Each change names the release note, advisory or
     standard behind it, so the sweep can check it and a reader can trust it.
+11. **Deny what an unattended session must never touch.** Headless runs usually start with
+    permissions bypassed, which makes every MCP server in the repo's config callable. That
+    includes a printer, a robot, a smart-home bridge, or a live desktop app such as an open
+    Blender or browser session. Write a `deny` list into the run worktree's local settings
+    (it's honoured even under bypass) covering every tool that acts on hardware, on a live
+    user session, or on anything else a person has to confirm. Keep the read-only calls the
+    job actually needs. Deny the whole server when a job has no use for it.
 
 ## Parameters
 
@@ -116,6 +138,8 @@ operator notes so the next session doesn't have to rediscover them.
 | Currency scope | Which repos the keep-current jobs cover, what "current" means for each (see `references/keeping-current.md`), and how often |
 | Incubation cap, ideate threshold | Throughput limits (rule 6) |
 | Sweep days, model tiers | Speed and cost. A mid-tier model for research and writing, the strongest for merges and repo creation |
+| Hold paths | Paths whose change a person must merge: the published folder, the deploying site, hand-curated areas. Enforced by the sweep's runner, not its prompt (rules 1–2) |
+| Notification routing | One sender display name per workflow, and one mail filter per name. Mail labels stack, so every existing catch-all filter that matches the sender domain or `[OK]`-style subjects needs the new name added to its exclusions, or the mail lands in two labels |
 
 The RUN SUMMARY key for human-only work is `Needs <owner>`. Use the real person's name, as
 in `Needs Alex`, so the email filter and the upkeep report can match it.
@@ -129,9 +153,32 @@ in `Needs Alex`, so the email filter and the upkeep report can match it.
 3. Register the branch prefix and its merge rule in the sweep config and the sweep prompt.
 4. Pick a schedule slot that fits the sweep. Its PR should be waiting when the sweep
    runs, and whatever it feeds should run after the sweep.
-5. Dry-run it (`-CheckOnly` / `-WhatIfClaude`), clean up any worktree with the runner's
-   cleanup command, and register it.
+5. Dry-run it with whatever the runner offers. The reference's roadmap-style runner has
+   `-WhatIfClaude`, and its stage script has `-CheckOnly`. See "Runners and what
+   they give you" in `references/architecture.md`, because the two don't offer the same
+   contract. Clean up any worktree with the runner's cleanup command, then register it.
 6. Add one row to the schedule table. Don't restate the row anywhere else.
+7. Run it once for real, by hand, before trusting the schedule. Check the PR, the outcome
+   email and its mail label, and that the run left no worktree or folder behind.
+
+## Windows shell traps
+
+These cost the most time on a first build, so they sit here rather than in a reference:
+
+- **Never write Windows paths through a bash heredoc or `python -c`.** The tool layer can
+  collapse `\\` to `\`, and Python then reads `\3`, `\r`, `\U` as escapes. `\3D-Printer`
+  became a control byte, and a `"C:\\Users"` string died as a truncated `\U` escape. Use a
+  file-based editor, or write a script file first, then check for bytes below 32.
+- **`re.sub` replacement strings interpret backslashes too.** Pass a function (`lambda m:
+  text`) when the replacement contains a Windows path.
+- **PowerShell 5.1 reads BOM-less `.ps1` files as ANSI.** Keep runners ASCII-only, or run
+  them under `pwsh`.
+- **Native stderr under `2>&1`** with `$ErrorActionPreference='Stop'` throws. Redirect it to `$null`.
+- **`[string[]]` parameters misbind across `pwsh -File`.** Use them only inside a
+  `-Command` string, or pass single strings.
+- **A session whose working directory is inside a worktree** keeps that folder locked, so
+  the teardown leaves an empty directory. Leave the folder before removing it, and expect
+  the same from an MCP server process that outlived its session.
 
 ## Procedure: auditing
 
@@ -149,3 +196,8 @@ where, and how you'll know it worked. People act on the second one.
   how a stale model's training data ends up in your repos.
 - **Building the whole pipeline at once.** Start with one repo, one roadmap routine and the
   sweep. Add ideate and graduate once that loop merges good PRs.
+- **Adding a repo to a sweep whose prefix list is shared across repos.** If that repo also
+  hosts routines whose PRs must wait for a person (facts about the physical world, version
+  claims), the shared list sweeps them too. Give the repo its own prefixes, or its own sweep.
+- **Holding publishes with prompt wording.** "Hold anything that touches the site" in a sweep
+  prompt is a request. A path gate in the runner is a guarantee.

@@ -19,7 +19,18 @@ copy the closest existing prompt from the reference implementation and keep thes
    and which didn't." A half-created project that nobody hears about is the worst outcome.
 6. **A RUN SUMMARY block** with fixed `- Key: value` lines, ending in `- Needs <owner>: <list | none>`.
    The runner's email extracts `^RUN SUMMARY` and `^- ` lines, and `warnOn` patterns such
-   as `^- Needs <owner>: (?!none)` turn the email to *attention*.
+   as `^- Needs <owner>: (?!none)` turn the email to *attention*. **This applies to stages
+   on the maintenance-style runner.** A roadmap-style runner doesn't parse output. There,
+   the PR body (or the APPEND MODE comment) carries the summary and a **Needs <owner>**
+   section, and the runner judges success by whether a PR appeared or the branch moved.
+   See "Runners and what they give you" in `architecture.md`.
+7. **For a stage in a repo wired to hardware or live apps:** a line saying which tools are
+   denied and that a refusal is expected, not a failure to work around. The deny list
+   itself goes in the run worktree's settings (SKILL.md rule 11). The prompt only explains it.
+
+**Shared rules for a family of stages** (several stages on one repo) can live in one file
+that each prompt tells the session to read first. Keep what differs in each prompt, and the
+contract (caps, definition of done, ledger) in the repo, where the stages can read it.
 
 ## What the runner does before the prompt
 
@@ -49,10 +60,26 @@ what makes it a hold. Holds are path-based wherever possible ("merge only if eve
 file is under X") because a path check is cheap and hard to argue with. Anything that
 touches a hand-curated area, deletes or renames, or lacks a source URL is a hold.
 
+**Put path holds in the runner, not only the prompt** (rule 1). The reference sweep runner
+takes two per-target keys:
+
+```json
+{ "project": "Design-Lab", "ghRepo": "owner/repo", "allowedBases": ["main"],
+  "branchPrefixes": ["design/auto-"],
+  "holdPaths": ["design/projects/live/*", "site/*"] }
+```
+
+- **`branchPrefixes`** overrides the sweep-wide list for that repo only. Use it when one
+  repo hosts several routines and only some of them should be merged automatically.
+- **`holdPaths`** are globs where `*` crosses `/`. The runner lists the PR's changed files
+  (`gh pr diff --name-only`), and any match makes the PR HOLD with the files named. The
+  session may comment on a held PR but can't merge it. This is how a deploy-on-merge
+  publish waits for a person while routine progress still merges.
+
+Test a new gate against a real merged PR that should trip it, and one that shouldn't,
+before trusting it on Sunday.
+
 ## Encoding and shell traps (Windows)
 
-- PowerShell 5.1 reads BOM-less `.ps1` files as ANSI. Keep runners ASCII-only, or run them under `pwsh`.
-- Native stderr under `2>&1` with `$ErrorActionPreference='Stop'` throws. Redirect it to `$null`.
-- `[string[]]` parameters misbind across `pwsh -File`. Pass switches or single strings.
-- Editing Windows paths through a bash heredoc collapses `\\` and can turn `\2…` into
-  control bytes. Use a file-based editor, then check the bytes.
+Moved to SKILL.md ("Windows shell traps") so they're read before the first edit, not after
+the third broken file.

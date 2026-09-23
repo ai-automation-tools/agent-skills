@@ -47,7 +47,7 @@ A collection of reusable skills for Claude Code and compatible AI agents. Each s
 | Skill | Category | What it does |
 |:---|:---|:---|
 | [**✉️ html-email-templates**](./Skills/Core/Automation/html-email-templates/SKILL.md) | Automation | Creates HTML emails for notifications, reports, and digests. |
-| [**🏭 automated-dev-pipeline**](./Skills/Core/Automation/automated-dev-pipeline/SKILL.md) | Automation | Sets up scheduled AI agents that build projects through PRs, publish them to a GitHub account or organization behind scripted gates and a human approval, and keep every repo current. |
+| [**🏭 automated-dev-pipeline**](./Skills/Core/Automation/automated-dev-pipeline/SKILL.md) | Automation | Sets up scheduled AI agents that build projects through PRs, publish them to a GitHub account or organization behind scripted gates and a human approval, and keep every repo current. Also covers pipelines whose stages are folders in one repo that deploys a site. |
 | [**🚦 task-router**](./Skills/Core/Automation/task-router/SKILL.md) | Automation | Chooses a workflow and model tier based on the task. |
 | [**📈 business-plan-builder**](./Skills/Core/Business/business-plan-builder/SKILL.md) | Business | Evaluates business ideas and writes a decision memo and build plan. |
 | [**🍳 recipe-validator**](./Skills/Core/Cooking/recipe-validator/SKILL.md) | Cooking | Checks recipes for food safety, nutrition, quantities, and allergens. |
