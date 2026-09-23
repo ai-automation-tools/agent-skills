@@ -36,6 +36,27 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
   stay beside that pipeline's code, not in this repo. The showcase card is a Phase 2 roadmap
   item.
 
+**Changed**
+- `automated-dev-pipeline` covers what building a second pipeline with it taught: the 3D Lab
+  design pipeline, whose stages are folders in one repo and whose publish step is a site
+  deploy. New in SKILL.md:
+  - the single-repo variant, pointed to from the jobs table
+  - rule 2 extended to deploy-on-merge sites
+  - an exception to rule 4, for stages that chain on one shared branch prefix
+  - rule 11, a worktree `deny` list for MCP tools that act on hardware or a live desktop session
+  - "Hold paths" and "Notification routing" parameters (mail labels stack)
+  - a corrected dry-run step, plus a first-real-run step
+  - the Windows shell traps, moved up from a reference because they were hit three times
+  - two anti-patterns
+- `architecture.md` gains a runner comparison and a "single-repo variant" mapping, and its
+  failure table gains changelog-only conflicts, stale adopted branches, kept worktrees and
+  locked run folders. The runner comparison shows that the roadmap-style runner has no
+  pre-check, no date injection and no RUN SUMMARY parsing.
+- `stage-contracts.md` documents the sweep runner's per-target `branchPrefixes` and
+  `holdPaths` hard gate. `audit-checklist.md` gains five items, `idea-sourcing.md` covers
+  pre-researched sources and web research as a fallback, and the description stays under
+  1024 characters.
+
 ## 2026-09-22
 
 **Added**
