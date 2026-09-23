@@ -19,3 +19,6 @@ It never pushes to `main`. Each run's changes arrive as one `harvest/auto-<date>
 
 | skill | source repo | status | Core path | source SHA | date | note |
 |:---|:---|:---|:---|:---|:---|:---|
+| debugging-methodology | fullstack-agent | mirrored | `Skills/Core/Engineering/debugging-methodology` | `6f8bc8d` | 2026-09-22 | |
+| performance-optimization | fullstack-agent | mirrored | `Skills/Core/Engineering/performance-optimization` | `6f8bc8d` | 2026-09-22 | |
+| testing-strategy | fullstack-agent | mirrored | `Skills/Core/Engineering/testing-strategy` | `6f8bc8d` | 2026-09-22 | |

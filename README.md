@@ -20,7 +20,7 @@
 
 <p align="center">
   <a href="https://agent-skills.ai-automation-tools.dev"><img src="https://img.shields.io/badge/live-agent--skills.ai--automation--tools.dev-F2B34B?style=for-the-badge" alt="Live at agent-skills.ai-automation-tools.dev"></a>
-  <img src="https://img.shields.io/badge/skills-7-2ea44f?style=for-the-badge" alt="7 skills">
+  <img src="https://img.shields.io/badge/skills-10-2ea44f?style=for-the-badge" alt="10 skills">
   <img src="https://img.shields.io/badge/format-SKILL.md-8B5CF6?style=for-the-badge" alt="SKILL.md format">
   <img src="https://img.shields.io/badge/agent-Claude%20Code-D97757?style=for-the-badge" alt="Built for Claude Code">
   <a href="https://github.com/ai-automation-tools"><img src="https://img.shields.io/badge/org-ai--automation--tools-0078D4?style=for-the-badge&logo=github&logoColor=white" alt="ai-automation-tools"></a>
@@ -49,6 +49,9 @@ A collection of reusable skills for Claude Code and compatible AI agents. Each s
 | [**📈 business-plan-builder**](./Skills/Core/Business/business-plan-builder/SKILL.md) | Business | Evaluates business ideas and writes a decision memo and build plan. |
 | [**🍳 recipe-validator**](./Skills/Core/Cooking/recipe-validator/SKILL.md) | Cooking | Checks recipes for food safety, nutrition, quantities, and allergens. |
 | [**🏗️ repo-docs-builder**](./Skills/Core/Documentation/repo-docs-builder/SKILL.md) | Documentation | Organizes repositories and creates linked READMEs, a docs tree, and the roadmap + changelog that go with it. |
+| [**🐛 debugging-methodology**](./Skills/Core/Engineering/debugging-methodology/SKILL.md) | Engineering | Debugs systematically — reproduce, one hypothesis at a time, bisect, root cause over symptom. |
+| [**⚡ performance-optimization**](./Skills/Core/Engineering/performance-optimization/SKILL.md) | Engineering | Profiles before optimizing and fixes the biggest bottleneck first. |
+| [**🧪 testing-strategy**](./Skills/Core/Engineering/testing-strategy/SKILL.md) | Engineering | Decides what to test and at which level so the suite catches regressions without becoming slow or brittle. |
 | [**🖼️ news-images**](./Skills/Core/Image-Gen/news-images/SKILL.md) | Image-Gen | Generates illustrated news collages and montages. |
 | [**🌐 project-hub-scaffold**](./Skills/Core/Web/project-hub-scaffold/SKILL.md) | Web | Builds a local web interface for browsing project documents. |
 

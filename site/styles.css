@@ -27,6 +27,7 @@
   --c-business:      #f2b34b;
   --c-cooking:       #ff7a6b;
   --c-documentation: #a78bfa;
+  --c-engineering:   #60a5fa;
   --c-image-gen:     #f472d0;
   --c-web:           #3fd6c0;
 
@@ -324,6 +325,7 @@ main, .topbar, .footer { position: relative; z-index: 1; }
 .card[data-category="business"]      { --accent: var(--c-business); }
 .card[data-category="cooking"]       { --accent: var(--c-cooking); }
 .card[data-category="documentation"] { --accent: var(--c-documentation); }
+.card[data-category="engineering"]   { --accent: var(--c-engineering); }
 .card[data-category="image-gen"]     { --accent: var(--c-image-gen); }
 .card[data-category="web"]           { --accent: var(--c-web); }
 
