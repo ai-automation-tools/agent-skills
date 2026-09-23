@@ -21,7 +21,7 @@
 
 <p align="center">
   <a href="https://agent-skills.ai-automation-tools.dev"><img src="https://img.shields.io/badge/live-agent--skills.ai--automation--tools.dev-F2B34B?style=for-the-badge" alt="Live at agent-skills.ai-automation-tools.dev"></a>
-  <img src="https://img.shields.io/badge/skills-7-2ea44f?style=for-the-badge" alt="7 skills">
+  <img src="https://img.shields.io/badge/skills-8-2ea44f?style=for-the-badge" alt="8 skills">
   <img src="https://img.shields.io/badge/format-SKILL.md-8B5CF6?style=for-the-badge" alt="SKILL.md format">
   <img src="https://img.shields.io/badge/agent-Claude%20Code-D97757?style=for-the-badge" alt="Built for Claude Code">
   <a href="https://github.com/ai-automation-tools"><img src="https://img.shields.io/badge/org-ai--automation--tools-0078D4?style=for-the-badge&logo=github&logoColor=white" alt="ai-automation-tools"></a>
@@ -47,6 +47,7 @@ A collection of reusable skills for Claude Code and compatible AI agents. Each s
 | Skill | Category | What it does |
 |:---|:---|:---|
 | [**✉️ html-email-templates**](./Skills/Core/Automation/html-email-templates/SKILL.md) | Automation | Creates HTML emails for notifications, reports, and digests. |
+| [**🏭 org-dev-pipeline**](./Skills/Core/Automation/org-dev-pipeline/SKILL.md) | Automation | Designs, audits and runs scheduled Claude jobs that build a GitHub org's repos through PRs and publish them only after scripted gates and a human approval. |
 | [**🚦 task-router**](./Skills/Core/Automation/task-router/SKILL.md) | Automation | Chooses a workflow and model tier based on the task. |
 | [**📈 business-plan-builder**](./Skills/Core/Business/business-plan-builder/SKILL.md) | Business | Evaluates business ideas and writes a decision memo and build plan. |
 | [**🍳 recipe-validator**](./Skills/Core/Cooking/recipe-validator/SKILL.md) | Cooking | Checks recipes for food safety, nutrition, quantities, and allergens. |
