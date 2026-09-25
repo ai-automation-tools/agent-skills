@@ -36,7 +36,7 @@ up once someone installs the skill and it fails.
   that's honest (one line per merged PR). Link it from the README's Docs table next to
   this file. *(done 2026-09-22: seeded per PR since #1, per change before that; linked
   from the README nav and "Using a skill" line, since the README has no Docs table)*
-- [ ] **Write `scripts/validate-skills.py`, with no third-party dependencies.** For every
+- [x] **Write `scripts/validate-skills.py`, with no third-party dependencies.** For every
   `SKILL.md` it checks that:
   - the frontmatter parses
   - `name` is kebab-case, equals its leaf folder, and is unique across both tiers
@@ -47,7 +47,10 @@ up once someone installs the skill and it fails.
   - any `Resources/Skill-Data/` folder mirrors a real skill path
 
   It exits non-zero on the first class of failure and prints every failure, not just the
-  first.
+  first. *(done 2026-09-24: all six checks, run over all three tiers. Its first run caught
+  `repo-docs-builder`'s 1,113-character description and two cronsole skills citing another
+  skill's `references/`; both fixed. `scripts/` and `evals/` paths are checked only when the
+  skill ships that folder, since project skills name their target repo's scripts.)*
 - [ ] **Run the validator in CI.** A `validate.yml` workflow on push and pull request, with
   `permissions: contents: read`.
 - [ ] **Link check.** Check every relative link in the READMEs, `Docs/`, and the showcase

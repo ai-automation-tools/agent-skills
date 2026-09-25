@@ -26,7 +26,8 @@ agent-skills/
 │   ├── CNAME                       # agent-skills.ai-automation-tools.dev
 │   └── assets/img/ · assets/diagrams/
 ├── scripts/
-│   └── install-skills.ps1          # mirror leaf skills into a skills dir (repo tooling, not a skill)
+│   ├── install-skills.ps1          # mirror leaf skills into a skills dir (repo tooling, not a skill)
+│   └── validate-skills.py          # stdlib-only check of every SKILL.md + the indexes (run before a PR)
 ├── Docs/
 │   ├── USING-SKILLS.md             # install / invoke / author guide
 │   ├── SKILL-IDEAS.md              # backlog of candidate skills
@@ -182,7 +183,9 @@ When asked to validate / review / audit skills, check:
 - **Sync** — the skill appears in `README.md`'s category table; no stale row points at a moved/removed skill.
 - **Live test** — invoke `/<skill-name>` on a real task and confirm the output follows the skill's own rules. Then test **auto-invocation**: phrase a request that should match the `description` and see whether the agent loads it unprompted; if not, tighten the description's trigger wording.
 
-There is no repo-wide test runner. Skill-specific `evals/` (e.g. `recipe-validator/evals/evals.json`) define that skill's test cases — use them when validating that skill.
+**Run `python scripts/validate-skills.py` first.** It's stdlib-only and checks every skill in all three tiers: the frontmatter parses; `name` is kebab-case, matches its folder and is unique; `description` is 40–1,024 characters; every `references/…` and `prompts/…` path the body names exists (plus `scripts/…` and `evals/…` when the skill ships that folder, since a project skill may name its target repo's own `scripts/`); the skill has a row in `README.md` (Domain: its domain folder's row) and in its tier README; and every `Resources/Skill-Data/` folder mirrors a real `Skills/` path. It prints every failure and exits 1 if there are any. Fix the repo, never the rule. A path in another skill should be written with that skill's name in front (`cronsole/references/task-authoring.md`) so it isn't read as this skill's own.
+
+Beyond that there is no test runner. Skill-specific `evals/` (e.g. `recipe-validator/evals/evals.json`) define that skill's test cases — use them when validating that skill.
 
 ---
 
