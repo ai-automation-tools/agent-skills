@@ -125,5 +125,5 @@ reading on screen means, in [`references/cronsole-side.md`](references/cronsole-
 | For | See |
 |:---|:---|
 | Scheduled agent jobs on a local machine | the `cronsole-windows-jobs` skill |
-| Cronsole's own create/schedule/manage rules | Cronsole's `cronsole` skill → `references/task-authoring.md` |
+| Cronsole's own create/schedule/manage rules | Cronsole's `cronsole` skill → `cronsole/references/task-authoring.md` |
 | Choosing a model tier for a routine | the `task-router` skill |
