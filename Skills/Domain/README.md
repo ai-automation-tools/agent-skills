@@ -7,7 +7,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/tier-domain-F59E0B?style=for-the-badge" alt="Domain tier">
-  <img src="https://img.shields.io/badge/skills-6-0078D4?style=for-the-badge" alt="6 skills">
+  <img src="https://img.shields.io/badge/skills-9-0078D4?style=for-the-badge" alt="9 skills">
   <img src="https://img.shields.io/badge/scope-user,_opt--in-8B5CF6?style=for-the-badge" alt="User scope, opt-in">
   <a href="../Core/README.md"><img src="https://img.shields.io/badge/↔-Core_skills-2ea44f?style=for-the-badge" alt="Core skills"></a>
   <a href="../../README.md"><img src="https://img.shields.io/badge/↩-repository_root-6B7280?style=for-the-badge" alt="Repository root"></a>
@@ -47,6 +47,9 @@ source changes. [`Docs/HARVEST.md`](../../Docs/HARVEST.md) lists every one with 
 | **API** | [`api-client-resilience`](./API/api-client-resilience/SKILL.md) | api-agent | Write HTTP clients that fail predictably — timeouts, retries with jitter, circuit breaking, idempotency, terminating pagination. |
 | **API** | [`api-integration-testing`](./API/api-integration-testing/SKILL.md) | api-agent | Test API integrations without hammering live services — recorded fixtures, contract tests, an opt-in live smoke suite. |
 | **API** | [`public-api-evaluation`](./API/public-api-evaluation/SKILL.md) | api-agent | Vet a third-party API before integrating — auth, rate limits, licensing, freshness, stability. |
+| **API** | [`rate-limit-and-quota-management`](./API/rate-limit-and-quota-management/SKILL.md) | api-agent | Stay inside a third-party API's rate limits and quotas on purpose — token-bucket throttling, quota budgeting, 429/Retry-After handling, detecting silent throttling. |
+| **Business** | [`customer-discovery`](./Business/customer-discovery/SKILL.md) | business-agent | Run customer interviews that produce evidence instead of encouragement — past-behavior questions, disconfirming samples, findings graded by weight. |
+| **Media** | [`captions-and-accessibility`](./Media/captions-and-accessibility/SKILL.md) | media-studio | Make media usable by everyone and verify it — accurate captions, alt text, contrast, safe-area, audio description. |
 
-Domains so far: `Engineering`, `API`. The harvest adds `Security`, `Business` or `Media` the
+Domains so far: `Engineering`, `API`, `Business`, `Media`. The harvest adds `Security` the
 first time it mirrors a skill from that field.
