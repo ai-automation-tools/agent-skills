@@ -24,6 +24,21 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-09-24
+
+**Added**
+- `scripts/validate-skills.py`, a standard-library check of every `SKILL.md`: frontmatter,
+  kebab-case name that matches its folder and is unique, a 40–1,024 character description,
+  the paths the body cites, the README and tier-README rows, and the `Resources/Skill-Data/`
+  mirror. It prints every failure and exits non-zero. *(Phase 1)*
+
+**Fixed**
+- `repo-docs-builder`'s description was 1,113 characters, over the 1,024 limit. The sentence
+  about GitHub/Obsidian rendering came out; the body still says it. Found by the validator.
+- `cronsole-windows-jobs` and `cronsole-claude-routines` cited `references/task-authoring.md`,
+  which lives in the cronsole repo's own `cronsole` skill, not theirs. Now written
+  `cronsole/references/task-authoring.md`.
+
 ## 2026-09-23
 
 **Added**

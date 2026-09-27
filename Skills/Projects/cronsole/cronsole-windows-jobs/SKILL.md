@@ -121,7 +121,7 @@ maintenance in a single early-morning block on the half hour.
 
 Only when there is genuinely nothing to report: one command, no transcript, no classification, no
 notification. This is the shape **Cronsole's own `create_task` should author**, and Cronsole's
-`cronsole` skill (`references/task-authoring.md`) is the authority there. Three things bite:
+`cronsole` skill (`cronsole/references/task-authoring.md`) is the authority there. Three things bite:
 
 - The command is **tokenized into a no-shell `{executable, args[]}`** — pipes, `>`, `&&` and `%VAR%`
   do not work until you invoke `cmd.exe /c` or `powershell.exe -Command` explicitly. That
@@ -215,6 +215,6 @@ Details, and what every other reading means, in
 | For | See |
 |:---|:---|
 | Scheduled **cloud** agent routines, not local ones | the `cronsole-claude-routines` skill |
-| Cronsole's own create/schedule/manage rules | Cronsole's `cronsole` skill → `references/task-authoring.md` |
+| Cronsole's own create/schedule/manage rules | Cronsole's `cronsole` skill → `cronsole/references/task-authoring.md` |
 | Sending the notification as email | the `html-email-templates` skill |
 | Choosing a model tier for an agent job | the `task-router` skill |
