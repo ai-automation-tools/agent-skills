@@ -10,6 +10,8 @@ way by those rather than by line number, which moves.
 | helpers | `$`, `el`, `activate`, `mark`, `tintOf`, `fmtSize`, `fmtAgo`, `toast` |
 | data | `reindex`, `load`/`doLoad`, `showFatal` |
 | bookmarks | `pins`, `savePins`, `togglePin`, `pinSection`, `renderPins` — list logic in `navigation.mjs` |
+| activity bar | `SIDE_VIEWS`, `sideView`, `setSideView` — `#app[data-side]` picks Explorer (`#tree`), Bookmarks / Recent (`#pins`) or Favorites (`#webmarks`) |
+| favorites | `web`, `loadWebmarks`, `renderWebmarks`, `webLink`, `favIcon` — reads `/api/webmarks`, icons from `/api/favicon` |
 | sidebar | `renderTree`, `focusNode`, context menu, `showStatusPanel` |
 | header | `renderCrumbs`, the search box, rail + width + theme controls, keyboard handlers |
 | views | `renderView` → `renderPage` → one `view*` per kind |

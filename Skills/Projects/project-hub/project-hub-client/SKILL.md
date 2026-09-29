@@ -109,6 +109,7 @@ Per-viewer preferences are localStorage, never the scan payload:
 |:---|:---|
 | `hub.theme` `hub.rail` `hub.sbw` | scheme, collapsed sidebar, sidebar width |
 | `hub.collapsed` `hub.folderview` `hub.reader` | collapsed sections, grid/list, reader settings |
+| `hub.side` `hub.websrc` | active activity-bar view, chosen browser profile for Favorites |
 | `hub.bookmarks` `hub.recent` | paths only — via `navigation.mjs`, which is where the list logic is tested |
 
 Every read and write is wrapped in `try/catch`. Private windows throw on access, and a

@@ -14,6 +14,8 @@ Everything below is in `Hub/hub.mjs` unless noted.
 | `/api/pictures` | — | — | `pictures.mjs`. Inert when no `Pictures` shared root is configured |
 | `/api/open` | `path`, `in=code`, `reveal=1` | `resolveId` **+ `sameOrigin`** | The only endpoint with an effect outside the browser. Windows-specific |
 | `/api/events` | — | — | SSE, 25s heartbeat |
+| `/api/webmarks` | `source` | `sameOrigin`; id matched against discovered profiles, never a path | `webmarks.mjs`. Edge/Chrome/Brave `Bookmarks` JSON read live, `http(s)` links only |
+| `/api/favicon` | `url` (http/https) | `sameOrigin` | `webmarks.mjs` `createFavicons()`. Page `<link rel=icon>` then `/favicon.ico`, bytes sniffed, one result per origin cached, script-free CSP |
 
 Two request gates apply to **every** response, set before routing:
 
