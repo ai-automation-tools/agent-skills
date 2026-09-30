@@ -24,7 +24,10 @@ It never pushes to `main`. Each run's changes arrive as one `harvest/auto-<date>
 | public-api-evaluation | api-agent | mirrored | `Skills/Domain/API/public-api-evaluation` | `3e60863` | 2026-09-22 | first harvest promotion, new Domain |
 | rate-limit-and-quota-management | api-agent | mirrored | `Skills/Domain/API/rate-limit-and-quota-management` | `3e60863` | 2026-09-27 | passes tier test — no workspace layout assumed |
 | customer-discovery | business-agent | mirrored | `Skills/Domain/Business/customer-discovery` | `d0a3ca3` | 2026-09-27 | first harvest promotion, new Domain |
+| go-to-market | business-agent | mirrored | `Skills/Domain/Business/go-to-market` | `d0a3ca3` | 2026-09-28 | passes tier test — no workspace layout assumed |
+| pricing-strategy | business-agent | mirrored | `Skills/Domain/Business/pricing-strategy` | `d0a3ca3` | 2026-09-28 | passes tier test — no workspace layout assumed |
 | debugging-methodology | fullstack-agent | mirrored | `Skills/Domain/Engineering/debugging-methodology` | `6f8bc8d` | 2026-09-22 | moved from Core 2026-09-22 |
 | performance-optimization | fullstack-agent | mirrored | `Skills/Domain/Engineering/performance-optimization` | `6f8bc8d` | 2026-09-22 | moved from Core 2026-09-22 |
 | testing-strategy | fullstack-agent | mirrored | `Skills/Domain/Engineering/testing-strategy` | `6f8bc8d` | 2026-09-22 | moved from Core 2026-09-22 |
 | captions-and-accessibility | media-studio | mirrored | `Skills/Domain/Media/captions-and-accessibility` | `5698b35` | 2026-09-27 | first harvest promotion, new Domain |
+| security-report-writing | security-agent | mirrored | `Skills/Domain/Security/security-report-writing` | `df83520` | 2026-09-28 | passes tier test, new Domain |
