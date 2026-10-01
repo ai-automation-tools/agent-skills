@@ -130,7 +130,7 @@ Each rule is here because the reference implementation paid for learning it.
     `failed`. Count caps from the ledger, never per run ("1 per week" written as "promote 1"
     lets manual re-runs promote 5 in 6 days).
 13. **Close the feedback loop in the runner, not in each prompt.** A run that ends in an
-    email and a pruned text log teaches the next run nothing. Six pieces, all in the runner,
+    email and a pruned text log teaches the next run nothing. These pieces, mostly in the runner,
     so no job has to remember them:
     - **Run history.** Every run appends a `start` and an `end` record to one JSONL file:
       status, minutes, turns, cost, tool-error count, API error, PR. A `start` with no `end`
@@ -153,9 +153,21 @@ Each rule is here because the reference implementation paid for learning it.
       owner, with no progress for a set number of days, leaves the active stage so it stops
       holding a capped slot. Keep any append-only file the runs read under the read limit by
       archiving old entries to dated files, never deleting them.
-    - **Humans approve prompt changes.** An audit may propose prompt edits from the run
-      history, the traps and the hold comments. It never applies them itself, because
-      self-edited prompts drift.
+    - **Humans approve prompt changes, by pull request.** Keep the prompts and runners in
+      a git repo of their own. A periodic audit reads the run history, the traps, the
+      lessons and the hold comments, and opens one PR of evidence-backed prompt edits on
+      that repo. It never merges it or edits the live copy, because self-edited prompts
+      drift; the owner merges, and the daily sync pulls the merge into the live folder.
+    - **Open questions live in one file per repo.** A run that needs a decision adds it
+      to `docs/OPEN-QUESTIONS.md` instead of repeating it in every PR body; the owner
+      answers in the file, and the next run applies the answer first. A weekly upkeep
+      report diffs against the last one, so a carried item never reads as new.
+    - **One inbox email for everything that waits on the owner.** Per-run emails can go
+      to labels, but a weekly digest with an inbox-only subject (such as
+      `[Approval needed]`) lists the prompt PR, release approvals, PRs a sweep left open,
+      PRs no sweep merges, unanswered questions, parked items and silent deaths. Send
+      nothing in a week with nothing waiting, and say which checks failed rather than
+      reporting them as empty.
 
 ## Parameters
 

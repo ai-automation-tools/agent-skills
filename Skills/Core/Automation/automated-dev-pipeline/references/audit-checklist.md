@@ -72,6 +72,8 @@ schedule is a claim to verify, not evidence.
 - [ ] Do appending runs read the PR's comments first? Find a held PR and check whether the next run answered the hold
 - [ ] Do caps count from the ledger, not per run? Count the ledger's moves per week against each cap
 - [ ] Do the same open questions come back in PR bodies week after week? They need a file the owner answers once
+- [ ] Does each repo's open-questions file have entries answered but never applied? The next run should apply them first
+- [ ] Are the prompts and runners under version control, and does the audit's prompt-change PR get merged or closed within a month? An ignored PR means the digest isn't reaching the owner
 - [ ] Does each repo's merge method match the sweep's? A mismatch holds every PR there forever
 - [ ] Does each job have a lessons file in its prompt, and do runs actually emit `LESSON:` lines? A file that stays empty for a month means the prompt isn't asking
 - [ ] After the owner edits a merged routine PR, does the next run of that job see the diff? Find a post-merge fix and check the next run's prompt or log

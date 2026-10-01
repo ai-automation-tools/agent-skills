@@ -63,9 +63,10 @@ Skills are picked up from an agent's skills directory. Three options:
    pwsh scripts/install-skills.ps1 -List                    # every skill, with its tier
    pwsh scripts/install-skills.ps1 -WhatIf                  # dry run
 
-   # other agents that read a skills directory
-   pwsh scripts/install-skills.ps1 -Destination ~/.codex/skills
-   pwsh scripts/install-skills.ps1 -Destination ~/.gemini/skills
+   # every agent CLI on this machine: Claude Code, Codex + Kimi (~/.agents/skills),
+   # agy (~/.gemini/skills), Antigravity IDE (~/.gemini/config/skills), opencode, Kilo
+   pwsh scripts/install-skills.ps1 -AllAgents
+   pwsh scripts/install-skills.ps1 -AllAgents -Skill automated-dev-pipeline   # just one, everywhere
 
    # project tier goes into the repo it belongs to, never user scope
    pwsh scripts/install-skills.ps1 -Project cronsole -Destination D:/repos/cronsole/.claude/skills
