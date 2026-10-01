@@ -6,9 +6,9 @@
 
 ## The flow diagram
 
-![automated-dev-pipeline flow](./Images/pipeline-flow.svg)
+![automated-dev-pipeline flow](../../../../../Skills/Core/Automation/automated-dev-pipeline/pipeline-flow.svg)
 
-[`Images/pipeline-flow.svg`](./Images/pipeline-flow.svg) draws the whole pipeline on one page:
+[`pipeline-flow.svg`](../../../../../Skills/Core/Automation/automated-dev-pipeline/pipeline-flow.svg), which ships in the skill folder beside `SKILL.md`, draws the whole pipeline on one page:
 
 | Part | What it shows |
 |:---|:---|
@@ -27,7 +27,7 @@ Supporting material about the skill. Nothing here is read at runtime; the skill 
 
 | Path | What it is |
 |:---|:---|
-| [`Images/pipeline-flow.svg`](./Images/pipeline-flow.svg) | The end-to-end flow diagram, 1000 × 1345. |
+| [`pipeline-flow.svg`](../../../../../Skills/Core/Automation/automated-dev-pipeline/pipeline-flow.svg) | The end-to-end flow diagram, 1000 × 1345. It lives in the skill folder, so it installs with the skill; this folder only describes it. |
 
 ---
 

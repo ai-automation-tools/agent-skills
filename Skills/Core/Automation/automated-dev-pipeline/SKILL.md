@@ -59,8 +59,8 @@ ideas ──ideate──▶ scored plan ──incubate──▶ private repo + w
 ```
 
 The full flow, with the keep-current jobs, the rule 13 feedback loop and every point where a
-person decides, is drawn in [`pipeline-flow.svg`](../../../../Resources/Skill-Data/Core/Automation/automated-dev-pipeline/Images/pipeline-flow.svg)
-in the source repo. An installed copy doesn't carry it, and doesn't need it.
+person decides, is drawn in [`pipeline-flow.svg`](pipeline-flow.svg) beside this file. Show
+it to the user when they want the whole picture at once.
 
 Keeping current never ends. A published repo keeps its roadmap routine, and the refresh
 and upkeep jobs cover every repo, including ones that never went through the build stages.
