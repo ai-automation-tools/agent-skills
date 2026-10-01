@@ -119,6 +119,27 @@ Each rule is here because the reference implementation paid for learning it.
     (it's honoured even under bypass) covering every tool that acts on hardware, on a live
     user session, or on anything else a person has to confirm. Keep the read-only calls the
     job actually needs. Deny the whole server when a job has no use for it.
+12. **A run that did nothing because it broke is a failure, never a quiet week.** Judge the
+    outcome by the session's exit code as well as by commits and PRs. A platform error
+    (`API Error: 529`) ends a session with exit 1 and no work. A runner that only counts
+    commits mails that as a quiet week. Retry once on a platform error, then report
+    `failed`. Count caps from the ledger, never per run ("1 per week" written as "promote 1"
+    lets manual re-runs promote 5 in 6 days).
+13. **Close the feedback loop in the runner, not in each prompt.** A run that ends in an
+    email and a pruned text log teaches the next run nothing. Four pieces, all in the runner,
+    so no job has to remember them:
+    - **Run history.** Every run appends a `start` and an `end` record to one JSONL file:
+      status, minutes, turns, cost, tool-error count, API error, PR. A `start` with no `end`
+      is a run that died silently, which no email will ever tell you about.
+    - **Shared runtime traps.** One file of platform pitfalls is prepended to every prompt.
+      A session that hits a new one reports a `TRAP:` line, and the runner saves it in the
+      run record so it can be promoted into the file.
+    - **Review comments read back.** A run that continues an open PR reads the PR's
+      comments first, and a sweep HOLD or a comment from the owner is its first item.
+      Without this, held PRs keep collecting new work while the hold reason goes unread.
+    - **Humans approve prompt changes.** An audit may propose prompt edits from the run
+      history, the traps and the hold comments. It never applies them itself, because
+      self-edited prompts drift.
 
 ## Parameters
 
@@ -139,6 +160,7 @@ operator notes so the next session doesn't have to rediscover them.
 | Incubation cap, ideate threshold | Throughput limits (rule 6) |
 | Sweep days, model tiers | Speed and cost. A mid-tier model for research and writing, the strongest for merges and repo creation |
 | Hold paths | Paths whose change a person must merge: the published folder, the deploying site, hand-curated areas. Enforced by the sweep's runner, not its prompt (rules 1–2) |
+| Run history + traps file | Where the JSONL run history lives (outside any pruned log folder), and the one runtime-traps file every runner prepends (rule 13) |
 | Notification routing | One sender display name per workflow, and one mail filter per name. Mail labels stack, so every existing catch-all filter that matches the sender domain or `[OK]`-style subjects needs the new name added to its exclusions, or the mail lands in two labels |
 
 The RUN SUMMARY key for human-only work is `Needs <owner>`. Use the real person's name, as
@@ -163,7 +185,19 @@ in `Needs Alex`, so the email filter and the upkeep report can match it.
 
 ## Windows shell traps
 
-These cost the most time on a first build, so they sit here rather than in a reference:
+These cost the most time on a first build, so they sit here rather than in a reference.
+The ones that hit unattended sessions too belong in the runtime-traps file (rule 13), so
+every prompt carries them:
+
+- **Inline quoting in Git Bash is the most common session error.** Multi-line text, or
+  text with quotes or backticks, inside a command fails with "unexpected EOF while looking
+  for matching quote". Write the text to a file, then pass the file (`--body-file`,
+  `git commit -F`).
+- **Git Bash's `/tmp` is invisible to Windows `node` and `python`.** Give each run a Windows
+  scratch folder through an environment variable, and delete it in the runner's `finally`.
+- **`rm -rf` and compound `cd x && git` stall an unattended session** on a permission
+  prompt nobody answers. Use `git rm` / `git mv`, `git -C <path>`, and leave scratch for
+  the runner to delete.
 
 - **Never write Windows paths through a bash heredoc or `python -c`.** The tool layer can
   collapse `\\` to `\`, and Python then reads `\3`, `\r`, `\U` as escapes. `\3D-Printer`

@@ -2,7 +2,8 @@
 
 Gather evidence before you conclude anything. Use live `schtasks /query /fo CSV /v` (not
 `Get-ScheduledTask`, which misses tasks), the run logs (`= done: N turns, Ns, cost $X` lines),
-`git log` on the repos, the sweep config, and the ledger. A doc's description of a
+`git log` on the repos, the sweep config, the ledger, and the run history (rule 13), if the
+fleet keeps one. A doc's description of a
 schedule is a claim to verify, not evidence.
 
 ## 1. Safety (P0 if any fails)
@@ -62,6 +63,16 @@ schedule is a claim to verify, not evidence.
 - [ ] Are there two writers on one branch, for example a direct push to the landing page while its upkeep PR is open?
 - [ ] Where stages share a branch prefix on purpose, can two of them ever run at once? `StartWhenAvailable` can shift a missed run onto another stage's slot
 - [ ] Does each workflow's mail land under exactly one label? Labels stack, so a catch-all filter without an exclusion for the workflow's sender name double-files it
+
+## 8. Feedback
+
+- [ ] Does every runner write a `start` and an `end` record to one run history that isn't pruned with the logs? List each `start` with no `end`: those are silent deaths
+- [ ] Is a non-zero session exit with no commits reported as `failed`? grep the logs for `API Error` beside a "quiet" outcome
+- [ ] Which tool errors recur across runs (quoting, `/tmp`, refused deletes, oversized reads)? Is each one in the shared traps file?
+- [ ] Do appending runs read the PR's comments first? Find a held PR and check whether the next run answered the hold
+- [ ] Do caps count from the ledger, not per run? Count the ledger's moves per week against each cap
+- [ ] Do the same open questions come back in PR bodies week after week? They need a file the owner answers once
+- [ ] Does each repo's merge method match the sweep's? A mismatch holds every PR there forever
 
 ## Output
 

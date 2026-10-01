@@ -76,6 +76,7 @@ runner's features silently does less than it says.
 | **Date injection** | No. State the date in the prompt if research depends on it | Yes, the stage script prepends today's date and weekday | n/a |
 | **Per-job hooks** | `link` (junction dirs, copy files), `postCreate` (for example a worktree `deny` guard) | The stage script itself | Gates, `autoResolve`, per-target `allowedBases`, `branchPrefixes`, `holdPaths` |
 | **Dry run** | `-WhatIfClaude`, then `-Cleanup` | `-CheckOnly` on the stage script. `-WhatIfChild` on the wrapper | `-WhatIfClaude` |
+| **Feedback (rule 13)** | Run record, traps file, `$RUN_TMP`, PR comments read first in APPEND MODE, one retry on a platform error | Run record (wrapper), traps file and `$RUN_TMP` (stage script) | Run record, traps file, `$RUN_TMP`, per-target `mergeMethod` |
 
 A stage that runs often and is often idle belongs on a runner with a pre-check (rule 5), or
 needs one added to its runner.
@@ -123,6 +124,10 @@ What changes because of it:
 | Security wrapper fails after a create or flip | Stop that project and report it first under Needs <owner> |
 | A roadmap run fails verification | No PR. Revert, restore the item, and state what blocked it |
 | Stage session crashes | The runner exits non-zero, and the wrapper emails `failed` |
+| Session exits non-zero with no commits (`API Error: 529`, `429`) | One retry after 2 minutes if it failed fast, then `failed` with exit 1. Never `quiet` |
+| A run dies without reaching its outcome check (no exit line, no email) | Only the run history shows it: a `start` record with no `end`. The next run clears the stale lock |
+| A sweep holds a PR | The comment is the next appending run's first item, because the APPEND MODE banner makes it read `gh pr view --comments` |
+| A repo disallows the sweep's merge method | Set `mergeMethod` on that sweep target. Otherwise every PR there stays HOLD for a reason that has nothing to do with the diff |
 | Clean skip on a daily job | No email (`quietOn: ["^SKIPPED:"]`) |
 | A PR conflicts only on the changelog | The sweep merges the base in with git's `union` driver, keeping both entries, and re-gates. Any other conflicting file stays HOLD. This is the most common conflict, because every routine writes to the top of the same changelog section |
 | An adopted branch no longer merges cleanly with base | The roadmap runner aborts the merge and runs on the stale branch, and the banner tells the session to stay clear of the overlap. It never resolves the conflict itself |

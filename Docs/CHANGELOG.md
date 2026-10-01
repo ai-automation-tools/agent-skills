@@ -24,6 +24,21 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-09-30
+
+**Changed**
+- `automated-dev-pipeline` adds what an analysis of every org and 3D Lab run log taught about
+  feedback. Until now, nothing a run learned or was told reached the next run.
+  - Rule 12: a session that exits non-zero with no work is a failure, never a quiet week, with
+    one retry on a platform error. Caps are counted from the ledger, not per run.
+  - Rule 13: close the feedback loop in the runner. That means a JSONL run history with
+    `start` and `end` records (a start with no end is a silent death), a shared runtime-traps
+    file prepended to every prompt, and PR comments read first in APPEND MODE. Prompt changes
+    still need a human's approval.
+  - The Windows traps add inline quoting, `/tmp` and refused deletes.
+  - The runner table gains a Feedback row, and Failure handling gains four rows.
+  - The audit checklist gains section 8, Feedback.
+
 ## 2026-09-24
 
 **Added**
