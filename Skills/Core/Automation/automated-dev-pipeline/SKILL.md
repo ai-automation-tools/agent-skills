@@ -126,7 +126,7 @@ Each rule is here because the reference implementation paid for learning it.
     `failed`. Count caps from the ledger, never per run ("1 per week" written as "promote 1"
     lets manual re-runs promote 5 in 6 days).
 13. **Close the feedback loop in the runner, not in each prompt.** A run that ends in an
-    email and a pruned text log teaches the next run nothing. Four pieces, all in the runner,
+    email and a pruned text log teaches the next run nothing. Six pieces, all in the runner,
     so no job has to remember them:
     - **Run history.** Every run appends a `start` and an `end` record to one JSONL file:
       status, minutes, turns, cost, tool-error count, API error, PR. A `start` with no `end`
@@ -137,6 +137,18 @@ Each rule is here because the reference implementation paid for learning it.
     - **Review comments read back.** A run that continues an open PR reads the PR's
       comments first, and a sweep HOLD or a comment from the owner is its first item.
       Without this, held PRs keep collecting new work while the hold reason goes unread.
+    - **Lessons per job.** Each job keeps a short lessons file that goes on top of its
+      prompt. A session that learned something job-specific ends with `LESSON: <sentence>`,
+      and the runner saves it, deduplicated, newest first, capped near 20. The runner only
+      adds and trims; the owner edits. Platform pitfalls stay `TRAP:` lines.
+    - **The owner's corrections read back.** Before a run, list the base-branch commits
+      that touched the files of the job's last few merged PRs and did not come from a fleet
+      branch, and show their diffs. That is the owner fixing what a run did. The run keeps
+      the fix and turns it into a lesson. PRs closed unmerged are listed as rejected.
+    - **Park what only the owner can move.** An item whose open work all waits on the
+      owner, with no progress for a set number of days, leaves the active stage so it stops
+      holding a capped slot. Keep any append-only file the runs read under the read limit by
+      archiving old entries to dated files, never deleting them.
     - **Humans approve prompt changes.** An audit may propose prompt edits from the run
       history, the traps and the hold comments. It never applies them itself, because
       self-edited prompts drift.

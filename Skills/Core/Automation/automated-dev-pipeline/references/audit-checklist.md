@@ -73,6 +73,10 @@ schedule is a claim to verify, not evidence.
 - [ ] Do caps count from the ledger, not per run? Count the ledger's moves per week against each cap
 - [ ] Do the same open questions come back in PR bodies week after week? They need a file the owner answers once
 - [ ] Does each repo's merge method match the sweep's? A mismatch holds every PR there forever
+- [ ] Does each job have a lessons file in its prompt, and do runs actually emit `LESSON:` lines? A file that stays empty for a month means the prompt isn't asking
+- [ ] After the owner edits a merged routine PR, does the next run of that job see the diff? Find a post-merge fix and check the next run's prompt or log
+- [ ] Does any active-stage slot belong to an item waiting only on the owner? It should be parked
+- [ ] Is every file a run reads first (changelog, ledger) under the read limit?
 
 ## Output
 
