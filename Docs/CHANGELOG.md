@@ -26,6 +26,13 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 
 ## 2026-09-30
 
+**Added**
+- A flow diagram for `automated-dev-pipeline`,
+  `Skills/Core/Automation/automated-dev-pipeline/pipeline-flow.svg`, beside `SKILL.md`, so it installs with the skill. One
+  hand-written SVG draws build, publish, keep-current and the rule 13 feedback loop, with the
+  human decisions in amber. `SKILL.md` links it under "The loop", and a new Skill-Data README
+  describes it.
+
 **Changed**
 - `automated-dev-pipeline` adds what an analysis of every org and 3D Lab run log taught about
   feedback. Until now, nothing a run learned or was told reached the next run.
@@ -38,6 +45,17 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
   - The Windows traps add inline quoting, `/tmp` and refused deletes.
   - The runner table gains a Feedback row, and Failure handling gains four rows.
   - The audit checklist gains section 8, Feedback.
+- `automated-dev-pipeline` rule 13, second pass (`2545609` and this PR): lessons per job,
+  the owner's post-merge fixes read back, parking items that wait only on the owner, prompt
+  changes proposed as a PR on the prompts' own repo, one `docs/OPEN-QUESTIONS.md` per repo,
+  and a weekly inbox digest of everything waiting on the owner. Audit section 8 gains six
+  checks.
+- `scripts/install-skills.ps1 -AllAgents` targets the paths each CLI reads today (checked
+  against the CLI-Guides location table): `~/.agents/skills` for Codex and Kimi (the old
+  `~/.codex/skills` is legacy and would load twice), `~/.gemini/skills` for agy,
+  `~/.gemini/config/skills` for the Antigravity IDE, plus opencode and Kilo. Before this,
+  agy got `~/.agents/skills`, which it doesn't read. `Docs/USING-SKILLS.md` shows
+  `-AllAgents` instead of hand-picked destinations.
 
 ## 2026-09-24
 

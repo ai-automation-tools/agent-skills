@@ -26,13 +26,15 @@
     A bare run installs the Core tier only, so a project skill can never leak into
     user scope by accident and clutter the catalog of every unrelated session.
 
-    Four agent CLIs read a global skills directory and they are NOT the same path.
-    -AllAgents installs to every one that exists on this machine:
+    The agent CLIs read different global skills directories. -AllAgents installs to
+    every one that exists on this machine:
 
-      Claude Code  ~/.claude/skills
-      Codex        ~/.codex/skills
-      agy          ~/.agents/skills          (Antigravity)
-      opencode     ~/.config/opencode/skills
+      Claude Code      ~/.claude/skills
+      Codex + Kimi     ~/.agents/skills          (shared; ~/.codex/skills is legacy)
+      agy              ~/.gemini/skills          (Antigravity CLI)
+      Antigravity IDE  ~/.gemini/config/skills
+      opencode         ~/.config/opencode/skills
+      Kilo             ~/.kilo/skills
 
     A CLI whose root folder is absent is skipped rather than created, so the switch
     never litters ~ with directories for tools you don't have.
@@ -42,7 +44,8 @@
 
 .PARAMETER AllAgents
     Install to the global skills directory of every agent CLI present on this
-    machine (Claude Code, Codex, agy, opencode) instead of a single -Destination.
+    machine (Claude Code, Codex + Kimi, agy, Antigravity IDE, opencode, Kilo) instead
+    of a single -Destination.
     Core tier only - project skills are per-repo by definition, so -Project is
     rejected here.
 
@@ -76,7 +79,7 @@
 
 .EXAMPLE
     pwsh scripts/install-skills.ps1 -AllAgents
-    Install every Core skill into all four agent CLIs' global skills directories.
+    Install every Core skill into every agent CLI's global skills directory found here.
 
 .EXAMPLE
     pwsh scripts/install-skills.ps1 -AllAgents -Skill repo-docs-builder
@@ -170,13 +173,18 @@ if ($List) {
 }
 
 # Where this lands: one -Destination, or every agent CLI that's actually installed.
-# The four CLIs read four different global paths — keeping them in sync by hand is
+# The CLIs read different global paths — keeping them in sync by hand is
 # how one of them silently goes stale.
+# Paths re-checked 2026-09-30 against the vault's CLI-Guides/User-Level-Locations.md.
+# ~/.codex/skills is Codex's LEGACY path: Codex now reads ~/.agents/skills, and a copy
+# in both shows up twice, so it is deliberately not a target.
 $AgentSkillDirs = [ordered]@{
-    'Claude Code' = Join-Path $HOME '.claude/skills'
-    'Codex'       = Join-Path $HOME '.codex/skills'
-    'agy'         = Join-Path $HOME '.agents/skills'
-    'opencode'    = Join-Path $HOME '.config/opencode/skills'
+    'Claude Code'     = Join-Path $HOME '.claude/skills'
+    'Codex + Kimi'    = Join-Path $HOME '.agents/skills'          # shared folder
+    'agy'             = Join-Path $HOME '.gemini/skills'          # Antigravity CLI, shared skills
+    'Antigravity IDE' = Join-Path $HOME '.gemini/config/skills'
+    'opencode'        = Join-Path $HOME '.config/opencode/skills'
+    'Kilo'            = Join-Path $HOME '.kilo/skills'            # skipped unless installed
 }
 
 $destinations = [ordered]@{}
