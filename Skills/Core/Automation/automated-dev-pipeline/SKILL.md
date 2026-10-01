@@ -58,6 +58,10 @@ ideas ──ideate──▶ scored plan ──incubate──▶ private repo + w
          keep current: refresh + review + upkeep ──▶ PRs into the same sweep
 ```
 
+The full flow, with the keep-current jobs, the rule 13 feedback loop and every point where a
+person decides, is drawn in [`pipeline-flow.svg`](../../../../Resources/Skill-Data/Core/Automation/automated-dev-pipeline/Images/pipeline-flow.svg)
+in the source repo. An installed copy doesn't carry it, and doesn't need it.
+
 Keeping current never ends. A published repo keeps its roadmap routine, and the refresh
 and upkeep jobs cover every repo, including ones that never went through the build stages.
 You can point the pipeline at repos you already have and use only that part.

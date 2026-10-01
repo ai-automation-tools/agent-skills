@@ -26,6 +26,13 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 
 ## 2026-09-30
 
+**Added**
+- A flow diagram for `automated-dev-pipeline`,
+  `Resources/Skill-Data/Core/Automation/automated-dev-pipeline/Images/pipeline-flow.svg`. One
+  hand-written SVG draws build, publish, keep-current and the rule 13 feedback loop, with the
+  human decisions in amber. `SKILL.md` links it under "The loop", and a new Skill-Data README
+  describes it.
+
 **Changed**
 - `automated-dev-pipeline` adds what an analysis of every org and 3D Lab run log taught about
   feedback. Until now, nothing a run learned or was told reached the next run.
