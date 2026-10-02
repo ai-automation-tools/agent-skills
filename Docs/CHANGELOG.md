@@ -24,6 +24,13 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-10-01
+
+**Added**
+- `.github/workflows/validate.yml` runs `scripts/validate-skills.py` on every push to `main`
+  and every pull request, read-only, so a broken skill shows up as a red check before merge.
+  `CLAUDE.md` and `Docs/USING-SKILLS.md` mention it. *Phase 1*
+
 ## 2026-09-30
 
 **Added**
