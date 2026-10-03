@@ -1,6 +1,6 @@
 # index.html — the map
 
-Roughly 3,000 lines, in this order. Section banners are `// ── name ───` comments; find your
+Roughly 3,700 lines, in this order. Section banners are `// ── name ───` comments; find your
 way by those rather than by line number, which moves.
 
 | Region | Holds |
@@ -71,7 +71,7 @@ Follow that shape for anything new.
 
 Only a plain ES module the Node suite imports directly:
 
-- `navigation.mjs` — `routeHash`/`parseRoute`, `searchHash`/`parseSearch`, `documentTarget`,
+- `navigation.mjs` — `routeHash`/`parseRoute`, `searchHash`/`parseSearch`, `filterSearchPool` (the root and type chips), `documentTarget`,
   `markdownLink`, `includeInSearch`, `absolutePath`, and the bookmark/recent list logic
   (`parseList`, `toggleBookmark`, `renameBookmark`, `moveBookmark`, `pushRecent`,
   `resolveBookmarks`, `RECENT_MAX`).

@@ -4,7 +4,7 @@ How to judge whether a recipe's **nutrition profile is within healthy/acceptable
 
 ## 1. Per-serving nutrition thresholds
 
-Cutoffs use the FDA's universal interpretive rule — **≤5% Daily Value per serving = "low," ≥20% DV = "high"** — applied to each nutrient's DV. All figures are current (FDA Nutrition Facts 2016 rule, Dietary Guidelines for Americans 2020–2025, WHO, AHA). Recipe nutrition tables are already per-serving, so compare directly.
+Cutoffs use the FDA's universal interpretive rule — **≤5% Daily Value per serving = "low," ≥20% DV = "high"** — applied to each nutrient's DV. All figures are current (FDA Nutrition Facts 2016 rule, Dietary Guidelines for Americans 2025–2030, WHO, AHA). Recipe nutrition tables are already per-serving, so compare directly.
 
 | Nutrient | Daily Value | Acceptable (≤ ~10% DV) | Elevated (≥ 20% DV) | High / very high |
 |---|---|---|---|---|
@@ -20,9 +20,9 @@ The `scan_recipes.py` thresholds mirror this table. The FDA "healthy" claim (fin
 - **Total vs added sugars.** Recipe nutrition tables usually report *total* sugar (no DV — includes fruit/dairy sugar), not *added* sugar. A high total-sugar number on a fruit- or dairy-forward dish may be fine; the same number on a sweetened dessert/drink is added sugar. Decide which before calling it a problem.
 - **Dish type sets the bar.** ~460 mg sodium or 8 g sat fat is expected in a hearty braise, curry, or cheese dish and unremarkable there; the same in a "light salad" or a dish billed as "healthy"/"low-sodium" is a real inconsistency. Flag against the dish's own promise.
 
-Daily-total context for messaging (not per-dish pass/fail): WHO sodium < 2,000 mg/day, AHA ideal < 1,500; sat fat DGA < 10% of calories, AHA < 6% (~13 g); added sugars WHO < 10% (ideally < 5%) of energy, AHA ≤ 36 g men / ≤ 25 g women.
+Daily-total context for messaging (not per-dish pass/fail): WHO sodium < 2,000 mg/day, AHA ideal < 1,500; sodium DGA < 2,300 mg; sat fat DGA < 10% of calories, AHA < 6% (~13 g); added sugars DGA ≤ 10 g per meal (and no amount recommended as part of a healthy diet), WHO < 10% (ideally < 5%) of energy, AHA ≤ 36 g men / ≤ 25 g women.
 
-Sources: [FDA Daily Values](https://www.fda.gov/food/nutrition-facts-label/daily-value-nutrition-and-supplement-facts-labels) · [FDA Nutrition Facts label](https://www.fda.gov/food/nutrition-facts-label/how-understand-and-use-nutrition-facts-label) · [FDA updated "healthy" claim](https://www.fda.gov/food/hfp-constituent-updates/fda-finalizes-updated-healthy-nutrient-content-claim) · [DGA 2020–2025](https://www.dietaryguidelines.gov/sites/default/files/2021-03/Dietary_Guidelines_for_Americans-2020-2025.pdf) · [WHO healthy diet](https://cdn.who.int/media/docs/default-source/healthy-diet/healthy-diet-fact-sheet-394.pdf) · [AHA sodium](https://www.heart.org/en/healthy-living/healthy-eating/eat-smart/sodium) / [added sugars](https://www.heart.org/en/healthy-living/healthy-eating/eat-smart/sugar/added-sugars) / [saturated fat](https://www.heart.org/en/healthy-living/healthy-eating/eat-smart/fats/saturated-fats)
+Sources: [FDA Daily Values](https://www.fda.gov/food/nutrition-facts-label/daily-value-nutrition-and-supplement-facts-labels) · [FDA Nutrition Facts label](https://www.fda.gov/food/nutrition-facts-label/how-understand-and-use-nutrition-facts-label) · [FDA updated "healthy" claim](https://www.fda.gov/food/hfp-constituent-updates/fda-finalizes-updated-healthy-nutrient-content-claim) · [DGA 2025–2030](https://cdn.realfood.gov/DGA.pdf) · [WHO healthy diet](https://cdn.who.int/media/docs/default-source/healthy-diet/healthy-diet-fact-sheet-394.pdf) · [AHA sodium](https://www.heart.org/en/healthy-living/healthy-eating/eat-smart/sodium) / [added sugars](https://www.heart.org/en/healthy-living/healthy-eating/eat-smart/sugar/added-sugars) / [saturated fat](https://www.heart.org/en/healthy-living/healthy-eating/eat-smart/fats/saturated-fats)
 
 ### When nutrition isn't declared
 
