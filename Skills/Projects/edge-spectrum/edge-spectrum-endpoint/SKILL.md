@@ -66,8 +66,9 @@ bound means: constant in `strategyBounds.ts` → schema rule in `strategySchema.
 
 `strategySchema.ts` also carries a `SameMembers<…>` type trick so that adding a sport or side
 selection to `types.ts` without listing it in the schema is a **`tsc --noEmit` failure**, not a
-request the UI can build and the API then rejects. Keep those `_xCovered` assertions when editing
-the unions.
+request the UI can build and the API then rejects. Keep those `_xCovered` assertions (sports, bet
+types, sides, streak filters) when editing the unions. `_schemaFieldsMatch` does the same for the
+`Strategy` fields themselves: adding or dropping one in `types.ts` without the schema fails `tsc`.
 
 > [!NOTE]
 > `tsconfig.json` sets neither `strict` nor `strictNullChecks`, so **Zod infers every output field

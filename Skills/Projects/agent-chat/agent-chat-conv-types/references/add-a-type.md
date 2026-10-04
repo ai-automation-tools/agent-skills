@@ -34,7 +34,7 @@ not answer) and one or more **Subjects**.
 ),
 ```
 
-`max_members` subtracts one **iff** `lead_needs_own_seat` is True. `ALL_ROLES` and
+`max_members` is hand-set, not derived: write `MAX_PARTICIPANTS - 1` when the lead takes a seat on top of the members, as `podcast` and `collaborate` do. `max_participants` adds one back whenever `lead_required` is True, capped at `MAX_PARTICIPANTS`. `ALL_ROLES` and
 `CONV_TYPE_KEYS` derive automatically — do not hand-maintain them.
 
 ## 2. `src/agent_chat_mcp.py` — `_ROLE_BRIEFS`

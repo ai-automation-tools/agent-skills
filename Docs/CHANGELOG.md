@@ -30,6 +30,20 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 - `.github/workflows/validate.yml` runs `scripts/validate-skills.py` on every push to `main`
   and every pull request, read-only, so a broken skill shows up as a red check before merge.
   `CLAUDE.md` and `Docs/USING-SKILLS.md` mention it. *Phase 1*
+## 2026-10-03
+
+**Changed**
+- Monthly currency review. `task-router` names Sonnet 5.5, the current Sonnet.
+- `recipe-validator` cites the 2025–2030 Dietary Guidelines for sodium and added sugars.
+- `project-hub-scaffold`, `project-hub-scan` and `project-hub-client` match the current
+  `project-hub` repo: five test files (83 tests), a 3,700-line `index.html`, and the search
+  `root=` / `type=` params.
+- `cronsole-claude-routines` notes that `untrack_task` now clears a `MISSING` OAuth-mode row.
+- `edge-radar-strategy-profiles` drops the retired `NightlySettle` task and adds the
+  per-category `MIN_EDGE_THRESHOLD_*` knob.
+- `edge-spectrum-endpoint` names the two new `strategySchema.ts` assertions.
+- `agent-chat-conv-types` fixes the `max_members` rule; `agent-chat-run-triage` covers
+  auto-written seat permissions and the relative-`$AGENT_CHAT_DB` startup exit.
 
 ## 2026-09-30
 
