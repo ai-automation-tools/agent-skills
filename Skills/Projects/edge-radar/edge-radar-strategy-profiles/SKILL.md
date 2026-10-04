@@ -136,8 +136,8 @@ safe today only *because* the second book never fills:
 - **Reporting is pooled.** `daily_summary.py`, `risk_check.py` and `betting_analysis.py` read the
   whole trade log. A dry run writes zero-fill rows that never settle, so nothing blends today. Real
   fills blend both books immediately — these need `for_profile()` or a per-profile split first.
-- **Settlement and reconciliation only ever see subaccount 0.** `Hourly-Settle`, `NightlySettle`
-  and `Reconcile` all run unprofiled. A live second wallet needs its **own** settle and reconcile
+- **Settlement and reconciliation only ever see subaccount 0.** `Hourly-Settle` and `Reconcile`
+  both run unprofiled. A live second wallet needs its **own** settle and reconcile
   tasks under `EDGE_RADAR_PROFILE=<name>`, or its fills never settle and its P&L never lands.
   (`CLV-Capture` is fine — it reads the unfiltered log and calls public market data.)
 - **Scan report filenames carry no profile tag.** Two profiles scanning the same filter on the same
@@ -227,4 +227,4 @@ after the merge, and the second book's banner reported the first book's P&L and 
 | Running a scan, placing a bet, settling | the repo's `/edge-radar` skill |
 | Post-hoc performance of what settled | the repo's `/edge-radar-analysis` skill |
 | Auditing the math for money bugs | the repo's `/betting-logic-review` skill |
-| The worked example, four layers deep | `docs/longshot/README.md` in the repo |
+| The worked example, four layers deep | `docs/longshot/README.md` in the repo (the strategy was retired 2026-09-28; the profile mechanism and the doc stay) |

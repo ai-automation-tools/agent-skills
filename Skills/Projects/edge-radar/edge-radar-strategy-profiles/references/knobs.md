@@ -49,6 +49,7 @@ profile has, because a rejected row costs nothing and teaches nothing.
 | `MIN_MARKET_PRICE` | 3.5 | the cheap end | Longshot / lottery-ticket books. The single knob that defines "how cheap is too cheap". |
 | `MAX_MARKET_PRICE` | 3.55 | the expensive end | Cost/payout ceiling. A 76c bet to win $1 is rejected at 0.75; 75c passes. |
 | `MIN_EDGE_THRESHOLD_<SPORT>` | 3 | one sport | Sport-specific angles, pilot floors, and freezes. **≥ 1.0 can never be cleared, so it is the idiom for switching a sport off** — the executor reports `sport_disabled`. |
+| `MIN_EDGE_THRESHOLD_<SPORT>_<CATEGORY>` | 3 | one sport's market type | `game`, `spread` or `total`. Narrows a sport floor to one market type and wins over the sport-wide value (`min_edge_for()`). Live example: `MIN_EDGE_THRESHOLD_MLB_SPREAD=0.08` after MLB spreads went 0-9 while totals ran 11-2 on the same 0.03 floor. |
 | `MIN_EDGE_THRESHOLD` | 3 | everything | Rarely right in a profile: it moves the whole book, so nothing is attributable. |
 | `MIN_COMPOSITE_SCORE` | 4 | everything | A blunt quality bar. Remember every composite scales edge as `min(edge / 0.01, 10)`. |
 | `MIN_CONFIDENCE` | 4.5 | everything | Note confidence bumps are **one-way, down only** — `supports` is a no-op. |

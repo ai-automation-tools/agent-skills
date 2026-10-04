@@ -15,7 +15,7 @@ description: >-
 
 # Working in index.html
 
-**The interface is one 3,000-line file on purpose and it stays that way.** No build step, no
+**The interface is one 3,700-line file on purpose and it stays that way.** No build step, no
 bundler, no framework — the hub's whole promise is `node hub.mjs` and a browser. An edit
 that needs a toolchain is the wrong edit.
 
@@ -101,7 +101,7 @@ Consequences, all of which show up as "it worked until the page refreshed itself
 Hash routes come from `navigation.mjs` — `routeHash(id, heading)` / `parseRoute`,
 `searchHash` / `parseSearch`. **`go()` writes the hash itself**, so the `hashchange`
 listener guards by comparing to `S.sel` rather than tracking a flag. A search URL restores
-the query, scope and limit, not just a document — that is why `syncSearchRoute(replace)`
+the query, scope, limit and the root/type chips, not just a document — that is why `syncSearchRoute(replace)`
 exists and why `restoredInitialRoute` fires once.
 
 Per-viewer preferences are localStorage, never the scan payload:

@@ -60,10 +60,12 @@ create_claude_routine         # OAuth mode only
 
 > [!WARNING]
 > **Disconnecting a Claude routine removes its tracked tasks along with the declaration.** That is by
-> design — for `CLAUDE_CODE`, as for `TASKHUB_NATIVE`, **the rows *are* the task** as far as Cronsole
-> is concerned, so there is nothing left to keep. It is also why **`untrack_task` 400s on
-> `CLAUDE_CODE`**: untrack means "stop watching, leave it running", and here there is no separate
-> thing to leave.
+> design — for a **declared** routine, as for `TASKHUB_NATIVE`, **the row *is* the task** as far as
+> Cronsole is concerned, so there is nothing left to keep. It is also why **`untrack_task` 400s on a
+> declared routine**: the declaration stays in the connection and the next sync would bring the row
+> back. A routine **discovered in OAuth mode** has no declaration, so `untrack_task` works on it like
+> on any other platform — that is the way to clear a `MISSING` row whose routine was deleted at
+> claude.ai (`disconnect_claude_routine` 404s there, nothing being declared).
 >
 > The routine itself keeps running in the cloud. What you lose is Cronsole's record of it, and in
 > declared mode that record *is* the configuration — you will have to re-declare it.
@@ -112,7 +114,7 @@ turning anything red** — a containerized backend still on old code, a publishe
 *"Internal server error"* on every route including reads while the schema file, the generated client
 and the entire test suite hold the new value.
 
-Cronsole ships a **`/doctor`** command that checks these, and it is **read-only on purpose**: three of
+Cronsole ships a **`/doctor`** command that checks these, and it is **read-only by default** (`--fix` is an opt-in that applies only safe fixes): three of
 four agent-health incidents there were the *readout* lying, so a "reconnect" button would have
 reconnected a working connector forever and looked like it worked. **A diagnostic reports; it does
 not repair.**
