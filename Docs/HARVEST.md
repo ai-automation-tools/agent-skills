@@ -21,6 +21,7 @@ It never pushes to `main`. Each run's changes arrive as one `harvest/auto-<date>
 |:---|:---|:---|:---|:---|:---|:---|
 | api-client-resilience | api-agent | mirrored | `Skills/Domain/API/api-client-resilience` | `3e60863` | 2026-09-22 | first harvest promotion, new Domain |
 | api-integration-testing | api-agent | mirrored | `Skills/Domain/API/api-integration-testing` | `3e60863` | 2026-09-22 | first harvest promotion, new Domain |
+| api-response-normalization | api-agent | mirrored | `Skills/Domain/API/api-response-normalization` | `3e60863` | 2026-10-04 | passes tier test — no workspace layout assumed |
 | public-api-evaluation | api-agent | mirrored | `Skills/Domain/API/public-api-evaluation` | `3e60863` | 2026-09-22 | first harvest promotion, new Domain |
 | rate-limit-and-quota-management | api-agent | mirrored | `Skills/Domain/API/rate-limit-and-quota-management` | `3e60863` | 2026-09-27 | passes tier test — no workspace layout assumed |
 | customer-discovery | business-agent | mirrored | `Skills/Domain/Business/customer-discovery` | `d0a3ca3` | 2026-09-27 | first harvest promotion, new Domain |
@@ -30,4 +31,6 @@ It never pushes to `main`. Each run's changes arrive as one `harvest/auto-<date>
 | performance-optimization | fullstack-agent | mirrored | `Skills/Domain/Engineering/performance-optimization` | `6f8bc8d` | 2026-09-22 | moved from Core 2026-09-22 |
 | testing-strategy | fullstack-agent | mirrored | `Skills/Domain/Engineering/testing-strategy` | `6f8bc8d` | 2026-09-22 | moved from Core 2026-09-22 |
 | captions-and-accessibility | media-studio | mirrored | `Skills/Domain/Media/captions-and-accessibility` | `5698b35` | 2026-09-27 | first harvest promotion, new Domain |
+| media-rights-and-licensing | media-studio | mirrored | `Skills/Domain/Media/media-rights-and-licensing` | `5698b35` | 2026-10-04 | passes tier test — no workspace layout assumed |
 | security-report-writing | security-agent | mirrored | `Skills/Domain/Security/security-report-writing` | `df83520` | 2026-09-28 | passes tier test, new Domain |
+| vulnerability-disclosure | security-agent | mirrored | `Skills/Domain/Security/vulnerability-disclosure` | `df83520` | 2026-10-04 | passes tier test — no workspace layout assumed |

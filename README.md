@@ -65,10 +65,10 @@ when you ask: `install-skills.ps1 -Domain`. Edit them in their workspace repo; t
 | Domain folder | What's inside |
 |:---|:---|
 | [**🛠️ Engineering**](./Skills/Domain/Engineering/) | How to build software well: debugging, performance work, and test strategy. From `fullstack-agent`. |
-| [**🌐 API**](./Skills/Domain/API/) | Working with third-party APIs: judging one before you integrate, writing clients that survive failures, staying inside rate limits and quotas, and testing integrations without hitting live services. From `api-agent`. |
+| [**🌐 API**](./Skills/Domain/API/) | Working with third-party APIs: judging one before you integrate, writing clients that survive failures, staying inside rate limits and quotas, normalizing responses into one traceable shape, and testing integrations without hitting live services. From `api-agent`. |
 | [**📈 Business**](./Skills/Domain/Business/) | Field tactics for business decisions: running customer discovery interviews, planning go-to-market, and setting prices. From `business-agent`. |
-| [**🔐 Security**](./Skills/Domain/Security/) | Communicating security work: turning verified findings into a report a client acts on. From `security-agent`. |
-| [**🎬 Media**](./Skills/Domain/Media/) | Getting a media asset ready to publish: captions, alt text, and accessibility checks. From `media-studio`. |
+| [**🔐 Security**](./Skills/Domain/Security/) | Communicating security work: turning verified findings into a report a client acts on, and disclosing a vulnerability responsibly. From `security-agent`. |
+| [**🎬 Media**](./Skills/Domain/Media/) | Getting a media asset ready to publish: captions, alt text, accessibility checks, and rights clearance. From `media-studio`. |
 
 ## 🗂️ Project skills
 
