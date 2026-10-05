@@ -24,6 +24,14 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-10-05
+
+**Added**
+- `Docs/UPSTREAMS.md`, the worklist for the new biweekly **Agent-Skills Upstream Check**
+  routine: the skill format, every install target `install-skills.ps1` writes to, Python,
+  PowerShell, the CI actions, GitHub Pages, the site's fonts and the org consent gate. The
+  same routine also checks that the showcase site and the indexes list every Core skill.
+
 ## 2026-10-01
 
 **Added**
