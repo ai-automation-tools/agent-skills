@@ -51,8 +51,9 @@ up once someone installs the skill and it fails.
   `repo-docs-builder`'s 1,113-character description and two cronsole skills citing another
   skill's `references/`; both fixed. `scripts/` and `evals/` paths are checked only when the
   skill ships that folder, since project skills name their target repo's scripts.)*
-- [ ] **Run the validator in CI.** A `validate.yml` workflow on push and pull request, with
-  `permissions: contents: read`.
+- [x] **Run the validator in CI.** A `validate.yml` workflow on push and pull request, with
+  `permissions: contents: read`. *(done 2026-10-01: runs on push to `main`, every PR and by
+  hand, on `ubuntu-latest` with stock Python 3. The repo passed a case-sensitive dry run first.)*
 - [ ] **Link check.** Check every relative link in the READMEs, `Docs/`, and the showcase
   cards, so a renamed skill fails loudly instead of 404ing quietly. Add it to the same
   workflow.

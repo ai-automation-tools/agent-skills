@@ -1,0 +1,23 @@
+name: Validate skills
+
+# Runs scripts/validate-skills.py on every push to main and every pull request,
+# so a renamed skill, a name/folder mismatch or a moved references/ path fails
+# here instead of at install time. Standard library only: nothing to install.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: python scripts/validate-skills.py
