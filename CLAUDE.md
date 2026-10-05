@@ -21,14 +21,16 @@ agent-skills/
 ├── .gitignore
 ├── .github/workflows/
 │   ├── pages.yml                   # publishes site/ to agent-skills.ai-automation-tools.dev
-│   └── validate.yml                # runs validate-skills.py on every push to main and every PR
+│   └── validate.yml                # runs validate-skills.py and build-showcase.py --check on every push to main and every PR
 ├── site/                           # the showcase page — vanilla HTML/CSS/JS, no build step
-│   ├── index.html · styles.css · script.js
+│   ├── index.html · styles.css · script.js   # cards, chips, lists and counts are GENERATED (see below)
+│   ├── showcase.json               # hand-written card copy keyed by skill name
 │   ├── CNAME                       # agent-skills.ai-automation-tools.dev
 │   └── assets/img/ · assets/diagrams/
 ├── scripts/
 │   ├── install-skills.ps1          # mirror leaf skills into a skills dir (repo tooling, not a skill)
-│   └── validate-skills.py          # stdlib-only check of every SKILL.md + the indexes (run before a PR)
+│   ├── validate-skills.py          # stdlib-only check of every SKILL.md + the indexes (run before a PR)
+│   └── build-showcase.py           # stdlib-only: regenerates the showcase from Skills/ + site/showcase.json; --check in CI
 ├── Docs/
 │   ├── USING-SKILLS.md             # install / invoke / author guide
 │   ├── SKILL-IDEAS.md              # backlog of candidate skills
@@ -127,6 +129,7 @@ Whenever you **add, rename, remove, or recategorize a skill**, update *all* of:
 3. **`Skills/Core/README.md`**, **`Skills/Domain/README.md`** or **`Skills/Projects/<repo>/README.md`** → the tier's own catalog.
 4. **`Docs/SKILL-IDEAS.md`** → if the skill came from the backlog, remove/strike its idea row.
 5. **The leaf folder name, the `name:` frontmatter, and the `Resources/Skill-Data/` mirror path** must all agree.
+6. **The showcase** → run `python scripts/build-showcase.py`. It rebuilds the cards, filter chips, Domain and Project lists and every count in `site/index.html` from the tree; CI fails if you forget. For a **Core** skill, also add its copy to `site/showcase.json` (glyph, tagline, features, alt) — without it the card falls back to the first sentence of `description`. A renamed or removed Core skill must leave `showcase.json` too, or the check fails.
 
 For a **new category**, also mention it in `README.md`'s "Structure" prose and (if relevant) `Docs/USING-SKILLS.md`. For a **new project**, add the folder, its README, and a row in `Skills/Projects/README.md`.
 

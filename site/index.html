@@ -67,7 +67,7 @@
         <h1>Capabilities the agent loads <em>only</em> when it needs them.</h1>
         <p class="lead">
           A skill is one <code>SKILL.md</code> — YAML frontmatter and a set of instructions — that
-          stays out of the model's context until it's invoked. This is the Core catalog: seven
+          stays out of the model's context until it's invoked. This is the Core catalog: <!-- gen:core-count-word -->eight<!-- /gen:core-count-word -->
           portable skills that assume nothing about the repository you're standing in.
         </p>
         <div class="hero-cta">
@@ -76,8 +76,8 @@
         </div>
 
         <dl class="stats">
-          <div><dt>Core skills</dt><dd>07</dd></div>
-          <div><dt>Categories</dt><dd>06</dd></div>
+          <div><dt>Core skills</dt><dd><!-- gen:core-count -->08<!-- /gen:core-count --></dd></div>
+          <div><dt>Categories</dt><dd><!-- gen:category-count -->06<!-- /gen:category-count --></dd></div>
           <div><dt>Files per skill</dt><dd>01</dd></div>
           <div><dt>Dependencies</dt><dd>00</dd></div>
         </dl>
@@ -107,23 +107,25 @@
         <p class="kicker">01 — Catalog</p>
         <h2>Core skills</h2>
         <p class="section-sub">
-          Seven skills across six categories. Every one installs <em>flat</em> into
+          <!-- gen:core-count-Word -->Eight<!-- /gen:core-count-Word --> skills across <!-- gen:category-count-word -->six<!-- /gen:category-count-word --> categories. Every one installs <em>flat</em> into
           <code>~/.claude/skills</code>, so a name must be unique across the whole repo.
         </p>
       </header>
 
       <div class="filters reveal" role="group" aria-label="Filter skills by category">
-        <button class="chip is-active" data-filter="all">All <span>7</span></button>
-        <button class="chip" data-filter="automation">Automation <span>2</span></button>
+        <!-- gen:chips -->
+        <button class="chip is-active" data-filter="all">All <span>8</span></button>
+        <button class="chip" data-filter="automation">Automation <span>3</span></button>
         <button class="chip" data-filter="business">Business <span>1</span></button>
         <button class="chip" data-filter="cooking">Cooking <span>1</span></button>
         <button class="chip" data-filter="documentation">Documentation <span>1</span></button>
         <button class="chip" data-filter="image-gen">Image-Gen <span>1</span></button>
         <button class="chip" data-filter="web">Web <span>1</span></button>
+        <!-- /gen:chips -->
       </div>
 
       <div class="grid" id="skillGrid">
-
+        <!-- gen:cards -->
         <!-- 01 -->
         <article class="card reveal" data-category="documentation" data-skill="repo-docs-builder">
           <div class="card-media">
@@ -347,6 +349,38 @@
           </div>
         </article>
 
+        <!-- 08 -->
+        <article class="card reveal" data-category="automation" data-skill="automated-dev-pipeline">
+          <div class="card-media">
+            <img class="shot" data-name="automated-dev-pipeline" alt="Pipeline flow: ideas become scored plans and private repos, roadmap PRs merge through one sweep, and a repo goes public only after scripted gates and a human approval" loading="lazy" decoding="async">
+            <div class="shot-fallback" aria-hidden="true">
+              <span class="glyph">🏭</span>
+              <b>automated-dev-pipeline.png</b>
+              <small>drop a screenshot into site/assets/img/</small>
+            </div>
+            <span class="idx">08</span>
+          </div>
+          <div class="card-body">
+            <span class="cat" data-cat="automation"><i aria-hidden="true"></i>Automation</span>
+            <h3 class="card-title"><span class="glyph" aria-hidden="true">🏭</span><code>automated-dev-pipeline</code></h3>
+            <p class="tagline">Scheduled agents that build, publish and maintain repos — with a person at the one step that can't be undone.</p>
+            <ul class="feat">
+              <li>Ideas become scored plans, then private repos built one roadmap item per PR</li>
+              <li>One PR sweep reviews and merges what every routine opened</li>
+              <li>Going public takes scripted gates <em>and</em> a human approval</li>
+              <li>Keep-current jobs refresh every repo against what it depends on</li>
+              <li>A single-repo variant: stages as folders, a merge that deploys a site</li>
+            </ul>
+            <div class="card-foot">
+              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill automated-dev-pipeline" title="Copy install command">
+                <span class="cmd-text">-Skill automated-dev-pipeline</span>
+                <span class="cmd-icon" aria-hidden="true">copy</span>
+              </button>
+              <a class="link" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Skills/Core/Automation/automated-dev-pipeline/SKILL.md" target="_blank" rel="noopener">SKILL.md <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+        <!-- /gen:cards -->
       </div>
     </div>
   </section>
@@ -365,6 +399,7 @@
       </header>
 
       <ul class="proj-list reveal">
+        <!-- gen:domains -->
         <li>
           <a class="proj" href="https://github.com/ai-automation-tools/agent-skills/tree/main/Skills/Domain/Engineering" target="_blank" rel="noopener">
             <span class="proj-glyph" aria-hidden="true">🛠️</span>
@@ -380,7 +415,7 @@
             <span class="proj-glyph" aria-hidden="true">🌐</span>
             <span class="proj-main">
               <span class="proj-name">API</span>
-              <span class="proj-skills"><code>api-response-normalization</code><code>api-client-resilience</code><code>api-integration-testing</code><code>public-api-evaluation</code><code>rate-limit-and-quota-management</code></span>
+              <span class="proj-skills"><code>api-client-resilience</code><code>api-integration-testing</code><code>api-response-normalization</code><code>public-api-evaluation</code><code>rate-limit-and-quota-management</code></span>
             </span>
             <span class="proj-go" aria-hidden="true">↗</span>
           </a>
@@ -415,6 +450,7 @@
             <span class="proj-go" aria-hidden="true">↗</span>
           </a>
         </li>
+        <!-- /gen:domains -->
       </ul>
     </div>
   </section>
@@ -433,6 +469,7 @@
       </header>
 
       <ul class="proj-list reveal">
+        <!-- gen:projects -->
         <li>
           <a class="proj" href="https://github.com/ai-automation-tools/agent-skills/tree/main/Skills/Projects/agent-chat" target="_blank" rel="noopener">
             <span class="proj-glyph" aria-hidden="true">💬</span>
@@ -448,7 +485,7 @@
             <span class="proj-glyph" aria-hidden="true">⏱️</span>
             <span class="proj-main">
               <span class="proj-name">cronsole</span>
-              <span class="proj-skills"><code>cronsole-windows-jobs</code><code>cronsole-claude-routines</code></span>
+              <span class="proj-skills"><code>cronsole-claude-routines</code><code>cronsole-windows-jobs</code></span>
             </span>
             <span class="proj-go" aria-hidden="true">↗</span>
           </a>
@@ -458,7 +495,7 @@
             <span class="proj-glyph" aria-hidden="true">📡</span>
             <span class="proj-main">
               <span class="proj-name">edge-radar</span>
-              <span class="proj-skills"><code>edge-radar-strategy-profiles</code><code>edge-radar-strategy-evidence</code></span>
+              <span class="proj-skills"><code>edge-radar-strategy-evidence</code><code>edge-radar-strategy-profiles</code></span>
             </span>
             <span class="proj-go" aria-hidden="true">↗</span>
           </a>
@@ -468,7 +505,7 @@
             <span class="proj-glyph" aria-hidden="true">📉</span>
             <span class="proj-main">
               <span class="proj-name">edge-spectrum</span>
-              <span class="proj-skills"><code>edge-spectrum-hub-tool</code><code>edge-spectrum-dataset</code><code>edge-spectrum-endpoint</code></span>
+              <span class="proj-skills"><code>edge-spectrum-dataset</code><code>edge-spectrum-endpoint</code><code>edge-spectrum-hub-tool</code></span>
             </span>
             <span class="proj-go" aria-hidden="true">↗</span>
           </a>
@@ -478,11 +515,12 @@
             <span class="proj-glyph" aria-hidden="true">🌐</span>
             <span class="proj-main">
               <span class="proj-name">project-hub</span>
-              <span class="proj-skills"><code>project-hub-scan</code><code>project-hub-client</code><code>project-hub-demo</code></span>
+              <span class="proj-skills"><code>project-hub-client</code><code>project-hub-demo</code><code>project-hub-scan</code></span>
             </span>
             <span class="proj-go" aria-hidden="true">↗</span>
           </a>
         </li>
+        <!-- /gen:projects -->
       </ul>
     </div>
   </section>
@@ -504,7 +542,7 @@
 
       <div class="install-cmds reveal">
         <div class="codeblock">
-          <div class="codeblock-head"><span>Core — all seven</span><button class="mini-copy" data-copy="pwsh scripts/install-skills.ps1 -Core" aria-label="Copy command">copy</button></div>
+          <div class="codeblock-head"><span>Core — all <!-- gen:core-count-word -->eight<!-- /gen:core-count-word --></span><button class="mini-copy" data-copy="pwsh scripts/install-skills.ps1 -Core" aria-label="Copy command">copy</button></div>
           <pre><code><span class="p">pwsh</span> scripts/install-skills.ps1 <span class="f">-Core</span></code></pre>
         </div>
         <div class="codeblock">

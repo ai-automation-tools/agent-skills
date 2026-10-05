@@ -24,6 +24,7 @@
 | [**task-router**](../../../Skills/Core/Automation/task-router/SKILL.md) | `task-router.png` | `-2`, `-3`, `-4` |
 | [**news-images**](../../../Skills/Core/Image-Gen/news-images/SKILL.md) | `news-images.png` | `-2`, `-3`, `-4` |
 | [**project-hub-scaffold**](../../../Skills/Core/Web/project-hub-scaffold/SKILL.md) | `project-hub-scaffold.png` | `-2`, `-3`, `-4` |
+| [**automated-dev-pipeline**](../../../Skills/Core/Automation/automated-dev-pipeline/SKILL.md) | `automated-dev-pipeline.png` | `-2`, `-3`, `-4` |
 
 `-2` means the gallery name, so `task-router-2.png` is the second image on the `task-router` card.
 
@@ -54,6 +55,10 @@ Every card has an image:
 - **`task-router`** has one, and it isn't a screenshot. `../diagrams/task-router.html` draws the
   four routing tiers in the site's own palette and renders to exactly 1600 × 1000, so the card
   frame crops nothing.
+- **`automated-dev-pipeline`** has one, drawn the same way: `../diagrams/automated-dev-pipeline.html`
+  shows the build flow (ideas → ideate → incubate → roadmap routine → PR sweep) over the skill's
+  three jobs, rendered at 1600 × 1000 and saved as WebP at quality 86. The skill's own detailed
+  `pipeline-flow.svg` is portrait and too dense to survive the 16:10 card crop.
 
 The `business-plan-builder` sources are small enough (4–23 KB) that they stayed PNG.
 

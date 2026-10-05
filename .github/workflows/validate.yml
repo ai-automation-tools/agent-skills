@@ -21,3 +21,7 @@ jobs:
         with:
           python-version: '3.x'
       - run: python scripts/validate-skills.py
+      # The showcase's cards, filter chips, group lists and counts are generated from
+      # the Skills/ tree. Fails when a skill was added, renamed or removed without
+      # re-running the generator, so the site can't fall behind the catalog.
+      - run: python scripts/build-showcase.py --check
