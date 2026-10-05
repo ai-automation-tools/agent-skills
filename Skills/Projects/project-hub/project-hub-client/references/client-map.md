@@ -5,8 +5,8 @@ way by those rather than by line number, which moves.
 
 | Region | Holds |
 |:---|:---|
-| `<head>` | Placeholders, the pre-paint theme script, IBM Plex from Google Fonts |
-| `<style>` | Eight `data-theme` variable blocks, then explorer, then main. Nothing else defines a colour |
+| `<head>` | Placeholders, the pre-paint theme script (with the one-time `hub.design` move), Inter + JetBrains Mono from Google Fonts |
+| `<style>` | `:root` radii, easing and derived tokens, nine `data-theme` variable blocks, then explorer, then main. Nothing else defines a colour |
 | helpers | `$`, `el`, `activate`, `mark`, `tintOf`, `fmtSize`, `fmtAgo`, `toast` |
 | data | `reindex`, `load`/`doLoad`, `showFatal` |
 | bookmarks | `pins`, `savePins`, `togglePin`, `pinSection`, `renderPins` — list logic in `navigation.mjs` |
