@@ -30,8 +30,8 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 - `project-hub-scaffold`'s design-system reference and the `project-hub-client` skill match
   the `project-hub` restyle of the same day: `obsidian` is the ninth and default scheme,
   Inter + JetBrains Mono replace IBM Plex, radii and the derived surface tokens live on
-  `:root`, `--ok` is split from the accent for clean / live state, `#app` no longer divides
-  the zoom out of `100vh`, and `hub.design` records the one-time move onto the new default.
+  `:root`, `--ok` is split from the accent for clean / live state, and `hub.design` records
+  the one-time move onto the new default.
 
 **Added**
 - `Docs/UPSTREAMS.md`, the worklist for the new biweekly **Agent-Skills Upstream Check**
