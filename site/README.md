@@ -1,7 +1,7 @@
 <h1 align="center">🖥️ Showcase site</h1>
 
 <p align="center">
-  <em>The Core catalog in a browser — seven skill cards, each with a screenshot,<br>
+  <em>The Core catalog in a browser — one card per Core skill, each with a screenshot,<br>
   its capabilities, and a one-line install command.</em>
 </p>
 
@@ -19,7 +19,8 @@ Three files and an image folder. No framework, no `package.json`, nothing to com
 
 | File | What it is |
 |:---|:---|
-| [**index.html**](./index.html) | The page: hero, the seven Core skill cards, the project list, the install commands. All of the copy lives here, so it renders before JavaScript runs. |
+| [**index.html**](./index.html) | The page: hero, the Core skill cards, the Domain and Project lists, the install commands. Everything renders before JavaScript runs. The cards, filter chips, lists and counts sit between `<!-- gen:… -->` markers and are **generated** — don't hand-edit inside them. |
+| [**showcase.json**](./showcase.json) | The hand-written card copy: each Core skill's glyph, tagline, feature bullets and screenshot `alt` text, plus the glyph for each Domain and Project group. Card order follows this file. |
 | [**styles.css**](./styles.css) | The dark theme. A card takes its colour from its `data-category`, which means a new category is one accent variable. |
 | [**script.js**](./script.js) | The typewriter hero, category filters, copy buttons, and the screenshot lightbox. |
 | [**assets/img/**](./assets/img/README.md) | The screenshots, plus the naming rules the page follows. |
@@ -59,7 +60,18 @@ The table of expected filenames is in [`assets/img/README.md`](./assets/img/READ
 
 ## ✏️ Editing the copy
 
-One `<article class="card">` block per skill in `index.html`. To add, remove or reorder a skill, edit those blocks and the matching button in the `.filters` row. Colours come from `data-category`, so a new category needs a `--c-<name>` variable in `styles.css` and nothing else.
+The **Skills/ tree decides what's on the page**; [`showcase.json`](./showcase.json) only supplies the words. After adding, renaming or removing a skill, or editing its copy:
+
+```powershell
+python scripts/build-showcase.py          # rewrites the generated regions of index.html
+python scripts/build-showcase.py --check  # what CI runs: fails if index.html is out of date
+```
+
+- **A new Core skill** gets a card even with no `showcase.json` entry: the tagline is the first sentence of its `description` and there are no bullets. Add an entry (glyph, tagline, features, alt) to give it real copy.
+- **An entry for a skill that no longer exists** fails the check, so stale copy can't linger.
+- **Reorder** cards by reordering `showcase.json`. Skills without an entry come last, alphabetically.
+- **Domain and Project lists** follow the tree, alphabetically within each group; `showcase.json` only gives each group its glyph and order.
+- Text outside the markers (hero copy, install blocks, section intros) is still hand-edited. Colours come from `data-category`, so a new category needs a `--c-<name>` variable in `styles.css` and nothing else.
 
 ## 🌐 Publishing
 
@@ -93,11 +105,11 @@ Published by [`pages.yml`](../.github/workflows/pages.yml) to `agent-skills.ai-a
 
 ### 🔁 Copy that drifts
 
-The card text is written into `index.html` and repeats each `SKILL.md`. Nothing keeps the two in step.
+Since 2026-10-05 the cards, chips, group lists and counts are generated from the `Skills/` tree and CI fails when the page falls behind. What's left is the wording in `showcase.json`, which is still hand-written.
 
-- [ ] Re-read the seven taglines and feature lists against the current `SKILL.md` files.
-- [ ] Pick a sync story: a manual pass whenever a skill changes, or a small script that generates the card blocks from the frontmatter.
-- [ ] Re-check the project list against `Skills/Projects/`, since the repo README is the source of truth and this page copies it.
+- [ ] Re-read the taglines and feature lists in `showcase.json` against the current `SKILL.md` files.
+- [x] Pick a sync story: `scripts/build-showcase.py` generates the cards from the tree and `showcase.json`, checked in CI. *(2026-10-05)*
+- [x] Re-check the project list against `Skills/Projects/`: generated from the tree now, along with the Domain list. *(2026-10-05)*
 
 ### ♿ Accessibility
 

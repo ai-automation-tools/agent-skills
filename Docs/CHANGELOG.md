@@ -31,6 +31,13 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
   routine: the skill format, every install target `install-skills.ps1` writes to, Python,
   PowerShell, the CI actions, GitHub Pages, the site's fonts and the org consent gate. The
   same routine also checks that the showcase site and the indexes list every Core skill.
+- `scripts/build-showcase.py` generates the showcase's cards, filter chips, Domain and Project
+  lists and counts from the `Skills/` tree, with the hand-written card copy in
+  `site/showcase.json`. `validate.yml` runs it with `--check`, so the site can't fall behind the
+  catalog again. *Phase 2*
+- The `automated-dev-pipeline` card, missing from the site since the skill landed on 2026-09-23,
+  with a diagram drawn in the site's palette (`site/assets/diagrams/automated-dev-pipeline.html`).
+  The page now says eight Core skills. *Phase 2*
 
 ## 2026-10-01
 

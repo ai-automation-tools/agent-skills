@@ -74,14 +74,21 @@ up once someone installs the skill and it fails.
 These items come from the action list in [`site/README.md`](../site/README.md). The org
 landing page now sends traffic to the site.
 
-- [ ] **Generate the cards from frontmatter.** A small script builds the card blocks in
+- [x] **Generate the cards from frontmatter.** A small script builds the card blocks in
   `site/index.html` from each Core skill's `name` and `description`, between marker
   comments, so the copy can't drift from `SKILL.md`. Run it in CI and fail if the output
-  differs from what's committed.
-- [ ] **Showcase card for `automated-dev-pipeline`.** Core has eight skills since 2026-09-23 but
+  differs from what's committed. *(done 2026-10-05: `scripts/build-showcase.py`, stdlib-only.
+  The tree decides which skills, categories and counts appear; the hand-written taglines and
+  bullets moved to `site/showcase.json`, because a `description` is trigger text, not card
+  copy. A Core skill with no entry still gets a card from its frontmatter. It also generates
+  the filter chips, the Domain and Project lists and every count in the page. `validate.yml`
+  runs `--check`.)*
+- [x] **Showcase card for `automated-dev-pipeline`.** Core has eight skills since 2026-09-23 but
   the site shows seven. Add its card (category `automation`, glyph 🏭) with a diagram image
   in `site/assets/diagrams/` drawn from the loop in its `SKILL.md`, like `task-router`'s,
-  and change "seven" to "eight" in the intro and the install block.
+  and change "seven" to "eight" in the intro and the install block. *(done 2026-10-05: copy in
+  `showcase.json`, diagram `site/assets/diagrams/automated-dev-pipeline.html` rendered to
+  `assets/img/automated-dev-pipeline.webp`; the counts are generated now.)*
 - [ ] **`og:image` + `twitter:card`.** A 1200×630 crop of the hero, so a shared link
   previews properly (org roadmap P2-8).
 - [ ] **Compress the remaining PNGs.** The seeded `repo-docs-builder` images run up to

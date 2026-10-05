@@ -1,0 +1,152 @@
+{
+  "_comment": "Hand-written showcase copy. scripts/build-showcase.py merges it with the Skills/ tree and rewrites the generated regions of site/index.html. The tree decides WHICH skills, categories, groups and counts appear; this file only supplies the words and glyphs. A Core skill with no entry here still gets a card, built from its SKILL.md frontmatter.",
+  "core": [
+    {
+      "name": "repo-docs-builder",
+      "glyph": "🏗️",
+      "alt": "A README built by repo-docs-builder",
+      "tagline": "A repository that reads top to bottom like somebody meant it.",
+      "features": [
+        "Layout: app under <code>src/</code> or <code>site/</code>, root stays docs and meta",
+        "A docs tree wired with down-links and up-links",
+        "A house-style README at every level, not just the root",
+        "A humanizer pass over every sentence of prose",
+        "Renders natively in both GitHub and Obsidian"
+      ]
+    },
+    {
+      "name": "business-plan-builder",
+      "glyph": "📈",
+      "alt": "The generated output folder for a Hotel-Loyalty-Club idea, with analysis, decisions, models and research subfolders",
+      "tagline": "Eight passes from napkin idea to decision memo — with a gate that can say no.",
+      "features": [
+        "Market sizing: TAM/SAM/SOM, JTBD, Five Forces",
+        "Competitive intelligence with graded evidence",
+        "An ROI model plus a sensitivity sweep",
+        "A decision memo gates the build half — a no-go is a complete run",
+        "Output is a linked markdown repo; every number sourced or tagged"
+      ]
+    },
+    {
+      "name": "recipe-validator",
+      "glyph": "🍳",
+      "alt": "A recipe under review: an Indiana pork tenderloin sandwich with its ingredient list and ten numbered steps",
+      "tagline": "A script does the arithmetic. You supply the judgment.",
+      "features": [
+        "Food-safety temperatures and dangerous-technique flags",
+        "Sodium, saturated-fat and added-sugar thresholds per serving",
+        "Quantity and ratio sanity against comparable recipes",
+        "Allergen-label completeness and overall coherence",
+        "Findings ranked by severity, each with a concrete fix"
+      ]
+    },
+    {
+      "name": "html-email-templates",
+      "glyph": "✉️",
+      "alt": "A security advisory digest email: a dark banner heading over tables of new and updated CVEs",
+      "tagline": "Three email templates that survive the clients that strip your CSS.",
+      "features": [
+        "Template A — inline notification or alert for the body",
+        "Template B — dark banner report wrapper, attached or linked",
+        "Template C — light-card digest, safe to inline",
+        "Shared footer plus subject-line and label conventions",
+        "Transport-agnostic: Resend, Postmark, SendGrid, SES, SMTP"
+      ]
+    },
+    {
+      "name": "task-router",
+      "glyph": "🚦",
+      "alt": "Routing diagram: a request is sized, then dispatched to one of four tiers from answer inline up to fan out",
+      "tagline": "Size the job before you spend on it — then pick the model to match.",
+      "features": [
+        "Four execution shapes: inline, one subagent, recon-then-plan, fan out",
+        "Picks a model tier to match the shape it chose",
+        "The cost policy is a parameter — set it once",
+        "The authorization gate for delegation, at the tier it selects"
+      ]
+    },
+    {
+      "name": "news-images",
+      "glyph": "🖼️",
+      "alt": "A cartoon-editorial news montage, the week's stories woven into one illustrated scene",
+      "tagline": "Cartoon-editorial news imagery, eight ways.",
+      "features": [
+        "Four cadences: daily, weekly, monthly, yearly",
+        "Collage — a six-panel grid at 1024 × 1536",
+        "Montage — one continuous scene at 1536 × 1024",
+        "Researches the stories, lays out the frame, produces the PNG",
+        "A dedicated prompt file for each of the eight variants"
+      ]
+    },
+    {
+      "name": "project-hub-scaffold",
+      "glyph": "🌐",
+      "alt": "The Project Hub explorer: a sidebar document tree beside a dashboard of workspace repos",
+      "tagline": "A clickable document tree over any folder — no build, no install.",
+      "features": [
+        "A zero-dependency Node server plus a static explorer",
+        "Mode A — add a workspace to an existing Hub",
+        "Mode B — a portable installation that carries its own engine",
+        "Mode C — match an existing Hub page's theme and tree",
+        "Source: github.com/ai-automation-tools/project-hub (MIT)"
+      ]
+    },
+    {
+      "name": "automated-dev-pipeline",
+      "glyph": "🏭",
+      "alt": "Pipeline flow: ideas become scored plans and private repos, roadmap PRs merge through one sweep, and a repo goes public only after scripted gates and a human approval",
+      "tagline": "Scheduled agents that build, publish and maintain repos — with a person at the one step that can't be undone.",
+      "features": [
+        "Ideas become scored plans, then private repos built one roadmap item per PR",
+        "One PR sweep reviews and merges what every routine opened",
+        "Going public takes scripted gates <em>and</em> a human approval",
+        "Keep-current jobs refresh every repo against what it depends on",
+        "A single-repo variant: stages as folders, a merge that deploys a site"
+      ]
+    }
+  ],
+  "domains": [
+    {
+      "name": "Engineering",
+      "glyph": "🛠️"
+    },
+    {
+      "name": "API",
+      "glyph": "🌐"
+    },
+    {
+      "name": "Business",
+      "glyph": "📈"
+    },
+    {
+      "name": "Security",
+      "glyph": "🔐"
+    },
+    {
+      "name": "Media",
+      "glyph": "🎬"
+    }
+  ],
+  "projects": [
+    {
+      "name": "agent-chat",
+      "glyph": "💬"
+    },
+    {
+      "name": "cronsole",
+      "glyph": "⏱️"
+    },
+    {
+      "name": "edge-radar",
+      "glyph": "📡"
+    },
+    {
+      "name": "edge-spectrum",
+      "glyph": "📉"
+    },
+    {
+      "name": "project-hub",
+      "glyph": "🌐"
+    }
+  ]
+}
