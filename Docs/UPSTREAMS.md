@@ -11,9 +11,8 @@ too: a new install target, CI action or third-party asset is a new row.
   Monthly Skill Review** owns that, for `Skills/Core` and `Skills/Projects`.
 - `Skills/Domain/`. Those are byte-identical mirrors of the org agent workspaces, refreshed by the
   weekly **Skill Harvest**; fix them at the source.
-
-The upstream check also keeps the **showcase site and indexes in step with the catalog** (see
-its prompt). That isn't an upstream, so it has no row here.
+- The showcase site. Its cards, lists and counts are generated from the `Skills/` tree by
+  `scripts/build-showcase.py`, and CI fails when the page falls behind the catalog.
 
 **Last checked** is filled in by the routine, and only with a date it actually read the
 source. `—` means never checked.
