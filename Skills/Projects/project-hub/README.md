@@ -40,7 +40,7 @@ Skills install **flat**, so publishing a skill here under a name the repo alread
 overwrite it. Check this list before naming anything new — and prefix with the project slug
 whenever there is any doubt.
 
-`project-hub-scaffold-mfs` — the repo's travel copy of the Core scaffold skill, at `Skills/`.
+`project-hub-scaffold` — the repo's travel copy of the Core scaffold skill, at `Skills/` (it carried the old `-mfs` suffix until 2026-10-05).
 Nothing else. Everything here is prefixed `project-hub-…`, so the only name to keep clear of
 is that one.
 
