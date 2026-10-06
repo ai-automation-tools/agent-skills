@@ -7,6 +7,43 @@
 
   document.documentElement.classList.add("js");
 
+  /* ---------------------------------------------------------
+     0. Theme toggle — light / dark, stored in localStorage.
+        DEFAULT_THEME must match the pre-paint script in index.html.
+     --------------------------------------------------------- */
+  var THEME_KEY = "agent-skills.theme";
+  var DEFAULT_THEME = "dark";
+  var THEME_COLOR = { dark: "#07080B", light: "#F7F5F0" };
+
+  function applyTheme(t) {
+    var root = document.documentElement;
+    root.classList.toggle("dark", t === "dark");
+    root.classList.toggle("light", t === "light");
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute("content", THEME_COLOR[t]);
+    document.querySelectorAll("[data-theme-set]").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.getAttribute("data-theme-set") === t));
+    });
+    // The shared consent banner (ai-automation-tools.dev/consent.js) samples the
+    // page colour once when it opens; re-skin it if it's on screen. Its shadow
+    // root is open, and its wrapper carries a "dark" or "light" class.
+    var consent = document.querySelector("[data-ail-consent-root]");
+    var wrap = consent && consent.shadowRoot && consent.shadowRoot.querySelector(".wrap");
+    if (wrap) { wrap.classList.toggle("dark", t === "dark"); wrap.classList.toggle("light", t === "light"); }
+  }
+
+  var theme = DEFAULT_THEME;
+  try { if (localStorage.getItem(THEME_KEY) === "light") theme = "light"; } catch (e) {}
+  applyTheme(theme);
+
+  document.querySelectorAll("[data-theme-set]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      theme = b.getAttribute("data-theme-set");
+      try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
+      applyTheme(theme);
+    });
+  });
+
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------------------------------------------------------

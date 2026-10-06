@@ -7,6 +7,18 @@
 <meta name="description" content="Eight portable Agent Skills for Claude Code and compatible agents. Each one a single SKILL.md the agent loads only when it needs it.">
 <meta name="theme-color" content="#07080B">
 
+<script>
+  // Apply the stored theme before first paint so a light-theme visitor never sees
+  // a dark flash. Dark is the default: this fallback must match DEFAULT_THEME in
+  // script.js, or the first frame disagrees with the page that replaces it.
+  (function () {
+    var t = 'dark';
+    try { if (localStorage.getItem('agent-skills.theme') === 'light') t = 'light'; } catch (e) {}
+    document.documentElement.classList.add(t);
+    if (t === 'light') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F7F5F0');
+  })();
+</script>
+
 <meta property="og:type" content="website">
 <meta property="og:title" content="Agent Skills — the Core catalog">
 <meta property="og:description" content="Eight portable Agent Skills. Each one a single SKILL.md the agent loads only when it needs it.">
@@ -53,6 +65,14 @@
       <a href="#projects">Projects</a>
       <a href="#install">Install</a>
     </nav>
+    <div class="theme-toggle" role="group" aria-label="Theme">
+      <button type="button" data-theme-set="light" aria-pressed="false" aria-label="Light theme" title="Light theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+      </button>
+      <button type="button" data-theme-set="dark" aria-pressed="true" aria-label="Dark theme" title="Dark theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </button>
+    </div>
   </div>
 </header>
 

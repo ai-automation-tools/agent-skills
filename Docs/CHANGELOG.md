@@ -34,6 +34,8 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
   the one-time move onto the new default.
 
 **Added**
+- A light / dark theme toggle at the right end of the showcase's top bar, with a warm-paper light
+  palette; dark stays the default and the choice is remembered per browser.
 - `Docs/UPSTREAMS.md`, the worklist for the new biweekly **Agent-Skills Upstream Check**
   routine: the skill format, every install target `install-skills.ps1` writes to, Python,
   PowerShell, the CI actions, GitHub Pages, the site's fonts and the org consent gate. The
