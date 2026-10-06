@@ -64,7 +64,7 @@ Skills are picked up from an agent's skills directory. Three options:
    pwsh scripts/install-skills.ps1 -WhatIf                  # dry run
 
    # every agent CLI on this machine: Claude Code, Codex + Kimi (~/.agents/skills),
-   # agy (~/.gemini/skills), Antigravity IDE (~/.gemini/config/skills), opencode, Kilo
+   # agy (~/.gemini/antigravity-cli/skills), Antigravity IDE (~/.gemini/config/skills), opencode, Kilo
    pwsh scripts/install-skills.ps1 -AllAgents
    pwsh scripts/install-skills.ps1 -AllAgents -Skill automated-dev-pipeline   # just one, everywhere
 
