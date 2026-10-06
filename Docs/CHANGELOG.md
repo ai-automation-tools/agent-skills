@@ -24,6 +24,15 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-10-06
+
+**Fixed**
+- Workflows pin the Node 24 majors of `checkout`, `setup-python`, `upload-pages-artifact` and `deploy-pages`; GitHub dropped Node 20 on 2026-09-23.
+- The Antigravity CLI skills path is `~/.gemini/antigravity-cli/skills` in `install-skills.ps1` and `USING-SKILLS.md`.
+
+**Changed**
+- `UPSTREAMS.md` rows re-checked; the Codex docs moved to `learn.chatgpt.com`.
+
 ## 2026-10-05
 
 **Changed**

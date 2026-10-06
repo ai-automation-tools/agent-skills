@@ -21,25 +21,25 @@ source. `—` means never checked.
 
 | Upstream | What the repo assumes | Code | Check at | Last checked |
 |:---|:---|:---|:---|:---|
-| **Agent Skills format (Claude Code)** | A skill is a folder with a `SKILL.md`: YAML frontmatter first, `name` (kebab-case, equal to its folder) and `description` (the validator enforces 40–1,024 characters), then Markdown instructions; optional `scripts/`, `references/` and other folders loaded on demand. Personal skills in `~/.claude/skills/<name>/`, project skills in `<repo>/.claude/skills/<name>/`; invoked as `/skill-name` | `scripts/validate-skills.py`, `Docs/USING-SKILLS.md`, `CLAUDE.md`, every `SKILL.md` | docs.claude.com/en/docs/claude-code/skills; docs.claude.com/en/docs/agents-and-tools/agent-skills; github.com/anthropics/claude-code/blob/main/CHANGELOG.md | — |
-| **Open Agent Skills spec** | The same frontmatter is portable to other agents that read the open spec, so one leaf folder installs everywhere | `Docs/USING-SKILLS.md`, `README.md` | agentskills.io; github.com/anthropics/skills | — |
+| **Agent Skills format (Claude Code)** | A skill is a folder with a `SKILL.md`: YAML frontmatter first, `name` (kebab-case, equal to its folder) and `description` (the validator enforces 40–1,024 characters, the open spec's cap; Claude Code itself allows 1,536 for `description` plus `when_to_use`), then Markdown instructions; optional `scripts/`, `references/` and other folders loaded on demand. Personal skills in `~/.claude/skills/<name>/`, project skills in `<repo>/.claude/skills/<name>/`; invoked as `/skill-name` | `scripts/validate-skills.py`, `Docs/USING-SKILLS.md`, `CLAUDE.md`, every `SKILL.md` | code.claude.com/docs/en/skills; docs.claude.com/en/docs/agents-and-tools/agent-skills; github.com/anthropics/claude-code/blob/main/CHANGELOG.md | 2026-10-06 |
+| **Open Agent Skills spec** | The same frontmatter is portable to other agents that read the open spec, so one leaf folder installs everywhere | `Docs/USING-SKILLS.md`, `README.md` | agentskills.io; github.com/anthropics/skills | 2026-10-06 |
 
 ## Install targets
 
 | Upstream | What the repo assumes | Code | Check at | Last checked |
 |:---|:---|:---|:---|:---|
-| **Codex + Kimi** | Global skills read from `~/.agents/skills` (shared); `~/.codex/skills` is Codex's legacy path | `scripts/install-skills.ps1` (`-AllAgents`), `Docs/USING-SKILLS.md` | developers.openai.com/codex (skills docs); github.com/openai/codex/releases; Kimi CLI docs | — |
-| **Antigravity CLI (agy) and IDE** | CLI reads `~/.gemini/skills`; the IDE reads `~/.gemini/config/skills` | `scripts/install-skills.ps1`, `Docs/USING-SKILLS.md` | antigravity.google/docs; github.com/google-gemini/gemini-cli/releases | — |
-| **opencode** | Global skills in `~/.config/opencode/skills` | `scripts/install-skills.ps1`, `Docs/USING-SKILLS.md` | opencode.ai/docs; github.com/sst/opencode/releases | — |
-| **Kilo** | Global skills in `~/.kilo/skills`; skipped unless installed | `scripts/install-skills.ps1` | kilo.ai/docs; github.com/Kilo-Org/kilocode/releases | — |
+| **Codex + Kimi** | Global skills read from `~/.agents/skills` (shared); `~/.codex/skills` is Codex's legacy path | `scripts/install-skills.ps1` (`-AllAgents`), `Docs/USING-SKILLS.md` | learn.chatgpt.com/docs/build-skills (was developers.openai.com/codex/skills); github.com/openai/codex/releases; Kimi CLI docs | 2026-10-06 |
+| **Antigravity CLI (agy) and IDE** | CLI reads `~/.gemini/antigravity-cli/skills`; the IDE reads `~/.gemini/config/skills` | `scripts/install-skills.ps1`, `Docs/USING-SKILLS.md` | antigravity.google/docs; github.com/google-gemini/gemini-cli/releases | 2026-10-06 |
+| **opencode** | Global skills in `~/.config/opencode/skills` | `scripts/install-skills.ps1`, `Docs/USING-SKILLS.md` | opencode.ai/docs; github.com/sst/opencode/releases | 2026-10-06 |
+| **Kilo** | Global skills in `~/.kilo/skills`; skipped unless installed | `scripts/install-skills.ps1` | kilo.ai/docs; github.com/Kilo-Org/kilocode/releases | 2026-10-06 |
 
 ## Tooling and CI
 
 | Upstream | What the repo assumes | Code | Check at | Last checked |
 |:---|:---|:---|:---|:---|
-| **Python** | `validate-skills.py` is stdlib-only (`re`, `sys`, `pathlib`); CI uses `python-version: '3.x'` | `scripts/validate-skills.py`, `.github/workflows/validate.yml` | python.org/downloads (status of each version); github.com/actions/setup-python/releases | — |
-| **PowerShell 7** | `install-skills.ps1` runs under `pwsh` | `scripts/install-skills.ps1` | learn.microsoft.com/powershell/scripting/install/powershell-support-lifecycle | — |
-| **GitHub Actions** | `actions/checkout@v4`, `actions/setup-python@v5`, `actions/upload-pages-artifact@v3`, `actions/deploy-pages@v4` | `.github/workflows/*.yml` | each action's GitHub releases; github.blog/changelog (label: actions) | — |
+| **Python** | `validate-skills.py` is stdlib-only (`re`, `sys`, `pathlib`); CI uses `python-version: '3.x'` | `scripts/validate-skills.py`, `.github/workflows/validate.yml` | python.org/downloads (status of each version); github.com/actions/setup-python/releases | 2026-10-06 |
+| **PowerShell 7** | `install-skills.ps1` runs under `pwsh` | `scripts/install-skills.ps1` | learn.microsoft.com/powershell/scripting/install/powershell-support-lifecycle | 2026-10-06 |
+| **GitHub Actions** | `actions/checkout@v7`, `actions/setup-python@v7`, `actions/upload-pages-artifact@v5`, `actions/deploy-pages@v5` (Node 20 actions stopped running on 2026-09-23, so every pin must declare `node24`) | `.github/workflows/*.yml` | each action's GitHub releases; github.blog/changelog (label: actions) | 2026-10-06 |
 
 ## Showcase site
 

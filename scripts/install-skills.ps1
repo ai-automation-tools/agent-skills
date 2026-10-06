@@ -175,13 +175,13 @@ if ($List) {
 # Where this lands: one -Destination, or every agent CLI that's actually installed.
 # The CLIs read different global paths — keeping them in sync by hand is
 # how one of them silently goes stale.
-# Paths re-checked 2026-09-30 against the vault's CLI-Guides/User-Level-Locations.md.
+# Paths re-checked 2026-10-06 against each CLI's own docs (agy: antigravity.google/docs/skills).
 # ~/.codex/skills is Codex's LEGACY path: Codex now reads ~/.agents/skills, and a copy
 # in both shows up twice, so it is deliberately not a target.
 $AgentSkillDirs = [ordered]@{
     'Claude Code'     = Join-Path $HOME '.claude/skills'
     'Codex + Kimi'    = Join-Path $HOME '.agents/skills'          # shared folder
-    'agy'             = Join-Path $HOME '.gemini/skills'          # Antigravity CLI, shared skills
+    'agy'             = Join-Path $HOME '.gemini/antigravity-cli/skills'  # Antigravity CLI
     'Antigravity IDE' = Join-Path $HOME '.gemini/config/skills'
     'opencode'        = Join-Path $HOME '.config/opencode/skills'
     'Kilo'            = Join-Path $HOME '.kilo/skills'            # skipped unless installed
