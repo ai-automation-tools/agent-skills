@@ -21,8 +21,8 @@ Three files and an image folder. No framework, no `package.json`, nothing to com
 |:---|:---|
 | [**index.html**](./index.html) | The page: hero, the Core skill cards, the Domain and Project lists, the install commands. Everything renders before JavaScript runs. The cards, filter chips, lists and counts sit between `<!-- gen:… -->` markers and are **generated** — don't hand-edit inside them. |
 | [**showcase.json**](./showcase.json) | The hand-written card copy: each Core skill's glyph, tagline, feature bullets and screenshot `alt` text, plus the glyph for each Domain and Project group. Card order follows this file. |
-| [**styles.css**](./styles.css) | The dark theme. A card takes its colour from its `data-category`, which means a new category is one accent variable. |
-| [**script.js**](./script.js) | The typewriter hero, category filters, copy buttons, and the screenshot lightbox. |
+| [**styles.css**](./styles.css) | The dark theme and its light counterpart (`html.light`), switched from the top bar. A card takes its colour from its `data-category`, which means a new category is one accent variable. |
+| [**script.js**](./script.js) | The theme toggle, the typewriter hero, category filters, copy buttons, and the screenshot lightbox. |
 | [**assets/img/**](./assets/img/README.md) | The screenshots, plus the naming rules the page follows. |
 | [**assets/diagrams/**](./assets/diagrams/task-router.html) | Sources for any diagram that ships as an image. `task-router.html` is a 1600 × 1000 page that renders to `assets/img/task-router.webp`; edit it and screenshot it again if the tiers change. |
 | [**CNAME**](./CNAME) | `agent-skills.ai-automation-tools.dev`. Shipped inside the published folder so the custom domain re-asserts itself on every deploy. |
@@ -71,7 +71,7 @@ python scripts/build-showcase.py --check  # what CI runs: fails if index.html is
 - **An entry for a skill that no longer exists** fails the check, so stale copy can't linger.
 - **Reorder** cards by reordering `showcase.json`. Skills without an entry come last, alphabetically.
 - **Domain and Project lists** follow the tree, alphabetically within each group; `showcase.json` only gives each group its glyph and order.
-- Text outside the markers (hero copy, install blocks, section intros) is still hand-edited. Colours come from `data-category`, so a new category needs a `--c-<name>` variable in `styles.css` and nothing else.
+- Text outside the markers (hero copy, install blocks, section intros) is still hand-edited. Colours come from `data-category`, so a new category needs a `--c-<name>` variable in `styles.css`, once in `:root` and once, darkened to clear 4.5:1 on paper, in `html.light`.
 
 ## 🌐 Publishing
 
