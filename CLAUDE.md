@@ -21,7 +21,7 @@ agent-skills/
 ├── .gitignore
 ├── .github/workflows/
 │   ├── pages.yml                   # publishes site/ to agent-skills.ai-automation-tools.dev
-│   └── validate.yml                # runs validate-skills.py and build-showcase.py --check on every push to main and every PR
+│   └── validate.yml                # runs validate-skills.py, build-showcase.py --check and check-links.py on every push to main and every PR
 ├── site/                           # the showcase page — vanilla HTML/CSS/JS, no build step
 │   ├── index.html · styles.css · script.js   # cards, chips, lists and counts are GENERATED (see below)
 │   ├── showcase.json               # hand-written card copy keyed by skill name
@@ -30,7 +30,8 @@ agent-skills/
 ├── scripts/
 │   ├── install-skills.ps1          # mirror leaf skills into a skills dir (repo tooling, not a skill)
 │   ├── validate-skills.py          # stdlib-only check of every SKILL.md + the indexes (run before a PR)
-│   └── build-showcase.py           # stdlib-only: regenerates the showcase from Skills/ + site/showcase.json; --check in CI
+│   ├── build-showcase.py           # stdlib-only: regenerates the showcase from Skills/ + site/showcase.json; --check in CI
+│   └── check-links.py              # stdlib-only: every relative link in READMEs, Docs/ and site/index.html resolves (case-sensitive)
 ├── Docs/
 │   ├── USING-SKILLS.md             # install / invoke / author guide
 │   ├── SKILL-IDEAS.md              # backlog of candidate skills
@@ -188,6 +189,8 @@ When asked to validate / review / audit skills, check:
 - **Live test** — invoke `/<skill-name>` on a real task and confirm the output follows the skill's own rules. Then test **auto-invocation**: phrase a request that should match the `description` and see whether the agent loads it unprompted; if not, tighten the description's trigger wording.
 
 **Run `python scripts/validate-skills.py` first.** It's stdlib-only and checks every skill in all three tiers: the frontmatter parses; `name` is kebab-case, matches its folder and is unique; `description` is 40–1,024 characters; every `references/…` and `prompts/…` path the body names exists (plus `scripts/…` and `evals/…` when the skill ships that folder, since a project skill may name its target repo's own `scripts/`); the skill has a row in `README.md` (Domain: its domain folder's row) and in its tier README; and every `Resources/Skill-Data/` folder mirrors a real `Skills/` path. It prints every failure and exits 1 if there are any. `.github/workflows/validate.yml` runs it on every push to `main` and every pull request, so a failing PR shows a red check. Fix the repo, never the rule. A path in another skill should be written with that skill's name in front (`cronsole/references/task-authoring.md`) so it isn't read as this skill's own.
+
+**Then run `python scripts/check-links.py`.** Also stdlib-only, and also in `validate.yml`. It checks every relative link in every `README.md`, every `Docs/*.md` and `site/index.html` — Markdown links, `href`/`src` attributes, and the showcase's `github.com/ai-automation-tools/agent-skills/blob|tree/main/…` links back into this repo — and fails on any that don't resolve. It matches case exactly, as git and Linux CI do, so a `docs/` link to `Docs/` fails on Windows too. Web links and `#anchors` are skipped.
 
 Beyond that there is no test runner. Skill-specific `evals/` (e.g. `recipe-validator/evals/evals.json`) define that skill's test cases — use them when validating that skill.
 
