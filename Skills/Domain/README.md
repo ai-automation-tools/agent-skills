@@ -7,7 +7,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/tier-domain-F59E0B?style=for-the-badge" alt="Domain tier">
-  <img src="https://img.shields.io/badge/skills-15-0078D4?style=for-the-badge" alt="15 skills">
+  <img src="https://img.shields.io/badge/skills-17-0078D4?style=for-the-badge" alt="17 skills">
   <img src="https://img.shields.io/badge/scope-user,_opt--in-8B5CF6?style=for-the-badge" alt="User scope, opt-in">
   <a href="../Core/README.md"><img src="https://img.shields.io/badge/↔-Core_skills-2ea44f?style=for-the-badge" alt="Core skills"></a>
   <a href="../../README.md"><img src="https://img.shields.io/badge/↩-repository_root-6B7280?style=for-the-badge" alt="Repository root"></a>
@@ -54,6 +54,8 @@ source changes. [`Docs/HARVEST.md`](../../Docs/HARVEST.md) lists every one with 
 | **Business** | [`pricing-strategy`](./Business/pricing-strategy/SKILL.md) | business-agent | Set or change a price with an argument behind it — value metric, tiers, willingness to pay from evidence, modeling a change, raising prices on existing customers. |
 | **Security** | [`vulnerability-disclosure`](./Security/vulnerability-disclosure/SKILL.md) | security-agent | Run coordinated disclosure — report a flaw to its owner, negotiate a timeline and embargo, request a CVE, or stand up an inbound disclosure process. |
 | **Security** | [`security-report-writing`](./Security/security-report-writing/SKILL.md) | security-agent | Turn verified findings into a client-ready report — one-page executive summary, impact-and-fix findings, honest severity, redaction. |
+| **Security** | [`security-metrics-and-posture`](./Security/security-metrics-and-posture/SKILL.md) | security-agent | Measure a security program over time — decision-driving metrics, remediation SLAs and MTTR, a living risk register, honest trend reporting to leadership. |
+| **Media** | [`post-publish-analytics`](./Media/post-publish-analytics/SKILL.md) | media-studio | Turn post-publish numbers into the next decision — reach vs engagement vs conversion, retention curves, fair thumbnail and title A/B tests. |
 | **Media** | [`captions-and-accessibility`](./Media/captions-and-accessibility/SKILL.md) | media-studio | Make media usable by everyone and verify it — accurate captions, alt text, contrast, safe-area, audio description. |
 | **Media** | [`media-rights-and-licensing`](./Media/media-rights-and-licensing/SKILL.md) | media-studio | Establish that every music, footage, font, AI-generated, or likeness element is cleared, and record it, before publishing. |
 
