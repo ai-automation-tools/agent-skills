@@ -32,5 +32,7 @@ It never pushes to `main`. Each run's changes arrive as one `harvest/auto-<date>
 | testing-strategy | fullstack-agent | mirrored | `Skills/Domain/Engineering/testing-strategy` | `6f8bc8d` | 2026-09-22 | moved from Core 2026-09-22 |
 | captions-and-accessibility | media-studio | mirrored | `Skills/Domain/Media/captions-and-accessibility` | `5698b35` | 2026-09-27 | first harvest promotion, new Domain |
 | media-rights-and-licensing | media-studio | mirrored | `Skills/Domain/Media/media-rights-and-licensing` | `5698b35` | 2026-10-04 | passes tier test — no workspace layout assumed |
+| post-publish-analytics | media-studio | mirrored | `Skills/Domain/Media/post-publish-analytics` | `5698b35` | 2026-10-11 | passes tier test — no workspace layout assumed |
+| security-metrics-and-posture | security-agent | mirrored | `Skills/Domain/Security/security-metrics-and-posture` | `df83520` | 2026-10-11 | passes tier test — no workspace layout assumed |
 | security-report-writing | security-agent | mirrored | `Skills/Domain/Security/security-report-writing` | `df83520` | 2026-09-28 | passes tier test, new Domain |
 | vulnerability-disclosure | security-agent | mirrored | `Skills/Domain/Security/vulnerability-disclosure` | `df83520` | 2026-10-04 | passes tier test — no workspace layout assumed |
