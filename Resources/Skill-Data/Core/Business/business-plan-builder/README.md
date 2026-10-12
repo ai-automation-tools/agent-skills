@@ -29,6 +29,6 @@ Reference exemplars for the skill: the end-state folder tree it produces, and a 
 ---
 
 <p align="center">
-  <a href="../../../README.md">← Resources home</a> ·
-  <a href="../../../../Skills/Core/Business/business-plan-builder/SKILL.md">The skill →</a>
+  <a href="../../../../README.md">← Resources home</a> ·
+  <a href="../../../../../Skills/Core/Business/business-plan-builder/SKILL.md">The skill →</a>
 </p>

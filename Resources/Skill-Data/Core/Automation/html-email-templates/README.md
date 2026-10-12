@@ -40,6 +40,6 @@ Reference exemplars for the skill — real output pulled from a live send, kept 
 ---
 
 <p align="center">
-  <a href="../../../README.md">← Resources home</a> ·
-  <a href="../../../../Skills/Core/Automation/html-email-templates/SKILL.md">The skill →</a>
+  <a href="../../../../README.md">← Resources home</a> ·
+  <a href="../../../../../Skills/Core/Automation/html-email-templates/SKILL.md">The skill →</a>
 </p>

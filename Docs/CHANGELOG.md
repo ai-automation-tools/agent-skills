@@ -24,6 +24,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-10-08
+
+**Added**
+- `scripts/check-links.py` checks every relative link in the READMEs, `Docs/` and the showcase page, case-sensitively, and `validate.yml` runs it. Its first run found nine broken back-links in the Skill-Data and `site/assets/img/` READMEs, now fixed. *Phase 1*
+
 ## 2026-10-06
 
 **Fixed**

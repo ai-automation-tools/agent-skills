@@ -25,7 +25,7 @@ proves the skill works, or shows a reader what good output looks like, belongs h
 ---
 
 <p align="center">
-  <a href="../README.md">← Skill-Data</a>
+  <a href="../../README.md">← Resources</a>
   ·
   <a href="../../../Skills/Projects/README.md">Project skills</a>
 </p>

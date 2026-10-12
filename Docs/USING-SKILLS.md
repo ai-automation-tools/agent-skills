@@ -111,5 +111,6 @@ The folder name should match the skill's `name`. Restart or reload the agent so 
 ## Testing a skill
 
 - Run `python scripts/validate-skills.py` from the repo root. It checks the frontmatter, the name, the description length, the paths the body cites, the README rows and the `Resources/Skill-Data/` mirror for every skill, and lists every failure it finds. Standard library only, so nothing to install. CI runs the same check on every pull request (`.github/workflows/validate.yml`).
+- Run `python scripts/check-links.py` too. It fails on any relative link in a README, `Docs/` or the showcase page that points at a path that doesn't exist (case-sensitive), which is what a rename or a move leaves behind. CI runs it in the same workflow.
 - Invoke it explicitly (`/<skill-name>`) on a real task and confirm the output follows the skill's rules.
 - Check auto-invocation: phrase a request that should match the `description` and see whether the agent loads the skill unprompted. If it doesn't, tighten the trigger wording in the description.

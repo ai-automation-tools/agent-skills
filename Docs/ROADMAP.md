@@ -54,9 +54,12 @@ up once someone installs the skill and it fails.
 - [x] **Run the validator in CI.** A `validate.yml` workflow on push and pull request, with
   `permissions: contents: read`. *(done 2026-10-01: runs on push to `main`, every PR and by
   hand, on `ubuntu-latest` with stock Python 3. The repo passed a case-sensitive dry run first.)*
-- [ ] **Link check.** Check every relative link in the READMEs, `Docs/`, and the showcase
+- [x] **Link check.** Check every relative link in the READMEs, `Docs/`, and the showcase
   cards, so a renamed skill fails loudly instead of 404ing quietly. Add it to the same
-  workflow.
+  workflow. *(done 2026-10-08: `scripts/check-links.py`, stdlib-only, in `validate.yml`.
+  Covers every `README.md`, `Docs/*.md` and `site/index.html`, including the cards'
+  GitHub links back into this repo, and matches case exactly. Its first run fixed nine
+  broken back-links in Skill-Data and `site/assets/img/` READMEs.)*
 - [ ] **Installer smoke test.** Run `install-skills.ps1` into a temporary directory under
   `pwsh` in CI, then assert the flat layout (`<dir>/<name>/SKILL.md`) and that an
   induced name collision throws.

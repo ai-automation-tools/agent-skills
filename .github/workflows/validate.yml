@@ -25,3 +25,7 @@ jobs:
       # the Skills/ tree. Fails when a skill was added, renamed or removed without
       # re-running the generator, so the site can't fall behind the catalog.
       - run: python scripts/build-showcase.py --check
+      # Every relative link in the READMEs, Docs/ and the showcase page, plus the
+      # showcase's GitHub links back into this repo, must point at a real path.
+      # Case-sensitive, so a renamed skill fails here instead of 404ing quietly.
+      - run: python scripts/check-links.py

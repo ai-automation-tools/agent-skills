@@ -8,7 +8,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/format-png_·_jpg_·_webp-F59E0B?style=for-the-badge" alt="Accepted image formats">
   <img src="https://img.shields.io/badge/per_skill-1_to_4-8B5CF6?style=for-the-badge" alt="One to four images per skill">
-  <a href="../README.md"><img src="https://img.shields.io/badge/↩-site-6B7280?style=for-the-badge" alt="Site folder"></a>
+  <a href="../../README.md"><img src="https://img.shields.io/badge/↩-site-6B7280?style=for-the-badge" alt="Site folder"></a>
 </p>
 
 ---
@@ -67,7 +67,7 @@ Replace any of them whenever you like. The filenames are all that matters.
 ---
 
 <p align="center">
-  <a href="../README.md">← Showcase site</a> ·
+  <a href="../../README.md">← Showcase site</a> ·
   <a href="../../../README.md">Repository home</a> ·
   <a href="../../../Skills/Core/README.md">Core skills</a>
 </p>

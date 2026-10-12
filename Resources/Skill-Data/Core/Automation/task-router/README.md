@@ -40,6 +40,6 @@ Supporting notes about the skill. Nothing here is read at runtime — the skill 
 ---
 
 <p align="center">
-  <a href="../../../README.md">← Resources home</a> ·
-  <a href="../../../../Skills/Core/Automation/task-router/SKILL.md">The skill →</a>
+  <a href="../../../../README.md">← Resources home</a> ·
+  <a href="../../../../../Skills/Core/Automation/task-router/SKILL.md">The skill →</a>
 </p>
