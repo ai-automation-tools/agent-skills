@@ -87,7 +87,7 @@
         <h1>Capabilities the agent loads <em>only</em> when it needs them.</h1>
         <p class="lead">
           A skill is one <code>SKILL.md</code> — YAML frontmatter and a set of instructions — that
-          stays out of the model's context until it's invoked. This is the Core catalog: <!-- gen:core-count-word -->eight<!-- /gen:core-count-word -->
+          stays out of the model's context until it's invoked. This is the Core catalog: <!-- gen:core-count-word -->nine<!-- /gen:core-count-word -->
           portable skills that assume nothing about the repository you're standing in.
         </p>
         <div class="hero-cta">
@@ -96,7 +96,7 @@
         </div>
 
         <dl class="stats">
-          <div><dt>Core skills</dt><dd><!-- gen:core-count -->08<!-- /gen:core-count --></dd></div>
+          <div><dt>Core skills</dt><dd><!-- gen:core-count -->09<!-- /gen:core-count --></dd></div>
           <div><dt>Categories</dt><dd><!-- gen:category-count -->06<!-- /gen:category-count --></dd></div>
           <div><dt>Files per skill</dt><dd>01</dd></div>
           <div><dt>Dependencies</dt><dd>00</dd></div>
@@ -127,20 +127,20 @@
         <p class="kicker">01 — Catalog</p>
         <h2>Core skills</h2>
         <p class="section-sub">
-          <!-- gen:core-count-Word -->Eight<!-- /gen:core-count-Word --> skills across <!-- gen:category-count-word -->six<!-- /gen:category-count-word --> categories. Every one installs <em>flat</em> into
+          <!-- gen:core-count-Word -->Nine<!-- /gen:core-count-Word --> skills across <!-- gen:category-count-word -->six<!-- /gen:category-count-word --> categories. Every one installs <em>flat</em> into
           <code>~/.claude/skills</code>, so a name must be unique across the whole repo.
         </p>
       </header>
 
       <div class="filters reveal" role="group" aria-label="Filter skills by category">
         <!-- gen:chips -->
-        <button class="chip is-active" data-filter="all">All <span>8</span></button>
+        <button class="chip is-active" data-filter="all">All <span>9</span></button>
         <button class="chip" data-filter="automation">Automation <span>3</span></button>
         <button class="chip" data-filter="business">Business <span>1</span></button>
         <button class="chip" data-filter="cooking">Cooking <span>1</span></button>
         <button class="chip" data-filter="documentation">Documentation <span>1</span></button>
         <button class="chip" data-filter="image-gen">Image-Gen <span>1</span></button>
-        <button class="chip" data-filter="web">Web <span>1</span></button>
+        <button class="chip" data-filter="web">Web <span>2</span></button>
         <!-- /gen:chips -->
       </div>
 
@@ -370,6 +370,38 @@
         </article>
 
         <!-- 08 -->
+        <article class="card reveal" data-category="web" data-skill="web-house-style">
+          <div class="card-media">
+            <img class="shot" data-name="web-house-style" alt="The web-house-style document starter: the source bar, a top bar with the Light / Dark switch, a hero and a card grid" loading="lazy" decoding="async">
+            <div class="shot-fallback" aria-hidden="true">
+              <span class="glyph">🎨</span>
+              <b>web-house-style.png</b>
+              <small>drop a screenshot into site/assets/img/</small>
+            </div>
+            <span class="idx">08</span>
+          </div>
+          <div class="card-body">
+            <span class="cat" data-cat="web"><i aria-hidden="true"></i>Web</span>
+            <h3 class="card-title"><span class="glyph" aria-hidden="true">🎨</span><code>web-house-style</code></h3>
+            <p class="tagline">One look for every site in the org — dark first, light on request.</p>
+            <ul class="feat">
+              <li>Token blocks for the dark default and the light theme, one accent per site</li>
+              <li>A Light / Dark switch in the top-right corner that never flashes on load</li>
+              <li>The source bar, a sticky top bar, or a collapsible icon sidebar</li>
+              <li>A phone pass: 16px fields, 36px tap targets, dvh heights, no sideways scroll</li>
+              <li>Two starter pages — a document page and an app shell</li>
+            </ul>
+            <div class="card-foot">
+              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill web-house-style" title="Copy install command">
+                <span class="cmd-text">-Skill web-house-style</span>
+                <span class="cmd-icon" aria-hidden="true">copy</span>
+              </button>
+              <a class="link" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Skills/Core/Web/web-house-style/SKILL.md" target="_blank" rel="noopener">SKILL.md <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 09 -->
         <article class="card reveal" data-category="automation" data-skill="automated-dev-pipeline">
           <div class="card-media">
             <img class="shot" data-name="automated-dev-pipeline" alt="Pipeline flow: ideas become scored plans and private repos, roadmap PRs merge through one sweep, and a repo goes public only after scripted gates and a human approval" loading="lazy" decoding="async">
@@ -378,7 +410,7 @@
               <b>automated-dev-pipeline.png</b>
               <small>drop a screenshot into site/assets/img/</small>
             </div>
-            <span class="idx">08</span>
+            <span class="idx">09</span>
           </div>
           <div class="card-body">
             <span class="cat" data-cat="automation"><i aria-hidden="true"></i>Automation</span>
@@ -562,7 +594,7 @@
 
       <div class="install-cmds reveal">
         <div class="codeblock">
-          <div class="codeblock-head"><span>Core — all <!-- gen:core-count-word -->eight<!-- /gen:core-count-word --></span><button class="mini-copy" data-copy="pwsh scripts/install-skills.ps1 -Core" aria-label="Copy command">copy</button></div>
+          <div class="codeblock-head"><span>Core — all <!-- gen:core-count-word -->nine<!-- /gen:core-count-word --></span><button class="mini-copy" data-copy="pwsh scripts/install-skills.ps1 -Core" aria-label="Copy command">copy</button></div>
           <pre><code><span class="p">pwsh</span> scripts/install-skills.ps1 <span class="f">-Core</span></code></pre>
         </div>
         <div class="codeblock">
