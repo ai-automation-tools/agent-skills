@@ -92,6 +92,19 @@
       ]
     },
     {
+      "name": "web-house-style",
+      "glyph": "🎨",
+      "alt": "The web-house-style document starter: the source bar, a top bar with the Light / Dark switch, a hero and a card grid",
+      "tagline": "One look for every site in the org — dark first, light on request.",
+      "features": [
+        "Token blocks for the dark default and the light theme, one accent per site",
+        "A Light / Dark switch in the top-right corner that never flashes on load",
+        "The source bar, a sticky top bar, or a collapsible icon sidebar",
+        "A phone pass: 16px fields, 36px tap targets, dvh heights, no sideways scroll",
+        "Two starter pages — a document page and an app shell"
+      ]
+    },
+    {
       "name": "automated-dev-pipeline",
       "glyph": "🏭",
       "alt": "Pipeline flow: ideas become scored plans and private repos, roadmap PRs merge through one sweep, and a repo goes public only after scripted gates and a human approval",

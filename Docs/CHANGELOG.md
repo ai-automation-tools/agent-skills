@@ -24,6 +24,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-10-13
+
+**Added**
+- `web-house-style` (Core · Web): the shared look, feel and navigation of the org's sites, written from the landing page, Agent Chat, Cronsole, Edge-Radar, Edge Spectrum and Project Hub. Dark-first tokens with a light theme, the Light / Dark switch in the top-right corner with its pre-paint script, the source bar, a sticky top bar or a collapsible icon sidebar, and the 2026-10-13 phone pass. Ships two starter pages, `assets/page.html` and `assets/app-shell.html`.
+
 ## 2026-10-08
 
 **Added**

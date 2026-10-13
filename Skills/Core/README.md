@@ -7,7 +7,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/tier-core-2ea44f?style=for-the-badge" alt="Core tier">
-  <img src="https://img.shields.io/badge/skills-8-0078D4?style=for-the-badge" alt="8 skills">
+  <img src="https://img.shields.io/badge/skills-9-0078D4?style=for-the-badge" alt="9 skills">
   <img src="https://img.shields.io/badge/scope-user-8B5CF6?style=for-the-badge" alt="User scope">
   <a href="../Projects/README.md"><img src="https://img.shields.io/badge/↔-Project_skills-6B7280?style=for-the-badge" alt="Project skills"></a>
 </p>
@@ -41,6 +41,7 @@ workspaces and installed only on request, so this catalog stays short.
 | **Documentation** | [`repo-docs-builder`](./Documentation/repo-docs-builder/SKILL.md) | Repo layout, a house-style README at every level, a navigable docs tree, and a humanizer pass over the prose. |
 | **Image-Gen** | [`news-images`](./Image-Gen/news-images/SKILL.md) | Cartoon-editorial news collages and montages across daily/weekly/monthly/yearly cadences. |
 | **Web** | [`project-hub-scaffold`](./Web/project-hub-scaffold/SKILL.md) | Stands up a browsable HTML console over a folder of documents. **Core, not a project skill** — you invoke it from the repo that is *getting* a hub. |
+| **Web** | [`web-house-style`](./Web/web-house-style/SKILL.md) | The shared look, feel and navigation of the org's sites: dark-first tokens with a light theme, the Light / Dark switch in the top-right corner, the source bar, a sticky top bar or a collapsible icon sidebar, and the phone pass. Two starter pages implement all of it. |
 
 Follow the skill links above for instructions, references, and scripts. Browse [Resources](../../Resources/README.md) for examples and supporting material.
 
