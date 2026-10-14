@@ -81,22 +81,27 @@ counters). Body text is `--fg-2` or `--fg-3`.
 
 ### Accent per site
 
-One hue per site, used for the page's own chrome. (The favicon and the
-landing-page card follow the app icon below, whose colour is set by the icon set
-and can differ from this accent.) Taken (400 weight dark / 700 weight light):
+One hue per site, used for the page's own chrome. What the live sites use
+(read from their stylesheets 2026-10-14), with each one's app icon colour
+(see "The app icon" below):
 
-| Hue | Dark | Light | Site |
+| Site | Page accent, dark | Light | Icon colour |
 |:---|:---|:---|:---|
-| sky | `#38bdf8` | `#0369a1` | the org itself, Project Hub |
-| violet | `#a78bfa` | `#6d28d9` | Agent Skills |
-| emerald | `#34d399` | `#047857` | Edge-Radar |
-| amber | `#fbbf24` | `#b45309` | Edge Spectrum |
-| teal | `#2dd4bf` | `#0f766e` | Cronsole |
-| cyan | `#22d3ee` | `#0e7490` | Agent Chat |
-| rose | `#fb7185` | `#be123c` | My Prompt Library |
+| the org landing page | sky `#38bdf8` | `#0369a1` | blue `#60a5fa` |
+| Edge Spectrum | sky `#38bdf8` | `#0369a1` | sky `#38bdf8` |
+| My Prompt Library | sky `#38bdf8` | — | amber `#fbbf24` |
+| Project Hub | sky `#38bdf8` (`--green` in its stylesheet) | its theme picker | green `#4ade80` |
+| Agent Skills | amber `#f2b34b` | `#8a5200` | amber `#f2b34b` |
+| Cronsole | violet `#a78bfa` (product site; the app's primary is `hsl(262 83% 58%)`) | `#6d28d9` | violet `#a78bfa` |
+| Edge-Radar | emerald `#34d399` | `#047857` | emerald `#34d399` |
+| Agent Chat | emerald `#10b981` | `#047857` | cyan `#22d3ee` |
 
-Free: lime `#a3e635`/`#4d7c0f`, orange `#fb923c`/`#c2410c`, fuchsia
-`#e879f9`/`#a21caf`, indigo `#818cf8`/`#4338ca`. A new site takes a free one.
+Sky is shared by four pages, so the icon is what tells those tabs apart: an
+icon keeps its own colour where the page's accent would repeat another
+site's. Unused as a page accent: lime `#a3e635`/`#4d7c0f`, orange
+`#fb923c`/`#c2410c`, fuchsia `#e879f9`/`#a21caf`, rose `#fb7185`/`#be123c`,
+teal `#2dd4bf`/`#0f766e`. A new site takes one of these for both its page and
+its icon, after checking no other app icon in the shared set already uses it.
 
 Every tint derives from the accent, so changing it is a one-line edit:
 
@@ -123,7 +128,7 @@ page shows one. Never draw a separate logo, a letter tile or a one-off favicon.
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><title>App Name</title><rect width="32" height="32" rx="7" fill="#0b0b0e"/><rect x="1" y="1" width="30" height="30" rx="6" fill="none" stroke="RING" stroke-width="2"/><g transform="translate(6 6) scale(0.8333)" fill="none" stroke="ICON" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">GLYPH</g></svg>
 ```
 
-Cronsole's, for example: `ICON` `#818cf8`, `RING` `#474d88`, `GLYPH`
+Cronsole's, for example: `ICON` `#a78bfa`, `RING` `#5c4c8a`, `GLYPH`
 `<circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/>`. An existing app
 already has its icon; copy that file, don't redraw it. A new app's icon is
 added to the shared icon set first, then shipped as `favicon.svg` (or a
