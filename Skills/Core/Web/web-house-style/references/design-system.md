@@ -81,8 +81,9 @@ counters). Body text is `--fg-2` or `--fg-3`.
 
 ### Accent per site
 
-One hue per site; it is also the site's card colour on the org landing page and
-the fill of its favicon. Taken (400 weight dark / 700 weight light):
+One hue per site, used for the page's own chrome. (The favicon and the
+landing-page card follow the app icon below, whose colour is set by the icon set
+and can differ from this accent.) Taken (400 weight dark / 700 weight light):
 
 | Hue | Dark | Light | Site |
 |:---|:---|:---|:---|
@@ -104,6 +105,30 @@ background: color-mix(in srgb, var(--accent) 14%, transparent);         /* soft 
 border-color: color-mix(in srgb, var(--accent) 28%, transparent);       /* soft edge */
 color: color-mix(in srgb, var(--accent) var(--tint-k), var(--mix-ink)); /* accent text on a tint */
 ```
+
+### The app icon (favicon)
+
+Every site has **one icon** (since 2026-10-14). It is the browser favicon, the
+site's card on the org landing page, and the mark in the top bar or rail if the
+page shows one. Never draw a separate logo, a letter tile or a one-off favicon.
+
+- A near-black tile: `#0b0b0e`, 32×32 viewBox, `rx="7"`.
+- A 2px ring just inside the edge in the icon colour darkened 45% (each RGB
+  channel × 0.55), so the tile doesn't vanish into a dark tab strip.
+- The app's line pictogram, drawn on a 24×24 grid (2–3 paths, no fills, no
+  text), stroked in the icon colour at width 2.6 and scaled into the middle 20
+  units.
+
+```svg
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><title>App Name</title><rect width="32" height="32" rx="7" fill="#0b0b0e"/><rect x="1" y="1" width="30" height="30" rx="6" fill="none" stroke="RING" stroke-width="2"/><g transform="translate(6 6) scale(0.8333)" fill="none" stroke="ICON" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">GLYPH</g></svg>
+```
+
+Cronsole's, for example: `ICON` `#818cf8`, `RING` `#474d88`, `GLYPH`
+`<circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/>`. An existing app
+already has its icon; copy that file, don't redraw it. A new app's icon is
+added to the shared icon set first, then shipped as `favicon.svg` (or a
+framework's `icon.svg`) and as its card's `icons/tools/<id>.svg`. Check it at
+16px on a dark and a light tab strip before shipping.
 
 ## 2. Type and page
 

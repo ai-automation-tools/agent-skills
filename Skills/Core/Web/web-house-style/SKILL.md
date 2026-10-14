@@ -5,7 +5,8 @@ description: >-
   ai-automation-tools sites: the near-black #060606 ground with a dot grid and zinc
   surfaces, one accent per site, Inter + JetBrains Mono, a Light | Dark switch in the
   top-right corner that defaults to dark and never flashes, a sticky blurred top bar
-  or a fixed icon sidebar, the "View source" bar across the very top, and a phone
+  or a fixed icon sidebar, the "View source" bar across the very top, the shared
+  dark-tile app icon used as the favicon, and a phone
   pass (16px fields, 36px+ tap targets, dvh heights, drawer or icon-rail nav). Use
   when building a landing page, project page, demo, dashboard or app shell that
   should match the org's other sites, when adding a light/dark theme switch, a
@@ -84,6 +85,10 @@ A page is not in the house style until every one of these holds.
    on every toggle and nav item, and a `prefers-reduced-motion` block that
    stops every animation.
 10. **The phone pass** (below) is done before the page ships, not after.
+11. **One app icon** in the shared format: a near-black tile, a thin ring and
+    the app's line pictogram in its icon colour (spec and template under "The
+    app icon" in the design system). It is the favicon, the landing-page card
+    and any in-app mark. Never a letter tile or a separate logo.
 
 ## The phone pass
 
@@ -138,6 +143,7 @@ Every rule sits inside `@media (max-width: 600px)`, `(hover: none)` or
 - [ ] Reduced motion on: nothing moves.
 - [ ] 390px: no horizontal scroll, no field under 16px, nav reachable, no control under 32px.
 - [ ] No console errors in either theme.
+- [ ] The favicon is the app's icon in the shared format, readable at 16px in a dark and a light tab strip.
 
 ## Anti-patterns
 
