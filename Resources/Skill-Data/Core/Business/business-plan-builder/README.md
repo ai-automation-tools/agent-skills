@@ -1,4 +1,6 @@
-# business-plan-builder — Skill-Data
+# 📈 business-plan-builder
+
+> **Overview page.** The skill itself is [`SKILL.md`](../../../../../Skills/Core/Business/business-plan-builder/SKILL.md) · [all Core skills](../../../../../README.md#-core-skills)
 
 ## What the skill does
 

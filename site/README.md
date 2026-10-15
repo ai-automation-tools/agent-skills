@@ -24,7 +24,7 @@ Three files and an image folder. No framework, no `package.json`, nothing to com
 | [**styles.css**](./styles.css) | The dark theme and its light counterpart (`html.light`), switched from the top bar. A card takes its colour from its `data-category`, which means a new category is one accent variable. |
 | [**script.js**](./script.js) | The theme toggle, the typewriter hero, category filters, copy buttons, and the screenshot lightbox. |
 | [**assets/img/**](./assets/img/README.md) | The screenshots, plus the naming rules the page follows. |
-| [**assets/diagrams/**](./assets/diagrams/task-router.html) | Sources for any diagram that ships as an image. `task-router.html` is a 1600 × 1000 page that renders to `assets/img/task-router.webp`; edit it and screenshot it again if the tiers change. |
+| [**assets/diagrams/**](./assets/diagrams/task-router.html) | Sources for any diagram that ships as an image. `task-router.html` is a 1600 × 1000 page that renders to `assets/img/task-router.webp`; edit it and screenshot it again if the tiers change. Also published pages that a skill's overview links to: `automated-dev-pipeline-workflow.html` is the interactive Archify diagram, generated from its JSON source in `Resources/Skill-Data/` (don't hand-edit). |
 | [**CNAME**](./CNAME) | `agent-skills.ai-automation-tools.dev`. Shipped inside the published folder so the custom domain re-asserts itself on every deploy. |
 
 ## 🚀 Run it

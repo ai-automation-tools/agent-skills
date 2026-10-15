@@ -1,4 +1,6 @@
-# Skill-Data — project-hub-scaffold
+# 🌐 project-hub-scaffold
+
+> **Overview page.** The skill itself is [`SKILL.md`](../../../../../Skills/Core/Web/project-hub-scaffold/SKILL.md) · [all Core skills](../../../../../README.md#-core-skills)
 
 Supporting material for the [`project-hub-scaffold`](../../../../../Skills/Core/Web/project-hub-scaffold/SKILL.md)
 skill. Kept here rather than inside the skill folder so the portable skill stays lean —

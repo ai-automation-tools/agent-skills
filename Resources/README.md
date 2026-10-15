@@ -11,7 +11,7 @@ Supporting material for the skills in this repo that should **not** ship inside 
 
 ## Skill-Data convention
 
-For a skill at `Skills/<Category>/<skill-name>/`, its supporting data lives at the matching path `Resources/Skill-Data/<Category>/<skill-name>/`. Each such folder should carry a short `README.md` explaining what the assets are and which skill they belong to.
+For a skill at `Skills/<Category>/<skill-name>/`, its supporting data lives at the matching path `Resources/Skill-Data/<Category>/<skill-name>/`. Each such folder carries a `README.md` that doubles as the skill's **overview page**: the Core skill tables in the root README link straight to it, so it opens with what the skill does, any diagram or screenshot, and a link to the skill's `SKILL.md`.
 
 Put here: example/expected outputs, before/after screenshots, sample reports, demo GIFs, and design notes — anything that documents or demonstrates a skill but that the skill itself doesn't need loaded at runtime.
 

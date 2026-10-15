@@ -58,8 +58,8 @@ ideas ──ideate──▶ scored plan ──incubate──▶ private repo + w
          keep current: refresh + review + upkeep ──▶ PRs into the same sweep
 ```
 
-The full flow, with the keep-current jobs, the rule 13 feedback loop and every point where a
-person decides, is drawn in [`pipeline-flow.svg`](pipeline-flow.svg) beside this file. Show
+The full flow, as swimlanes for build, merge gate, publish, the owner's decisions and
+keep-current, is drawn in [`pipeline-flow.svg`](pipeline-flow.svg) beside this file. Show
 it to the user when they want the whole picture at once.
 
 Keeping current never ends. A published repo keeps its roadmap routine, and the refresh

@@ -1,4 +1,6 @@
-# task-router — Skill-Data
+# 🚦 task-router
+
+> **Overview page.** The skill itself is [`SKILL.md`](../../../../../Skills/Core/Automation/task-router/SKILL.md) · [all Core skills](../../../../../README.md#-core-skills)
 
 ## What the skill does
 
