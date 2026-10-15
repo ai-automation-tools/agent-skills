@@ -5,7 +5,16 @@
     "title": "Automated Dev Pipeline: How the Skill Works",
     "locale": "en",
     "quality_profile": "showcase",
-    "output": "Resources/Skill-Data/Core/Automation/automated-dev-pipeline/Diagrams/pipeline-workflow.html"
+    "legend": {
+      "entries": {
+        "frontend": { "label": "Owner action" },
+        "backend": { "label": "Scheduled job" },
+        "security": { "label": "Gate" },
+        "cloud": { "label": "Public repo" },
+        "external": { "label": "Input" }
+      }
+    },
+    "output": "site/assets/diagrams/automated-dev-pipeline-workflow.html"
   },
   "lanes": [
     { "id": "build", "label": "Build stages" },

@@ -1,4 +1,6 @@
-# html-email-templates — Skill-Data
+# ✉️ html-email-templates
+
+> **Overview page.** The skill itself is [`SKILL.md`](../../../../../Skills/Core/Automation/html-email-templates/SKILL.md) · [all Core skills](../../../../../README.md#-core-skills)
 
 ## What the skill does
 

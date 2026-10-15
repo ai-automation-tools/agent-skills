@@ -1,4 +1,6 @@
-# news-images — Skill-Data
+# 🖼️ news-images
+
+> **Overview page.** The skill itself is [`SKILL.md`](../../../../../Skills/Core/Image-Gen/news-images/SKILL.md) · [all Core skills](../../../../../README.md#-core-skills)
 
 ## What the skill does
 

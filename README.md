@@ -46,15 +46,15 @@ A collection of reusable skills for Claude Code and compatible AI agents. Each s
 
 | Skill | Category | What it does |
 |:---|:---|:---|
-| [**✉️ html-email-templates**](./Skills/Core/Automation/html-email-templates/SKILL.md) | Automation | Creates HTML emails for notifications, reports, and digests. |
-| [**🏭 automated-dev-pipeline**](./Skills/Core/Automation/automated-dev-pipeline/SKILL.md) | Automation | Sets up scheduled AI agents that build projects through PRs, publish them to a GitHub account or organization behind scripted gates and a human approval, and keep every repo current. Also covers pipelines whose stages are folders in one repo that deploys a site. |
-| [**🚦 task-router**](./Skills/Core/Automation/task-router/SKILL.md) | Automation | Chooses a workflow and model tier based on the task. |
-| [**📈 business-plan-builder**](./Skills/Core/Business/business-plan-builder/SKILL.md) | Business | Evaluates business ideas and writes a decision memo and build plan. |
-| [**🍳 recipe-validator**](./Skills/Core/Cooking/recipe-validator/SKILL.md) | Cooking | Checks recipes for food safety, nutrition, quantities, and allergens. |
-| [**🏗️ repo-docs-builder**](./Skills/Core/Documentation/repo-docs-builder/SKILL.md) | Documentation | Organizes repositories and creates linked READMEs, a docs tree, and the roadmap + changelog that go with it. |
-| [**🖼️ news-images**](./Skills/Core/Image-Gen/news-images/SKILL.md) | Image-Gen | Generates illustrated news collages and montages. |
-| [**🌐 project-hub-scaffold**](./Skills/Core/Web/project-hub-scaffold/SKILL.md) | Web | Builds a local web interface for browsing project documents. |
-| [**🎨 web-house-style**](./Skills/Core/Web/web-house-style/SKILL.md) | Web | Gives a page the org sites' shared look: dark-first tokens, a Light / Dark switch top right, the source bar, a top bar or icon sidebar, and the phone pass. |
+| [**✉️ html-email-templates**](./Resources/Skill-Data/Core/Automation/html-email-templates/README.md) | Automation | Creates HTML emails for notifications, reports, and digests. |
+| [**🏭 automated-dev-pipeline**](./Resources/Skill-Data/Core/Automation/automated-dev-pipeline/README.md) | Automation | Sets up scheduled AI agents that build projects through PRs, publish them to a GitHub account or organization behind scripted gates and a human approval, and keep every repo current. Also covers pipelines whose stages are folders in one repo that deploys a site. |
+| [**🚦 task-router**](./Resources/Skill-Data/Core/Automation/task-router/README.md) | Automation | Chooses a workflow and model tier based on the task. |
+| [**📈 business-plan-builder**](./Resources/Skill-Data/Core/Business/business-plan-builder/README.md) | Business | Evaluates business ideas and writes a decision memo and build plan. |
+| [**🍳 recipe-validator**](./Resources/Skill-Data/Core/Cooking/recipe-validator/README.md) | Cooking | Checks recipes for food safety, nutrition, quantities, and allergens. |
+| [**🏗️ repo-docs-builder**](./Resources/Skill-Data/Core/Documentation/repo-docs-builder/README.md) | Documentation | Organizes repositories and creates linked READMEs, a docs tree, and the roadmap + changelog that go with it. |
+| [**🖼️ news-images**](./Resources/Skill-Data/Core/Image-Gen/news-images/README.md) | Image-Gen | Generates illustrated news collages and montages. |
+| [**🌐 project-hub-scaffold**](./Resources/Skill-Data/Core/Web/project-hub-scaffold/README.md) | Web | Builds a local web interface for browsing project documents. |
+| [**🎨 web-house-style**](./Resources/Skill-Data/Core/Web/web-house-style/README.md) | Web | Gives a page the org sites' shared look: dark-first tokens, a Light / Dark switch top right, the source bar, a top bar or icon sidebar, and the phone pass. |
 
 ## 🧭 Domain skills
 

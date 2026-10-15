@@ -24,6 +24,12 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-10-15
+
+**Changed**
+- Core skill names in the root README and `Skills/Core/README.md` now open each skill's overview page, the `Resources/Skill-Data/` README, which leads with what the skill does and its diagram or screenshots, then links to `SKILL.md`. Every overview gets a standard header; `web-house-style` gets its first one. The convention is written into `CLAUDE.md` and `Resources/README.md`.
+- `automated-dev-pipeline`: `pipeline-flow.svg` is replaced by a swimlane diagram generated with Archify, which follows the reader's light or dark theme. An interactive version is published at `site/assets/diagrams/automated-dev-pipeline-workflow.html`, and both come from one JSON source in Skill-Data.
+
 ## 2026-10-13
 
 **Added**
