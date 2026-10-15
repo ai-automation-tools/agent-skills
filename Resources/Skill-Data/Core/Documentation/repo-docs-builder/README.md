@@ -1,4 +1,6 @@
-# repo-docs-builder — Skill-Data
+# 🏗️ repo-docs-builder
+
+> **Overview page.** The skill itself is [`SKILL.md`](../../../../../Skills/Core/Documentation/repo-docs-builder/SKILL.md) · [all Core skills](../../../../../README.md#-core-skills)
 
 ## What the skill does
 

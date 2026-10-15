@@ -57,8 +57,8 @@ Every card has an image:
   frame crops nothing.
 - **`automated-dev-pipeline`** has one, drawn the same way: `../diagrams/automated-dev-pipeline.html`
   shows the build flow (ideas → ideate → incubate → roadmap routine → PR sweep) over the skill's
-  three jobs, rendered at 1600 × 1000 and saved as WebP at quality 86. The skill's own detailed
-  `pipeline-flow.svg` is portrait and too dense to survive the 16:10 card crop.
+  three jobs, rendered at 1600 × 1000 and saved as WebP at quality 86. The skill's own
+  `pipeline-flow.svg` is a swimlane export that isn't 16:10 and doesn't use the site palette.
 
 The `business-plan-builder` sources are small enough (4–23 KB) that they stayed PNG.
 

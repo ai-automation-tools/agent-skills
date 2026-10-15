@@ -1,4 +1,6 @@
-# recipe-validator — Skill-Data
+# 🍳 recipe-validator
+
+> **Overview page.** The skill itself is [`SKILL.md`](../../../../../Skills/Core/Cooking/recipe-validator/SKILL.md) · [all Core skills](../../../../../README.md#-core-skills)
 
 ## What the skill does
 

@@ -97,7 +97,7 @@ into every unrelated session — which is why a bare install run covers Core onl
 ### Two folders people confuse
 
 - **`Skills/<Tier>/…/<name>/`** — the skill itself. This LEAF folder is the unit that gets copied into an agent's skills directory; it must be **self-contained and portable** (tier and category levels are a repo convenience, not part of the skill).
-- **`Resources/Skill-Data/<Tier>/…/<name>/`** — bulky supporting material *about* a skill (example runs, screenshots, sample reports, design notes). Keep it here, **not** inside the skill folder, so the portable skill stays lean. The Skill-Data tree mirrors the `Skills/` path exactly.
+- **`Resources/Skill-Data/<Tier>/…/<name>/`** — bulky supporting material *about* a skill (example runs, screenshots, sample reports, design notes). Keep it here, **not** inside the skill folder, so the portable skill stays lean. The Skill-Data tree mirrors the `Skills/` path exactly. Its `README.md` is the skill's **overview page**: the skill-name links in the root README's and `Skills/Core/README.md`'s Core tables open it, so every Core skill needs one. It starts with `# <emoji> <name>` and a `> **Overview page.**` line linking the skill's `SKILL.md`, then shows any diagram or screenshot before the file list.
 - Inside a skill: **`evals/`** = tracked test cases (committed); **`reports/`** = local run output (gitignored). Never mix them up.
 
 ---
