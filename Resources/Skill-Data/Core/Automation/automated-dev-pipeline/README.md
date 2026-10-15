@@ -21,6 +21,27 @@ Amber boxes are where a person decides. Dashed purple arrows are what the next r
 
 It is hand-written SVG with no external fonts or scripts and its own white background, so it reads the same in GitHub and in a dark VS Code preview. Edit it directly. Stage names and labels come from the skill's `SKILL.md` and `references/`, so when the skill changes a stage, change the drawing in the same PR.
 
+## The interactive workflow
+
+[`Diagrams/pipeline-workflow.html`](Diagrams/pipeline-workflow.html) is the same pipeline as an
+interactive [Archify](https://github.com/tt-a1i/archify) workflow: one swimlane each for build,
+merge gate, publish, the owner and keep-current, with the main path traced from idea source to
+going public, and side cards for the design rules, the runner's feedback loop and the single-repo
+variant. Download it and open it in a browser; GitHub shows only its source.
+
+It is generated, so don't hand-edit the HTML. Edit
+[`Diagrams/pipeline-workflow.json`](Diagrams/pipeline-workflow.json) and rebuild from the repo root:
+
+```bash
+node ~/.claude/skills/archify/bin/archify.mjs finalize workflow \
+  Resources/Skill-Data/Core/Automation/automated-dev-pipeline/Diagrams/pipeline-workflow.json \
+  Resources/Skill-Data/Core/Automation/automated-dev-pipeline/Diagrams/pipeline-workflow.html \
+  --quality showcase --out-dir <scratch-folder>
+```
+
+Delete the `*.delivery.json` receipt it leaves beside the HTML. Like the SVG, change it in the
+same PR as any stage change.
+
 ## About this folder
 
 Supporting material about the skill. Nothing here is read at runtime; the skill is self-contained in its leaf folder.
@@ -28,6 +49,8 @@ Supporting material about the skill. Nothing here is read at runtime; the skill 
 | Path | What it is |
 |:---|:---|
 | [`pipeline-flow.svg`](../../../../../Skills/Core/Automation/automated-dev-pipeline/pipeline-flow.svg) | The end-to-end flow diagram, 1000 × 1345. It lives in the skill folder, so it installs with the skill; this folder only describes it. |
+| [`Diagrams/pipeline-workflow.html`](Diagrams/pipeline-workflow.html) | The interactive Archify workflow, self-contained (about 830 KB, so it stays here rather than in the skill) |
+| [`Diagrams/pipeline-workflow.json`](Diagrams/pipeline-workflow.json) | Its source; rebuild the HTML from this |
 
 ---
 
