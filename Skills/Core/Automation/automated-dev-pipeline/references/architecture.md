@@ -103,7 +103,7 @@ docs site, a content collection. The mapping:
 |:---|:---|
 | Ideate writes a scored plan | An import stage writes idea rows to an `ideas/` collection, deduped by source ID |
 | Incubate creates a private repo | A plan-and-promote stage moves one item `planning/ → in-progress/` and writes its first source plus a per-item `ROADMAP.md` |
-| Roadmap routine, one per repo | One build routine that takes **one item per in-progress folder per run** |
+| Roadmap routine, one per repo | One build routine that takes **one item (or up to four `small` ones) per in-progress folder per run** |
 | Release gates above a heading | A readiness **script** per item: roadmap done apart from `(Needs <owner>)`, verification recorded, source present |
 | Graduate flips visibility after approval | A publish stage moves ready items to `live/` and regenerates the site data. **The human merge is the approval**, enforced by `holdPaths` on the published paths |
 | Ledger row per project | Ledger row per run: what moved |
