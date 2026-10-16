@@ -15,7 +15,7 @@
 | Lane | What happens there |
 |:---|:---|
 | **Build stages** | An idea source feeds ideate, which scores candidates only when the backlog runs low. Incubate turns a plan into a private repo (capped), and its roadmap routine ships one feature, or up to four small docs-or-config gates, per run as a PR, skipping the session entirely when there's no work |
-| **Merge gate** | One PR sweep, on the strongest model, reviews and merges every routine's PRs by branch prefix. PRs that touch a hold path wait for the owner |
+| **Merge gate** | One PR sweep, on the strongest model, reviews every routine's PRs by branch prefix; the runner merges what it approves after re-running the hard gates. PRs that touch a deploy path or carry a personal commit email wait for the owner |
 | **Publish (scripted)** | When every release gate is ticked, a script runs the gates (secret scan, CI, commit emails, live 200s), opens an approval issue, and goes public only after the owner closes it as Completed, re-running the gates and reading the security controls back |
 | **Owner decides** | The three places a person acts: held PRs, the approval issue, and the weekly `[Approval needed]` digest |
 | **Keep current** | Refresh and review cover every repo, published or not, with a cited source for each change, and send their PRs through the same sweep. Upkeep reports stalls, drift and counts to the digest |
