@@ -15,7 +15,8 @@ schedule is a claim to verify, not evidence.
 - [ ] The secret scanner is installed, scans all refs, and fails closed when missing
 - [ ] Commit-identity gate: only the approved public email or noreply addresses. Check that squash-merge authors pass too
 - [ ] No model prompt can change visibility or close the approval issue (a stated rule, plus a deny rule if possible)
-- [ ] Every MCP server reachable from a run worktree has been reviewed. Anything that acts on hardware or a live user session is in that job's worktree `deny` list, and the list is confirmed in a dry run's written settings
+- [ ] Every MCP server reachable from an unattended session has been reviewed. Anything that acts on hardware, a live user session or a live system is in the fleet deny file, every runner (stages and sweeps included) passes it, and a dry run's log shows the file and any per-job exceptions
+- [ ] The sweep session cannot merge: `gh pr merge` is denied and the runner merges approved PRs after re-running every gate
 - [ ] A merge that deploys a public site is held by a runner-level path gate (`holdPaths`), not by prompt wording. The gate was tested against a PR that should trip it
 - [ ] No sweep's shared prefix list catches another routine's PRs in the same repo that must wait for a person. Check per-target `branchPrefixes`
 

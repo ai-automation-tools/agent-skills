@@ -26,7 +26,7 @@ copy the closest existing prompt from the reference implementation and keep thes
    See "Runners and what they give you" in `architecture.md`.
 7. **For a stage in a repo wired to hardware or live apps:** a line saying which tools are
    denied and that a refusal is expected, not a failure to work around. The deny list
-   itself goes in the run worktree's settings (SKILL.md rule 11). The prompt only explains it.
+   itself is the runner's job (SKILL.md rule 11). The prompt only explains it.
 
 **Shared rules for a family of stages** (several stages on one repo) can live in one file
 that each prompt tells the session to read first. Keep what differs in each prompt, and the
@@ -39,6 +39,9 @@ contract (caps, definition of done, ledger) in the repo, where the stages can re
 - **Runs the pre-check.** A stage with nothing to do never sees its prompt.
 - **For graduate:** runs the publish script first, then passes the results into the prompt
   as a `PUBLISH RESULTS` block. The model acts only on those results.
+- **For the periodic audit:** passes a `TRAP CANDIDATES` block, every `TRAP:` line from the
+  run history since the traps file last changed. The prompt must mark each one promoted,
+  folded into an existing bullet, or rejected with a reason, in its PR body.
 
 ## Roadmap routine prompt (per project)
 
@@ -68,20 +71,32 @@ file is under X") because a path check is cheap and hard to argue with. Anything
 touches a hand-curated area, deletes or renames, or lacks a source URL is a hold.
 
 **Put path holds in the runner, not only the prompt** (rule 1). The reference sweep runner
-takes two per-target keys:
+takes these per-target keys:
 
 ```json
 { "project": "Design-Lab", "ghRepo": "owner/repo", "allowedBases": ["main"],
-  "branchPrefixes": ["design/auto-"],
+  "branchPrefixes": ["design/auto-"], "extraBranchPrefixes": ["dependabot/"],
   "holdPaths": ["design/projects/live/*", "site/*"] }
 ```
 
 - **`branchPrefixes`** overrides the sweep-wide list for that repo only. Use it when one
   repo hosts several routines and only some of them should be merged automatically.
+- **`extraBranchPrefixes`** adds to the list instead of replacing it: Dependabot, or a
+  routine that runs on that repo alone.
 - **`holdPaths`** are globs where `*` crosses `/`. The runner lists the PR's changed files
-  (`gh pr diff --name-only`), and any match makes the PR HOLD with the files named. The
-  session may comment on a held PR but can't merge it. This is how a deploy-on-merge
-  publish waits for a person while routine progress still merges.
+  (`gh pr diff --name-only`), and any match makes the PR HOLD with the files named. This
+  is how a deploy-on-merge publish waits for a person while routine progress still merges.
+- **`emailAllowList`** (sweep-wide, or per target) holds any PR with a commit whose author
+  or committer email matches no entry. The hold comment names only the domain, since the
+  address is the leak.
+
+A held PR is out of the session's hands only once the runner does the merging. With
+**`runnerMerge`** on, `gh pr merge` stays in the deny list, the banner tells the session to
+write `APPROVE: owner/repo#N` where the prompt says merge, and after the session the runner
+merges each approval that was eligible going in and still passes every gate, holds and
+emails included. The same path handles an approved PR that a sibling's merge turned into a
+changelog conflict. Without it the session runs `gh pr merge` itself, and a HOLD is only
+the banner's word.
 
 Test a new gate against a real merged PR that should trip it, and one that shouldn't,
 before trusting it on Sunday.
