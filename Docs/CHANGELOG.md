@@ -26,6 +26,9 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 
 ## 2026-10-15
 
+**Added**
+- `scripts/test-install-skills.ps1` smoke-tests the installer: it installs every tier into a temp directory and checks the flat `<dir>/<name>/SKILL.md` layout, that a bare run installs Core only, that `-Skill` narrows and `reports/` never ships, and that a duplicated skill name throws and installs nothing. `validate.yml` runs it under `pwsh`. *Phase 1*
+
 **Changed**
 - Core skill names in the root README and `Skills/Core/README.md` now open each skill's overview page, the `Resources/Skill-Data/` README, which leads with what the skill does and its diagram or screenshots, then links to `SKILL.md`. Every overview gets a standard header; `web-house-style` gets its first one. The convention is written into `CLAUDE.md` and `Resources/README.md`.
 - `automated-dev-pipeline`: the roadmap routine takes one feature or up to four `small` items per run. Incubate tags docs, config and asset gates `small` when it writes the ROADMAP, so a PR can close several of them at once (`stage-contracts.md`, `architecture.md`, SKILL rule 6, the diagram).
