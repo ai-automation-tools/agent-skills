@@ -44,7 +44,7 @@ writing a stage prompt.** Most of what goes wrong on a first build is already wr
 
 ```
 ideas ──ideate──▶ scored plan ──incubate──▶ private repo + weekly roadmap routine
-                                                  │  one item/run → PR
+                                                  │  1 feature or ≤4 small/run → PR
                                                   ▼
                                     PR sweep (review + merge, 2x/week)
                                                   │  all release gates ticked?
@@ -101,7 +101,8 @@ Each rule is here because the reference implementation paid for learning it.
    it runs the session anyway, and the prompt applies the same checks.
 6. **Match cadence to throughput.** Don't produce what the next stage can't absorb. Plans
    should be generated only when the backlog runs low, and incubation needs a cap. Merge
-   frequency limits build speed: one sweep a week means one item a week. Cadence should
+   frequency limits build speed: one sweep a week means one PR a week, so let a PR close
+   up to four small docs-or-config gates instead of one (`stage-contracts.md`). Cadence should
    follow demand, not the calendar.
 7. **One session, one PR, per repo per cycle.** Jobs that touch the same repo on the same
    topic (research on what changed, and the fixes it calls for) are one session and one
