@@ -60,9 +60,12 @@ up once someone installs the skill and it fails.
   Covers every `README.md`, `Docs/*.md` and `site/index.html`, including the cards'
   GitHub links back into this repo, and matches case exactly. Its first run fixed nine
   broken back-links in Skill-Data and `site/assets/img/` READMEs.)*
-- [ ] **Installer smoke test.** Run `install-skills.ps1` into a temporary directory under
+- [x] **Installer smoke test.** Run `install-skills.ps1` into a temporary directory under
   `pwsh` in CI, then assert the flat layout (`<dir>/<name>/SKILL.md`) and that an
-  induced name collision throws.
+  induced name collision throws. *(done 2026-10-15: `scripts/test-install-skills.ps1`, in
+  `validate.yml`. Also checks that a bare run is Core-only, that `-Skill` narrows and that
+  `reports/` never ships. The collision is induced in a scratch copy of `Skills/`, so the
+  repo is never touched.)*
 - [ ] **Tests for the deterministic scripts.** Cover the helpers under
   `recipe-validator/scripts/`, `project-hub-scaffold/scripts/`, and
   `cronsole-windows-jobs/scripts/`, using fixture inputs and standard-library runners

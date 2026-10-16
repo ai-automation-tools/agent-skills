@@ -29,3 +29,7 @@ jobs:
       # showcase's GitHub links back into this repo, must point at a real path.
       # Case-sensitive, so a renamed skill fails here instead of 404ing quietly.
       - run: python scripts/check-links.py
+      # Installs every tier into a temp directory with pwsh (preinstalled on
+      # ubuntu-latest) and asserts the flat <dir>/<name>/SKILL.md layout, a
+      # Core-only bare run, and that a duplicated skill name throws.
+      - run: pwsh -NoProfile -File scripts/test-install-skills.ps1
