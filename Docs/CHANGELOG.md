@@ -28,6 +28,7 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 
 **Changed**
 - Core skill names in the root README and `Skills/Core/README.md` now open each skill's overview page, the `Resources/Skill-Data/` README, which leads with what the skill does and its diagram or screenshots, then links to `SKILL.md`. Every overview gets a standard header; `web-house-style` gets its first one. The convention is written into `CLAUDE.md` and `Resources/README.md`.
+- `automated-dev-pipeline`: the roadmap routine takes one feature or up to four `small` items per run. Incubate tags docs, config and asset gates `small` when it writes the ROADMAP, so a PR can close several of them at once (`stage-contracts.md`, `architecture.md`, SKILL rule 6, the diagram).
 - `automated-dev-pipeline`: `pipeline-flow.svg` is replaced by a swimlane diagram generated with Archify, which follows the reader's light or dark theme. An interactive version is published at `site/assets/diagrams/automated-dev-pipeline-workflow.html`, and both come from one JSON source in Skill-Data.
 
 ## 2026-10-13

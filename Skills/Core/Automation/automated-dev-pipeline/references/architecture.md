@@ -52,6 +52,10 @@ compete for the same rate limit.
   `## After public release` is a release gate. The count of open items (`[ ]`, `[-]`,
   `[!]`, including numbered forms) above that line has to reach 0. A missing heading is a
   contract break to report, never something to guess around.
+- **Item tags.** Incubate tags each open item when it writes the ROADMAP: `small` right
+  after the checkbox (docs, config, assets that CI or a named command verifies), untagged
+  for a feature, `🔒 Needs <owner>` for what only the owner can do. The roadmap routine
+  takes one feature or up to four `small` items per run. The gate count ignores tags.
 - **Approval**: a `release-approval` issue. Open means awaiting approval. Closed as
   Completed means approved. Closed as Not planned means rejected. Reopening re-queues it.
   The publish script's exit codes carry the state: 0 published, 1 held at a gate,
