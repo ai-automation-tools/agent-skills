@@ -59,7 +59,8 @@ second source or the list gets long.
 ## The ideate procedure, generically
 
 1. **Throttle first.** The runner's pre-check skips the whole run while the number of
-   `planned` rows in the ledger is at or above the ideate threshold (2 in the reference).
+   `proposed` plus `planned` rows in the ledger is at or above the ideate threshold (2 in
+   the reference).
    More plans than incubate can take is wasted research.
 2. **List and dedupe** through the adapter.
 3. **Shortlist up to ten**, newest first, spread across as many streams as possible. Read
@@ -74,8 +75,12 @@ second source or the list gets long.
 6. **Score it 1–10** on how strongly it should be the next repo: the verdict, how strong the
    key assumption is, whether weekly agent work can build it, and how demo-able it is. A
    non-BUILD verdict scores 3 at most.
-7. **Write one ledger row**: `planned` if BUILD, otherwise `rejected`. Rejected ideas stay
-   in the ledger so they're never analyzed again. To reconsider one, edit its row by hand.
+7. **Write one ledger row**: `proposed` if BUILD and the score clears the bar (6 in the
+   reference), otherwise `rejected`, saying in the run summary when the score alone
+   rejected it. The runner, not the session, then opens a plan-approval issue and emails
+   the owner; closing it as Completed moves the row to `planned`, Not planned to
+   `rejected`. Rejected ideas stay in the ledger so they're never analyzed again. To
+   reconsider one, edit its row by hand.
 
 One idea per run. With time left over, stop anyway: the throttle decides the pace, not the
 session length.

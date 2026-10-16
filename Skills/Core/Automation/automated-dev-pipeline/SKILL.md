@@ -43,7 +43,7 @@ writing a stage prompt.** Most of what goes wrong on a first build is already wr
 ## The loop
 
 ```
-ideas ──ideate──▶ scored plan ──incubate──▶ private repo + weekly roadmap routine
+ideas ──ideate──▶ approved plan ──incubate──▶ private repo + weekly roadmap routine
                                                   │  1 feature or ≤4 small/run → PR
                                                   ▼
                                     PR sweep (review + merge, 2x/week)
@@ -74,6 +74,10 @@ Each rule is here because the reference implementation paid for learning it.
    emails, a secret scan, CI status, an HTTP 200, a count of unchecked boxes) goes in a
    script with an exit code. The model gets the work that needs judgment: writing, review,
    picking the next item. A checklist inside a prompt is a request, not a guarantee.
+   The merge gate splits the same way: the sweep session reviews and writes
+   `APPROVE: owner/repo#N`, `gh pr merge` stays denied to it, and the runner re-runs every
+   gate and merges what still passes. Turn this on after one sweep has run on any new gates
+   alone, so you can tell a gate's holds from the model's.
 2. **Irreversible means human.** Making a repo public can't be undone: it gets cloned,
    cached and indexed within minutes. A script runs the gates, then asks for approval on a
    GitHub issue plus an email. It flips visibility only after the issue is closed as
@@ -86,10 +90,12 @@ Each rule is here because the reference implementation paid for learning it.
    secret scanning or push protection by itself (and doesn't inherit an organization's
    defaults), and a visibility change can silently turn controls off. So repo creation and
    every visibility change go through a wrapper that enables the controls and reads them
-   back in the same command, and exits non-zero if one is still off.
+   back in the same command, and exits non-zero if one is still off. Settings a stage
+   changes later (automated security-fix PRs at publish, a homepage URL) go through the
+   same wrapper with the same read-back, never through a prompt calling the API.
 4. **Only PRs reach default branches, through one merge gate.** Every routine opens a PR on
    a known branch prefix. One sweep (the strongest model you run) reviews them against
-   per-prefix rules and merges. New prefixes are registered in the sweep config, and the
+   per-prefix rules, and its runner merges (rule 1). New prefixes are registered in the sweep config, and the
    upkeep job reads that list instead of keeping its own copy. **One exception:** stages that
    feed each other inside one repo may *share* a prefix. The runner adopts the oldest open
    PR on a prefix and appends to it, so the week's stages chain on one branch with no merge
@@ -120,25 +126,35 @@ Each rule is here because the reference implementation paid for learning it.
 11. **Deny what an unattended session must never touch.** Headless runs usually start with
     permissions bypassed, which makes every MCP server in the repo's config callable. That
     includes a printer, a robot, a smart-home bridge, or a live desktop app such as an open
-    Blender or browser session. Write a `deny` list into the run worktree's local settings
-    (it's honoured even under bypass) covering every tool that acts on hardware, on a live
-    user session, or on anything else a person has to confirm. Keep the read-only calls the
-    job actually needs. Deny the whole server when a job has no use for it.
+    Blender or browser session. Keep one fleet-wide deny file and have **every** runner pass
+    it to the session with `--settings` (it's honoured even under bypass, and it reaches
+    stages and sweeps that have no worktree). Cover every tool that acts on hardware, on a
+    live user session, or on anything else a person has to confirm, plus the GitHub writes
+    that skip the merge gate or change a repo's exposure (merge, repo create/delete/edit
+    visibility, closing issues, force-push). Deny the whole server when no job needs it. A
+    job that needs one rule lifted names that exact rule in its config, and the runner
+    passes a filtered copy. If the file is missing, the runner fails rather than start an
+    unprotected session. A job's own worktree settings can add more denies on top.
 12. **A run that did nothing because it broke is a failure, never a quiet week.** Judge the
     outcome by the session's exit code as well as by commits and PRs. A platform error
     (`API Error: 529`) ends a session with exit 1 and no work. A runner that only counts
-    commits mails that as a quiet week. Retry once on a platform error, then report
-    `failed`. Count caps from the ledger, never per run ("1 per week" written as "promote 1"
+    commits mails that as a quiet week. Retry once on a platform error (5xx or 429), and
+    only if the failed attempt wrote nothing (no commit, no merge, no write-capable tool
+    call), then report `failed`. That goes for sweeps too: a crashed sweep session is a
+    failed run, not a week of holds. Count caps from the ledger, never per run ("1 per week" written as "promote 1"
     lets manual re-runs promote 5 in 6 days).
 13. **Close the feedback loop in the runner, not in each prompt.** A run that ends in an
     email and a pruned text log teaches the next run nothing. These pieces, mostly in the runner,
     so no job has to remember them:
     - **Run history.** Every run appends a `start` and an `end` record to one JSONL file:
-      status, minutes, turns, cost, tool-error count, API error, PR. A `start` with no `end`
-      is a run that died silently, which no email will ever tell you about.
+      status and minutes at least, and wherever the runner reads the session's stream,
+      turns, cost, tool-error count, API error, PR. A `start` with no `end` is a run that
+      died silently, which no email will ever tell you about.
     - **Shared runtime traps.** One file of platform pitfalls is prepended to every prompt.
       A session that hits a new one reports a `TRAP:` line, and the runner saves it in the
-      run record so it can be promoted into the file.
+      run record. The periodic audit's runner hands it every `TRAP:` line since the file
+      last changed, and the audit has to promote, fold or reject each one in its PR, so
+      promotion can't be skipped.
     - **Review comments read back.** A run that continues an open PR reads the PR's
       comments first, and a sweep HOLD or a comment from the owner is its first item.
       Without this, held PRs keep collecting new work while the hold reason goes unread.
@@ -148,12 +164,15 @@ Each rule is here because the reference implementation paid for learning it.
       adds and trims; the owner edits. Platform pitfalls stay `TRAP:` lines.
     - **The owner's corrections read back.** Before a run, list the base-branch commits
       that touched the files of the job's last few merged PRs and did not come from a fleet
-      branch, and show their diffs. That is the owner fixing what a run did. The run keeps
+      branch (build that prefix list from the job and sweep configs, never by hand, or every
+      new job's merges read as corrections), and show their diffs. That is the owner fixing
+      what a run did. The run keeps
       the fix and turns it into a lesson. PRs closed unmerged are listed as rejected.
     - **Park what only the owner can move.** An item whose open work all waits on the
       owner, with no progress for a set number of days, leaves the active stage so it stops
-      holding a capped slot. Keep any append-only file the runs read under the read limit by
-      archiving old entries to dated files, never deleting them.
+      holding a capped slot. Keep anything prepended to a prompt short: the lessons file
+      is trimmed to its cap. The run history is read by scripts, not prompts, so it can grow;
+      if a session ever has to read it, give it a window, not the whole file.
     - **Humans approve prompt changes, by pull request.** Keep the prompts and runners in
       a git repo of their own. A periodic audit reads the run history, the traps, the
       lessons and the hold comments, and opens one PR of evidence-backed prompt edits on
@@ -183,12 +202,13 @@ operator notes so the next session doesn't have to rediscover them.
 | Runner + scheduler | How a stage launches a headless session, logs, and emails a summary (Task Scheduler, cron, CI schedules) |
 | Security wrapper | The create-and-verify / re-verify script (rule 3) |
 | Publish script | Gates → approval → flip → re-verify (rules 1–2) |
-| Approval channel | Issue label + email transport. Replies to a send-only email are never read, so approval is an issue state |
+| Approval channel | Issue label + email transport, for release approvals and (optionally) plan approvals before incubation. Replies to a send-only email are never read, so approval is an issue state |
 | Landing page | What graduation and upkeep keep in sync: an org site, a portfolio page, or none |
 | Currency scope | Which repos the keep-current jobs cover, what "current" means for each (see `references/keeping-current.md`), and how often |
-| Incubation cap, ideate threshold | Throughput limits (rule 6) |
+| Incubation cap, ideate threshold, score bar | Throughput limits (rule 6). The threshold counts plans awaiting approval as well as approved ones. A BUILD verdict below the score bar is written as rejected |
 | Sweep days, model tiers | Speed and cost. A mid-tier model for research and writing, the strongest for merges and repo creation |
-| Hold paths | Paths whose change a person must merge: the published folder, the deploying site, hand-curated areas. Enforced by the sweep's runner, not its prompt (rules 1–2) |
+| Hold paths | Paths whose change a person must merge: the published folder, the deploying site, hand-curated areas. Enforced by the sweep's runner, not its prompt (rules 1–2). Hold deploy paths (deploy config, deploy workflows, the custom domain), not every workflow, or CI fixes stop merging |
+| Commit email allow-list | Author and committer addresses allowed in a public repo's history. The publish script checks it once; the sweep runner checks it on every merge, because nothing else stops a personal address after the flip |
 | Run history + traps file | Where the JSONL run history lives (outside any pruned log folder), and the one runtime-traps file every runner prepends (rule 13) |
 | Notification routing | One sender display name per workflow, and one mail filter per name. Mail labels stack, so every existing catch-all filter that matches the sender domain or `[OK]`-style subjects needs the new name added to its exclusions, or the mail lands in two labels |
 
