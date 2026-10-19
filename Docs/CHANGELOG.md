@@ -27,6 +27,7 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 ## 2026-10-19
 
 **Added**
+- Site: the `automated-dev-pipeline` card links to its interactive Archify diagram (a `diagram` key in `site/showcase.json`, rendered by `build-showcase.py`). The skill's overview README no longer embeds the diagram; it points at the homepage. `pipeline-flow.svg` stays in the skill folder for agents.
 - `repo-docs-builder`: `references/roadmap-standard.md`, the one `docs/ROADMAP.md` format for every project in the lab: phases, the four checkbox markers, `— done YYYY-MM-DD` notes with a changelog line in the same commit, one go-live heading (`## After public release` or `## After go-live`) with the gates above it and post-go-live groups below, a copyable skeleton, and the checks the Road Map Sweep runs. Modelled on the Collector and AI Command Center roadmaps.
 
 **Changed**

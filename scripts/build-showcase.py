@@ -136,6 +136,8 @@ def card(idx: int, category: str, skill: str, fm: dict[str, str], copy: dict) ->
         lines.append('            <ul class="feat">')
         lines += [f"              <li>{f}</li>" for f in feats]
         lines.append("            </ul>")
+    if copy.get("diagram"):
+        lines.append(f'            <a class="link-arrow card-diagram" href="{copy["diagram"]}">Open the interactive diagram →</a>')
     lines += [
         '            <div class="card-foot">',
         f'              <button class="cmd" type="button" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill {skill}" title="Copy install command">',
