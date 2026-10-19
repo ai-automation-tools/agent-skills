@@ -243,6 +243,7 @@ h2 { margin: 10px 0 0; font-size: 26px; letter-spacing: -.025em; font-weight: 65
 .feat li::before { content: ""; position: absolute; left: 2px; top: .62em; width: 5px; height: 5px; border-radius: 50%; background: var(--c); }
 .feat code { font-size: .88em; }
 
+.card-diagram { align-self: flex-start; margin-top: 12px; font-size: 13px; }
 .card-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 14px; border-top: 1px solid var(--rule); min-width: 0; }
 .cmd { display: inline-flex; align-items: center; gap: 9px; min-width: 0; max-width: 100%; height: 30px; padding: 0 10px; font: 11.5px var(--mono); color: var(--fg-3); border: 1px solid var(--line-2); border-radius: var(--r-sm); background: var(--field); cursor: pointer; transition: color .2s, border-color .2s, background .2s; }
 .cmd:hover { color: var(--fg); border-color: var(--line-hover); background: var(--hover-bg); }

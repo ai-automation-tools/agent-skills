@@ -8,9 +8,8 @@
 
 ## How it works
 
-![automated-dev-pipeline workflow](../../../../../Skills/Core/Automation/automated-dev-pipeline/pipeline-flow.svg)
-
-**[Open the interactive version →](https://agent-skills.ai-automation-tools.dev/assets/diagrams/automated-dev-pipeline-workflow.html)** (trace routes, search nodes, switch themes, export)
+The diagram lives on the [homepage](https://agent-skills.ai-automation-tools.dev/) (the `automated-dev-pipeline` card links to it):
+**[open the interactive version →](https://agent-skills.ai-automation-tools.dev/assets/diagrams/automated-dev-pipeline-workflow.html)** (trace routes, search nodes, switch themes, export)
 
 | Lane | What happens there |
 |:---|:---|
@@ -48,8 +47,8 @@ Nothing here is read at runtime; the skill is self-contained in its leaf folder.
 
 | Path | What it is |
 |:---|:---|
-| [`pipeline-flow.svg`](../../../../../Skills/Core/Automation/automated-dev-pipeline/pipeline-flow.svg) | The static diagram above. It ships in the skill folder, so an agent can show it to the user |
-| [`automated-dev-pipeline-workflow.html`](../../../../../site/assets/diagrams/automated-dev-pipeline-workflow.html) | The interactive version, self-contained. It lives under `site/` so the showcase publishes it |
+| [`pipeline-flow.svg`](../../../../../Skills/Core/Automation/automated-dev-pipeline/pipeline-flow.svg) | The static diagram. It ships in the skill folder, so an agent can show it to the user |
+| [`automated-dev-pipeline-workflow.html`](../../../../../site/assets/diagrams/automated-dev-pipeline-workflow.html) | The interactive version, self-contained. It lives under `site/` so the homepage publishes it, and the skill's card links to it (`diagram` in `site/showcase.json`) |
 | [`Diagrams/pipeline-workflow.json`](Diagrams/pipeline-workflow.json) | The source both are built from |
 
 ---
