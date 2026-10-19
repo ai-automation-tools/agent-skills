@@ -37,6 +37,10 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 **Docs**
 - `Docs/ROADMAP.md` moved onto the lab roadmap standard: a `## 🚦 Public release` gate phase (CI and the live showcase ticked; README check, `SECURITY.md` with a secret scan, and the licence open) above `## After public release`, with Phases 1 to 4 as groups below it, every item a one-line checkbox, done notes as `— done YYYY-MM-DD`, and `🔒 Needs Mike` at the end of the line. The licence item moved from "Needs a decision" into the gates. No items dropped; the README and `SECURITY.md` gates are new.
 
+**Site**
+- The showcase moved onto the org house style (`web-house-style`), matching ai-automation-tools.dev and the Edge-Radar page: `#060606` ground with the dot grid and zinc surfaces in place of the ink, grid, grain and three glows; Inter + JetBrains Mono in place of Instrument Serif and Geist; the shared token blocks for both themes (light is now zinc `#fafafa`, not warm paper); a full-width source bar; a 56px top bar with the app icon, sans nav, a phone menu sheet and the Light | Dark switch last; house buttons (amber primary, black GitHub, ghost), cards, chips with `aria-pressed`, terminal blocks and footer. Amber stays the accent. The footer now links ai-automation-tools.dev, the cookie notice and Cookie settings; a new Resources section links the repo, README, guide, Core index, changelog, roadmap and skill ideas. `favicon.svg` is the shared icon file. At 390px the page no longer scrolls sideways (it overflowed by 319px) and the nav is reachable.
+- `scripts/build-showcase.py` writes each card's screenshot paths into the page (`src` plus `data-shots`), so the browser no longer probes extensions and the console is free of 404s. Adding an image now means re-running the generator, which `--check` enforces.
+
 ## 2026-10-15
 
 **Added**

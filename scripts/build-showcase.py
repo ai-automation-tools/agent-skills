@@ -30,6 +30,8 @@ ROOT = Path(__file__).resolve().parent.parent
 SKILLS = ROOT / "Skills"
 INDEX = ROOT / "site" / "index.html"
 SHOWCASE = ROOT / "site" / "showcase.json"
+IMG = ROOT / "site" / "assets" / "img"
+IMG_EXTS = ("png", "jpg", "webp", "jpeg")
 REPO_URL = "https://github.com/ai-automation-tools/agent-skills"
 
 WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
@@ -82,22 +84,47 @@ def word(n: int) -> str:
     return WORDS[n] if n < len(WORDS) else str(n)
 
 
+def shots(skill: str) -> list[str]:
+    """Screenshot paths for a card, primary first: <skill>.<ext>, then -2, -3, -4.
+
+    Written into the page so the browser never guesses at file names (a guess that
+    misses is a 404 in the console). No primary image means no shots at all."""
+    found: list[str] = []
+    for suffix in ("", "-2", "-3", "-4"):
+        hit = next((f"{skill}{suffix}.{e}" for e in IMG_EXTS if (IMG / f"{skill}{suffix}.{e}").is_file()), None)
+        if hit:
+            found.append(f"assets/img/{hit}")
+        elif not suffix:
+            return []
+    return found
+
+
 def card(idx: int, category: str, skill: str, fm: dict[str, str], copy: dict) -> str:
     glyph = copy.get("glyph", "✦")
     alt = copy.get("alt") or html.escape(f"{skill} screenshot", quote=True)
     tagline = copy.get("tagline") or html.escape(first_sentence(fm.get("description", "")))
     feats = copy.get("features", [])
     n = f"{idx:02d}"
+    imgs = shots(skill)
     lines = [
         f"        <!-- {n} -->",
         f'        <article class="card reveal" data-category="{category.lower()}" data-skill="{skill}">',
-        '          <div class="card-media">',
-        f'            <img class="shot" data-name="{skill}" alt="{alt}" loading="lazy" decoding="async">',
-        '            <div class="shot-fallback" aria-hidden="true">',
-        f'              <span class="glyph">{glyph}</span>',
-        f"              <b>{skill}.png</b>",
-        "              <small>drop a screenshot into site/assets/img/</small>",
-        "            </div>",
+    ]
+    if imgs:
+        lines += [
+            f'          <div class="card-media has-shot" data-shots="{" ".join(imgs)}">',
+            f'            <img class="shot" data-name="{skill}" src="{imgs[0]}" alt="{alt}" loading="lazy" decoding="async">',
+        ]
+    else:
+        lines += [
+            '          <div class="card-media">',
+            '            <div class="shot-fallback" aria-hidden="true">',
+            f'              <span class="glyph">{glyph}</span>',
+            f"              <b>{skill}</b>",
+            "              <small>screenshot to come</small>",
+            "            </div>",
+        ]
+    lines += [
         f'            <span class="idx">{n}</span>',
         "          </div>",
         '          <div class="card-body">',
@@ -111,7 +138,7 @@ def card(idx: int, category: str, skill: str, fm: dict[str, str], copy: dict) ->
         lines.append("            </ul>")
     lines += [
         '            <div class="card-foot">',
-        f'              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill {skill}" title="Copy install command">',
+        f'              <button class="cmd" type="button" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill {skill}" title="Copy install command">',
         f'                <span class="cmd-text">-Skill {skill}</span>',
         '                <span class="cmd-icon" aria-hidden="true">copy</span>',
         "              </button>",
@@ -156,8 +183,8 @@ def build() -> tuple[dict[str, str], list[str]]:
     cards = [card(i, by_skill[s][0], s, by_skill[s][1], copy.get(s, {})) for i, s in enumerate(order, 1)]
 
     total = len(by_skill)
-    chips = [f'        <button class="chip is-active" data-filter="all">All <span>{total}</span></button>']
-    chips += [f'        <button class="chip" data-filter="{c.lower()}">{c} <span>{len(core[c])}</span></button>' for c in sorted(core)]
+    chips = [f'        <button class="chip" type="button" data-filter="all" aria-pressed="true">All <span>{total}</span></button>']
+    chips += [f'        <button class="chip" type="button" data-filter="{c.lower()}" aria-pressed="false">{c} <span>{len(core[c])}</span></button>' for c in sorted(core)]
 
     return {
         "cards": "\n\n".join(cards),

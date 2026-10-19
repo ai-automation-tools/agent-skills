@@ -13,16 +13,17 @@
 
 ---
 
-Three files and an image folder. No framework, no `package.json`, nothing to compile.
+Three files, an icon and an image folder. No framework, no `package.json`, nothing to compile.
 
 ## 📁 What's in here
 
 | File | What it is |
 |:---|:---|
-| [**index.html**](./index.html) | The page: hero, the Core skill cards, the Domain and Project lists, the install commands. Everything renders before JavaScript runs. The cards, filter chips, lists and counts sit between `<!-- gen:… -->` markers and are **generated** — don't hand-edit inside them. |
+| [**index.html**](./index.html) | The page: hero, the Core skill cards, the Domain and Project lists, the install commands, and a Resources block linking the repo's docs and the org home. Everything renders before JavaScript runs. The cards, filter chips, lists and counts sit between `<!-- gen:… -->` markers and are **generated** — don't hand-edit inside them. |
 | [**showcase.json**](./showcase.json) | The hand-written card copy: each Core skill's glyph, tagline, feature bullets and screenshot `alt` text, plus the glyph for each Domain and Project group. Card order follows this file. |
-| [**styles.css**](./styles.css) | The dark theme and its light counterpart (`html.light`), switched from the top bar. A card takes its colour from its `data-category`, which means a new category is one accent variable. |
-| [**script.js**](./script.js) | The theme toggle, the typewriter hero, category filters, copy buttons, and the screenshot lightbox. |
+| [**styles.css**](./styles.css) | The org house style (the [`web-house-style`](../Skills/Core/Web/web-house-style/SKILL.md) skill): its dark token block and the `html.light` block, Inter + JetBrains Mono, the dot-grid ground, and this site's amber accent. Rules below the tokens use token names only. A card takes its colour from its `data-category`, which means a new category is one `--c-<name>` variable. |
+| [**favicon.svg**](./favicon.svg) | The Agent Skills icon from the shared icon set, used as the favicon and the top-bar mark. Copy it from the set again if it changes there; don't redraw it. |
+| [**script.js**](./script.js) | The Light \| Dark switch (key `agent-skills.theme`, dark by default), the phone menu sheet, scroll-spy, the typewriter hero, category filters, copy buttons, and the screenshot lightbox. |
 | [**assets/img/**](./assets/img/README.md) | The screenshots, plus the naming rules the page follows. |
 | [**assets/diagrams/**](./assets/diagrams/task-router.html) | Sources for any diagram that ships as an image. `task-router.html` is a 1600 × 1000 page that renders to `assets/img/task-router.webp`; edit it and screenshot it again if the tiers change. Also published pages that a skill's overview links to: `automated-dev-pipeline-workflow.html` is the interactive Archify diagram, generated from its JSON source in `Resources/Skill-Data/` (don't hand-edit). |
 | [**CNAME**](./CNAME) | `agent-skills.ai-automation-tools.dev`. Shipped inside the published folder so the custom domain re-asserts itself on every deploy. |
@@ -44,7 +45,7 @@ Three files and an image folder. No framework, no `package.json`, nothing to com
    Then visit `http://localhost:8080`.
 
 > [!TIP]
-> Serve it rather than double-clicking the file. The page probes for screenshots by trying several extensions in turn, and Chrome will refuse some of those requests over `file://`.
+> Serve it rather than double-clicking the file: the shared consent script and the fonts load from other origins, which some browsers restrict over `file://`.
 
 ## 🖼️ Adding screenshots
 
@@ -54,7 +55,7 @@ Name the image after the skill and drop it into `assets/img/`:
 site/assets/img/task-router.png
 ```
 
-The card picks it up on the next reload. Add `-2`, `-3` or `-4` to a name for extra shots in the lightbox gallery. A card with no image shows a placeholder, so you can fill them in a few at a time.
+Then run `python scripts/build-showcase.py`. The generator looks the images up on disk and writes their paths into the card, so the browser never guesses at a filename (a guess that misses is a 404 in the console), and CI's `--check` fails until you do. Add `-2`, `-3` or `-4` to a name for extra shots in the lightbox gallery. A card with no image shows a placeholder, so you can fill them in a few at a time.
 
 The table of expected filenames is in [`assets/img/README.md`](./assets/img/README.md).
 
@@ -113,16 +114,16 @@ Since 2026-10-05 the cards, chips, group lists and counts are generated from the
 
 ### ♿ Accessibility
 
-- [ ] Give the filter chips `aria-pressed`, so the selected category is announced instead of only coloured.
-- [ ] Keep focus inside the lightbox while it's open, and hand it back to the card that opened it.
+- [x] Give the filter chips `aria-pressed`, so the selected category is announced instead of only coloured. *(2026-10-19)*
+- [ ] Keep focus inside the lightbox while it's open. Closing it already hands focus back to the card that opened it.
 - [ ] Rewrite the screenshot `alt` text to describe the image itself rather than name the skill.
-- [ ] Check `--text-faint` (`#6d7484`) against the card background. It measures roughly 4:1, under the 4.5:1 that body text needs.
+- [x] Check the faint text colour against the card background. Gone with the house-style move: the page uses the shared `--fg-4`/`--fg-5` scale, whose light values are measured on `#fafafa`. *(2026-10-19)*
 
 ### 🧹 Smaller things
 
-- [ ] Test the breakpoints on a real phone. The layout has only been checked at desktop widths.
+- [ ] Test the breakpoints on a real phone. The house-style phone pass was checked at 390px in an emulator (no sideways scroll, nav in a menu sheet, tap targets 36px+), not on a device.
 - [ ] Fill the last grid row. Eight cards in three columns leaves one slot empty; `grid-column: span 2` on one card would close it, or leave it as is.
-- [ ] Give the hero panel a no-JS fallback line, so it isn't blank when the script fails to load.
+- [x] Give the hero panel a no-JS fallback line, so it isn't blank when the script fails to load. It now ships with one skill's frontmatter in the markup. *(2026-10-19)*
 - [x] Add `site/` to the layout diagram in `CLAUDE.md`.
 - [ ] Add a link check across the READMEs and the card links, so a renamed skill fails loudly instead of 404ing quietly.
 

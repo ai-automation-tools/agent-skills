@@ -2,159 +2,167 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Agent Skills — the Core catalog</title>
-<meta name="description" content="Eight portable Agent Skills for Claude Code and compatible agents. Each one a single SKILL.md the agent loads only when it needs it.">
-<meta name="theme-color" content="#07080B">
+<meta name="description" content="Portable Agent Skills for Claude Code and compatible agents. Each one a single SKILL.md the agent loads only when it needs it.">
+<link rel="canonical" href="https://agent-skills.ai-automation-tools.dev/">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="theme-color" content="#060606">
 
 <script>
-  // Apply the stored theme before first paint so a light-theme visitor never sees
-  // a dark flash. Dark is the default: this fallback must match DEFAULT_THEME in
-  // script.js, or the first frame disagrees with the page that replaces it.
+  // Pre-paint theme, before any stylesheet, so a light-theme visitor never sees a
+  // dark flash. Dark is the default whatever the OS says: this must equal
+  // THEME_DEFAULT in script.js.
   (function () {
     var t = 'dark';
-    try { if (localStorage.getItem('agent-skills.theme') === 'light') t = 'light'; } catch (e) {}
+    try { var s = localStorage.getItem('agent-skills.theme'); if (s === 'light' || s === 'dark') t = s; } catch (e) {}
     document.documentElement.classList.add(t);
-    if (t === 'light') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F7F5F0');
+    if (t === 'light') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fafafa');
   })();
 </script>
 
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://agent-skills.ai-automation-tools.dev/">
 <meta property="og:title" content="Agent Skills — the Core catalog">
-<meta property="og:description" content="Eight portable Agent Skills. Each one a single SKILL.md the agent loads only when it needs it.">
-
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Ctitle%3EAgent%20Skills%3C%2Ftitle%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%230b0b0e%22%2F%3E%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%2230%22%20height%3D%2230%22%20rx%3D%226%22%20fill%3D%22none%22%20stroke%3D%22%23856229%22%20stroke-width%3D%222%22%2F%3E%3Cg%20transform%3D%22translate(6%206)%20scale(0.8333333333333334)%22%20fill%3D%22none%22%20stroke%3D%22%23f2b34b%22%20stroke-width%3D%222.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Crect%20x%3D%225%22%20y%3D%223%22%20width%3D%2214%22%20height%3D%2218%22%20rx%3D%222.5%22%2F%3E%3Cpath%20d%3D%22M9%208h6M9%2012h4M13.5%2016l2%202%202-2%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E">
+<meta property="og:description" content="Portable Agent Skills. Each one a single SKILL.md the agent loads only when it needs it.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<a class="skip" href="#catalog">Skip to catalog</a>
+<a class="skip" href="#main">Skip to content</a>
 
 <!-- Source bar: the shared "back to the repo" strip every ai-automation-tools
-     site carries in the same place — full width, very top, link in the right corner. -->
+     site carries in the same place: full width, very top, link in the right corner. -->
 <div class="src-bar">
-  <div class="wrap src-bar-inner">
-    <p class="src-note"><strong>Open source</strong> · every skill on this page ships from the repo.</p>
-    <a class="src-link" href="https://github.com/ai-automation-tools/agent-skills" target="_blank" rel="noopener">
-      <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
-      View source
-    </a>
-  </div>
+  <p class="src-note"><strong>Open source</strong> &middot; every skill on this page ships from the repo.</p>
+  <a class="src-link" href="https://github.com/ai-automation-tools/agent-skills" target="_blank" rel="noopener">
+    <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+    View source
+  </a>
 </div>
 
-<div class="fx-grid" aria-hidden="true"></div>
-<div class="fx-glow" aria-hidden="true"></div>
-<div class="fx-grain" aria-hidden="true"></div>
-
 <header class="topbar">
-  <div class="wrap topbar-inner">
+  <div class="wrap">
     <a class="brand" href="#top" aria-label="Agent Skills home">
-      <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 32 32" width="20" height="20"><path d="M16 4l10 12-10 12L6 16z" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>
-      </span>
-      <span class="brand-text">agent-skills<em>/core</em></span>
+      <img src="favicon.svg" width="24" height="24" alt="">
+      Agent Skills
     </a>
-    <nav class="topnav" aria-label="Sections">
+    <nav class="nav" id="nav" aria-label="Sections">
       <a href="#catalog">Catalog</a>
       <a href="#domains">Domains</a>
       <a href="#projects">Projects</a>
       <a href="#install">Install</a>
+      <a href="#resources">Resources</a>
     </nav>
-    <div class="theme-toggle" role="group" aria-label="Theme">
-      <button type="button" data-theme-set="light" aria-pressed="false" aria-label="Light theme" title="Light theme">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-      </button>
-      <button type="button" data-theme-set="dark" aria-pressed="true" aria-label="Dark theme" title="Dark theme">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+    <div class="topbar-right">
+      <div class="theme-sw" id="themeSw" role="group" aria-label="Theme">
+        <button type="button" data-theme="light" aria-pressed="false" aria-label="Light theme" title="Light theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        </button>
+        <button type="button" data-theme="dark" aria-pressed="true" aria-label="Dark theme" title="Dark theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+        </button>
+      </div>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h12"/></svg>
       </button>
     </div>
   </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Sections">
+    <a href="#catalog">Catalog</a><a href="#domains">Domains</a><a href="#projects">Projects</a><a href="#install">Install</a><a href="#resources">Resources</a>
+  </nav>
 </header>
 
-<main id="top">
+<div class="glow" aria-hidden="true"></div>
+
+<main class="wrap" id="main">
 
   <!-- ─────────────────────────── HERO ─────────────────────────── -->
-  <section class="hero">
-    <div class="wrap hero-grid">
-
-      <div class="hero-copy reveal">
-        <p class="eyebrow"><span class="pulse" aria-hidden="true"></span> SKILL.md · portable capabilities</p>
-        <h1>Capabilities the agent loads <em>only</em> when it needs them.</h1>
-        <p class="lead">
-          A skill is one <code>SKILL.md</code> — YAML frontmatter and a set of instructions — that
-          stays out of the model's context until it's invoked. This is the Core catalog: <!-- gen:core-count-word -->nine<!-- /gen:core-count-word -->
-          portable skills that assume nothing about the repository you're standing in.
-        </p>
-        <div class="hero-cta">
-          <a class="btn btn-primary" href="#catalog">Browse the catalog</a>
-          <a class="btn btn-ghost" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Docs/USING-SKILLS.md" target="_blank" rel="noopener">Read the authoring guide <span aria-hidden="true">↗</span></a>
-        </div>
-
-        <dl class="stats">
-          <div><dt>Core skills</dt><dd><!-- gen:core-count -->09<!-- /gen:core-count --></dd></div>
-          <div><dt>Categories</dt><dd><!-- gen:category-count -->06<!-- /gen:category-count --></dd></div>
-          <div><dt>Files per skill</dt><dd>01</dd></div>
-          <div><dt>Dependencies</dt><dd>00</dd></div>
-        </dl>
+  <div class="hero" id="top">
+    <div class="hero-copy">
+      <p class="eyebrow"><a href="https://ai-automation-tools.dev/"><b>ai-automation-tools</b></a> · open source · SKILL.md</p>
+      <h1>Capabilities the agent loads <em>only</em> when it needs them.</h1>
+      <p class="lede">
+        A skill is one <code>SKILL.md</code>, YAML frontmatter and a set of instructions, that
+        stays out of the model's context until it's invoked. This is the Core catalog: <!-- gen:core-count-word -->nine<!-- /gen:core-count-word -->
+        portable skills that assume nothing about the repository you're standing in.
+      </p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#catalog">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>
+          Browse the catalog
+        </a>
+        <a class="btn btn-gh" href="https://github.com/ai-automation-tools/agent-skills" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          Source on GitHub
+        </a>
+        <a class="btn btn-ghost" href="#install">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4l4 4-4 4M8 12h5"/></svg>
+          Install
+        </a>
       </div>
-
-      <div class="hero-panel reveal" aria-hidden="true">
-        <div class="panel-bar">
-          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-          <span class="panel-title">~/.claude/skills/&lt;name&gt;/SKILL.md</span>
-        </div>
-        <pre class="panel-code"><code id="typer"></code><span class="caret"></span></pre>
-        <div class="panel-foot">
-          <span class="panel-tag">invoked on demand</span>
-          <span class="panel-tag">user scope</span>
-          <span class="panel-tag">kebab-case</span>
-        </div>
-      </div>
-
     </div>
-  </section>
+
+    <div class="term hero-term" aria-hidden="true">
+      <div class="term-bar">
+        <span class="lights"><i></i><i></i><i></i></span>
+        <span class="term-title">~/.claude/skills/&lt;name&gt;/SKILL.md</span>
+      </div>
+      <pre class="term-code"><code id="typer"><span class="c">---</span>
+<span class="k">name: </span><span class="v">repo-docs-builder</span>
+<span class="k">description: &gt;-</span>
+<span class="s">  A repository that reads</span>
+<span class="s">  like somebody meant it.</span>
+<span class="c">---</span></code><span class="caret"></span></pre>
+      <div class="term-foot">
+        <span class="tag">invoked on demand</span>
+        <span class="tag">user scope</span>
+        <span class="tag">kebab-case</span>
+      </div>
+    </div>
+  </div>
+
+  <dl class="strip">
+    <div><dt>Core skills</dt><dd><!-- gen:core-count -->09<!-- /gen:core-count --></dd></div>
+    <div><dt>Categories</dt><dd><!-- gen:category-count -->06<!-- /gen:category-count --></dd></div>
+    <div><dt>Files per skill</dt><dd>01</dd></div>
+    <div><dt>Dependencies</dt><dd>00</dd></div>
+  </dl>
 
   <!-- ────────────────────────── CATALOG ────────────────────────── -->
-  <section id="catalog" class="catalog">
-    <div class="wrap">
+  <section id="catalog">
+    <div class="sec-head reveal">
+      <p class="eyebrow"><b>01</b> · Catalog</p>
+      <h2>Core skills</h2>
+      <p class="sub">
+        <!-- gen:core-count-Word -->Nine<!-- /gen:core-count-Word --> skills across <!-- gen:category-count-word -->six<!-- /gen:category-count-word --> categories. Every one installs <em>flat</em> into
+        <code>~/.claude/skills</code>, so a name must be unique across the whole repo.
+      </p>
+    </div>
 
-      <header class="section-head reveal">
-        <p class="kicker">01 — Catalog</p>
-        <h2>Core skills</h2>
-        <p class="section-sub">
-          <!-- gen:core-count-Word -->Nine<!-- /gen:core-count-Word --> skills across <!-- gen:category-count-word -->six<!-- /gen:category-count-word --> categories. Every one installs <em>flat</em> into
-          <code>~/.claude/skills</code>, so a name must be unique across the whole repo.
-        </p>
-      </header>
+    <div class="filters reveal" role="group" aria-label="Filter skills by category">
+      <!-- gen:chips -->
+        <button class="chip" type="button" data-filter="all" aria-pressed="true">All <span>9</span></button>
+        <button class="chip" type="button" data-filter="automation" aria-pressed="false">Automation <span>3</span></button>
+        <button class="chip" type="button" data-filter="business" aria-pressed="false">Business <span>1</span></button>
+        <button class="chip" type="button" data-filter="cooking" aria-pressed="false">Cooking <span>1</span></button>
+        <button class="chip" type="button" data-filter="documentation" aria-pressed="false">Documentation <span>1</span></button>
+        <button class="chip" type="button" data-filter="image-gen" aria-pressed="false">Image-Gen <span>1</span></button>
+        <button class="chip" type="button" data-filter="web" aria-pressed="false">Web <span>2</span></button>
+      <!-- /gen:chips -->
+    </div>
 
-      <div class="filters reveal" role="group" aria-label="Filter skills by category">
-        <!-- gen:chips -->
-        <button class="chip is-active" data-filter="all">All <span>9</span></button>
-        <button class="chip" data-filter="automation">Automation <span>3</span></button>
-        <button class="chip" data-filter="business">Business <span>1</span></button>
-        <button class="chip" data-filter="cooking">Cooking <span>1</span></button>
-        <button class="chip" data-filter="documentation">Documentation <span>1</span></button>
-        <button class="chip" data-filter="image-gen">Image-Gen <span>1</span></button>
-        <button class="chip" data-filter="web">Web <span>2</span></button>
-        <!-- /gen:chips -->
-      </div>
-
-      <div class="grid" id="skillGrid">
-        <!-- gen:cards -->
+    <div class="grid" id="skillGrid">
+      <!-- gen:cards -->
         <!-- 01 -->
         <article class="card reveal" data-category="documentation" data-skill="repo-docs-builder">
-          <div class="card-media">
-            <img class="shot" data-name="repo-docs-builder" alt="A README built by repo-docs-builder" loading="lazy" decoding="async">
-            <div class="shot-fallback" aria-hidden="true">
-              <span class="glyph">🏗️</span>
-              <b>repo-docs-builder.png</b>
-              <small>drop a screenshot into site/assets/img/</small>
-            </div>
+          <div class="card-media has-shot" data-shots="assets/img/repo-docs-builder.png assets/img/repo-docs-builder-2.png assets/img/repo-docs-builder-3.png assets/img/repo-docs-builder-4.png">
+            <img class="shot" data-name="repo-docs-builder" src="assets/img/repo-docs-builder.png" alt="A README built by repo-docs-builder" loading="lazy" decoding="async">
             <span class="idx">01</span>
           </div>
           <div class="card-body">
@@ -169,7 +177,7 @@
               <li>Renders natively in both GitHub and Obsidian</li>
             </ul>
             <div class="card-foot">
-              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill repo-docs-builder" title="Copy install command">
+              <button class="cmd" type="button" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill repo-docs-builder" title="Copy install command">
                 <span class="cmd-text">-Skill repo-docs-builder</span>
                 <span class="cmd-icon" aria-hidden="true">copy</span>
               </button>
@@ -180,13 +188,8 @@
 
         <!-- 02 -->
         <article class="card reveal" data-category="business" data-skill="business-plan-builder">
-          <div class="card-media">
-            <img class="shot" data-name="business-plan-builder" alt="The generated output folder for a Hotel-Loyalty-Club idea, with analysis, decisions, models and research subfolders" loading="lazy" decoding="async">
-            <div class="shot-fallback" aria-hidden="true">
-              <span class="glyph">📈</span>
-              <b>business-plan-builder.png</b>
-              <small>drop a screenshot into site/assets/img/</small>
-            </div>
+          <div class="card-media has-shot" data-shots="assets/img/business-plan-builder.png assets/img/business-plan-builder-2.png assets/img/business-plan-builder-3.png">
+            <img class="shot" data-name="business-plan-builder" src="assets/img/business-plan-builder.png" alt="The generated output folder for a Hotel-Loyalty-Club idea, with analysis, decisions, models and research subfolders" loading="lazy" decoding="async">
             <span class="idx">02</span>
           </div>
           <div class="card-body">
@@ -201,7 +204,7 @@
               <li>Output is a linked markdown repo; every number sourced or tagged</li>
             </ul>
             <div class="card-foot">
-              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill business-plan-builder" title="Copy install command">
+              <button class="cmd" type="button" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill business-plan-builder" title="Copy install command">
                 <span class="cmd-text">-Skill business-plan-builder</span>
                 <span class="cmd-icon" aria-hidden="true">copy</span>
               </button>
@@ -212,13 +215,8 @@
 
         <!-- 03 -->
         <article class="card reveal" data-category="cooking" data-skill="recipe-validator">
-          <div class="card-media">
-            <img class="shot" data-name="recipe-validator" alt="A recipe under review: an Indiana pork tenderloin sandwich with its ingredient list and ten numbered steps" loading="lazy" decoding="async">
-            <div class="shot-fallback" aria-hidden="true">
-              <span class="glyph">🍳</span>
-              <b>recipe-validator.png</b>
-              <small>drop a screenshot into site/assets/img/</small>
-            </div>
+          <div class="card-media has-shot" data-shots="assets/img/recipe-validator.webp assets/img/recipe-validator-2.webp">
+            <img class="shot" data-name="recipe-validator" src="assets/img/recipe-validator.webp" alt="A recipe under review: an Indiana pork tenderloin sandwich with its ingredient list and ten numbered steps" loading="lazy" decoding="async">
             <span class="idx">03</span>
           </div>
           <div class="card-body">
@@ -233,7 +231,7 @@
               <li>Findings ranked by severity, each with a concrete fix</li>
             </ul>
             <div class="card-foot">
-              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill recipe-validator" title="Copy install command">
+              <button class="cmd" type="button" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill recipe-validator" title="Copy install command">
                 <span class="cmd-text">-Skill recipe-validator</span>
                 <span class="cmd-icon" aria-hidden="true">copy</span>
               </button>
@@ -244,13 +242,8 @@
 
         <!-- 04 -->
         <article class="card reveal" data-category="automation" data-skill="html-email-templates">
-          <div class="card-media">
-            <img class="shot" data-name="html-email-templates" alt="A security advisory digest email: a dark banner heading over tables of new and updated CVEs" loading="lazy" decoding="async">
-            <div class="shot-fallback" aria-hidden="true">
-              <span class="glyph">✉️</span>
-              <b>html-email-templates.png</b>
-              <small>drop a screenshot into site/assets/img/</small>
-            </div>
+          <div class="card-media has-shot" data-shots="assets/img/html-email-templates.png assets/img/html-email-templates-2.png">
+            <img class="shot" data-name="html-email-templates" src="assets/img/html-email-templates.png" alt="A security advisory digest email: a dark banner heading over tables of new and updated CVEs" loading="lazy" decoding="async">
             <span class="idx">04</span>
           </div>
           <div class="card-body">
@@ -265,7 +258,7 @@
               <li>Transport-agnostic: Resend, Postmark, SendGrid, SES, SMTP</li>
             </ul>
             <div class="card-foot">
-              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill html-email-templates" title="Copy install command">
+              <button class="cmd" type="button" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill html-email-templates" title="Copy install command">
                 <span class="cmd-text">-Skill html-email-templates</span>
                 <span class="cmd-icon" aria-hidden="true">copy</span>
               </button>
@@ -276,13 +269,8 @@
 
         <!-- 05 -->
         <article class="card reveal" data-category="automation" data-skill="task-router">
-          <div class="card-media">
-            <img class="shot" data-name="task-router" alt="Routing diagram: a request is sized, then dispatched to one of four tiers from answer inline up to fan out" loading="lazy" decoding="async">
-            <div class="shot-fallback" aria-hidden="true">
-              <span class="glyph">🚦</span>
-              <b>task-router.png</b>
-              <small>drop a screenshot into site/assets/img/</small>
-            </div>
+          <div class="card-media has-shot" data-shots="assets/img/task-router.webp">
+            <img class="shot" data-name="task-router" src="assets/img/task-router.webp" alt="Routing diagram: a request is sized, then dispatched to one of four tiers from answer inline up to fan out" loading="lazy" decoding="async">
             <span class="idx">05</span>
           </div>
           <div class="card-body">
@@ -296,7 +284,7 @@
               <li>The authorization gate for delegation, at the tier it selects</li>
             </ul>
             <div class="card-foot">
-              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill task-router" title="Copy install command">
+              <button class="cmd" type="button" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill task-router" title="Copy install command">
                 <span class="cmd-text">-Skill task-router</span>
                 <span class="cmd-icon" aria-hidden="true">copy</span>
               </button>
@@ -307,13 +295,8 @@
 
         <!-- 06 -->
         <article class="card reveal" data-category="image-gen" data-skill="news-images">
-          <div class="card-media">
-            <img class="shot" data-name="news-images" alt="A cartoon-editorial news montage, the week's stories woven into one illustrated scene" loading="lazy" decoding="async">
-            <div class="shot-fallback" aria-hidden="true">
-              <span class="glyph">🖼️</span>
-              <b>news-images.png</b>
-              <small>drop a screenshot into site/assets/img/</small>
-            </div>
+          <div class="card-media has-shot" data-shots="assets/img/news-images.webp assets/img/news-images-2.webp assets/img/news-images-3.webp">
+            <img class="shot" data-name="news-images" src="assets/img/news-images.webp" alt="A cartoon-editorial news montage, the week's stories woven into one illustrated scene" loading="lazy" decoding="async">
             <span class="idx">06</span>
           </div>
           <div class="card-body">
@@ -328,7 +311,7 @@
               <li>A dedicated prompt file for each of the eight variants</li>
             </ul>
             <div class="card-foot">
-              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill news-images" title="Copy install command">
+              <button class="cmd" type="button" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill news-images" title="Copy install command">
                 <span class="cmd-text">-Skill news-images</span>
                 <span class="cmd-icon" aria-hidden="true">copy</span>
               </button>
@@ -339,13 +322,8 @@
 
         <!-- 07 -->
         <article class="card reveal" data-category="web" data-skill="project-hub-scaffold">
-          <div class="card-media">
-            <img class="shot" data-name="project-hub-scaffold" alt="The Project Hub explorer: a sidebar document tree beside a dashboard of workspace repos" loading="lazy" decoding="async">
-            <div class="shot-fallback" aria-hidden="true">
-              <span class="glyph">🌐</span>
-              <b>project-hub-scaffold.png</b>
-              <small>drop a screenshot into site/assets/img/</small>
-            </div>
+          <div class="card-media has-shot" data-shots="assets/img/project-hub-scaffold.png assets/img/project-hub-scaffold-2.png">
+            <img class="shot" data-name="project-hub-scaffold" src="assets/img/project-hub-scaffold.png" alt="The Project Hub explorer: a sidebar document tree beside a dashboard of workspace repos" loading="lazy" decoding="async">
             <span class="idx">07</span>
           </div>
           <div class="card-body">
@@ -360,7 +338,7 @@
               <li>Source: github.com/ai-automation-tools/project-hub (MIT)</li>
             </ul>
             <div class="card-foot">
-              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill project-hub-scaffold" title="Copy install command">
+              <button class="cmd" type="button" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill project-hub-scaffold" title="Copy install command">
                 <span class="cmd-text">-Skill project-hub-scaffold</span>
                 <span class="cmd-icon" aria-hidden="true">copy</span>
               </button>
@@ -371,13 +349,8 @@
 
         <!-- 08 -->
         <article class="card reveal" data-category="web" data-skill="web-house-style">
-          <div class="card-media">
-            <img class="shot" data-name="web-house-style" alt="The web-house-style document starter: the source bar, a top bar with the Light / Dark switch, a hero and a card grid" loading="lazy" decoding="async">
-            <div class="shot-fallback" aria-hidden="true">
-              <span class="glyph">🎨</span>
-              <b>web-house-style.png</b>
-              <small>drop a screenshot into site/assets/img/</small>
-            </div>
+          <div class="card-media has-shot" data-shots="assets/img/web-house-style.png assets/img/web-house-style-2.png">
+            <img class="shot" data-name="web-house-style" src="assets/img/web-house-style.png" alt="The web-house-style document starter: the source bar, a top bar with the Light / Dark switch, a hero and a card grid" loading="lazy" decoding="async">
             <span class="idx">08</span>
           </div>
           <div class="card-body">
@@ -392,7 +365,7 @@
               <li>Two starter pages — a document page and an app shell</li>
             </ul>
             <div class="card-foot">
-              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill web-house-style" title="Copy install command">
+              <button class="cmd" type="button" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill web-house-style" title="Copy install command">
                 <span class="cmd-text">-Skill web-house-style</span>
                 <span class="cmd-icon" aria-hidden="true">copy</span>
               </button>
@@ -403,13 +376,8 @@
 
         <!-- 09 -->
         <article class="card reveal" data-category="automation" data-skill="automated-dev-pipeline">
-          <div class="card-media">
-            <img class="shot" data-name="automated-dev-pipeline" alt="Pipeline flow: ideas become scored plans and private repos, roadmap PRs merge through one sweep, and a repo goes public only after scripted gates and a human approval" loading="lazy" decoding="async">
-            <div class="shot-fallback" aria-hidden="true">
-              <span class="glyph">🏭</span>
-              <b>automated-dev-pipeline.png</b>
-              <small>drop a screenshot into site/assets/img/</small>
-            </div>
+          <div class="card-media has-shot" data-shots="assets/img/automated-dev-pipeline.webp">
+            <img class="shot" data-name="automated-dev-pipeline" src="assets/img/automated-dev-pipeline.webp" alt="Pipeline flow: ideas become scored plans and private repos, roadmap PRs merge through one sweep, and a repo goes public only after scripted gates and a human approval" loading="lazy" decoding="async">
             <span class="idx">09</span>
           </div>
           <div class="card-body">
@@ -424,7 +392,7 @@
               <li>A single-repo variant: stages as folders, a merge that deploys a site</li>
             </ul>
             <div class="card-foot">
-              <button class="cmd" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill automated-dev-pipeline" title="Copy install command">
+              <button class="cmd" type="button" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill automated-dev-pipeline" title="Copy install command">
                 <span class="cmd-text">-Skill automated-dev-pipeline</span>
                 <span class="cmd-icon" aria-hidden="true">copy</span>
               </button>
@@ -432,26 +400,23 @@
             </div>
           </div>
         </article>
-        <!-- /gen:cards -->
-      </div>
+      <!-- /gen:cards -->
     </div>
   </section>
 
   <!-- ────────────────────────── DOMAINS ────────────────────────── -->
-  <section id="domains" class="projects">
-    <div class="wrap">
-      <header class="section-head reveal">
-        <p class="kicker">02 — Domains</p>
-        <h2>Domain skills</h2>
-        <p class="section-sub">
-          Field knowledge from the org's five agent workspaces, copied here unchanged by a
-          weekly harvest. Portable like Core, but kept separate and installed only when you
-          ask for them with <code>-Domain</code>.
-        </p>
-      </header>
-
-      <ul class="proj-list reveal">
-        <!-- gen:domains -->
+  <section id="domains">
+    <div class="sec-head reveal">
+      <p class="eyebrow"><b>02</b> · Domains</p>
+      <h2>Domain skills</h2>
+      <p class="sub">
+        Field knowledge from the org's five agent workspaces, copied here unchanged by a
+        weekly harvest. Portable like Core, but kept separate and installed only when you
+        ask for them with <code>-Domain</code>.
+      </p>
+    </div>
+    <ul class="proj-list reveal">
+      <!-- gen:domains -->
         <li>
           <a class="proj" href="https://github.com/ai-automation-tools/agent-skills/tree/main/Skills/Domain/Engineering" target="_blank" rel="noopener">
             <span class="proj-glyph" aria-hidden="true">🛠️</span>
@@ -502,26 +467,23 @@
             <span class="proj-go" aria-hidden="true">↗</span>
           </a>
         </li>
-        <!-- /gen:domains -->
-      </ul>
-    </div>
+      <!-- /gen:domains -->
+    </ul>
   </section>
 
   <!-- ────────────────────────── PROJECTS ───────────────────────── -->
-  <section id="projects" class="projects">
-    <div class="wrap">
-      <header class="section-head reveal">
-        <p class="kicker">03 — Projects</p>
-        <h2>Project skills</h2>
-        <p class="section-sub">
-          A second tier that installs into one repository instead of user scope, so a
-          repo-specific skill never follows you into an unrelated session. Each group below
-          links to its folder in the repo.
-        </p>
-      </header>
-
-      <ul class="proj-list reveal">
-        <!-- gen:projects -->
+  <section id="projects">
+    <div class="sec-head reveal">
+      <p class="eyebrow"><b>03</b> · Projects</p>
+      <h2>Project skills</h2>
+      <p class="sub">
+        A second tier that installs into one repository instead of user scope, so a
+        repo-specific skill never follows you into an unrelated session. Each group below
+        links to its folder in the repo.
+      </p>
+    </div>
+    <ul class="proj-list reveal">
+      <!-- gen:projects -->
         <li>
           <a class="proj" href="https://github.com/ai-automation-tools/agent-skills/tree/main/Skills/Projects/agent-chat" target="_blank" rel="noopener">
             <span class="proj-glyph" aria-hidden="true">💬</span>
@@ -572,71 +534,84 @@
             <span class="proj-go" aria-hidden="true">↗</span>
           </a>
         </li>
-        <!-- /gen:projects -->
-      </ul>
-    </div>
+      <!-- /gen:projects -->
+    </ul>
   </section>
 
   <!-- ─────────────────────────── INSTALL ───────────────────────── -->
-  <section id="install" class="install">
-    <div class="wrap install-grid">
-      <div class="install-copy reveal">
-        <p class="kicker">04 — Install</p>
+  <section id="install">
+    <div class="install-grid">
+      <div class="sec-head reveal">
+        <p class="eyebrow"><b>04</b> · Install</p>
         <h2>Three tiers, two scopes</h2>
-        <p class="section-sub">
+        <p class="sub">
           <strong>Core</strong> installs at user scope and every session can reach it.
           <strong>Domain</strong> skills install there too, but only when you ask.
           <strong>Projects</strong> install into the repo they belong to. A bare run covers
           Core only, so nothing else leaks into your global catalog.
         </p>
-        <a class="link-arrow" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Docs/USING-SKILLS.md" target="_blank" rel="noopener">Full install &amp; authoring guide <span aria-hidden="true">↗</span></a>
+        <p class="sub"><a class="link-arrow" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Docs/USING-SKILLS.md" target="_blank" rel="noopener">Full install &amp; authoring guide <span aria-hidden="true">↗</span></a></p>
       </div>
-
       <div class="install-cmds reveal">
         <div class="codeblock">
-          <div class="codeblock-head"><span>Core — all <!-- gen:core-count-word -->nine<!-- /gen:core-count-word --></span><button class="mini-copy" data-copy="pwsh scripts/install-skills.ps1 -Core" aria-label="Copy command">copy</button></div>
+          <div class="codeblock-head"><span>Core: all <!-- gen:core-count-word -->nine<!-- /gen:core-count-word --></span><button class="copy" type="button" data-copy="pwsh scripts/install-skills.ps1 -Core" aria-label="Copy command">copy</button></div>
           <pre><code><span class="p">pwsh</span> scripts/install-skills.ps1 <span class="f">-Core</span></code></pre>
         </div>
         <div class="codeblock">
-          <div class="codeblock-head"><span>One skill</span><button class="mini-copy" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill task-router" aria-label="Copy command">copy</button></div>
+          <div class="codeblock-head"><span>One skill</span><button class="copy" type="button" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill task-router" aria-label="Copy command">copy</button></div>
           <pre><code><span class="p">pwsh</span> scripts/install-skills.ps1 <span class="f">-Core</span> <span class="f">-Skill</span> task-router</code></pre>
         </div>
         <div class="codeblock">
-          <div class="codeblock-head"><span>Domain — opt in</span><button class="mini-copy" data-copy="pwsh scripts/install-skills.ps1 -Domain" aria-label="Copy command">copy</button></div>
+          <div class="codeblock-head"><span>Domain: opt in</span><button class="copy" type="button" data-copy="pwsh scripts/install-skills.ps1 -Domain" aria-label="Copy command">copy</button></div>
           <pre><code><span class="p">pwsh</span> scripts/install-skills.ps1 <span class="f">-Domain</span></code></pre>
         </div>
         <div class="codeblock">
-          <div class="codeblock-head"><span>Into a project</span><button class="mini-copy" data-copy="pwsh scripts/install-skills.ps1 -Project cronsole -Destination <clone>/.claude/skills" aria-label="Copy command">copy</button></div>
+          <div class="codeblock-head"><span>Into a project</span><button class="copy" type="button" data-copy="pwsh scripts/install-skills.ps1 -Project cronsole -Destination <clone>/.claude/skills" aria-label="Copy command">copy</button></div>
           <pre><code><span class="p">pwsh</span> scripts/install-skills.ps1 <span class="f">-Project</span> cronsole <span class="f">-Destination</span> &lt;clone&gt;/.claude/skills</code></pre>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ────────────────────────── RESOURCES ──────────────────────── -->
+  <section id="resources">
+    <div class="sec-head reveal">
+      <p class="eyebrow"><b>05</b> · Resources</p>
+      <h2>Read the source</h2>
+      <p class="sub">Everything on this page comes from the repository. These are the documents behind it, and the rest of the org.</p>
+    </div>
+    <div class="docs reveal">
+      <a class="doc" href="https://github.com/ai-automation-tools/agent-skills" target="_blank" rel="noopener"><small>Repository</small><b>agent-skills</b><span>github.com/ai-automation-tools</span></a>
+      <a class="doc" href="https://github.com/ai-automation-tools/agent-skills/blob/main/README.md" target="_blank" rel="noopener"><small>Start</small><b>README</b><span>every skill, by tier and category</span></a>
+      <a class="doc" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Docs/USING-SKILLS.md" target="_blank" rel="noopener"><small>Guide</small><b>Using skills</b><span>install, invoke, author</span></a>
+      <a class="doc" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Skills/Core/README.md" target="_blank" rel="noopener"><small>Index</small><b>Core tier</b><span>Skills/Core/README.md</span></a>
+      <a class="doc" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Docs/CHANGELOG.md" target="_blank" rel="noopener"><small>History</small><b>Changelog</b><span>what changed, newest first</span></a>
+      <a class="doc" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Docs/ROADMAP.md" target="_blank" rel="noopener"><small>Next</small><b>Roadmap</b><span>what the library needs next</span></a>
+      <a class="doc" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Docs/SKILL-IDEAS.md" target="_blank" rel="noopener"><small>Backlog</small><b>Skill ideas</b><span>candidate skills</span></a>
+      <a class="doc" href="https://ai-automation-tools.dev/" ><small>The org</small><b>ai-automation-tools.dev</b><span>every tool, one card each</span></a>
+    </div>
+  </section>
+
 </main>
 
-<footer class="footer">
-  <div class="wrap footer-inner">
-    <div class="footer-brand">
-      <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 32 32" width="18" height="18"><path d="M16 4l10 12-10 12L6 16z" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>
-      </span>
-      <span>agent-skills</span>
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <span class="mono">agent-skills.ai-automation-tools.dev</span>
+      <nav class="right" aria-label="Footer">
+        <a href="https://github.com/ai-automation-tools/agent-skills" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/ai-automation-tools/agent-skills/blob/main/README.md" target="_blank" rel="noopener">README</a>
+        <a href="https://ai-automation-tools.dev">More tools</a>
+        <a href="https://ai-automation-tools.dev/cookies.html">Cookies</a>
+        <a href="#" data-ail-consent="manage">Cookie settings</a>
+      </nav>
     </div>
-    <p class="footer-note">
-      Portable capabilities for Claude Code and compatible agents. Format:
-      <code>SKILL.md</code>.
-    </p>
-    <nav class="footer-links" aria-label="Footer">
-      <a href="https://github.com/ai-automation-tools/agent-skills" target="_blank" rel="noopener">Repository <span aria-hidden="true">↗</span></a>
-      <a href="https://github.com/ai-automation-tools/agent-skills/blob/main/README.md" target="_blank" rel="noopener">README <span aria-hidden="true">↗</span></a>
-      <a href="https://github.com/ai-automation-tools/agent-skills/blob/main/Docs/USING-SKILLS.md" target="_blank" rel="noopener">Docs <span aria-hidden="true">↗</span></a>
-    </nav>
+    <p class="fine">Portable capabilities for Claude Code and compatible agents. Format: <code>SKILL.md</code>.</p>
   </div>
 </footer>
 
 <!-- ────────────────────────── LIGHTBOX ────────────────────────── -->
-<div class="lightbox" id="lightbox" hidden>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot" hidden>
   <button class="lb-close" type="button" aria-label="Close">✕</button>
   <button class="lb-nav lb-prev" type="button" aria-label="Previous image">‹</button>
   <figure class="lb-fig">
@@ -647,7 +622,6 @@
 </div>
 
 <script src="script.js"></script>
-
 <!-- Consent gate. One shared copy served from the org apex, so the banner and the
      notice it links to are maintained in a single place across every site. -->
 <script src="https://ai-automation-tools.dev/consent.js" defer></script>

@@ -26,6 +26,7 @@ agent-skills/
 │   ├── index.html · styles.css · script.js   # cards, chips, lists and counts are GENERATED (see below)
 │   ├── showcase.json               # hand-written card copy keyed by skill name
 │   ├── CNAME                       # agent-skills.ai-automation-tools.dev
+│   ├── favicon.svg                 # the shared Agent Skills icon (house style: web-house-style skill)
 │   └── assets/img/ · assets/diagrams/
 ├── scripts/
 │   ├── install-skills.ps1          # mirror leaf skills into a skills dir (repo tooling, not a skill)
