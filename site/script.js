@@ -7,6 +7,10 @@
 
   document.documentElement.classList.add("js");
 
+  // Archify diagrams under assets/diagrams/ (same origin) open Still unless localStorage
+  // says "live"; a card's diagram link should open them Live. Reduced motion still wins.
+  try { localStorage.setItem("archify-motion", "live"); } catch (e) {}
+
   /* ---------------------------------------------------------
      0. Theme switch (Light | Dark), stored in localStorage.
         THEME_DEFAULT must match the pre-paint script in index.html.
