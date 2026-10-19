@@ -170,7 +170,7 @@ The root header badge row is where a reader gets the state of the analysis in on
 5. **Pass 3 — model it.** Write the Python file, **run it**, and paste the executed output into `models/README.md`. Sweep every driver across its plausible range and sort the swings — the widest bar is the finding. A model you didn't run is a text file.
 6. **Pass 4 — the memo.** Recommendation up top. Steelman the option you rejected until its advocate would sign off on your version of it. Name the single assumption the call rests on. Write the falsifiers with an observable, a threshold, and a date.
 7. **Check the gate.** Not *build*? Finish the root README and stop. Say plainly in the handoff that the build layer was not written and why.
-8. **Pass 5–8** if greenlit. Spec, then ADRs for the one-way doors only, then the estimate model (run it), then the sliced plan with a "when we'd stop" section.
+8. **Pass 5–8** if greenlit. Spec, then ADRs for the one-way doors only, then the estimate model (run it), then the sliced plan with a "when we'd stop" section. If the plan is headed for a repo, say in the handoff that its roadmap is written from the build plan in the lab's roadmap format, the roadmap standard that ships with the `repo-docs-builder` skill (output-templates §9).
 9. **Wire and audit** (§5). Every index links down and up; every claim carries a tag; every figure cites a file.
 10. **Hand over.** A short inline summary: the verdict, the key assumption, the number that would flip it, and the path to the repo. Not a re-narration of the documents.
 

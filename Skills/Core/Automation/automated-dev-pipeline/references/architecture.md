@@ -52,10 +52,15 @@ compete for the same rate limit.
 - **Ledger** (`PIPELINE.md`): `| Slug | Source | Plan | Verdict | Score | Stage | Repo | Updated |`.
   Stages run `proposed → planned → incubating → public`, or `rejected`; `parked` takes an
   incubating project out of its capped slot. Every stage reads it first and writes it last. The pre-check parses it, so keep the column order fixed.
+- **The roadmap format.** Every `docs/ROADMAP.md` a stage writes or a routine reads follows
+  the `repo-docs-builder` skill's `references/roadmap-standard.md`: phases, the four checkbox
+  markers, `— done YYYY-MM-DD` notes, and one go-live heading. Incubate copies its skeleton;
+  a roadmap in any other shape reads as empty to the routine and the gate count.
 - **The release-gate line.** Everything in `docs/ROADMAP.md` above the heading
   `## After public release` is a release gate. The count of open items (`[ ]`, `[-]`,
   `[!]`, including numbered forms) above that line has to reach 0. A missing heading is a
-  contract break to report, never something to guess around.
+  contract break to report, never something to guess around. A project that will stay
+  private uses `## After go-live` in the same place; a gate counter matches either heading.
 - **Item tags.** Incubate tags each open item when it writes the ROADMAP: `small` right
   after the checkbox (docs, config, assets that CI or a named command verifies), untagged
   for a feature, `🔒 Needs <owner>` for what only the owner can do. The roadmap routine

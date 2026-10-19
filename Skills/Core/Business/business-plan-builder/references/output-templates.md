@@ -393,6 +393,8 @@ and the falsifier — quoted from the memo — that would tell us to stop.⟩
 
 That last section is the whole reason to slice. A build plan without it is a plan to spend the entire budget regardless of what the first users say.
 
+**When the plan becomes a repo.** The build plan is the source of the repo's `docs/ROADMAP.md`, and that file is written to the lab's one roadmap format: the `repo-docs-builder` skill's `references/roadmap-standard.md`. Map it straight across: each slice becomes a `## <emoji> Phase N: <name>` heading, each "Done when" becomes a `- [ ]` item whose text says what proves it, the Definition of done becomes the `## 🚦` go-live checklist, and the cut list, promotion and revenue work go below the go-live heading. Don't invent a second shape; the routines that build the repo only read that one.
+
 ---
 
 <p align="center">

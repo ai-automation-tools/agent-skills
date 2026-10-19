@@ -319,40 +319,14 @@ docs/
 
 Both get the §3.2 folder/section header (they're `docs/`-level files, so a `↩ docs home` badge and a footer up-link to `docs/README.md`), and both go through §0 like everything else.
 
-**`docs/ROADMAP.md` — the action items, not the feature wishlist.** It lists everything standing between the project as it is now and the project published, advertised, and earning — which means it covers far more than code. Group the items into phases the project actually moves through, and write each one as a checkbox whose text says what "done" looks like. A phase set that works for most projects:
+**`docs/ROADMAP.md` — the action items, not the feature wishlist.** It lists everything standing between the project as it is now and the project live, advertised, and earning — which means it covers far more than code. **Write it to [`references/roadmap-standard.md`](references/roadmap-standard.md)**, the one format every roadmap in the lab follows, because scheduled agents parse it: read that file and copy its skeleton every time you create or restructure a roadmap. In short:
 
-| Phase | What belongs in it |
-|:---|:---|
-| **🔨 Build** | Features, fixes, and refactors the thing needs before anyone else touches it. |
-| **🚦 Launch-ready** | Tests, error handling, docs, license, accessibility, security pass, legal pages — the work that makes it safe to hand over. |
-| **📣 Publish & promote** | Domain, deploy, README/landing copy, screenshots or demo, listing pages, launch posts, outreach. |
-| **💰 Monetize** | Pricing, billing integration, plan gating, terms, support channel, analytics on conversion. |
-| **🔭 Later** | Real but unscheduled. One list, no dates, no ceremony. |
-
-Rules that keep it useful:
-
+- **Phases**, `## <emoji> Phase N: <name>`, in the order the project moves through them; a finished one says `(done YYYY-MM-DD)`.
+- **Checkboxes** for every item: `- [ ]` open, `- [-]` claimed, `- [x]` done, `- [!]` blocked with the reason on the line.
+- **Pre- and post-go-live.** One heading, `## After public release` (headed public) or `## After go-live` (stays private), splits the file. Everything above it is a go-live gate, ending in a `## 🚦` go-live checklist; below it sit `###` groups for promotion, revenue and later work.
+- **Done means written down.** A tick gets ` — done YYYY-MM-DD: <what landed>` on the line, a changelog line, and an update to any doc it made stale, all in one commit.
 - **Every item is checkable by someone else.** `- [ ] Stripe checkout live in test mode, one plan, receipt email sends` — not `- [ ] Payments`.
-- **Order by what blocks what,** not by what's fun. If publishing waits on the license file, the license file comes first.
-- **Check the box, don't delete the line.** A completed roadmap item stays visible as `- [x]` until the phase is done, then moves out of the roadmap entirely — its record lives in the changelog.
-- **No dates unless a date is real.** Invented target dates rot within a week and teach the reader to distrust the file.
-
-```markdown
-## 🔨 Build
-
-- [x] Ingest worker pulls the feed on a 5-minute cron and writes to Postgres
-- [ ] Dashboard renders the last 30 days without a full-table scan
-- [ ] Failed ingests retry twice, then page the owner
-
-## 📣 Publish & promote
-
-- [ ] Domain bought and pointed at the deploy
-- [ ] Landing page: what it does, one screenshot, one call to action
-- [ ] Launch post drafted for the two communities that would actually use this
-
-## 🔭 Later
-
-- [ ] Multi-workspace support
-```
+- **Order by what blocks what,** not by what's fun. **No dates unless a date is real.**
 
 **`docs/CHANGELOG.md` — everything that changed, newest first.** It's the project's record, so it takes more than releases: shipped features, fixes, refactors, infrastructure and config changes, doc restructures, and **every roadmap item you complete**. Checking a box in `ROADMAP.md` and adding the matching changelog line is one action in two files — do both in the same commit, or the roadmap silently becomes the only history and the changelog dies.
 
@@ -362,8 +336,8 @@ Group entries under a version heading if the project is versioned, or under a pl
 ## 0.3.0 — 2026-09-18
 
 **Added**
-- Stripe checkout in test mode, single plan, with receipt email. *(roadmap: Monetize)*
-- Landing page at the apex domain. *(roadmap: Publish & promote)*
+- Stripe checkout in test mode, single plan, with receipt email. *(roadmap: Revenue)*
+- Landing page at the apex domain. *(roadmap: Publish and promote)*
 
 **Fixed**
 - Ingest worker no longer drops the batch when the feed returns a 429.
@@ -735,7 +709,7 @@ Work top-down. Layout first, then the skeleton, then fill each node. **§0 runs 
    - **Footer** → the centered nav row linking **up** to the parent (and forward to a sibling where there's a reading order).
    - **Voice** → before moving to the next file, run the §0.4 two-question audit on the prose you just wrote. Per file, not batched at the end.
 
-6. **Write `docs/ROADMAP.md` and `docs/CHANGELOG.md`** (§2.5). Read the repo before writing either: open issues, `TODO`/`FIXME` comments, half-finished features, and anything missing from the launch-ready phase list feed the roadmap; the git log feeds the changelog's history. For an existing project, seed the changelog from the commit history at whatever grain is honest — one entry per release if it's tagged, one per meaningful change otherwise — rather than inventing a version timeline. Link both from the `docs/README.md` catalog table.
+6. **Write `docs/ROADMAP.md` and `docs/CHANGELOG.md`** (§2.5). Read the repo before writing either: open issues, `TODO`/`FIXME` comments, half-finished features, and anything missing from the go-live checklist feed the roadmap, written to the skeleton in `references/roadmap-standard.md`; the git log feeds the changelog's history. For an existing project, seed the changelog from the commit history at whatever grain is honest — one entry per release if it's tagged, one per meaningful change otherwise — rather than inventing a version timeline. Link both from the `docs/README.md` catalog table.
 
 7. **Decide on a diagram — default to none** (§4.6).
 
@@ -759,7 +733,7 @@ Run this checklist against any repo to find the breaks in the chain:
 2. **Every top-level folder that holds content has a `README.md`** (`src/`, `docs/`, `infra/`, …). A folder with no index is a dead end reachable only by browsing.
 3. **`docs/` has a hub `README.md`** that links to each of its sub-folders.
 4. **Every `docs/` sub-folder with 2+ documents has its own `README.md`** that links to those documents. ← *This is the tier most repos are missing.*
-5. **`docs/ROADMAP.md` exists** and lists checkable action items grouped by phase, covering launch, promotion, and monetization — not only the code work (§2.5). A roadmap whose items are single nouns (`Payments`, `Docs`) fails this.
+5. **`docs/ROADMAP.md` exists**, follows `references/roadmap-standard.md` (phases, checkbox markers, one go-live heading with gates above and post-go-live groups below), and covers launch, promotion, and monetization — not only the code work (§2.5). A roadmap whose items are single nouns (`Payments`, `Docs`) fails this.
 6. **`docs/CHANGELOG.md` exists**, runs newest-first, and its most recent entry matches the most recent real change in the repo. Cross-check it against the roadmap: every `- [x]` item in a shipped phase should have a changelog line, and every changelog line tagged with a phase should trace back to a roadmap item.
 7. **Down-links point at the child's index**, not past it to a leaf, whenever that child has an index.
 8. **Every index has an up-link** in its footer back to its parent (and the root is reachable by climbing).

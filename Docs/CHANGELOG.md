@@ -24,6 +24,16 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-10-19
+
+**Added**
+- `repo-docs-builder`: `references/roadmap-standard.md`, the one `docs/ROADMAP.md` format for every project in the lab: phases, the four checkbox markers, `— done YYYY-MM-DD` notes with a changelog line in the same commit, one go-live heading (`## After public release` or `## After go-live`) with the gates above it and post-go-live groups below, a copyable skeleton, and the checks the Road Map Sweep runs. Modelled on the Collector and AI Command Center roadmaps.
+
+**Changed**
+- `repo-docs-builder` §2.5, build step 6 and audit item 5 now point at the roadmap standard instead of carrying their own phase table.
+- `automated-dev-pipeline`: the architecture contract, the roadmap-routine prompt contract and the add-a-stage procedure name the roadmap standard as the format every stage writes and every routine reads.
+- `business-plan-builder`: the build-plan template says how its slices map onto a repo's roadmap in the standard format.
+
 ## 2026-10-15
 
 **Added**

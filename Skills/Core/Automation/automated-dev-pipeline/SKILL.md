@@ -218,7 +218,10 @@ in `Needs Alex`, so the email filter and the upkeep report can match it.
 ## Procedure: adding a stage or routine
 
 1. Write down what it reads, what it writes, and which branch prefix its PRs use. If it
-   shares a repo and topic with an existing job, extend that job instead (rule 7).
+   shares a repo and topic with an existing job, extend that job instead (rule 7). A job
+   that reads or writes a roadmap works to the roadmap standard that ships with the `repo-docs-builder`
+   skill (its roadmap-standard reference); a repo whose roadmap isn't in that shape gets
+   converted first, or the job sees no work.
 2. Split its logic. The deterministic parts go in the runner's pre-check or a script
    (rules 1, 5), and the judgment goes in the prompt, following `references/stage-contracts.md`.
 3. Register the branch prefix and its merge rule in the sweep config and the sweep prompt.

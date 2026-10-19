@@ -49,6 +49,9 @@ Filled in from a template at incubation. Every placeholder has to be replaced fr
 repo, because a generic "done" is where weak runs start. It must:
 
 - read `CLAUDE.md`, the ROADMAP, the spec and build plan, then the code
+- treat the ROADMAP as `repo-docs-builder`'s `references/roadmap-standard.md` defines it:
+  items are checkbox lines, gates sit above the go-live heading, a tick carries a
+  `— done YYYY-MM-DD` note
 - take the first unchecked item that isn't marked Needs <owner>, working above the gate line first
 - batch small items: when that item is tagged `small` (docs, config or static assets the
   repo's checks verify), take up to three more workable `small` items from the same section,
