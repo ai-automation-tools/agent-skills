@@ -34,6 +34,9 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 - `automated-dev-pipeline`: the architecture contract, the roadmap-routine prompt contract and the add-a-stage procedure name the roadmap standard as the format every stage writes and every routine reads.
 - `business-plan-builder`: the build-plan template says how its slices map onto a repo's roadmap in the standard format.
 
+**Docs**
+- `Docs/ROADMAP.md` moved onto the lab roadmap standard: a `## 🚦 Public release` gate phase (CI and the live showcase ticked; README check, `SECURITY.md` with a secret scan, and the licence open) above `## After public release`, with Phases 1 to 4 as groups below it, every item a one-line checkbox, done notes as `— done YYYY-MM-DD`, and `🔒 Needs Mike` at the end of the line. The licence item moved from "Needs a decision" into the gates. No items dropped; the README and `SECURITY.md` gates are new.
+
 ## 2026-10-15
 
 **Added**
