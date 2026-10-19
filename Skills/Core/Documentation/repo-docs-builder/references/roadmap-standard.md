@@ -44,7 +44,7 @@ public). When this page and a roadmap disagree, this page wins.
    every gate is `- [x]` and the owner says so. Below the heading go `###` groups of
    post-go-live work: promotion, distribution, revenue, later features. The line under the
    heading says *"Nothing below blocks go-live."*
-6. **Tags.** Right after the marker, `small` marks an item a CI check or named command
+6. **Tags.** Right after the marker, `` `small` `` (in backticks) marks an item a CI check or named command
    verifies (docs, config, assets), so a routine can batch up to four of them. At the end of
    the line, `🔒 Needs Mike` marks work only the owner can do; routines skip it and the sweep
    reports it.
@@ -98,7 +98,7 @@ marks one only Mike can do.
 ## 🔨 Phase 1: ⟨build the core⟩
 
 - [ ] ⟨Feature, with what proves it: "(unit test for …; smoke test on both profiles)"⟩
-- [ ] small ⟨Config or doc change a check verifies⟩
+- [ ] `small` ⟨Config or doc change a check verifies⟩
 - [ ] ⟨A decision only Mike can make⟩ 🔒 Needs Mike
 
 ## 🚦 ⟨Public release | Go-live⟩
