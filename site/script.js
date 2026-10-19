@@ -1,6 +1,6 @@
 /* ============================================================
    Agent Skills — Core catalog
-   Typewriter hero · screenshot probing + lightbox · filters · copy
+   Theme switch · menu · typewriter hero · lightbox · filters · copy
    ============================================================ */
 (function () {
   "use strict";
@@ -8,22 +8,21 @@
   document.documentElement.classList.add("js");
 
   /* ---------------------------------------------------------
-     0. Theme toggle — light / dark, stored in localStorage.
-        DEFAULT_THEME must match the pre-paint script in index.html.
+     0. Theme switch (Light | Dark), stored in localStorage.
+        THEME_DEFAULT must match the pre-paint script in index.html.
      --------------------------------------------------------- */
   var THEME_KEY = "agent-skills.theme";
-  var DEFAULT_THEME = "dark";
-  var THEME_COLOR = { dark: "#07080B", light: "#F7F5F0" };
+  var THEME_DEFAULT = "dark";
+  var THEME_COLOR = { dark: "#060606", light: "#fafafa" };
+  var themeBtns = document.querySelectorAll("#themeSw button");
 
-  function applyTheme(t) {
+  function setTheme(t) {
     var root = document.documentElement;
-    root.classList.toggle("dark", t === "dark");
-    root.classList.toggle("light", t === "light");
+    root.classList.remove("light", "dark");
+    root.classList.add(t);
     var meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute("content", THEME_COLOR[t]);
-    document.querySelectorAll("[data-theme-set]").forEach(function (b) {
-      b.setAttribute("aria-pressed", String(b.getAttribute("data-theme-set") === t));
-    });
+    themeBtns.forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-theme") === t)); });
     // The shared consent banner (ai-automation-tools.dev/consent.js) samples the
     // page colour once when it opens; re-skin it if it's on screen. Its shadow
     // root is open, and its wrapper carries a "dark" or "light" class.
@@ -32,17 +31,51 @@
     if (wrap) { wrap.classList.toggle("dark", t === "dark"); wrap.classList.toggle("light", t === "light"); }
   }
 
-  var theme = DEFAULT_THEME;
-  try { if (localStorage.getItem(THEME_KEY) === "light") theme = "light"; } catch (e) {}
-  applyTheme(theme);
-
-  document.querySelectorAll("[data-theme-set]").forEach(function (b) {
+  setTheme(document.documentElement.classList.contains("light") ? "light" : THEME_DEFAULT);
+  themeBtns.forEach(function (b) {
     b.addEventListener("click", function () {
-      theme = b.getAttribute("data-theme-set");
-      try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
-      applyTheme(theme);
+      var t = b.getAttribute("data-theme");
+      setTheme(t);
+      try { localStorage.setItem(THEME_KEY, t); } catch (e) {}
     });
   });
+
+  /* Phone menu sheet: the top-bar links collapse into it below 760px. */
+  var menuBtn = document.getElementById("menuBtn");
+  var sheet = document.getElementById("mobileNav");
+  if (menuBtn && sheet) {
+    menuBtn.addEventListener("click", function () {
+      var open = sheet.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", String(open));
+    });
+    sheet.addEventListener("click", function (e) {
+      if (e.target.closest("a")) { sheet.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); }
+    });
+  }
+
+  /* Scroll-spy: mark the nav link for the section in view. */
+  var navLinks = document.querySelectorAll("#nav a");
+  if ("IntersectionObserver" in window && navLinks.length) {
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        navLinks.forEach(function (a) { a.setAttribute("aria-current", String(a.getAttribute("href") === "#" + en.target.id)); });
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+    document.querySelectorAll("main section[id]").forEach(function (sec) { spy.observe(sec); });
+  }
+
+  /* Card spotlight: a wash in the card's colour follows the pointer. */
+  var grid = document.getElementById("skillGrid");
+  if (grid) {
+    grid.addEventListener("pointermove", function (e) {
+      var card = e.target.closest(".card");
+      if (!card) return;
+      var r = card.getBoundingClientRect();
+      card.style.setProperty("--mx", (e.clientX - r.left) + "px");
+      card.style.setProperty("--my", (e.clientY - r.top) + "px");
+    });
+  }
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -125,51 +158,15 @@
   }
 
   /* ---------------------------------------------------------
-     2. Screenshot probing — find whatever images exist on disk
+     2. Screenshots: build-showcase.py writes each card's image paths
+        into data-shots (primary first), so nothing is guessed at and
+        no request 404s.
      --------------------------------------------------------- */
-  var EXTS = ["png", "jpg", "webp", "jpeg"];
-  var probeCache = {};
-
-  function probeFile(base) {
-    if (probeCache[base] !== undefined) return Promise.resolve(probeCache[base]);
-    return new Promise(function (resolve) {
-      var i = 0;
-      (function tryNext() {
-        if (i >= EXTS.length) { probeCache[base] = null; return resolve(null); }
-        var url = "assets/img/" + base + "." + EXTS[i++];
-        var img = new Image();
-        img.onload = function () { probeCache[base] = url; resolve(url); };
-        img.onerror = tryNext;
-        img.src = url;
-      })();
-    });
-  }
-
-  // Extras (name-2, name-3, name-4) are only probed when a card is opened,
-  // so a page load never fires a wall of 404s for screenshots that don't exist yet.
-  function probeExtras(name) {
-    return Promise.all([
-      probeFile(name + "-2"),
-      probeFile(name + "-3"),
-      probeFile(name + "-4")
-    ]).then(function (all) {
-      return all.filter(Boolean);
-    });
-  }
-
   var gallery = {}; // skill name -> array of urls
-
-  document.querySelectorAll(".shot").forEach(function (img) {
-    var name = img.getAttribute("data-name");
-    var media = img.closest(".card-media");
-    if (!name || !media) return;
-
-    probeFile(name).then(function (url) {
-      if (!url) return;
-      gallery[name] = [url];
-      img.src = url;
-      media.classList.add("has-shot");
-    });
+  document.querySelectorAll(".card-media[data-shots]").forEach(function (media) {
+    var img = media.querySelector(".shot");
+    var name = img && img.getAttribute("data-name");
+    if (name) gallery[name] = media.getAttribute("data-shots").split(/\s+/).filter(Boolean);
   });
 
   /* ---------------------------------------------------------
@@ -181,6 +178,7 @@
   var lbPrev = lb && lb.querySelector(".lb-prev");
   var lbNext = lb && lb.querySelector(".lb-next");
   var lbState = { items: [], index: 0, name: "" };
+  var lbOpener = null;
 
   function showLightbox(name, index) {
     var items = gallery[name] || [];
@@ -190,12 +188,6 @@
     lb.hidden = false;
     document.body.style.overflow = "hidden";
     lb.querySelector(".lb-close").focus();
-
-    probeExtras(name).then(function (extra) {
-      if (!extra.length || lb.hidden) return;
-      lbState.items = items.concat(extra);
-      paintLightbox();
-    });
   }
 
   function paintLightbox() {
@@ -212,6 +204,7 @@
     lb.hidden = true;
     lbImg.removeAttribute("src");
     document.body.style.overflow = "";
+    if (lbOpener) { lbOpener.focus(); lbOpener = null; }
   }
 
   function stepLightbox(delta) {
@@ -226,6 +219,7 @@
       media.addEventListener("click", function () {
         if (!media.classList.contains("has-shot")) return;
         var name = media.querySelector(".shot").getAttribute("data-name");
+        lbOpener = media.closest(".card").querySelector(".link");
         showLightbox(name, 0);
       });
     });
@@ -256,7 +250,7 @@
       if (match && !reduceMotion && card.animate) {
         card.animate(
           [{ opacity: 0, transform: "translateY(12px)" }, { opacity: 1, transform: "none" }],
-          { duration: 340, easing: "cubic-bezier(.22,1,.36,1)" }
+          { duration: 340, easing: "cubic-bezier(.2,.7,.2,1)" }
         );
       }
     });
@@ -264,8 +258,7 @@
 
   chips.forEach(function (chip) {
     chip.addEventListener("click", function () {
-      chips.forEach(function (c) { c.classList.remove("is-active"); });
-      chip.classList.add("is-active");
+      chips.forEach(function (c) { c.setAttribute("aria-pressed", String(c === chip)); });
       applyFilter(chip.getAttribute("data-filter"));
     });
   });

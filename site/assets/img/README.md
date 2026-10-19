@@ -1,8 +1,8 @@
 <h1 align="center">🖼️ Skill screenshots</h1>
 
 <p align="center">
-  <em>One image per Core skill card. Name the file after the skill and the page finds it —<br>
-  no markup to edit, no manifest to keep.</em>
+  <em>One image per Core skill card. Name the file after the skill, run the generator,<br>
+  and the card shows it. No markup to edit, no manifest to keep.</em>
 </p>
 
 <p align="center">
@@ -30,10 +30,10 @@
 
 ## 🔍 How the page finds them
 
-- **Extensions** are tried in order: `.png`, then `.jpg`, `.webp`, `.jpeg`. PNG is the safe choice.
+- **`scripts/build-showcase.py` finds them**, not the browser. It looks for `.png`, then `.jpg`, `.webp`, `.jpeg`, and writes the paths it finds into the card. Re-run it after adding or renaming an image; CI's `--check` fails until you do.
 - **The primary image fills the card** at a 16:10 crop, anchored to the top edge. Gallery extras are only reachable by clicking the card, which opens the lightbox.
 - **A missing image is not an error.** The card falls back to a placeholder, so a half-finished set still looks deliberate.
-- **Four images is the cap.** The extras are probed when a card is opened, not on page load, which keeps the console free of 404s for screenshots you haven't taken yet.
+- **Four images is the cap.** The extras are listed in the card's `data-shots` and only loaded when the lightbox opens. Nothing is guessed at, so the console stays free of 404s.
 - **Size:** 1600 × 1000 or larger. Light-on-dark captures read best against the card background.
 
 ## 📦 Current state
