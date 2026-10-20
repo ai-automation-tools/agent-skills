@@ -113,7 +113,9 @@ Each rule is here because the reference implementation paid for learning it.
    at the MVP**: the release gates are the smallest slice that delivers the core promise
    (at most three features) plus the publish checks, the rest builds in public after
    release, and incubate ships the boilerplate gates (CI, `SECURITY.md`, demo shell, secret
-   scan) itself. A project that waits for its whole build plan holds a cap slot for months.
+   scan, an `.env.example`) itself. Every repo the pipeline builds reads its settings from a
+   gitignored `.env` and commits the names in `.env.example`; never OS-level user
+   environment variables, which don't travel with a clone and leak into every child process. A project that waits for its whole build plan holds a cap slot for months.
    Cadence should follow demand, not the calendar.
 7. **One session, one PR, per repo per cycle.** Jobs that touch the same repo on the same
    topic (research on what changed, and the fixes it calls for) are one session and one
