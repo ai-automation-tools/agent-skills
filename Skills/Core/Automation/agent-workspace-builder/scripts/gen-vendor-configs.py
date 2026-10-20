@@ -77,7 +77,7 @@ def bash_prefix(rule: str) -> list[str] | None:
     if not m:
         return None
     spec = m.group(1)
-    spec = spec[:-2] if spec.endswith(":*") else spec
+    spec = spec.removesuffix(":*")
     if any(c in spec for c in "*?[]"):
         return None
     return spec.split() or None
@@ -237,8 +237,8 @@ def build(root: Path) -> tuple[dict[str, bytes], dict[str, list[str]]]:
                     gemini_hooks.append({"matcher": "run_shell_command", "hooks": [{"type": "command", "command": cmd}]})
                     gaps["Antigravity"].append(f"The `{event}` hook `{cmd}` doesn't run: Antigravity's hook payload has a different shape. Its guard does not apply.")
                 else:
-                    for cli in gaps:
-                        gaps[cli].append(f"The `{event}` hook `{cmd}` (matcher `{e.get('matcher', '*')}`) is Claude Code only.")
+                    for items in gaps.values():
+                        items.append(f"The `{event}` hook `{cmd}` (matcher `{e.get('matcher', '*')}`) is Claude Code only.")
     if codex_hooks:
         put(".codex/hooks.json", dump_json({"hooks": {"PreToolUse": codex_hooks}}))
 
@@ -268,9 +268,9 @@ def render_doc(root: Path, files: dict[str, bytes], gaps: dict[str, list[str]]) 
     gen = sorted(p for p in files if not p.startswith(".agents/skills/"))
     skills = sorted({p.split("/")[2] for p in files if p.startswith(".agents/skills/")})
     out = [f"<!-- {NOTE} -->", "", "# 🔀 Other agent CLIs", "",
-           "This workspace is built for Claude Code (`.claude/`), and `scripts/gen-vendor-configs.py` "
-           "derives what it can for Codex, Gemini CLI and Antigravity. `AGENTS.md` is the doctrine for all of "
-           "them. Edit `.claude/` or `.mcp.json`, then rerun the script; never edit the generated files.", "",
+           ("This workspace is built for Claude Code (`.claude/`), and `scripts/gen-vendor-configs.py` "
+            "derives what it can for Codex, Gemini CLI and Antigravity. `AGENTS.md` is the doctrine for all of "
+            "them. Edit `.claude/` or `.mcp.json`, then rerun the script; never edit the generated files."), "",
            "## What carries over", "",
            f"- **Skills** ({len(skills)}): `.agents/skills/`, read by all three." if skills else "- **Skills:** none wired.",
            "- **Generated files:** " + ", ".join(f"`{p}`" for p in gen if p != DOC), "",
