@@ -161,7 +161,9 @@ the heading on the deploy branch.
 The last roadmap phase of a workspace headed public is `## 🚦 Public release`, and it
 carries the release prep as gates the roadmap job can finish: a `LICENSE`, a README that
 works for a stranger from a fresh clone (no owner-only paths, private repos or jobs taken
-for granted, `.env.example` names only), and a release dry run of the scripted gates.
+for granted, `.env.example` names only, and a line saying it also works with Codex, Gemini
+CLI and Antigravity that links `docs/reference/OTHER-CLIS.md`), and a release dry run of the
+scripted gates.
 
 A **release job** (daily is fine; a pre-check makes idle days free) then does what the
 roadmap job must never do, in this order:
