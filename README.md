@@ -21,7 +21,7 @@
 
 <p align="center">
   <a href="https://agent-skills.ai-automation-tools.dev"><img src="https://img.shields.io/badge/live-agent--skills.ai--automation--tools.dev-F2B34B?style=for-the-badge" alt="Live at agent-skills.ai-automation-tools.dev"></a>
-  <img src="https://img.shields.io/badge/skills-9-2ea44f?style=for-the-badge" alt="9 skills">
+  <img src="https://img.shields.io/badge/skills-10-2ea44f?style=for-the-badge" alt="10 skills">
   <img src="https://img.shields.io/badge/format-SKILL.md-8B5CF6?style=for-the-badge" alt="SKILL.md format">
   <img src="https://img.shields.io/badge/agent-Claude%20Code-D97757?style=for-the-badge" alt="Built for Claude Code">
   <a href="https://github.com/ai-automation-tools"><img src="https://img.shields.io/badge/org-ai--automation--tools-0078D4?style=for-the-badge&logo=github&logoColor=white" alt="ai-automation-tools"></a>
@@ -48,6 +48,7 @@ A collection of reusable skills for Claude Code and compatible AI agents. Each s
 |:---|:---|:---|
 | [**✉️ html-email-templates**](./Resources/Skill-Data/Core/Automation/html-email-templates/README.md) | Automation | Creates HTML emails for notifications, reports, and digests. |
 | [**🏭 automated-dev-pipeline**](./Resources/Skill-Data/Core/Automation/automated-dev-pipeline/README.md) | Automation | Sets up scheduled AI agents that build projects through PRs, publish them to a GitHub account or organization behind scripted gates and a human approval, and keep every repo current. Also covers pipelines whose stages are folders in one repo that deploys a site. |
+| [**🧠 agent-workspace-builder**](./Resources/Skill-Data/Core/Automation/agent-workspace-builder/README.md) | Automation | Creates or standardizes a specialized agent workspace repo (AGENTS.md doctrine, docs tree, capability reference, curated resources, portable skills) and sets up its weekly roadmap and upkeep automations. |
 | [**🚦 task-router**](./Resources/Skill-Data/Core/Automation/task-router/README.md) | Automation | Chooses a workflow and model tier based on the task. |
 | [**📈 business-plan-builder**](./Resources/Skill-Data/Core/Business/business-plan-builder/README.md) | Business | Evaluates business ideas and writes a decision memo and build plan. |
 | [**🍳 recipe-validator**](./Resources/Skill-Data/Core/Cooking/recipe-validator/README.md) | Cooking | Checks recipes for food safety, nutrition, quantities, and allergens. |

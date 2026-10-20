@@ -7,7 +7,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/tier-core-2ea44f?style=for-the-badge" alt="Core tier">
-  <img src="https://img.shields.io/badge/skills-9-0078D4?style=for-the-badge" alt="9 skills">
+  <img src="https://img.shields.io/badge/skills-10-0078D4?style=for-the-badge" alt="10 skills">
   <img src="https://img.shields.io/badge/scope-user-8B5CF6?style=for-the-badge" alt="User scope">
   <a href="../Projects/README.md"><img src="https://img.shields.io/badge/↔-Project_skills-6B7280?style=for-the-badge" alt="Project skills"></a>
 </p>
@@ -35,6 +35,7 @@ workspaces and installed only on request, so this catalog stays short.
 |:---|:---|:---|
 | **Automation** | [`html-email-templates`](../../Resources/Skill-Data/Core/Automation/html-email-templates/README.md) | Three HTML email templates that survive the clients that strip your CSS, plus the subject/label/footer conventions that keep automated mail consistent. |
 | **Automation** | [`automated-dev-pipeline`](../../Resources/Skill-Data/Core/Automation/automated-dev-pipeline/README.md) | Scheduled AI agents that do development work unattended. Ideas become scored plans, plans become private repos built one roadmap item per PR, and a finished project goes public on a GitHub account or organization only after scripted gates and a human approval. Refresh and upkeep jobs then keep every repo current with its dependencies, platforms and standards. Also covers the single-repo variant, where stages are folders and a site-deploying merge is the publish step held for a person, and audits such a fleet for cost, overlap and safety. |
+| **Automation** | [`agent-workspace-builder`](../../Resources/Skill-Data/Core/Automation/agent-workspace-builder/README.md) | Creates, adopts or audits an agent workspace: a repo that gives an agent one field's skills, reviewer agents, commands, rules and docs. Lays down the standard (AGENTS.md canonical, CLAUDE.md importing it, only README, ROADMAP and CHANGELOG at the docs root, a generated capability reference, a verified RESOURCES.md) with four stdlib checks for CI, and sets up the two weekly jobs that keep it alive: a roadmap build and an upkeep pass over intel, skills, `.claude/` and resources. |
 | **Automation** | [`task-router`](../../Resources/Skill-Data/Core/Automation/task-router/README.md) | Sizes a request before work starts — inline, one subagent, recon-then-plan, or fan out — and picks a model tier to match. |
 | **Business** | [`business-plan-builder`](../../Resources/Skill-Data/Core/Business/business-plan-builder/README.md) | Eight-pass business analysis with a decision memo that gates the build half. Every number traces to a source or is tagged an assumption. |
 | **Cooking** | [`recipe-validator`](../../Resources/Skill-Data/Core/Cooking/recipe-validator/README.md) | Food safety, nutrition thresholds, quantity sanity and allergen labelling, ranked by severity. |
