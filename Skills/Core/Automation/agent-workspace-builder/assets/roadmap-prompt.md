@@ -38,14 +38,15 @@ the script passes, with its output in the note.
 Flip the item to `- [-]` with a dated run note before writing anything. Build it following
 AGENTS.md. A new doc goes in a `docs/` subfolder with a row in `docs/README.md`, never at the
 docs root. Then run everything CI runs: `check-structure.py`, `validate-skills.py --strict`,
-the capability generator's `--check`, `check-links.py`, and the repo's tests.
+the capability generator's `--check`, `check-links.py`, `gen-vendor-configs.py --check`, and
+the repo's tests.
 ⟨workspace-specific verify commands⟩. **If anything fails, open no PR**: revert, set the item
 back to `[ ]` (or `[!]` with the reason), and say what blocked you. Never weaken a check.
 
 ## 4. Record
 
 Update everything the change made untrue (README, `docs/README.md`, AGENTS.md, regenerate
-CAPABILITIES if `.claude/` changed). Tick the item `- [x] … done <date>: <what, where>` in
+CAPABILITIES and `python scripts/gen-vendor-configs.py` if `.claude/` or `.mcp.json` changed). Tick the item `- [x] … done <date>: <what, where>` in
 the same commit as its `docs/CHANGELOG.md` line. Never move or rename roadmap sections.
 
 ## 5. Ship

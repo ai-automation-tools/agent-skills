@@ -46,5 +46,8 @@ jobs:
       - name: Capability reference is current
         run: python scripts/gen-capabilities.py --check
 
+      - name: Other CLIs' configs are current
+        run: python scripts/gen-vendor-configs.py --check
+
       - name: Relative links resolve
         run: python scripts/check-links.py

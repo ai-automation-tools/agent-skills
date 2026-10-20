@@ -47,7 +47,9 @@ The same two passes over `.claude/skills/`, `agents/`, `commands/` and `rules/`;
 rotation item is the file with the oldest last commit across all four. Keep frontmatter
 valid. Never delete or rename an item, and never add a write tool to an agent or command:
 that widens permissions, so it's a part-5 proposal. If anything in `.claude/` or `skills/`
-changed, regenerate CAPABILITIES with the workspace's generator.
+changed, regenerate CAPABILITIES with the workspace's generator and the other CLIs' config
+with `python scripts/gen-vendor-configs.py`; never edit `.agents/`, `.codex/`, `.gemini/` or
+`docs/reference/OTHER-CLIS.md` by hand.
 
 ## 4. Resources (`docs/reference/RESOURCES.md`)
 
@@ -66,7 +68,7 @@ gap no skill covers) becomes one `- [ ]` item under `### 🔭 Later` with its so
 Never tag a proposal `🔒`: the roadmap job decides it by default unless it's money,
 credentials, going public, an outward action or a permission change. Add one
 CHANGELOG entry. Run `check-structure.py`, `validate-skills.py --strict`, the capability
-generator's `--check`, and `check-links.py`. A failure your change caused that you can't fix
+generator's `--check`, `check-links.py` and `gen-vendor-configs.py --check`. A failure your change caused that you can't fix
 means no PR for that part: revert it and say why.
 
 ## 6. Ship

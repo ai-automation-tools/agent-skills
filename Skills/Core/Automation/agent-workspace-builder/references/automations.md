@@ -32,7 +32,7 @@ Both jobs, every run:
    acts on hardware or a live desktop session.
 4. **Verify before shipping.** Run the workspace's four checks
    (`check-structure.py`, `validate-skills.py --strict`, `gen-capabilities.py --check`,
-   `check-links.py`) plus its tests. Any failure → no PR, leave the tree clean, report.
+   `check-links.py`), `gen-vendor-configs.py --check`, plus its tests. Any failure → no PR, leave the tree clean, report.
 5. **PR body** names what changed, the sources behind each outside fact, what was run and
    its result, what was skipped and why, and what to review first.
 6. **Report** a one-line outcome (`shipped`, `appended`, `quiet`, `failed`) to the run log
@@ -53,8 +53,9 @@ One session, one PR, these parts in order, each its own commit:
    (least recently changed file across all four). Keep frontmatter valid and names stable;
    never delete or rename one (a rename breaks muscle memory and other docs). Hooks,
    `settings.json` and `.mcp.json` only when intel shows they're wrong, and only as a
-   held change a person merges. Regenerate `docs/reference/CAPABILITIES.md` if anything
-   here changed.
+   held change a person merges. Regenerate `docs/reference/CAPABILITIES.md` and the other
+   CLIs' config (`python scripts/gen-vendor-configs.py`) if anything here changed; never
+   edit `.agents/`, `.codex/`, `.gemini/` or `OTHER-CLIS.md` by hand.
 4. **Resources (`docs/reference/RESOURCES.md`).** Re-open every link (or a rotating third
    of a long list), update descriptions that drifted, retire dead or superseded ones with
    a reason, and add up to five new high-quality resources found during this run's
@@ -120,6 +121,8 @@ touches these for a person, whichever job opened it:
 .claude/settings.json
 .claude/hooks/*
 .mcp.json
+.codex/rules/*  .codex/hooks.json  .codex/config.toml   (generated, but they change
+.gemini/settings.json  .geminiignore  .agents/mcp_config.json   what other CLIs may do)
 .github/workflows/*   (optional: hold only deploy workflows if CI fixes should flow)
 ```
 

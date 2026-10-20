@@ -13,6 +13,7 @@
 | Document | Why read it |
 |:---|:---|
 | [**📋 reference/CAPABILITIES.md**](reference/CAPABILITIES.md) | **Start here.** Every command, skill and agent, generated from `.claude/` and `skills/`; CI fails if it's stale |
+| [**🔀 reference/OTHER-CLIS.md**](reference/OTHER-CLIS.md) | What Codex, Gemini CLI and Antigravity get from this workspace, and which guardrails don't carry over; generated |
 | [**🔗 reference/RESOURCES.md**](reference/RESOURCES.md) | Curated docs, tools, MCP servers and skills for this field, each link verified and dated |
 | [**📡 intel/**](intel/README.md) | Dated, sourced changes in the field, refreshed weekly |
 | [**🗺️ ROADMAP.md**](ROADMAP.md) | What's left before go-live, and after |

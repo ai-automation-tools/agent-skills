@@ -36,6 +36,8 @@ REQUIRED_FILES = (
     ".env.example",
     "scripts/envfile.py",
     "scripts/usage.py",
+    "scripts/gen-vendor-configs.py",
+    "docs/reference/OTHER-CLIS.md",
 )
 # The only files allowed directly in docs/. Everything else lives in a subfolder.
 DOCS_ROOT_FILES = {"README.md", "ROADMAP.md", "CHANGELOG.md"}

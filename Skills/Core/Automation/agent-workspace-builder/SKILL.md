@@ -1,6 +1,6 @@
 ---
 name: agent-workspace-builder
-description: Create, adopt, or audit a specialized agent workspace repo, a GitHub repo that gives an AI or CLI agent one field's skills, agents, commands, rules, hooks and docs (security, business analysis, full-stack dev, media, API research), and set up the two weekly automations that keep it alive, a roadmap job and an upkeep job. Lays down the standard layout (AGENTS.md canonical, CLAUDE.md importing it, a docs tree with only README, ROADMAP and CHANGELOG at its root, a generated capability reference, a curated RESOURCES.md list, portable skills apart from the wired .claude/ ones) plus scripts that check it in CI. Use whenever the user wants a new agent workspace or agent repo for a topic, wants an existing one brought up to the standard, asks to standardize several agent repos, wants a weekly roadmap or upkeep routine for one, wants a finished one taken public by a gated release job, or asks why a workspace's docs, skills or resources list went stale.
+description: Create, adopt, or audit a specialized agent workspace repo, a GitHub repo that gives an AI or CLI agent one field's skills, agents, commands, rules, hooks and docs (security, business analysis, full-stack dev, media, API research), and set up the two weekly automations that keep it alive, a roadmap job and an upkeep job. Lays down the standard layout (AGENTS.md canonical, CLAUDE.md importing it, a docs tree with only README, ROADMAP and CHANGELOG at its root, a generated capability reference, a curated RESOURCES.md list, portable skills apart from the wired .claude/ ones) plus scripts that check it in CI, and generates matching config for other agent CLIs (Codex, Gemini CLI, Antigravity) from the Claude setup. Use whenever the user wants a new agent workspace or agent repo for a topic, wants an existing one brought up to the standard, asks to standardize several agent repos, wants a weekly roadmap or upkeep routine for one, wants a finished one taken public by a gated release job, asks why a workspace's docs, skills or resources list went stale, or wants a workspace to work under Codex, Gemini CLI or Antigravity as well as Claude Code.
 ---
 
 # Agent workspace builder
@@ -37,16 +37,17 @@ Read this file first, then the reference for the job:
 ├── SECURITY.md            how to report a problem; what the guardrails are
 ├── .env.example           secret NAMES, committed; real values in .env (gitignored)
 ├── .claude/               wired config: skills/ agents/ commands/ rules/ hooks/ settings.json + settings.md
+├── .agents/ .codex/ .gemini/ .geminiignore   GENERATED from .claude/ for other CLIs
 ├── skills/                PORTABLE skills (vendor-neutral SKILL.md) + README.md catalog
 ├── docs/
 │   ├── README.md          docs index        ┐
 │   ├── ROADMAP.md         the backlog       ├ the only three files at the docs root
 │   ├── CHANGELOG.md       what changed      ┘
-│   ├── reference/         CAPABILITIES.md (generated) · RESOURCES.md (curated) · other reference
+│   ├── reference/         CAPABILITIES.md + OTHER-CLIS.md (generated) · RESOURCES.md (curated) · other
 │   ├── intel/             dated, sourced changes in the field (upkeep writes it)
 │   └── <topic>/           methodology/, guides/, plans/ … anything else, in a subfolder
 ├── scripts/               check-structure.py · validate-skills.py · gen-capabilities.py · check-links.py
-│                          + envfile.py (loads .env for scripts and MCP servers)
+│                          + gen-vendor-configs.py · envfile.py (loads .env) · usage.py
 └── .github/workflows/ci.yml   runs the four checks, plus the repo's own tests
 ```
 
@@ -84,6 +85,13 @@ the shared frame, never the work folders.
    days out, applied automatically unless the owner objects. Subjective gates ("the owner
    says it's in daily use") become measured ones (`scripts/usage.py`). Details:
    `references/automations.md`, *Autonomy*.
+10. **One setup, every CLI.** `.claude/` and `.mcp.json` are the source; Codex, Gemini CLI
+    and Antigravity get theirs from `scripts/gen-vendor-configs.py`, never a hand-kept
+    copy. What a CLI's format can't express (a file-read deny in Codex, an ask tier in
+    Gemini, any repo-level permission in Antigravity) is written into
+    `docs/reference/OTHER-CLIS.md`, so an agent there knows which guardrail is missing.
+    A hook that finds the project through `$CLAUDE_PROJECT_DIR` needs a fallback
+    (`GEMINI_PROJECT_DIR`, then the working directory), or it fails open elsewhere.
 
 ## Procedure: create a new workspace
 
@@ -95,7 +103,7 @@ the shared frame, never the work folders.
    to chance. Commit with a noreply identity if it could ever go public.
 3. **Lay down the frame** from `assets/`: `AGENTS.md`, `CLAUDE.md`, `SECURITY.md`,
    `docs/README.md`, `docs/reference/RESOURCES.md`, `.env.example` (from `env.example`),
-   `.github/workflows/ci.yml`, and copy all six `scripts/` from this skill. Fill every `⟨placeholder⟩`; a left-over one fails review.
+   `.github/workflows/ci.yml`, and copy all seven `scripts/` from this skill. Fill every `⟨placeholder⟩`; a left-over one fails review.
 4. **Build the wired config.** Start with 3–6 `.claude/skills/` for the field's core
    workflows, one read-only reviewer agent that attacks the workspace's own output, a
    command per repeatable deliverable, `rules/` for the non-negotiables, and a
@@ -109,7 +117,8 @@ the shared frame, never the work folders.
    public, `## After go-live` if it stays private), and `docs/CHANGELOG.md` with the first entry.
 7. **Seed RESOURCES.md and intel** by research, not memory: 15–30 resources across the
    categories in the standard, each opened this session; one dated intel file per stream.
-8. **Generate and check**: `python scripts/gen-capabilities.py`, then
+8. **Generate and check**: `python scripts/gen-capabilities.py` and
+   `python scripts/gen-vendor-configs.py`, then
    `check-structure.py`, `validate-skills.py --strict`, `check-links.py`. All exit 0.
 9. **Set up both automations** per `references/automations.md`, dry-run each, then run
    each once for real and read the PR before trusting the schedule.
@@ -129,7 +138,8 @@ the shared frame, never the work folders.
 4. **Make AGENTS.md canonical.** Move the doctrine out of CLAUDE.md into AGENTS.md
    verbatim, then reduce CLAUDE.md to the import line plus genuinely Claude-only notes.
    Don't rewrite the doctrine while moving it; content edits are a separate change.
-5. **Replace the shared scripts** with this skill's copies and point CI at all four. A
+5. **Replace the shared scripts** with this skill's copies, point CI at all four checks
+   and `gen-vendor-configs.py --check`, and run the generator. A
    workspace with its own capability generator (an API registry, say) keeps it and just
    writes to `docs/reference/CAPABILITIES.md`. A copy made on Windows loses the executable
    bit; if the repo runs ruff (EXE001), restore it with `git update-index --chmod=+x scripts/<name>.py`.
@@ -151,7 +161,7 @@ would get wrong because of each one.
 
 ## Scripts
 
-Copy all six into the workspace's `scripts/`. Each is stdlib-only Python 3.11+ and has a
+Copy all seven into the workspace's `scripts/`. Each is stdlib-only Python 3.11+ and has a
 `--self-check`.
 
 | Script | Checks |
@@ -160,6 +170,7 @@ Copy all six into the workspace's `scripts/`. Each is stdlib-only Python 3.11+ a
 | `scripts/validate-skills.py` | Every `.claude/skills/` and `skills/` SKILL.md against the Agent Skills spec; command and agent frontmatter |
 | `scripts/gen-capabilities.py` | Writes `docs/reference/CAPABILITIES.md` from `.claude/` and `skills/`; `--check` fails CI when stale |
 | `scripts/check-links.py` | Every relative link in every Markdown file resolves |
+| `scripts/gen-vendor-configs.py` | Writes Codex, Gemini CLI and Antigravity config (`.agents/`, `.codex/`, `.gemini/`, `.geminiignore`) and `docs/reference/OTHER-CLIS.md` from `.claude/` and `.mcp.json`; `--check` fails CI when stale |
 | `scripts/usage.py` | Not run in CI (needs local logs): counts sessions and active days in this clone from Claude Code's transcripts; `--check --min-days 10` is the measured "in daily use" gate |
 | `scripts/envfile.py` | Not a check: loads `.env` (`load_env()` for scripts; `envfile.py -- <cmd>` to launch an MCP server with it; `--names` lists names, never values) |
 
