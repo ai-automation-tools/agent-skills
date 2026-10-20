@@ -21,6 +21,7 @@ work. Values are never printed. Stdlib only.
 from __future__ import annotations
 
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -54,7 +55,10 @@ def load_env(path: Path | None = None) -> list[str]:
         return []
     loaded = []
     for key, value in parse(path.read_text(encoding="utf-8-sig")).items():
-        if value and key not in os.environ:
+        # an empty or unexpanded "${KEY}" (a client that passed .mcp.json's env through
+        # without a value) counts as unset, or it would mask the real value in .env
+        current = os.environ.get(key, "")
+        if value and (not current or current.startswith("${")):
             os.environ[key] = value
             loaded.append(key)
     return loaded
@@ -68,15 +72,18 @@ def self_check() -> int:
     assert env == {"A": "1", "B": "two", "C": "quoted # not a comment", "D": "x", "EMPTY": ""}, env
     with tempfile.TemporaryDirectory() as d:
         p = Path(d) / ".env"
-        p.write_text("ENVFILE_SELFTEST_X=from-file\nENVFILE_SELFTEST_Y=from-file\n", encoding="utf-8")
+        p.write_text("ENVFILE_SELFTEST_X=from-file\nENVFILE_SELFTEST_Y=from-file\n"
+                     "ENVFILE_SELFTEST_Z=from-file\n", encoding="utf-8")
         os.environ["ENVFILE_SELFTEST_Y"] = "from-env"
+        os.environ["ENVFILE_SELFTEST_Z"] = "${ENVFILE_SELFTEST_Z}"
         try:
-            assert load_env(p) == ["ENVFILE_SELFTEST_X"]
+            assert load_env(p) == ["ENVFILE_SELFTEST_X", "ENVFILE_SELFTEST_Z"]
             assert os.environ["ENVFILE_SELFTEST_X"] == "from-file"
             assert os.environ["ENVFILE_SELFTEST_Y"] == "from-env"   # environment wins
+            assert os.environ["ENVFILE_SELFTEST_Z"] == "from-file"  # unexpanded placeholder doesn't
         finally:
-            os.environ.pop("ENVFILE_SELFTEST_X", None)
-            os.environ.pop("ENVFILE_SELFTEST_Y", None)
+            for k in ("X", "Y", "Z"):
+                os.environ.pop(f"ENVFILE_SELFTEST_{k}", None)
         assert load_env(Path(d) / "missing") == []
     print("envfile self-check: ok")
     return 0
@@ -91,8 +98,9 @@ def main(argv: list[str]) -> int:
         return 0
     if argv[:1] == ["--"] and len(argv) > 1:
         load_env()
-        # shell on Windows so npx/uvx .cmd shims resolve; stdio passes straight through
-        return subprocess.call(argv[1:], shell=sys.platform == "win32")
+        # which() finds npx.cmd / uvx.exe via PATHEXT; no shell, so an argument like
+        # "mcp<2" reaches the program instead of becoming a cmd.exe redirect
+        return subprocess.call([shutil.which(argv[1]) or argv[1], *argv[2:]])
     print(__doc__)
     return 2
 

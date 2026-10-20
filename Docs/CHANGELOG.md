@@ -31,6 +31,7 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 
 **Changed**
 - `agent-workspace-builder`: secrets standard (Mike's call): real values in a gitignored `.env`, names in a committed `.env.example`, not user environment variables, so a published or cloned workspace says what it needs. New `scripts/envfile.py` loads `.env` for scripts (`load_env()`) and launches MCP servers with it (`envfile.py -- <cmd>`), because `${VAR}` in `.mcp.json` only reads the process environment. `check-structure.py` now requires `.env.example` and `envfile.py` and fails when `.env` isn't gitignored, `.env.example` is ignored or carries a secret value, or `.mcp.json` uses a `${VAR}` the example doesn't name. New `assets/env.example`; `SKILL.md` principle 8, the standard, and the `AGENTS.md`/`SECURITY.md` templates updated.
+- `agent-workspace-builder`: `envfile.py` launches without a shell (an argument like `mcp<2` was a cmd.exe redirect) and treats an empty or unexpanded `${VAR}` as unset, so a client passing `.mcp.json` env entries through can't mask `.env`. Tested live: the security `github` and media `serper` servers start through it.
 
 **Fixed**
 - `agent-workspace-builder`: `gen-capabilities.py` took the page title from the checkout folder when a workspace had no `.claude-plugin/plugin.json`, so `--check` failed in CI, which clones under the repo name. It now falls back to `AGENTS.md`'s first heading. Found creating `science-agent`; the five existing workspaces have a `plugin.json` and are unaffected.
