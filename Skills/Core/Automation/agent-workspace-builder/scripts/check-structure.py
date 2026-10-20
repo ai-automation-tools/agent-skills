@@ -36,7 +36,7 @@ REQUIRED_FILES = (
 )
 # The only files allowed directly in docs/. Everything else lives in a subfolder.
 DOCS_ROOT_FILES = {"README.md", "ROADMAP.md", "CHANGELOG.md"}
-IMPORT_RE = re.compile(r"^@AGENTS\.md\s*$", re.M)
+IMPORT_RE = re.compile(r"^@AGENTS\.md\s*$", re.MULTILINE)
 UPDATED_RE = re.compile(r"Last updated:\s*(\d{4}-\d{2}-\d{2})")
 STALE_DAYS = 21
 
