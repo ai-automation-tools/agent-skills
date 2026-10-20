@@ -54,8 +54,8 @@ repo, because a generic "done" is where weak runs start. It must:
   `— done YYYY-MM-DD` note
 - take the first unchecked item that isn't marked Needs <owner>, working above the gate line first
 - batch small items: when that item is tagged `small` (docs, config or static assets the
-  repo's checks verify), take up to three more workable `small` items from the same section,
-  four at most in one PR. An untagged item is a feature: one per run, never batched. Each
+  repo's checks verify), take up to five more workable `small` items from the same section,
+  six at most in one PR. An untagged item is a feature: one per run, never batched. Each
   item still gets its own claim, tick and CHANGELOG line; one verify pass covers the batch.
   Incubate writes the tags (see the release-gate line in `architecture.md`). Without them,
   a 10-gate roadmap takes 10 runs even when half the gates are a README section or a
