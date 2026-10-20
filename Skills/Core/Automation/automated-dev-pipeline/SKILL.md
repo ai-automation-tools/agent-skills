@@ -186,11 +186,18 @@ Each rule is here because the reference implementation paid for learning it.
       stated cost in weekly sessions, a free slot that fits the sweep order, and an
       enhancement beats a new job (rule 7). It opens one PR on the config repo, with the
       schedule-table row in the same diff, and skips its session while that PR is open. It
-      never loosens a deny rule, hold path, publish gate or approval. Registration waits
-      for the owner's merge: the **next** run follows through on a merged proposal by
-      registering the task, rebuilding the fleet diagram and updating the docs that live
-      outside the config repo, then leaves a `Follow-through:` comment on the merged PR as
-      its ledger. A closed-unmerged PR is a rejection it doesn't re-propose.
+      never loosens a deny rule, hold path, publish gate or approval. Start with the owner
+      merging every proposal. Once a few have landed clean, the owner can let the
+      **runner** merge them (rule 1, never the session): right branch and title,
+      mergeable, allowed commit authors, every changed config and script parses, no job
+      deleted, and **no guard file touched**. Guard files are the deny list, the merge
+      gates' runners and configs, the register scripts, the improver's own runner, prompt
+      and config, and the publish stages. Those PRs wait for the owner, so the improver
+      can never auto-merge a change to its own limits. After a merge the runner pulls the
+      live folder (clean and fast-forward only) and registers the changed jobs, skipping
+      disabled ones. The **next** run rebuilds the fleet diagram and updates the docs
+      that live outside the config repo, then leaves a `Follow-through:` comment on the
+      merged PR as its ledger. A closed-unmerged PR is a rejection it doesn't re-propose.
     - **Open questions live in one file per repo.** A run that needs a decision adds it
       to `docs/OPEN-QUESTIONS.md` instead of repeating it in every PR body; the owner
       answers in the file, and the next run applies the answer first. A weekly upkeep

@@ -42,7 +42,7 @@
     { "id": "upkeep", "lane": "keep", "col": 1, "type": "backend", "label": "Upkeep", "sublabel": "stalls, drift, counts" },
     { "id": "refresh", "lane": "keep", "col": 3, "type": "backend", "label": "Refresh + review", "sublabel": "every repo, cited sources" },
     { "id": "improve", "lane": "keep", "col": 4, "type": "backend", "label": "Fleet improver", "sublabel": "1 change a week, by PR", "tag": "skips while one waits" },
-    { "id": "fleetpr", "lane": "owner", "col": 5, "type": "frontend", "label": "Fleet PR", "sublabel": "owner merges config" }
+    { "id": "fleetpr", "lane": "owner", "col": 5, "type": "frontend", "label": "Fleet PR", "sublabel": "owner or gated runner merges", "tag": "guard files: owner" }
   ],
   "edges": [
     { "id": "e-ideas", "from": "ideas", "to": "ideate", "label": "candidates" },
