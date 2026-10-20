@@ -178,6 +178,19 @@ Each rule is here because the reference implementation paid for learning it.
       lessons and the hold comments, and opens one PR of evidence-backed prompt edits on
       that repo. It never merges it or edits the live copy, because self-edited prompts
       drift; the owner merges, and the daily sync pulls the merge into the live folder.
+    - **Let the fleet propose its own next job, behind the same merge.** Once the loop
+      above runs, a weekly improver stage can go one step further than prompt edits: one
+      change a week to the fleet itself, either enhancing a job, adding one, or smoothing
+      the path from idea to public repo. It gathers evidence first (the upkeep report, the
+      run history, sweep holds, lessons), and every candidate needs two cited signals, a
+      stated cost in weekly sessions, a free slot that fits the sweep order, and an
+      enhancement beats a new job (rule 7). It opens one PR on the config repo, with the
+      schedule-table row in the same diff, and skips its session while that PR is open. It
+      never loosens a deny rule, hold path, publish gate or approval. Registration waits
+      for the owner's merge: the **next** run follows through on a merged proposal by
+      registering the task, rebuilding the fleet diagram and updating the docs that live
+      outside the config repo, then leaves a `Follow-through:` comment on the merged PR as
+      its ledger. A closed-unmerged PR is a rejection it doesn't re-propose.
     - **Open questions live in one file per repo.** A run that needs a decision adds it
       to `docs/OPEN-QUESTIONS.md` instead of repeating it in every PR body; the owner
       answers in the file, and the next run applies the answer first. A weekly upkeep

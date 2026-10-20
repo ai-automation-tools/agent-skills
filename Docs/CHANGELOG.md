@@ -27,6 +27,7 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 ## 2026-10-19
 
 **Added**
+- `automated-dev-pipeline`: rule 13 gains a weekly fleet improver, a stage that proposes one change a week to the fleet itself (enhance a job, add one, or smooth idea-to-public) as a PR on the config repo the owner merges, with the next run registering the merged change, rebuilding the fleet diagram and leaving a `Follow-through:` comment as its ledger. The workflow diagram (source, interactive HTML and `pipeline-flow.svg`) shows it in the keep-current and owner lanes.
 - Site: the `automated-dev-pipeline` card links to its interactive Archify diagram (a `diagram` key in `site/showcase.json`, rendered by `build-showcase.py`). The skill's overview README no longer embeds the diagram; it points at the homepage. `pipeline-flow.svg` stays in the skill folder for agents.
 - `repo-docs-builder`: `references/roadmap-standard.md`, the one `docs/ROADMAP.md` format for every project in the lab: phases, the four checkbox markers, `— done YYYY-MM-DD` notes with a changelog line in the same commit, one go-live heading (`## After public release` or `## After go-live`) with the gates above it and post-go-live groups below, a copyable skeleton, and the checks the Road Map Sweep runs. Modelled on the Collector and AI Command Center roadmaps.
 
