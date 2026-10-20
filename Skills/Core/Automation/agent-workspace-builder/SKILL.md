@@ -24,7 +24,7 @@ Read this file first, then the reference for the job:
 |:---|:---|
 | What the standard requires, file by file | `references/workspace-standard.md` |
 | The roadmap and upkeep jobs: scope, schedule, hold paths, prompts | `references/automations.md` |
-| Starting files to copy and fill | `assets/`: `AGENTS.md`, `CLAUDE.md`, `SECURITY.md`, `docs-README.md`, `RESOURCES.md`, `ci.yml`, `roadmap-prompt.md`, `upkeep-prompt.md` |
+| Starting files to copy and fill | `assets/`: `AGENTS.md`, `CLAUDE.md`, `SECURITY.md`, `docs-README.md`, `RESOURCES.md`, `env.example`, `ci.yml`, `roadmap-prompt.md`, `upkeep-prompt.md` |
 | The checks CI runs | `scripts/` (below) |
 
 ## The standard in one screen
@@ -35,6 +35,7 @@ Read this file first, then the reference for the job:
 ├── AGENTS.md              THE doctrine, vendor-neutral; every client reads it
 ├── CLAUDE.md              `@AGENTS.md` import + Claude-only notes, nothing copied
 ├── SECURITY.md            how to report a problem; what the guardrails are
+├── .env.example           secret NAMES, committed; real values in .env (gitignored)
 ├── .claude/               wired config: skills/ agents/ commands/ rules/ hooks/ settings.json + settings.md
 ├── skills/                PORTABLE skills (vendor-neutral SKILL.md) + README.md catalog
 ├── docs/
@@ -45,7 +46,8 @@ Read this file first, then the reference for the job:
 │   ├── intel/             dated, sourced changes in the field (upkeep writes it)
 │   └── <topic>/           methodology/, guides/, plans/ … anything else, in a subfolder
 ├── scripts/               check-structure.py · validate-skills.py · gen-capabilities.py · check-links.py
-└── .github/workflows/ci.yml   runs all four, plus the repo's own tests
+│                          + envfile.py (loads .env for scripts and MCP servers)
+└── .github/workflows/ci.yml   runs the four checks, plus the repo's own tests
 ```
 
 Plus whatever the field needs (`scope/`, `findings/`, `research/`, `src/`): the standard governs
@@ -71,6 +73,11 @@ the shared frame, never the work folders.
    `.mcp.json` widen what an agent may do. Automations may propose them; a person merges.
 7. **Lean beats complete.** No empty `evals/`, `templates/` or `roadmap/` folders "for
    later". A folder exists when something lives in it.
+8. **Secrets live in `.env`, names in `.env.example`.** Not in shell profiles or user
+   environment variables: a workspace that's published or cloned elsewhere must say what it
+   needs in a file that travels with it. `.env` is gitignored; `.env.example` is committed
+   with names and where to get each value, never a value. Scripts and MCP servers read
+   `.env` through `scripts/envfile.py`.
 
 ## Procedure: create a new workspace
 
@@ -81,8 +88,8 @@ the shared frame, never the work folders.
    security settings. A plain `gh repo create` leaves secret scanning and push protection
    to chance. Commit with a noreply identity if it could ever go public.
 3. **Lay down the frame** from `assets/`: `AGENTS.md`, `CLAUDE.md`, `SECURITY.md`,
-   `docs/README.md`, `docs/reference/RESOURCES.md`, `.github/workflows/ci.yml`, and copy
-   all four `scripts/` from this skill. Fill every `⟨placeholder⟩`; a left-over one fails review.
+   `docs/README.md`, `docs/reference/RESOURCES.md`, `.env.example` (from `env.example`),
+   `.github/workflows/ci.yml`, and copy all five `scripts/` from this skill. Fill every `⟨placeholder⟩`; a left-over one fails review.
 4. **Build the wired config.** Start with 3–6 `.claude/skills/` for the field's core
    workflows, one read-only reviewer agent that attacks the workspace's own output, a
    command per repeatable deliverable, `rules/` for the non-negotiables, and a
@@ -137,15 +144,16 @@ would get wrong because of each one.
 
 ## Scripts
 
-Copy all four into the workspace's `scripts/`. Each is stdlib-only Python 3.11+ and has a
+Copy all five into the workspace's `scripts/`. Each is stdlib-only Python 3.11+ and has a
 `--self-check`.
 
 | Script | Checks |
 |:---|:---|
-| `scripts/check-structure.py` | Required files, docs-root rule, `@AGENTS.md` import, lowercase `docs/`, RESOURCES.md has a date (warns when stale) |
+| `scripts/check-structure.py` | Required files, docs-root rule, `@AGENTS.md` import, lowercase `docs/`, RESOURCES.md has a date (warns when stale), and the env rule: `.env` gitignored, `.env.example` tracked with no secret values, every `${VAR}` in `.mcp.json` named in it |
 | `scripts/validate-skills.py` | Every `.claude/skills/` and `skills/` SKILL.md against the Agent Skills spec; command and agent frontmatter |
 | `scripts/gen-capabilities.py` | Writes `docs/reference/CAPABILITIES.md` from `.claude/` and `skills/`; `--check` fails CI when stale |
 | `scripts/check-links.py` | Every relative link in every Markdown file resolves |
+| `scripts/envfile.py` | Not a check: loads `.env` (`load_env()` for scripts; `envfile.py -- <cmd>` to launch an MCP server with it; `--names` lists names, never values) |
 
 ## Anti-patterns
 
