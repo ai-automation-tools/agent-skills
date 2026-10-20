@@ -14,8 +14,10 @@ Read AGENTS.md (the doctrine), `docs/ROADMAP.md`, README.md, `docs/README.md`,
 Walk `docs/ROADMAP.md` top to bottom: the Go-live gates first, then what's below
 `## After go-live` in order. Take the first `- [ ]` item that:
 
-- isn't marked `🔒 Needs ⟨owner⟩` and doesn't need a human (accounts, keys, spending money,
-  real clients, posting or emailing anything, "the owner uses it daily" gates);
+- isn't marked `🔒 Needs ⟨owner⟩` (only money, credentials, going public, outward actions
+  and permission changes are; a lock on anything else is a mislabel: propose instead);
+- isn't waiting on a proposal in `docs/operations/OPEN-QUESTIONS.md` whose `Proceeds` date
+  hasn't come (one whose date has passed with no answer is decided: apply its default);
 - isn't upkeep work (`docs/intel/`, `skills/`, `docs/reference/RESOURCES.md`, routine
   `.claude/` drift fixes belong to the upkeep job);
 - isn't already claimed by an open PR (`gh pr list --state open`, and check its branch's
@@ -24,6 +26,12 @@ Walk `docs/ROADMAP.md` top to bottom: the Go-live gates first, then what's below
 Check it against the repo first: if it's already done, tick it with a dated note and take the
 next. An item tagged `small` can be batched with up to three more `small` items from the same
 section; an untagged item is one per run. Keep a list of what you skipped and why.
+
+If the item needs a judgment call AGENTS.md's *Standing defaults* don't settle (which real
+target, which option), don't stop at a question: add a proposal with `- Default:` and
+`- Proceeds:` (seven days out) to `docs/operations/OPEN-QUESTIONS.md`, skip the item, and
+take the next. A gate measured by a script (`python scripts/usage.py --check`) is ticked when
+the script passes, with its output in the note.
 
 ## 3. Claim, build, verify
 

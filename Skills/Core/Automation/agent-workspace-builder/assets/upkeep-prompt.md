@@ -62,7 +62,9 @@ never anything in Retired. Keep the list around 60 rows. Bump `Last updated:`.
 
 Anything worth wiring in (an MCP server, a published skill to adopt, a permission change, a
 gap no skill covers) becomes one `- [ ]` item under `### 🔭 Later` with its source link and
-`(proposed by upkeep <date>)`; at most three, no duplicates, never install or run it. Add one
+`(proposed by upkeep <date>)`; at most three, no duplicates, never install or run it.
+Never tag a proposal `🔒`: the roadmap job decides it by default unless it's money,
+credentials, going public, an outward action or a permission change. Add one
 CHANGELOG entry. Run `check-structure.py`, `validate-skills.py --strict`, the capability
 generator's `--check`, and `check-links.py`. A failure your change caused that you can't fix
 means no PR for that part: revert it and say why.

@@ -35,6 +35,7 @@ REQUIRED_FILES = (
     ".github/workflows/ci.yml",
     ".env.example",
     "scripts/envfile.py",
+    "scripts/usage.py",
 )
 # The only files allowed directly in docs/. Everything else lives in a subfolder.
 DOCS_ROOT_FILES = {"README.md", "ROADMAP.md", "CHANGELOG.md"}
