@@ -24,6 +24,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-10-20
+
+**Added**
+- `agent-workspace-builder` (Core, Automation): creates, adopts or audits a specialized agent workspace repo and sets up its weekly roadmap and upkeep jobs. The standard: `AGENTS.md` canonical with `CLAUDE.md` importing it, only README, ROADMAP and CHANGELOG at the `docs/` root, `docs/reference/` for the generated `CAPABILITIES.md` and a link-verified `RESOURCES.md`, portable `skills/` apart from `.claude/skills/`. Ships four stdlib checks for CI (`check-structure.py` new; `validate-skills.py` now also covers the portable `skills/`; `gen-capabilities.py` writes to `docs/reference/` and lists portable skills; `check-links.py`), templates for every frame file, and both job prompts. Written to standardize the org's five agent workspaces.
+
 ## 2026-10-19
 
 **Added**

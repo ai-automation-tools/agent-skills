@@ -89,7 +89,7 @@
       <h1>Capabilities the agent loads <em>only</em> when it needs them.</h1>
       <p class="lede">
         A skill is one <code>SKILL.md</code>, YAML frontmatter and a set of instructions, that
-        stays out of the model's context until it's invoked. This is the Core catalog: <!-- gen:core-count-word -->nine<!-- /gen:core-count-word -->
+        stays out of the model's context until it's invoked. This is the Core catalog: <!-- gen:core-count-word -->ten<!-- /gen:core-count-word -->
         portable skills that assume nothing about the repository you're standing in.
       </p>
       <div class="cta">
@@ -128,7 +128,7 @@
   </div>
 
   <dl class="strip">
-    <div><dt>Core skills</dt><dd><!-- gen:core-count -->09<!-- /gen:core-count --></dd></div>
+    <div><dt>Core skills</dt><dd><!-- gen:core-count -->10<!-- /gen:core-count --></dd></div>
     <div><dt>Categories</dt><dd><!-- gen:category-count -->06<!-- /gen:category-count --></dd></div>
     <div><dt>Files per skill</dt><dd>01</dd></div>
     <div><dt>Dependencies</dt><dd>00</dd></div>
@@ -140,15 +140,15 @@
       <p class="eyebrow"><b>01</b> · Catalog</p>
       <h2>Core skills</h2>
       <p class="sub">
-        <!-- gen:core-count-Word -->Nine<!-- /gen:core-count-Word --> skills across <!-- gen:category-count-word -->six<!-- /gen:category-count-word --> categories. Every one installs <em>flat</em> into
+        <!-- gen:core-count-Word -->Ten<!-- /gen:core-count-Word --> skills across <!-- gen:category-count-word -->six<!-- /gen:category-count-word --> categories. Every one installs <em>flat</em> into
         <code>~/.claude/skills</code>, so a name must be unique across the whole repo.
       </p>
     </div>
 
     <div class="filters reveal" role="group" aria-label="Filter skills by category">
       <!-- gen:chips -->
-        <button class="chip" type="button" data-filter="all" aria-pressed="true">All <span>9</span></button>
-        <button class="chip" type="button" data-filter="automation" aria-pressed="false">Automation <span>3</span></button>
+        <button class="chip" type="button" data-filter="all" aria-pressed="true">All <span>10</span></button>
+        <button class="chip" type="button" data-filter="automation" aria-pressed="false">Automation <span>4</span></button>
         <button class="chip" type="button" data-filter="business" aria-pressed="false">Business <span>1</span></button>
         <button class="chip" type="button" data-filter="cooking" aria-pressed="false">Cooking <span>1</span></button>
         <button class="chip" type="button" data-filter="documentation" aria-pressed="false">Documentation <span>1</span></button>
@@ -401,6 +401,37 @@
             </div>
           </div>
         </article>
+
+        <!-- 10 -->
+        <article class="card reveal" data-category="automation" data-skill="agent-workspace-builder">
+          <div class="card-media">
+            <div class="shot-fallback" aria-hidden="true">
+              <span class="glyph">🧠</span>
+              <b>agent-workspace-builder</b>
+              <small>screenshot to come</small>
+            </div>
+            <span class="idx">10</span>
+          </div>
+          <div class="card-body">
+            <span class="cat" data-cat="automation"><i aria-hidden="true"></i>Automation</span>
+            <h3 class="card-title"><span class="glyph" aria-hidden="true">🧠</span><code>agent-workspace-builder</code></h3>
+            <p class="tagline">A repo an agent opens to do one field's work, and two weekly jobs that keep it current.</p>
+            <ul class="feat">
+              <li><code>AGENTS.md</code> is the doctrine; <code>CLAUDE.md</code> imports it</li>
+              <li>Only README, ROADMAP and CHANGELOG at the <code>docs/</code> root</li>
+              <li>A generated capability reference and a verified, dated resources list</li>
+              <li>Four stdlib checks that turn the layout into a CI exit code</li>
+              <li>Weekly roadmap and upkeep jobs: upkeep proposes, roadmap builds</li>
+            </ul>
+            <div class="card-foot">
+              <button class="cmd" type="button" data-copy="pwsh scripts/install-skills.ps1 -Core -Skill agent-workspace-builder" title="Copy install command">
+                <span class="cmd-text">-Skill agent-workspace-builder</span>
+                <span class="cmd-icon" aria-hidden="true">copy</span>
+              </button>
+              <a class="link" href="https://github.com/ai-automation-tools/agent-skills/blob/main/Skills/Core/Automation/agent-workspace-builder/SKILL.md" target="_blank" rel="noopener">SKILL.md <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
       <!-- /gen:cards -->
     </div>
   </section>
@@ -555,7 +586,7 @@
       </div>
       <div class="install-cmds reveal">
         <div class="codeblock">
-          <div class="codeblock-head"><span>Core: all <!-- gen:core-count-word -->nine<!-- /gen:core-count-word --></span><button class="copy" type="button" data-copy="pwsh scripts/install-skills.ps1 -Core" aria-label="Copy command">copy</button></div>
+          <div class="codeblock-head"><span>Core: all <!-- gen:core-count-word -->ten<!-- /gen:core-count-word --></span><button class="copy" type="button" data-copy="pwsh scripts/install-skills.ps1 -Core" aria-label="Copy command">copy</button></div>
           <pre><code><span class="p">pwsh</span> scripts/install-skills.ps1 <span class="f">-Core</span></code></pre>
         </div>
         <div class="codeblock">
