@@ -83,10 +83,23 @@ def collect(root: Path) -> dict[str, list[tuple[Path, dict[str, str]]]]:
     }
 
 
+def agents_title(root: Path) -> str:
+    """The workspace name from AGENTS.md's first heading ("# AGENTS.md: Science Agent")."""
+    path = root / "AGENTS.md"
+    if not path.exists():
+        return ""
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line.startswith("# "):
+            return re.sub(r"^AGENTS\.md\s*[:—–-]\s*", "", line[2:].strip())
+    return ""
+
+
 def render(root: Path) -> str:
     plugin_path = root / ".claude-plugin" / "plugin.json"
     plugin = json.loads(plugin_path.read_text(encoding="utf-8")) if plugin_path.exists() else {}
-    title = plugin.get("displayName") or root.name
+    # Not the folder name alone: CI checks out under the repo name, so a title taken from
+    # the local folder makes --check fail on every push.
+    title = plugin.get("displayName") or agents_title(root) or root.name
     items = collect(root)
     n_cmd, n_skill, n_agent = (len(items[k]) for k in ("commands", "skills", "agents"))
 
@@ -228,6 +241,12 @@ def self_check() -> int:
     # .gitattributes checks .md out as LF, but an editor can still save CRLF
     assert frontmatter("---\r\nname: a\r\n---\r\n") == {"name": "a"}
     assert frontmatter("no frontmatter") == {}
+    # the title must not depend on the checkout folder's name (CI clones under the repo name)
+    import tempfile
+    with tempfile.TemporaryDirectory() as d:
+        (Path(d) / "AGENTS.md").write_text("<!-- x -->\n# AGENTS.md: Science Agent\n", encoding="utf-8")
+        assert agents_title(Path(d)) == "Science Agent"
+        assert agents_title(Path(d) / "missing") == ""
     print("self-check ok")
     return 0
 
