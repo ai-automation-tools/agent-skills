@@ -78,6 +78,12 @@ the shared frame, never the work folders.
    needs in a file that travels with it. `.env` is gitignored; `.env.example` is committed
    with names and where to get each value, never a value. Scripts and MCP servers read
    `.env` through `scripts/envfile.py`.
+9. **Proceed unless vetoed.** The owner's attention is the scarcest input. Only five kinds
+   of decision wait for an answer (money, credentials, going public, outward actions,
+   widening permissions); everything else is a proposal with a default and a date seven
+   days out, applied automatically unless the owner objects. Subjective gates ("the owner
+   says it's in daily use") become measured ones (`scripts/usage.py`). Details:
+   `references/automations.md`, *Autonomy*.
 
 ## Procedure: create a new workspace
 
@@ -89,7 +95,7 @@ the shared frame, never the work folders.
    to chance. Commit with a noreply identity if it could ever go public.
 3. **Lay down the frame** from `assets/`: `AGENTS.md`, `CLAUDE.md`, `SECURITY.md`,
    `docs/README.md`, `docs/reference/RESOURCES.md`, `.env.example` (from `env.example`),
-   `.github/workflows/ci.yml`, and copy all five `scripts/` from this skill. Fill every `⟨placeholder⟩`; a left-over one fails review.
+   `.github/workflows/ci.yml`, and copy all six `scripts/` from this skill. Fill every `⟨placeholder⟩`; a left-over one fails review.
 4. **Build the wired config.** Start with 3–6 `.claude/skills/` for the field's core
    workflows, one read-only reviewer agent that attacks the workspace's own output, a
    command per repeatable deliverable, `rules/` for the non-negotiables, and a
@@ -144,7 +150,7 @@ would get wrong because of each one.
 
 ## Scripts
 
-Copy all five into the workspace's `scripts/`. Each is stdlib-only Python 3.11+ and has a
+Copy all six into the workspace's `scripts/`. Each is stdlib-only Python 3.11+ and has a
 `--self-check`.
 
 | Script | Checks |
@@ -153,6 +159,7 @@ Copy all five into the workspace's `scripts/`. Each is stdlib-only Python 3.11+ 
 | `scripts/validate-skills.py` | Every `.claude/skills/` and `skills/` SKILL.md against the Agent Skills spec; command and agent frontmatter |
 | `scripts/gen-capabilities.py` | Writes `docs/reference/CAPABILITIES.md` from `.claude/` and `skills/`; `--check` fails CI when stale |
 | `scripts/check-links.py` | Every relative link in every Markdown file resolves |
+| `scripts/usage.py` | Not run in CI (needs local logs): counts sessions and active days in this clone from Claude Code's transcripts; `--check --min-days 10` is the measured "in daily use" gate |
 | `scripts/envfile.py` | Not a check: loads `.env` (`load_env()` for scripts; `envfile.py -- <cmd>` to launch an MCP server with it; `--names` lists names, never values) |
 
 ## Anti-patterns

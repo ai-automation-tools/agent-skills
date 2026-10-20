@@ -34,6 +34,10 @@ review. A rule nobody checks is a suggestion, so the checked ones are the ones t
 9. **Automations**: which scheduled jobs write to this repo, their branch prefixes, and
    which paths each may touch (see `automations.md`). No schedules or local paths: those
    belong to the scheduler's own docs.
+10. **Standing defaults**: the decisions a job may take without asking, written once so
+    nobody asks again (visibility, what a job may pick as a real target, how third-party
+    tools get adopted), plus the five things that always wait for the owner. See
+    `automations.md`, *Autonomy*.
 
 ### CLAUDE.md shape
 
@@ -110,7 +114,7 @@ sessions unless someone installs it.
 
 ## `scripts/` and CI
 
-All five from this skill's `scripts/` (the four checks plus `envfile.py`), unchanged except
+All six from this skill's `scripts/` (the four checks plus `envfile.py` and `usage.py`), unchanged except
 a workspace-specific capability generator if the workspace has one. `ci.yml` (from `assets/ci.yml`) runs on push to the
 working and deploy branches and on PRs:
 

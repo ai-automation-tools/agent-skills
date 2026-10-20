@@ -71,6 +71,46 @@ One session, one PR, these parts in order, each its own commit:
 **Don't manufacture edits.** Every change has a source URL or a repo fact behind it.
 Bumping dates or rewording for its own sake is churn.
 
+## Autonomy: proceed unless vetoed
+
+Every question to the owner stalls a job for a week. So the default is to decide, write the
+decision down, and let the owner object, not to ask. Only these wait for an answer:
+
+1. **Spending money.**
+2. **Accounts, keys or credentials** (creating them, or anything that needs one the owner hasn't put in `.env`).
+3. **Making anything public** (a repo, a site, a package, a post).
+4. **Real-world or outward actions**: posting, emailing, publishing, or scanning or testing a system that isn't a sandbox (a security engagement needs signed authorization).
+5. **Widening what an agent may do**: `.claude/settings.json`, hooks, a new MCP server or tool permission.
+
+In the roadmap, `🔒 Needs <owner>` marks only those. Anything else that needs a judgment
+call becomes a **proposal** in `docs/operations/OPEN-QUESTIONS.md`:
+
+```markdown
+### <the decision, one line>
+- Asked: 2026-10-20 by <job>
+- Context: why it matters, the options
+- Default: exactly what will happen
+- Proceeds: 2026-10-27
+- Answer:
+```
+
+The job skips the item that run. On the first run on or after the `Proceeds` date with the
+Answer still empty, the job applies the default and moves the entry to `## Answered` with
+`- Applied: <date> by <job> (default, no veto)`. Any answer the owner writes wins. A weekly
+digest lists true questions and pending proposals separately, so the owner reads one email
+and acts only when they disagree.
+
+**Measured gates, not opinions.** "The owner says it's in daily use" becomes
+`python scripts/usage.py --check --min-days 10` (active days in the last 30, from local
+session logs; job worktrees don't count). "Both jobs ran and their PRs were read" ticks
+when the review sweep has merged one PR from each job.
+
+**Real targets.** A gate that needs real work (a study, an app, a brief) is workable when
+AGENTS.md's *Standing defaults* say what a job may pick on its own (public data, the
+owner's own repos, public-domain material); the job proposes its pick with a `Proceeds`
+date, then builds it. A target that touches someone else's system, money or audience
+stays one of the five.
+
 ## Hold paths
 
 A merge gate (the sweep's runner, or branch protection plus CODEOWNERS) holds any PR that

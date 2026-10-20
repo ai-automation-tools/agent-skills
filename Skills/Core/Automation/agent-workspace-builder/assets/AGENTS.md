@@ -70,3 +70,18 @@ Two scheduled jobs open PRs here. Neither merges.
 
 Changes to `.claude/settings.json`, `.claude/hooks/` and `.mcp.json` are held for a person,
 whichever job makes them.
+
+## Standing defaults
+
+Decisions a job takes without asking (it records each in `docs/operations/OPEN-QUESTIONS.md`
+with a `Proceeds` date seven days out; ⟨owner⟩ can veto before then):
+
+- **Visibility:** the repo stays ⟨private⟩.
+- **Real targets:** ⟨what a job may pick on its own, e.g. a study on public data; one of the
+  owner's own repos⟩.
+- **Third-party skills, MCP servers and tools:** evaluated in a write-up first; adopted by a
+  proposal, never installed silently. A change to `.mcp.json` still waits in its held PR.
+
+**Only these wait for ⟨owner⟩'s answer:** spending money; accounts, keys or credentials;
+making anything public; real-world or outward actions ⟨field-specific: posting, emailing,
+scanning systems⟩; widening what an agent may do.
