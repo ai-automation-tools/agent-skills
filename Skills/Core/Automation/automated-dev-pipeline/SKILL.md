@@ -108,8 +108,13 @@ Each rule is here because the reference implementation paid for learning it.
 6. **Match cadence to throughput.** Don't produce what the next stage can't absorb. Plans
    should be generated only when the backlog runs low, and incubation needs a cap. Merge
    frequency limits build speed: one sweep a week means one PR a week, so let a PR close
-   up to four small docs-or-config gates instead of one (`stage-contracts.md`). Cadence should
-   follow demand, not the calendar.
+   up to six small docs-or-config gates instead of one (`stage-contracts.md`), and sweep
+   incubating repos every morning so each roadmap PR lands before the next run. **Graduate
+   at the MVP**: the release gates are the smallest slice that delivers the core promise
+   (at most three features) plus the publish checks, the rest builds in public after
+   release, and incubate ships the boilerplate gates (CI, `SECURITY.md`, demo shell, secret
+   scan) itself. A project that waits for its whole build plan holds a cap slot for months.
+   Cadence should follow demand, not the calendar.
 7. **One session, one PR, per repo per cycle.** Jobs that touch the same repo on the same
    topic (research on what changed, and the fixes it calls for) are one session and one
    PR, not two jobs that coordinate through `main`.

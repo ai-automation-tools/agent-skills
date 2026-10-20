@@ -59,8 +59,9 @@ second source or the list gets long.
 ## The ideate procedure, generically
 
 1. **Throttle first.** The runner's pre-check skips the whole run while the number of
-   `proposed` plus `planned` rows in the ledger is at or above the ideate threshold (2 in
-   the reference).
+   `proposed` plus `planned` rows in the ledger is at or above the ideate threshold (5 in
+   the reference, with ideate twice a week, so incubate always has a choice when a slot
+   frees).
    More plans than incubate can take is wasted research.
 2. **List and dedupe** through the adapter.
 3. **Shortlist up to ten**, newest first, spread across as many streams as possible. Read

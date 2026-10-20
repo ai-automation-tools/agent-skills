@@ -13,7 +13,7 @@ The diagram lives on the [homepage](https://agent-skills.ai-automation-tools.dev
 
 | Lane | What happens there |
 |:---|:---|
-| **Build stages** | An idea source feeds ideate, which scores candidates only when the backlog runs low. Incubate turns a plan into a private repo (capped), and its roadmap routine ships one feature, or up to four small docs-or-config gates, per run as a PR, skipping the session entirely when there's no work |
+| **Build stages** | An idea source feeds ideate, which scores candidates only when the backlog runs low. Incubate turns a plan into a private repo (capped), and its roadmap routine ships one feature, or up to six small docs-or-config gates, per run as a PR (three runs a week while incubating, merged by a daily sweep, gated at the MVP), skipping the session entirely when there's no work |
 | **Merge gate** | One PR sweep, on the strongest model, reviews every routine's PRs by branch prefix; the runner merges what it approves after re-running the hard gates. PRs that touch a deploy path or carry a personal commit email wait for the owner |
 | **Publish (scripted)** | When every release gate is ticked, a script runs the gates (secret scan, CI, commit emails, live 200s), opens an approval issue, and goes public only after the owner closes it as Completed, re-running the gates and reading the security controls back |
 | **Owner decides** | The three places a person acts: held PRs, the approval issue, and the weekly `[Approval needed]` digest |

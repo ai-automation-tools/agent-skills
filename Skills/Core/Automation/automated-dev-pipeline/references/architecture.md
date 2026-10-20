@@ -17,9 +17,9 @@ first if you already have repos; the build and publish rows only matter for new 
 | Component | Kind | Does | Output |
 |:---|:---|:---|:---|
 | **Ideate** *(build)* | stage, mid-tier model | Picks one unanalysed idea, runs a business-plan skill with web research, and scores it 1–10. A BUILD at or above the score bar is `proposed`; the runner then opens a plan-approval issue and emails the owner, whose close moves the row to `planned` (Completed) or `rejected` (Not planned) | a plan folder + a ledger row (`proposed` or `rejected`) + an approval issue |
-| **Incubate** *(build)* | stage, strongest model | Takes the top `planned` plan: local repo, docs, ROADMAP with release gates, private remote via the security wrapper, a weekly roadmap routine, and a sweep target | a private repo + a registered task |
-| **Roadmap routine** *(build, keep current)* | per repo, weekly (twice for a gate-heavy project) | Works the next unchecked ROADMAP item, or a batch of `small` ones (`stage-contracts.md`), in a throwaway worktree, verifies it (build/test/lint), ticks it, and opens a PR | a `roadmap/auto-<date>` PR |
-| **PR sweep** *(all)* | strongest model, 2x/week | Runner: updates a BEHIND branch, then hard gates (base, mergeable, checks, not draft, hold paths, commit emails). Session: a per-prefix review, `APPROVE` or a hold with a comment. Runner: re-gates and merges each approval | merged PRs + an email |
+| **Incubate** *(build)* | stage, strongest model | Takes the top `planned` plan: local repo, docs, ROADMAP with release gates, private remote via the security wrapper, a roadmap routine (three runs a week while incubating), and a daily sweep target | a private repo + a registered task |
+| **Roadmap routine** *(build, keep current)* | per repo, three times a week while incubating, weekly once public | Works the next unchecked ROADMAP item, or a batch of `small` ones (`stage-contracts.md`), in a throwaway worktree, verifies it (build/test/lint), ticks it, and opens a PR | a `roadmap/auto-<date>` PR |
+| **PR sweep** *(all)* | strongest model, daily for incubating repos, 2x/week for the rest | Runner: updates a BEHIND branch, then hard gates (base, mergeable, checks, not draft, hold paths, commit emails). Session: a per-prefix review, `APPROVE` or a hold with a comment. Runner: re-gates and merges each approval | merged PRs + an email |
 | **Graduate** *(publish)* | daily; publish script + mid-tier model | The script runs the gates, requests approval, and after approval flips to public and re-verifies security. The model then moves the folder, adds landing-page tiles and updates records | a public repo + site tiles |
 | **Upkeep** *(keep current)* | mid-tier model, weekly | Syncs the landing page with what's published, by PR, sweeps security controls, fixes homepages, and flags red CI, stuck PRs, coverage gaps, thin runway, blocked gates and stalled projects | a dated report + an optional PR |
 | **Harvest** *(keep current, optional)* | mid-tier model, weekly | For setups where agent workspaces share a skills library: mirrors portable skills byte for byte into it, with gates (tier, name collision, duplicate, secrets) | one `harvest/auto-*` PR |
@@ -32,7 +32,8 @@ The order is set by one fact: **a stage reads `origin/main`**, so whatever feeds
 merged by a sweep that runs before it.
 
 ```
-Mon  ideate (only if backlog < threshold)       roadmap routines, one weeknight each
+Mon  ideate (only if backlog < threshold; Thu too)  roadmap routines: 3 evenings each while incubating
+Daily sweep 09:30, incubating repos only (every repo on Wed and Sun)
 Tue  workspace refresh 22:00 ─┐
 Wed  sweep 09:30 ◀────────────┘  (merges Mon/Tue roadmaps + refresh)
 Sat  upkeep 18:00 (landing PR ready for Sunday)
@@ -40,9 +41,11 @@ Sun  harvest 08:00 → sweep 09:30 → incubate 12:00
 Daily graduate 16:00 (skips silently unless something is ready or approved)
 ```
 
-A gate-heavy project can run its roadmap routine twice between sweeps. The second run
-finds the first one's PR still open and appends to it (APPEND MODE), so the sweep still
-reviews one PR per repo.
+An incubating project runs its roadmap routine three evenings a week, and the sweep takes
+incubating repos every morning (`fullSweepDays` plus a per-target `everyDay` flag in the
+reference runner), so each PR is merged before the next run. If a run still finds the last
+PR open, it appends to it (APPEND MODE), so the sweep reviews one PR per repo. Graduate
+drops both back to the normal cadence.
 
 Keep weekend-heavy jobs off the same slot. Two long sessions starting at the same time
 compete for the same rate limit.
@@ -61,10 +64,17 @@ compete for the same rate limit.
   `[!]`, including numbered forms) above that line has to reach 0. A missing heading is a
   contract break to report, never something to guess around. A project that will stay
   private uses `## After go-live` in the same place; a gate counter matches either heading.
+- **The gates are the MVP, not the plan.** Above the line: the smallest set of build slices
+  that delivers the core promise end to end (at most three features), then the publish
+  checks (CI, README usage, `SECURITY.md` + secret scan, a live demo). Every other slice goes
+  in a `## Next slices` phase below the line, and the roadmap routine keeps building it after
+  release. Incubate ships the boilerplate gates itself and ticks them, so the first run
+  starts on the product. The publish script's hard gates and the owner's approval don't
+  change.
 - **Item tags.** Incubate tags each open item when it writes the ROADMAP: `small` right
   after the checkbox (docs, config, assets that CI or a named command verifies), untagged
   for a feature, `🔒 Needs <owner>` for what only the owner can do. The roadmap routine
-  takes one feature or up to four `small` items per run. The gate count ignores tags.
+  takes one feature or up to six `small` items per run. The gate count ignores tags.
 - **Approval**: a `release-approval` issue. Open means awaiting approval. Closed as
   Completed means approved. Closed as Not planned means rejected. Reopening re-queues it.
   The publish script's exit codes carry the state: 0 published, 1 held at a gate,
@@ -108,7 +118,7 @@ docs site, a content collection. The mapping:
 |:---|:---|
 | Ideate writes a scored plan | An import stage writes idea rows to an `ideas/` collection, deduped by source ID |
 | Incubate creates a private repo | A plan-and-promote stage moves one item `planning/ → in-progress/` and writes its first source plus a per-item `ROADMAP.md` |
-| Roadmap routine, one per repo | One build routine that takes **one item (or up to four `small` ones) per in-progress folder per run** |
+| Roadmap routine, one per repo | One build routine that takes **one item (or up to six `small` ones) per in-progress folder per run** |
 | Release gates above a heading | A readiness **script** per item: roadmap done apart from `(Needs <owner>)`, verification recorded, source present |
 | Graduate flips visibility after approval | A publish stage moves ready items to `live/` and regenerates the site data. **The human merge is the approval**, enforced by `holdPaths` on the published paths |
 | Ledger row per project | Ledger row per run: what moved |
@@ -142,7 +152,7 @@ What changes because of it:
 | A roadmap run fails verification | No PR. Revert, restore the item, and state what blocked it |
 | Stage session crashes | The runner exits non-zero, and the wrapper emails `failed` |
 | Session exits non-zero with no work done (`API Error: 529`, `429`) | One retry after 2 minutes if it failed fast and wrote nothing, then `failed` with exit 1. Never `quiet`, and on a sweep never `held` |
-| An incubating project's open gates all wait on the owner, no roadmap PR merged in 21 days, ledger row older than that | Incubate's runner parks it before the cap check: disables its roadmap task, sets the Stage to `parked`, logs a `PARKED:` line. Nothing is deleted. Unpark by hand: tick the item, set the Stage back, re-enable the task |
+| An incubating project's open gates all wait on the owner, no roadmap PR merged in 14 days, ledger row older than that | Incubate's runner parks it before the cap check: disables its roadmap task, sets the Stage to `parked`, logs a `PARKED:` line. Nothing is deleted. Unpark by hand: tick the item, set the Stage back, re-enable the task |
 | A PR is BEHIND a base that requires up-to-date branches | The sweep runner runs `gh pr update-branch` and re-gates, instead of holding it for a person to press the same button |
 | A sweep approves a PR, and by merge time it no longer passes a gate (a sibling's merge turned its changelog DIRTY) | The runner union-merges a changelog-only conflict and re-gates; anything else stays open for the next sweep |
 | A run dies without reaching its outcome check (no exit line, no email) | Only the run history shows it: a `start` record with no `end`. The next run clears the stale lock |
