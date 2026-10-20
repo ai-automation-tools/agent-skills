@@ -148,6 +148,35 @@ in a sweep prompt is a request; a path gate is a guarantee.
 4. Run once for real, by hand. Read the PR, the outcome report, and confirm no worktree
    was left behind. Only then trust the schedule.
 
+## Going public: an optional release job
+
+A workspace says where it's headed in one place, the heading that splits its roadmap:
+`## After public release` means it goes public once every gate above it is ticked;
+`## After go-live` means it stays private. No ledger, no flag file: the release job reads
+the heading on the deploy branch.
+
+The last roadmap phase of a workspace headed public is `## 🚦 Public release`, and it
+carries the release prep as gates the roadmap job can finish: a `LICENSE`, a README that
+works for a stranger from a fresh clone (no owner-only paths, private repos or jobs taken
+for granted, `.env.example` names only), and a release dry run of the scripted gates.
+
+A **release job** (daily is fine; a pre-check makes idle days free) then does what the
+roadmap job must never do, in this order:
+
+1. **Script, not model, runs the hard gates**: no open PRs, every commit email on an
+   allow-list, a full-history secret scan that fails closed when the scanner is missing,
+   no local paths in tracked files, green CI on the deploy branch's head.
+2. **The owner approves on an issue** (plus an email): closing it as completed approves,
+   as not planned rejects. The script re-runs the gates before acting on an approval.
+3. **The script flips visibility** and re-applies the security controls a visibility
+   change can silently turn off (secret scanning, push protection, Dependabot alerts),
+   reading each one back.
+4. **Only then a session** does the follow-up: repo topics, security updates, a dependency
+   bot config by PR, the listing on the org's site, and the records.
+
+A model never changes visibility, never touches the approval issue, and a gate that fails
+on history (an email, a secret) goes to the owner, because history is never rewritten.
+
 ## Running without a local scheduler
 
 GitHub Actions can host the schedule, but Actions doesn't supply the agent: the job needs

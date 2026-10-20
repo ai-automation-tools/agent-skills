@@ -1,6 +1,6 @@
 ---
 name: agent-workspace-builder
-description: Create, adopt, or audit a specialized agent workspace repo, a GitHub repo that gives an AI or CLI agent one field's skills, agents, commands, rules, hooks and docs (security, business analysis, full-stack dev, media, API research), and set up the two weekly automations that keep it alive, a roadmap job and an upkeep job. Lays down the standard layout (AGENTS.md canonical, CLAUDE.md importing it, a docs tree with only README, ROADMAP and CHANGELOG at its root, a generated capability reference, a curated RESOURCES.md list, portable skills apart from the wired .claude/ ones) plus scripts that check it in CI. Use whenever the user wants a new agent workspace or agent repo for a topic, wants an existing one brought up to the standard, asks to standardize several agent repos, wants a weekly roadmap or upkeep routine for one, or asks why a workspace's docs, skills or resources list went stale.
+description: Create, adopt, or audit a specialized agent workspace repo, a GitHub repo that gives an AI or CLI agent one field's skills, agents, commands, rules, hooks and docs (security, business analysis, full-stack dev, media, API research), and set up the two weekly automations that keep it alive, a roadmap job and an upkeep job. Lays down the standard layout (AGENTS.md canonical, CLAUDE.md importing it, a docs tree with only README, ROADMAP and CHANGELOG at its root, a generated capability reference, a curated RESOURCES.md list, portable skills apart from the wired .claude/ ones) plus scripts that check it in CI. Use whenever the user wants a new agent workspace or agent repo for a topic, wants an existing one brought up to the standard, asks to standardize several agent repos, wants a weekly roadmap or upkeep routine for one, wants a finished one taken public by a gated release job, or asks why a workspace's docs, skills or resources list went stale.
 ---
 
 # Agent workspace builder
@@ -16,14 +16,14 @@ This skill does three jobs:
 |:---|:---|
 | **Create** | A new workspace repo that meets the standard on its first commit |
 | **Adopt** | An existing workspace moved onto the standard without losing history, content or links |
-| **Keep alive** | Two weekly scheduled jobs per workspace (roadmap and upkeep), each opening one PR |
+| **Keep alive** | Two weekly scheduled jobs per workspace (roadmap and upkeep), each opening one PR; optionally a release job that takes a finished workspace public behind scripted gates and the owner's approval |
 
 Read this file first, then the reference for the job:
 
 | Job | Read |
 |:---|:---|
 | What the standard requires, file by file | `references/workspace-standard.md` |
-| The roadmap and upkeep jobs: scope, schedule, hold paths, prompts | `references/automations.md` |
+| The roadmap and upkeep jobs: scope, schedule, hold paths, prompts; the optional release job | `references/automations.md` |
 | Starting files to copy and fill | `assets/`: `AGENTS.md`, `CLAUDE.md`, `SECURITY.md`, `docs-README.md`, `RESOURCES.md`, `env.example`, `ci.yml`, `roadmap-prompt.md`, `upkeep-prompt.md` |
 | The checks CI runs | `scripts/` (below) |
 
@@ -105,7 +105,8 @@ the shared frame, never the work folders.
    ones, cataloged in `skills/README.md`.
 6. **Write the docs with `repo-docs-builder`** (if installed; otherwise follow its house
    style): root README, `docs/README.md` index linking every subfolder, `docs/ROADMAP.md`
-   in the roadmap standard with a Go-live split, and `docs/CHANGELOG.md` with the first entry.
+   in the roadmap standard with a Go-live split (`## After public release` if it's headed
+   public, `## After go-live` if it stays private), and `docs/CHANGELOG.md` with the first entry.
 7. **Seed RESOURCES.md and intel** by research, not memory: 15–30 resources across the
    categories in the standard, each opened this session; one dated intel file per stream.
 8. **Generate and check**: `python scripts/gen-capabilities.py`, then
