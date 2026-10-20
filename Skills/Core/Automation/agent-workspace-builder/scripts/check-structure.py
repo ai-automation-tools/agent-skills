@@ -33,12 +33,17 @@ REQUIRED_FILES = (
     "skills/README.md",
     ".claude/settings.json",
     ".github/workflows/ci.yml",
+    ".env.example",
+    "scripts/envfile.py",
 )
 # The only files allowed directly in docs/. Everything else lives in a subfolder.
 DOCS_ROOT_FILES = {"README.md", "ROADMAP.md", "CHANGELOG.md"}
 IMPORT_RE = re.compile(r"^@AGENTS\.md\s*$", re.MULTILINE)
 UPDATED_RE = re.compile(r"Last updated:\s*(\d{4}-\d{2}-\d{2})")
 STALE_DAYS = 21
+MCP_VAR_RE = re.compile(r"\$\{([A-Za-z_][A-Za-z0-9_]*)\}")
+SECRET_NAME_RE = re.compile(r"KEY|TOKEN|SECRET|PASSWORD|CREDENTIAL|_PAT\b", re.IGNORECASE)
+CLIENT_VARS = {"CLAUDE_PROJECT_DIR"}  # set by the client itself, never by .env
 
 
 def check(root: Path, today: date | None = None) -> tuple[list[str], list[str]]:
@@ -86,7 +91,42 @@ def check(root: Path, today: date | None = None) -> tuple[list[str], list[str]]:
             if age > STALE_DAYS:
                 warnings.append(f"docs/reference/RESOURCES.md last updated {age} days ago")
 
+    errors += check_env(root)
     return errors, warnings
+
+
+def env_names(text: str) -> dict[str, str]:
+    out = {}
+    for line in text.splitlines():
+        line = line.strip().removeprefix("export ")
+        if line and not line.startswith("#") and "=" in line:
+            k, _, v = line.partition("=")
+            out[k.strip()] = v.split(" #", 1)[0].strip()
+    return out
+
+
+def check_env(root: Path) -> list[str]:
+    """Secrets live in a gitignored .env; .env.example names them and holds no secret value."""
+    errors = []
+    ignore = root / ".gitignore"
+    lines = {x.strip() for x in ignore.read_text(encoding="utf-8").splitlines()} if ignore.is_file() else set()
+    if not lines & {".env", ".env*"}:
+        errors.append(".gitignore must list '.env' so secrets never reach git")
+    if lines & {".env.*", ".env*"} and "!.env.example" not in lines:
+        errors.append(".gitignore ignores .env.example too -- add '!.env.example' after '.env.*'")
+    example = root / ".env.example"
+    if not example.is_file():
+        return errors  # already reported as missing
+    names = env_names(example.read_text(encoding="utf-8"))
+    for k, v in names.items():
+        if v and SECRET_NAME_RE.search(k):
+            errors.append(f".env.example gives {k} a value -- names only; real values go in .env")
+    mcp = root / ".mcp.json"
+    if mcp.is_file():
+        for var in sorted(set(MCP_VAR_RE.findall(mcp.read_text(encoding="utf-8"))) - CLIENT_VARS):
+            if var not in names:
+                errors.append(f".mcp.json uses ${{{var}}} but .env.example doesn't list it")
+    return errors
 
 
 def self_check() -> int:
@@ -97,6 +137,13 @@ def self_check() -> int:
             (root / rel).parent.mkdir(parents=True, exist_ok=True)
             (root / rel).write_text("x\n", encoding="utf-8")
         (root / "CLAUDE.md").write_text("<!-- note -->\n\n@AGENTS.md\n", encoding="utf-8")
+        (root / ".gitignore").write_text(".env\n.env.*\n!.env.example\n", encoding="utf-8")
+        (root / ".env.example").write_text(
+            "# names only\nNCBI_API_KEY=\nCONTACT_EMAIL=me@example.org\n", encoding="utf-8"
+        )
+        (root / ".mcp.json").write_text(
+            '{"env": {"K": "${NCBI_API_KEY}", "D": "${CLAUDE_PROJECT_DIR}"}}', encoding="utf-8"
+        )
         (root / "docs/reference/RESOURCES.md").write_text(
             "> Last updated: 2026-10-01.\n", encoding="utf-8"
         )
@@ -116,6 +163,19 @@ def self_check() -> int:
         assert any("@AGENTS.md" in x for x in e), e
         assert "missing SECURITY.md" in e, e
         assert len(e) == 3, e
+
+        # a real key in the example, an MCP secret it doesn't name, .env not ignored
+        (root / ".env.example").write_text("NCBI_API_KEY=abc123\n", encoding="utf-8")
+        (root / ".mcp.json").write_text('{"env": {"T": "${GITHUB_TOKEN}"}}', encoding="utf-8")
+        (root / ".gitignore").write_text("node_modules/\n", encoding="utf-8")
+        e = check_env(root)
+        assert any("gives NCBI_API_KEY a value" in x for x in e), e
+        assert any("${GITHUB_TOKEN}" in x for x in e), e
+        assert any(".gitignore" in x for x in e), e
+        assert len(e) == 3, e
+        # '.env.*' without the negation hides the example from git
+        (root / ".gitignore").write_text(".env\n.env.*\n", encoding="utf-8")
+        assert any("!.env.example" in x for x in check_env(root))
 
     # capital Docs/ is caught by name, whatever the filesystem's case rules
     # (a fresh dir: on Windows, Docs/ and docs/ cannot both exist)

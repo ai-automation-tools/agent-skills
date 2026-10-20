@@ -12,7 +12,9 @@ review. A rule nobody checks is a suggestion, so the checked ones are the ones t
 | `CLAUDE.md` **[checked]** | A bare `@AGENTS.md` line, plus only what applies to Claude Code alone (a note on `.claude/` hooks, say). Over 60 lines warns |
 | `SECURITY.md` **[checked]** | Short: how to report a problem privately, what the workspace's guardrails are (deny rules, hooks, scope gates), and that secrets never go in the repo. From `assets/SECURITY.md` |
 | `LICENSE` | When the repo is or may become public. Private workspaces can skip it |
-| `.gitattributes`, `.gitignore` | LF for `.md`, `.py`, `.yml`; ignore `.env*`, `.venv/`, caches, `artifacts/`, `.claude/settings.local.json` |
+| `.env.example` **[checked]** | Every secret or setting the workspace reads, one `NAME=` per line with a comment saying what it's for and where to get it. Names only: a `*KEY*`, `*TOKEN*`, `*SECRET*` or `*PASSWORD*` name with a value fails the check, and so does a `${VAR}` in `.mcp.json` that isn't listed. From `assets/env.example` |
+| `.env` | The real values. Gitignored, never committed, never read by an agent's Read tool (deny it in `settings.json`). Scripts load it with `scripts/envfile.py`; MCP servers that need a value launch through `python scripts/envfile.py -- <command>`, since `${VAR}` in `.mcp.json` only sees the process environment |
+| `.gitattributes`, `.gitignore` | LF for `.md`, `.py`, `.yml`; ignore `.env` and `.env.*` but keep `!.env.example` **[checked]**, `.venv/`, caches, `artifacts/`, `.claude/settings.local.json` |
 
 ### AGENTS.md sections, in order
 
@@ -108,8 +110,8 @@ sessions unless someone installs it.
 
 ## `scripts/` and CI
 
-All four from this skill's `scripts/`, unchanged except a workspace-specific capability
-generator if the workspace has one. `ci.yml` (from `assets/ci.yml`) runs on push to the
+All five from this skill's `scripts/` (the four checks plus `envfile.py`), unchanged except
+a workspace-specific capability generator if the workspace has one. `ci.yml` (from `assets/ci.yml`) runs on push to the
 working and deploy branches and on PRs:
 
 ```text

@@ -16,5 +16,5 @@ make an agent here act outside its guardrails, tell ⟨owner⟩ directly
 
 ## Secrets
 
-Never commit `.env*`, keys, tokens or credentials. `.env.example` holds variable names only.
+Never commit `.env*`, keys, tokens or credentials. Real values go in `.env` (gitignored); `.env.example` (committed) holds names only.
 If a secret is committed, rotate it first, then clean up; rewriting history comes last.

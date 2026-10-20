@@ -40,7 +40,8 @@ tooling without a signed scope"; "pasted output, or it's a hypothesis".⟩
 
 ## Guardrails
 
-- Never commit secrets, credentials or API keys; use environment variables.
+- Never commit secrets, credentials or API keys. They go in `.env` (gitignored); `.env.example`
+  lists the names. Scripts load it with `scripts/envfile.py`; never read `.env` yourself.
 - ⟨Confirm before deleting anything in the record folders.⟩
 - ⟨Field-specific never-dos.⟩
 
