@@ -24,7 +24,7 @@ from pathlib import Path
 LINK_RE = re.compile(r'\]\(([^)\s]+)(?:\s+"[^"]*")?\)|href="([^"]+)"')
 SKIP_PREFIX = ("http://", "https://", "mailto:", "vscode://", "#", "data:")
 SKIP_DIRS = {".git", ".venv", "node_modules", "__pycache__", "artifacts"}
-COMMENT_RE = re.compile(r"<!--.*?-->", re.S)
+COMMENT_RE = re.compile(r"<!--.*?-->", re.DOTALL)
 # A path containing a placeholder is a shape to copy, not a link to follow.
 PLACEHOLDER_RE = re.compile(r"NNNN|YYYY|MM-DD|\.\.\.|<[^>]+>|\[[^\]]+\]|\{|\$")
 

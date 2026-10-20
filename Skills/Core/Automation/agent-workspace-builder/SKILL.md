@@ -136,7 +136,7 @@ would get wrong because of each one.
 
 ## Scripts
 
-Copy all four into the workspace's `scripts/`. Each is stdlib-only Python 3.10+ and has a
+Copy all four into the workspace's `scripts/`. Each is stdlib-only Python 3.11+ and has a
 `--self-check`.
 
 | Script | Checks |

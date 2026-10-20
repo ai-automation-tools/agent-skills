@@ -16,7 +16,7 @@ import argparse
 import re
 import sys
 import tempfile
-from datetime import date
+from datetime import UTC, date, datetime
 from pathlib import Path
 
 REQUIRED_FILES = (
@@ -42,7 +42,7 @@ STALE_DAYS = 21
 
 
 def check(root: Path, today: date | None = None) -> tuple[list[str], list[str]]:
-    today = today or date.today()
+    today = today or datetime.now(UTC).date()
     errors: list[str] = []
     warnings: list[str] = []
 

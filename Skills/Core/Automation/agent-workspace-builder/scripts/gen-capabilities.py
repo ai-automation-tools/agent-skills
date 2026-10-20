@@ -19,9 +19,9 @@ import re
 import sys
 from pathlib import Path
 
-FRONTMATTER_RE = re.compile(r"\A---\r?\n(.*?)\r?\n---\r?\n", re.S)
+FRONTMATTER_RE = re.compile(r"\A---\r?\n(.*?)\r?\n---\r?\n", re.DOTALL)
 # an agent description carries usage examples after this marker; a table wants the claim only
-EXAMPLES_RE = re.compile(r"\s*(?:Specifically:|<example>)", re.S)
+EXAMPLES_RE = re.compile(r"\s*(?:Specifically:|<example>)", re.DOTALL)
 # every description states its claim, then why it exists; the table wants the claim
 RATIONALE_RE = re.compile(r"\s+(?:because|It exists)\b")
 OUT = Path("docs/reference/CAPABILITIES.md")
