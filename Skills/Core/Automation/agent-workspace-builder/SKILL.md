@@ -117,7 +117,8 @@ the shared frame, never the work folders.
    Don't rewrite the doctrine while moving it; content edits are a separate change.
 5. **Replace the shared scripts** with this skill's copies and point CI at all four. A
    workspace with its own capability generator (an API registry, say) keeps it and just
-   writes to `docs/reference/CAPABILITIES.md`.
+   writes to `docs/reference/CAPABILITIES.md`. A copy made on Windows loses the executable
+   bit; if the repo runs ruff (EXE001), restore it with `git update-index --chmod=+x scripts/<name>.py`.
 6. **Fix every link** the moves broke: `check-links.py` finds them inside the repo; grep
    outside it too (scheduled job prompts, sibling indexes, other repos' docs).
 7. **Add what's missing**: `SECURITY.md`, `RESOURCES.md` (researched), `docs/intel/README.md`.
