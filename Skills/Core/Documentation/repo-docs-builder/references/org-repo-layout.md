@@ -49,6 +49,21 @@ output (`dist/`, `_site/`, `.next/`), virtualenvs (`.venv/`, `venv/`), old copie
 
 ## Checking it
 
-A rule nobody checks is a suggestion. Until the org layout check exists, review a new repo against this
-table before its first PR merges; `agent-workspace-builder`'s `check-structure.py` already enforces the
-workspace half.
+[`scripts/check-org-layout.py`](../scripts/check-org-layout.py) checks every rule above that a script can
+check. It reads what git tracks, so Windows can't hide a `Docs/`, and prints one `ISSUE:` line per drift:
+
+```bash
+python scripts/check-org-layout.py --root <Repos/AI-Automation-Tools>   # every clone (Archive skipped)
+python scripts/check-org-layout.py --repo <one repo>
+```
+
+It checks: the required files (`README.md`, `AGENTS.md`, `CLAUDE.md`, `docs/README.md`,
+`docs/ROADMAP.md`, `docs/CHANGELOG.md`), that `CLAUDE.md` imports `AGENTS.md`, lowercase-kebab
+spelling for root folders and everything under `docs/`, `test/`, the never-committed folders, tracked
+`.env*` files, `docs/prompts/` and `docs/images/`, and `docs/mcp-server.md` wherever an MCP server is
+found. Publish-target repos only need `README.md`. A `.env*.example` file, and a Vite mode file whose
+only settings are `VITE_*` (compiled into the page, so public by design), are not env-file drift.
+
+Org Upkeep runs it every Saturday (check 18) and reports the drift against last week; CI in
+`agent-skills` runs its `--self-check`. `agent-workspace-builder`'s `check-structure.py` still owns
+the stricter workspace half.

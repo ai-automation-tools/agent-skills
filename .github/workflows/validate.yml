@@ -29,6 +29,9 @@ jobs:
       # showcase's GitHub links back into this repo, must point at a real path.
       # Case-sensitive, so a renamed skill fails here instead of 404ing quietly.
       - run: python scripts/check-links.py
+      # The org layout check (Org Upkeep runs it weekly across every clone) tests its
+      # own rules against built-in fixtures, so a broken rule fails here, not on Saturday.
+      - run: python Skills/Core/Documentation/repo-docs-builder/scripts/check-org-layout.py --self-check
       # Installs every tier into a temp directory with pwsh (preinstalled on
       # ubuntu-latest) and asserts the flat <dir>/<name>/SKILL.md layout, a
       # Core-only bare run, and that a duplicated skill name throws.
