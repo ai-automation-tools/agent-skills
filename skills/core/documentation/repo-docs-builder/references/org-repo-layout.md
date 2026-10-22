@@ -20,12 +20,12 @@ and the per-repo migration list: `Custom-Domains/Public-ai-automation-tools.dev/
 
 | Content | Path | Rule |
 |:---|:---|:---|
-| Agent instructions | `AGENTS.md` + `CLAUDE.md` | `AGENTS.md` is canonical (Codex, Gemini CLI, opencode read it); `CLAUDE.md` is a bare `@AGENTS.md` plus Claude-only notes |
+| Agent instructions | `AGENTS.md` + `CLAUDE.md` | `AGENTS.md` is canonical (Codex, opencode, Antigravity read it); `CLAUDE.md` is a bare `@AGENTS.md` plus Claude-only notes |
 | Docs | `docs/` | `README.md` hub, `ROADMAP.md`, `CHANGELOG.md`; `UPSTREAMS.md` once live. Subfolders from this list before inventing one: `setup/`, `guides/`, `architecture/`, `decisions/` (ADRs), `product/`, `diagrams/`, `reports/`, `testing/` |
 | Diagrams | `docs/diagrams/` | Source (`.mmd`, `.json`, `.dot`) next to its render (`.svg`, `.png`, `.html`). A script that builds them lives in `scripts/` |
 | App / library code | `src/` | A split stack uses `backend/src/` + `frontend/src/` instead |
 | Demo or app front end | `site/` | What Pages or Vercel serves. A marketing homepage kept in the repo goes in `homepage/` |
-| MCP server | `mcp-server/` when it installs on its own; otherwise inside `src/` | Either way, **`docs/mcp-server.md`** names the entry file, the transport, every tool and the install line. That doc is what the Prompt Library card and the org map read |
+| MCP server | `mcp-server/` when it installs on its own; otherwise inside `src/` | Either way, **`docs/mcp-server.md`** names the entry file, the transport, every tool and the install line for each client (Claude Code, Codex, opencode, Antigravity). The root `README.md` links to it, from the MCP feature row or section and from the docs table, so setup is one click from the front page. That doc is what the Prompt Library card and the org map read |
 | Portable skills | `skills/<name>/SKILL.md` | What the repo ships. `.claude/skills/` is wiring only (installed copies), never the source |
 | Portable subagents | `agents/<name>.md` | Same rule; `.claude/agents/` is wiring |
 | Prompt templates | `prompts/<group>/<name>.md` | One `README.md` per group. Not under `docs/` |
@@ -61,7 +61,7 @@ It checks: the required files (`README.md`, `AGENTS.md`, `CLAUDE.md`, `docs/READ
 `docs/ROADMAP.md`, `docs/CHANGELOG.md`), that `CLAUDE.md` imports `AGENTS.md`, lowercase-kebab
 spelling for root folders and everything under `docs/`, `test/`, the never-committed folders, tracked
 `.env*` files, `docs/prompts/` and `docs/images/`, and `docs/mcp-server.md` wherever an MCP server is
-found. Publish-target repos only need `README.md`. A `.env*.example` file, and a Vite mode file whose
+found, linked from the root `README.md`. Publish-target repos only need `README.md`. A `.env*.example` file, and a Vite mode file whose
 only settings are `VITE_*` (compiled into the page, so public by design), are not env-file drift.
 
 Org Upkeep runs it every Saturday (check 18) and reports the drift against last week; CI in

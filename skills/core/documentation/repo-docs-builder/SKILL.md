@@ -597,7 +597,7 @@ Follow this section order (diagrams are optional and rarely needed — see §4.6
 2. Key Features / What's in here (standard markdown table, lists, or headers)
 3. Quick Start / Navigation (3-5 commands/steps max)
 4. Detailed Sections (standard headers, collapsible if long)
-5. Documentation Links / catalog tables (down-links, §2.2)
+5. Documentation Links / catalog tables (down-links, §2.2). A repo that ships an MCP server links `docs/mcp-server.md` here and from its MCP feature row or section
 6. API/Integration Reference
 7. Footer (nav row for a folder README; built-with / license / ecosystem for a root README)
 ```

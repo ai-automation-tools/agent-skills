@@ -90,6 +90,8 @@ def check_files(name: str, files: list[str], read=lambda rel: "") -> list[str]:
             issues.append(f"tracked env file: {f}")
     if any(MCP_HINT.search(f) for f in files) and "docs/mcp-server.md" not in present:
         issues.append("has an MCP server but no docs/mcp-server.md")
+    if "docs/mcp-server.md" in present and "README.md" in present and "docs/mcp-server.md" not in read("README.md"):
+        issues.append("root README.md does not link docs/mcp-server.md")
     return issues
 
 
@@ -139,6 +141,9 @@ def self_check() -> int:
                  "should be ignored: artifacts/", "tracked virtualenv: venv/", "docs/prompts/", "docs/mcp-server.md"):
         assert want in found, f"self-check expected {want!r} in:\n{found}"
     assert check_files("app", ["README.md", "AGENTS.md", "CLAUDE.md"], lambda r: "copied text")[-1].startswith("CLAUDE.md does not import")
+    mcp = good + ["docs/mcp-server.md"]
+    assert check_files("app", mcp, lambda r: "@AGENTS.md\n")[-1] == "root README.md does not link docs/mcp-server.md"
+    assert check_files("app", mcp, lambda r: "@AGENTS.md\n[MCP setup](docs/mcp-server.md)") == []
     assert check_files("houston-site", ["index.html", "README.md", "Images/x.png"]) == []
     assert check_files("x.github.io", ["index.html"]) == ["missing README.md"]
     with tempfile.TemporaryDirectory() as d:

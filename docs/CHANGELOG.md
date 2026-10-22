@@ -27,6 +27,7 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 ## 2026-10-22
 
 **Changed**
+- `repo-docs-builder`: a repo that ships an MCP server links `docs/mcp-server.md` from its root README (the MCP feature row or section, and the docs table), and that page gives the install line for each client: Claude Code, Codex, opencode, Antigravity. `check-org-layout.py` flags a README without the link, with a self-check case. Gemini CLI, deprecated, is dropped from the layout reference.
 - `project-hub-scaffold` and the three `project-hub-*` project skills follow project-hub's lowercase folders (`hub/`, `project-hub/`, `projects/`, `demo/`). The project skills also pick up two changes that had reached only project-hub's installed copies: per-workspace `maxDepth` and bookmark groups.
 
 **Added**
