@@ -48,7 +48,7 @@ rotation item is the file with the oldest last commit across all four. Keep fron
 valid. Never delete or rename an item, and never add a write tool to an agent or command:
 that widens permissions, so it's a part-5 proposal. If anything in `.claude/` or `skills/`
 changed, regenerate CAPABILITIES with the workspace's generator and the other CLIs' config
-with `python scripts/gen-vendor-configs.py`; never edit `.agents/`, `.codex/`, `.gemini/` or
+with `python scripts/gen-vendor-configs.py`; never edit `.agents/`, `.codex/` or
 `docs/reference/OTHER-CLIS.md` by hand.
 
 ## 4. Resources (`docs/reference/RESOURCES.md`)

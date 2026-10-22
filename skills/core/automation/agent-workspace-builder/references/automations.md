@@ -55,7 +55,7 @@ One session, one PR, these parts in order, each its own commit:
    `settings.json` and `.mcp.json` only when intel shows they're wrong, and only as a
    held change a person merges. Regenerate `docs/reference/CAPABILITIES.md` and the other
    CLIs' config (`python scripts/gen-vendor-configs.py`) if anything here changed; never
-   edit `.agents/`, `.codex/`, `.gemini/` or `OTHER-CLIS.md` by hand.
+   edit `.agents/`, `.codex/` or `OTHER-CLIS.md` by hand.
 4. **Resources (`docs/reference/RESOURCES.md`).** Re-open every link (or a rotating third
    of a long list), update descriptions that drifted, retire dead or superseded ones with
    a reason, and add up to five new high-quality resources found during this run's
@@ -122,7 +122,7 @@ touches these for a person, whichever job opened it:
 .claude/hooks/*
 .mcp.json
 .codex/rules/*  .codex/hooks.json  .codex/config.toml   (generated, but they change
-.gemini/settings.json  .geminiignore  .agents/mcp_config.json   what other CLIs may do)
+.agents/mcp_config.json                                  what other CLIs may do)
 .github/workflows/*   (optional: hold only deploy workflows if CI fixes should flow)
 ```
 
@@ -161,8 +161,8 @@ the heading on the deploy branch.
 The last roadmap phase of a workspace headed public is `## 🚦 Public release`, and it
 carries the release prep as gates the roadmap job can finish: a `LICENSE`, a README that
 works for a stranger from a fresh clone (no owner-only paths, private repos or jobs taken
-for granted, `.env.example` names only, and a line saying it also works with Codex, Gemini
-CLI and Antigravity that links `docs/reference/OTHER-CLIS.md`), and a release dry run of the
+for granted, `.env.example` names only, and a line saying it also works with Codex, opencode
+and Antigravity that links `docs/reference/OTHER-CLIS.md`), and a release dry run of the
 scripted gates.
 
 A **release job** (daily is fine; a pre-check makes idle days free) then does what the

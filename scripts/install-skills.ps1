@@ -31,7 +31,7 @@
 
       Claude Code      ~/.claude/skills
       Codex + Kimi     ~/.agents/skills          (shared; ~/.codex/skills is legacy)
-      agy              ~/.gemini/skills          (Antigravity CLI)
+      agy              ~/.gemini/antigravity-cli/skills  (Antigravity CLI)
       Antigravity IDE  ~/.gemini/config/skills
       opencode         ~/.config/opencode/skills
       Kilo             ~/.kilo/skills
