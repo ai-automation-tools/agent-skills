@@ -1,6 +1,6 @@
 # CLAUDE.md — Agent Skills
 
-> **Repo:** `github.com/ai-automation-tools/agent-skills` (public) · **Branch:** `main` — this repo deliberately does **not** use the lab-wide `mike_desktop` convention, and that exception is stated here rather than discovered.
+> **Repo:** `github.com/ai-automation-tools/agent-skills` (public) · **Branch:** work on `mike_desktop` (the lab-wide convention since 2026-10-22), push it, and open a PR into `main`; scheduled jobs open PRs from their own branches (`roadmap/…`, `harvest/…`, `docs/…`). `main` is the deploy branch: never commit to it locally.
 > **Renamed 2026-09-10** from `My-Custom-Skills`; the local clone moved to `Repos/AI-Automation-Tools/Tools/agent-skills` in the same pass. GitHub redirects the old path, but repoint any clone with `git remote set-url` — a redirect keeps pushes working and tells you nothing.
 > **Ecosystem context:** this repo is one entry in a wider Agent-Skills index kept in a personal Obsidian vault, which since 2026-09-10 is no longer this repo's parent folder. That index is background; **this file is authoritative for work inside `agent-skills/`.**
 
@@ -144,7 +144,7 @@ Before finishing an edit to any skill, check whether another skill *references* 
 
 **The project tier is additive.** Every org repo keeps its own skills — a shipped `skills/` and a tracked `.claude/skills/`, both edited in that repo. `Skills/Projects/<repo>/` is a second layer installed on top. Never move a repo's skills into here, and never assume a name is free: installs are flat, so an overlay can overwrite a skill the repo owns. Each project README lists the taken names, and the installer marks rows `New` or `Replaced` plus warns when a `-Project` install replaced anything.
 
-**One real duplicate exists.** `project-hub-scaffold` sits here (Core) *and* in the `project-hub` repo, byte-identical, with no sync. This repo is canonical — edit here, republish, never hand-edit that copy. It is a one-off to resolve, not a pattern to copy.
+**One real duplicate exists.** `project-hub-scaffold` sits here (Core) *and* in the `project-hub` repo, kept byte-identical. This repo is canonical: edit here, then copy the folder to `project-hub/Skills/project-hub-scaffold/` in the same change. Since 2026-10-22 `project-hub`'s CI (`scaffold copy` job in `test.yml`) diffs its copy against this repo's `main` and fails on drift, so a feature PR there that updates only the travel copy goes red until this side matches. It is a one-off, not a pattern to copy.
 
 > [!IMPORTANT]
 > **Harvested skills are mirrors. Don't edit them here.** Since 2026-09-22 a weekly Skill Harvest job (Sun 08:00, `\AI-Automation-Tools-Org\Integrate-Projects\`) copies portable skills from the five org agent workspaces (`api-agent`, `business-agent`, `security-agent`, `fullstack-agent`, `media-agent`) into `Skills/Domain/<Domain>/`, byte for byte, by `harvest/auto-<date>` PR. [`docs/HARVEST.md`](./docs/HARVEST.md) lists every one with its source. Edit the skill in its workspace repo and the next harvest re-syncs it. An edit made here gets flagged, not merged back. The roadmap routine follows the same rule.
@@ -211,7 +211,7 @@ Beyond that there is no test runner. Skill-specific `evals/` (e.g. `recipe-valid
 - **Windows-first.** PowerShell 7+ for shell work; forward slashes in paths/JSON work fine. Invoke Python scripts explicitly (`python skills/<name>/scripts/<script>.py …`).
 - **Markdown.** These docs target both GitHub and Obsidian rendering — pure native markdown, GitHub-style callouts (`> [!NOTE]`), diagrams sparingly and only when they earn their place, never by default (matches the `repo-docs-builder` philosophy).
 - **Never commit:** secrets (`.env*`, `*.key`), OS cruft, and per-skill `reports/` run output (all covered by `.gitignore` — verify before committing).
-- **Git.** Remote is `ai-automation-tools/agent-skills`, branch `main` (moved from `michaelschecht/` 2026-09-09, renamed from `My-Custom-Skills` 2026-09-10; both old paths redirect, but repoint any clone with `git remote set-url`). Commit/push **only when Mike asks.** Imperative-mood subjects matching the existing log ("Organize skills into category folders"). Small, focused commits.
+- **Git.** Remote is `ai-automation-tools/agent-skills`; changes reach `main` only through a PR, from `mike_desktop` or a job's own branch (moved from `michaelschecht/` 2026-09-09, renamed from `My-Custom-Skills` 2026-09-10; both old paths redirect, but repoint any clone with `git remote set-url`). Commit/push **only when Mike asks.** Imperative-mood subjects matching the existing log ("Organize skills into category folders"). Small, focused commits.
 - **Read before editing.** Match the style and structure of the skill/doc you're changing. When a task targets one skill, read its `SKILL.md` (and its `references/`) first.
 
 ---

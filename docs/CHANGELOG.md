@@ -30,6 +30,8 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 - `repo-docs-builder`: `references/org-repo-layout.md`, the org repo layout standard: lowercase-kebab folders, and one home each for docs, diagrams, code, front end, MCP servers (`mcp-server/` or `docs/mcp-server.md`), skills, prompts, scripts, tests and images, with `AGENTS.md` canonical. §1 points to it; `agent-workspace-builder` step 6 follows it. Closes the convention half of org ROADMAP P2-15.
 
 **Changed**
+- `project-hub-scaffold`: `references/current-features.md` takes the bookmark-groups text that landed only in `project-hub`'s travel copy (its #25), so the two copies match again. `project-hub`'s CI now fails if they drift.
+- Branch workflow: this repo now follows the lab-wide `mike_desktop` → PR → `main` flow, and jobs open PRs from their own branches. `CLAUDE.md` said `main` only, which had stopped being true.
 - Renamed the top-level `Docs/` folder to `docs/`, per the org layout standard. GitHub is case-sensitive, so `docs/...` links into this repo 404'd. Every link, the showcase's GitHub links, `check-links.py` and the CI comment now use `docs/`. The `edge-spectrum` project skills and `project-hub-scaffold` references now point at `docs/` too, since those repos are renamed the same day. Entries below this one keep the old spelling.
 
 ## 2026-10-20
