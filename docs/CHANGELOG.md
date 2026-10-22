@@ -26,6 +26,9 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 
 ## 2026-10-22
 
+**Changed**
+- `project-hub-scaffold` and the three `project-hub-*` project skills follow project-hub's lowercase folders (`hub/`, `project-hub/`, `projects/`, `demo/`). The project skills also pick up two changes that had reached only project-hub's installed copies: per-workspace `maxDepth` and bookmark groups.
+
 **Added**
 - `AGENTS.md` (the rules, moved from `CLAUDE.md` with its history) and a new `CLAUDE.md` that imports it and keeps only Claude-only notes; `docs/README.md`, an index of `docs/`. Org layout P2-21.
 - `repo-docs-builder`: `scripts/check-org-layout.py`, the org layout check. It reads each clone's tracked files and prints one `ISSUE:` line per drift from `org-repo-layout.md`; Org Upkeep runs it weekly across every org clone, and CI runs its `--self-check`. First run: 25 repos, 14 drifting, 53 issues, all on the 2026-10-22 migration list.
