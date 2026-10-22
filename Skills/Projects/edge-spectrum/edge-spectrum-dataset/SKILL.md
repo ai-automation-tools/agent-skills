@@ -74,7 +74,7 @@ removing one requires `npm run check:edges -- --write-baseline` and an explanati
 
 **Two counts must agree and they live in different files.** `EXPECTED_RECORDS = 187` is hardcoded
 in `scripts/check-spectrum.ts`; `totalRecords` lives in `src/data/provenance-baseline.json`. Adding
-or removing a record means updating **both**, plus `Docs/roadmap.md` — `check-spectrum` says so in
+or removing a record means updating **both**, plus `docs/roadmap.md` — `check-spectrum` says so in
 its own failure message.
 
 ## 4. Changing the record count
@@ -83,7 +83,7 @@ its own failure message.
 2. `npm run gen:edges` — rewrites all four artifacts.
 3. `npm run check:edges -- --write-baseline` — records the new `totalRecords` / `withSource`.
 4. Update `EXPECTED_RECORDS` in `scripts/check-spectrum.ts`.
-5. Update the count wherever prose states it: `Docs/roadmap.md`, `CLAUDE.md`, and the `spectrum`
+5. Update the count wherever prose states it: `docs/roadmap.md`, `CLAUDE.md`, and the `spectrum`
    tool's `blurb` in `src/tools.ts` (it says "187 financial & betting activities").
 6. `npm run check:edges && npm run check:spectrum` — then `npm run lint`.
 
@@ -144,6 +144,6 @@ the result. That creates a contract in an unusual place:
 | For | See |
 |:---|:---|
 | The three measures, ruin point, and the banner contract in full | [`references/measures.md`](references/measures.md) |
-| The DU/CED framework and ruin formulas | the repo's `Docs/methodology.md` |
-| Why the two measures are no longer on one axis | `Docs/Ideas/hub_improvement_plan.md` §8 |
+| The DU/CED framework and ruin formulas | the repo's `docs/methodology.md` |
+| Why the two measures are no longer on one axis | `docs/Ideas/hub_improvement_plan.md` §8 |
 | The `/spectrum` tile and hub registry | the `edge-spectrum-hub-tool` skill |

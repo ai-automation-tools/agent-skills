@@ -31,7 +31,7 @@ where they come from and how they install:
 Every skill here is a **byte-for-byte copy** of a skill in one of the five agent workspaces:
 `api-agent`, `business-agent`, `security-agent`, `fullstack-agent` and `media-studio`.
 A weekly Skill Harvest job copies the ones that pass its checks and re-syncs them when the
-source changes. [`Docs/HARVEST.md`](../../Docs/HARVEST.md) lists every one with its source.
+source changes. [`docs/HARVEST.md`](../../docs/HARVEST.md) lists every one with its source.
 
 > [!IMPORTANT]
 > **Edit a domain skill in its workspace repo, not here.** The next harvest brings the change

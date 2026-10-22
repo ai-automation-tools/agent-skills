@@ -139,6 +139,6 @@ row in that script before it gets merged.
 | For | See |
 |:---|:---|
 | The full gate state table, env matrix and cookie mechanics | [`references/gate.md`](references/gate.md) |
-| Self-hosting and the demo/full split, for users | the repo's `Docs/self-hosting.md` |
+| Self-hosting and the demo/full split, for users | the repo's `docs/self-hosting.md` |
 | Wiring a new tool page to a new endpoint | the `edge-spectrum-hub-tool` skill |
 | Branch flow and the Vercel preview gate | the repo's `CLAUDE.md` |

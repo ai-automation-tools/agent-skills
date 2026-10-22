@@ -108,5 +108,5 @@ inconsistent; this tree is not.
   ·
   <a href="../Core/">Core skills</a>
   ·
-  <a href="../../Docs/USING-SKILLS.md">Authoring guide</a>
+  <a href="../../docs/USING-SKILLS.md">Authoring guide</a>
 </p>

@@ -7,16 +7,16 @@
 </p>
 
 <p align="center">
-  <a href="./Docs/USING-SKILLS.md"><strong>Explore the docs »</strong></a>
+  <a href="./docs/USING-SKILLS.md"><strong>Explore the docs »</strong></a>
 </p>
 
 <p align="center">
   <a href="https://agent-skills.ai-automation-tools.dev">Showcase site</a> ·
   <a href="#-skill-catalog">Catalog</a> ·
   <a href="#-using-a-skill">Install</a> ·
-  <a href="./Docs/USING-SKILLS.md">Authoring guide</a> ·
-  <a href="./Docs/ROADMAP.md">Roadmap</a> ·
-  <a href="./Docs/CHANGELOG.md">Changelog</a>
+  <a href="./docs/USING-SKILLS.md">Authoring guide</a> ·
+  <a href="./docs/ROADMAP.md">Roadmap</a> ·
+  <a href="./docs/CHANGELOG.md">Changelog</a>
 </p>
 
 <p align="center">
@@ -62,7 +62,7 @@ A collection of reusable skills for Claude Code and compatible AI agents. Each s
 Field-specific skills from the org's five agent workspaces, copied here unchanged by a weekly
 harvest. They're kept apart from Core so Core stays a short list, and they install only
 when you ask: `install-skills.ps1 -Domain`. Edit them in their workspace repo; the
-[harvest ledger](./Docs/HARVEST.md) says which one.
+[harvest ledger](./docs/HARVEST.md) says which one.
 
 | Domain folder | What's inside |
 |:---|:---|
@@ -86,4 +86,4 @@ Each folder lists the project's existing skills and any additional skills provid
 
 <a id="-using-a-skill"></a>
 
-See the [Using Skills guide](./Docs/USING-SKILLS.md) for installation and authoring instructions, or browse [Resources](./Resources/README.md) for examples and supporting material. What's planned next is in the [roadmap](./Docs/ROADMAP.md), and what has already changed is in the [changelog](./Docs/CHANGELOG.md).
+See the [Using Skills guide](./docs/USING-SKILLS.md) for installation and authoring instructions, or browse [Resources](./Resources/README.md) for examples and supporting material. What's planned next is in the [roadmap](./docs/ROADMAP.md), and what has already changed is in the [changelog](./docs/CHANGELOG.md).
