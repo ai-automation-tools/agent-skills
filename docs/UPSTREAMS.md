@@ -8,10 +8,10 @@ too: a new install target, CI action or third-party asset is a new row.
 **Not in scope here:**
 
 - Whether each skill's *advice* is still current in its field. The monthly **Agent-Skills
-  Monthly Skill Review** owns that, for `Skills/Core` and `Skills/Projects`.
-- `Skills/Domain/`. Those are byte-identical mirrors of the org agent workspaces, refreshed by the
+  Monthly Skill Review** owns that, for `skills/core` and `skills/projects`.
+- `skills/domain/`. Those are byte-identical mirrors of the org agent workspaces, refreshed by the
   weekly **Skill Harvest**; fix them at the source.
-- The showcase site. Its cards, lists and counts are generated from the `Skills/` tree by
+- The showcase site. Its cards, lists and counts are generated from the `skills/` tree by
   `scripts/build-showcase.py`, and CI fails when the page falls behind the catalog.
 
 **Last checked** is filled in by the routine, and only with a date it actually read the
@@ -21,7 +21,7 @@ source. `—` means never checked.
 
 | Upstream | What the repo assumes | Code | Check at | Last checked |
 |:---|:---|:---|:---|:---|
-| **Agent Skills format (Claude Code)** | A skill is a folder with a `SKILL.md`: YAML frontmatter first, `name` (kebab-case, equal to its folder) and `description` (the validator enforces 40–1,024 characters, the open spec's cap; Claude Code itself allows 1,536 for `description` plus `when_to_use`), then Markdown instructions; optional `scripts/`, `references/` and other folders loaded on demand. Personal skills in `~/.claude/skills/<name>/`, project skills in `<repo>/.claude/skills/<name>/`; invoked as `/skill-name` | `scripts/validate-skills.py`, `docs/USING-SKILLS.md`, `CLAUDE.md`, every `SKILL.md` | code.claude.com/docs/en/skills; docs.claude.com/en/docs/agents-and-tools/agent-skills; github.com/anthropics/claude-code/blob/main/CHANGELOG.md | 2026-10-06 |
+| **Agent Skills format (Claude Code)** | A skill is a folder with a `SKILL.md`: YAML frontmatter first, `name` (kebab-case, equal to its folder) and `description` (the validator enforces 40–1,024 characters, the open spec's cap; Claude Code itself allows 1,536 for `description` plus `when_to_use`), then Markdown instructions; optional `scripts/`, `references/` and other folders loaded on demand. Personal skills in `~/.claude/skills/<name>/`, project skills in `<repo>/.claude/skills/<name>/`; invoked as `/skill-name` | `scripts/validate-skills.py`, `docs/USING-SKILLS.md`, `AGENTS.md`, every `SKILL.md` | code.claude.com/docs/en/skills; docs.claude.com/en/docs/agents-and-tools/agent-skills; github.com/anthropics/claude-code/blob/main/CHANGELOG.md | 2026-10-06 |
 | **Open Agent Skills spec** | The same frontmatter is portable to other agents that read the open spec, so one leaf folder installs everywhere | `docs/USING-SKILLS.md`, `README.md` | agentskills.io; github.com/anthropics/skills | 2026-10-06 |
 
 ## Install targets

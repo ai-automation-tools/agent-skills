@@ -21,11 +21,11 @@ Three files, an icon and an image folder. No framework, no `package.json`, nothi
 |:---|:---|
 | [**index.html**](./index.html) | The page: hero, the Core skill cards, the Domain and Project lists, the install commands, and a Resources block linking the repo's docs and the org home. Everything renders before JavaScript runs. The cards, filter chips, lists and counts sit between `<!-- gen:… -->` markers and are **generated** — don't hand-edit inside them. |
 | [**showcase.json**](./showcase.json) | The hand-written card copy: each Core skill's glyph, tagline, feature bullets and screenshot `alt` text, plus the glyph for each Domain and Project group. Card order follows this file. |
-| [**styles.css**](./styles.css) | The org house style (the [`web-house-style`](../Skills/Core/Web/web-house-style/SKILL.md) skill): its dark token block and the `html.light` block, Inter + JetBrains Mono, the dot-grid ground, and this site's amber accent. Rules below the tokens use token names only. A card takes its colour from its `data-category`, which means a new category is one `--c-<name>` variable. |
+| [**styles.css**](./styles.css) | The org house style (the [`web-house-style`](../skills/core/web/web-house-style/SKILL.md) skill): its dark token block and the `html.light` block, Inter + JetBrains Mono, the dot-grid ground, and this site's amber accent. Rules below the tokens use token names only. A card takes its colour from its `data-category`, which means a new category is one `--c-<name>` variable. |
 | [**favicon.svg**](./favicon.svg) | The Agent Skills icon from the shared icon set, used as the favicon and the top-bar mark. Copy it from the set again if it changes there; don't redraw it. |
 | [**script.js**](./script.js) | The Light \| Dark switch (key `agent-skills.theme`, dark by default), the phone menu sheet, scroll-spy, the typewriter hero, category filters, copy buttons, and the screenshot lightbox. |
 | [**assets/img/**](./assets/img/README.md) | The screenshots, plus the naming rules the page follows. |
-| [**assets/diagrams/**](./assets/diagrams/task-router.html) | Sources for any diagram that ships as an image. `task-router.html` is a 1600 × 1000 page that renders to `assets/img/task-router.webp`; edit it and screenshot it again if the tiers change. Also published pages that a skill's overview links to: `automated-dev-pipeline-workflow.html` is the interactive Archify diagram, generated from its JSON source in `Resources/Skill-Data/` (don't hand-edit). |
+| [**assets/diagrams/**](./assets/diagrams/task-router.html) | Sources for any diagram that ships as an image. `task-router.html` is a 1600 × 1000 page that renders to `assets/img/task-router.webp`; edit it and screenshot it again if the tiers change. Also published pages that a skill's overview links to: `automated-dev-pipeline-workflow.html` is the interactive Archify diagram, generated from its JSON source in `resources/skill-data/` (don't hand-edit). |
 | [**CNAME**](./CNAME) | `agent-skills.ai-automation-tools.dev`. Shipped inside the published folder so the custom domain re-asserts itself on every deploy. |
 
 ## 🚀 Run it
@@ -61,7 +61,7 @@ The table of expected filenames is in [`assets/img/README.md`](./assets/img/READ
 
 ## ✏️ Editing the copy
 
-The **Skills/ tree decides what's on the page**; [`showcase.json`](./showcase.json) only supplies the words. After adding, renaming or removing a skill, or editing its copy:
+The **skills/ tree decides what's on the page**; [`showcase.json`](./showcase.json) only supplies the words. After adding, renaming or removing a skill, or editing its copy:
 
 ```powershell
 python scripts/build-showcase.py          # rewrites the generated regions of index.html
@@ -93,7 +93,7 @@ What's left before this page is finished, in rough order of what matters most.
 
 Every card has an image now.
 
-- [ ] Decide whether the four seeded `repo-docs-builder` images stay. They're rendered examples lifted from the skill's own `Resources/` folder, so they show the output a run produces rather than the skill at work.
+- [ ] Decide whether the four seeded `repo-docs-builder` images stay. They're rendered examples lifted from the skill's own `resources/` folder, so they show the output a run produces rather than the skill at work.
 - [ ] Compress what goes in. Most images are WebP now; the seeded `repo-docs-builder` PNGs still run up to 274 KB.
 
 ### 🌐 Hosting
@@ -106,11 +106,11 @@ Published by [`pages.yml`](../.github/workflows/pages.yml) to `agent-skills.ai-a
 
 ### 🔁 Copy that drifts
 
-Since 2026-10-05 the cards, chips, group lists and counts are generated from the `Skills/` tree and CI fails when the page falls behind. What's left is the wording in `showcase.json`, which is still hand-written.
+Since 2026-10-05 the cards, chips, group lists and counts are generated from the `skills/` tree and CI fails when the page falls behind. What's left is the wording in `showcase.json`, which is still hand-written.
 
 - [ ] Re-read the taglines and feature lists in `showcase.json` against the current `SKILL.md` files.
 - [x] Pick a sync story: `scripts/build-showcase.py` generates the cards from the tree and `showcase.json`, checked in CI. *(2026-10-05)*
-- [x] Re-check the project list against `Skills/Projects/`: generated from the tree now, along with the Domain list. *(2026-10-05)*
+- [x] Re-check the project list against `skills/projects/`: generated from the tree now, along with the Domain list. *(2026-10-05)*
 
 ### ♿ Accessibility
 
@@ -131,6 +131,6 @@ Since 2026-10-05 the cards, chips, group lists and counts are generated from the
 
 <p align="center">
   <a href="../README.md">← Repository home</a> ·
-  <a href="../Skills/Core/README.md">Core skills</a> ·
+  <a href="../skills/core/README.md">Core skills</a> ·
   <a href="../docs/USING-SKILLS.md">Using skills</a>
 </p>

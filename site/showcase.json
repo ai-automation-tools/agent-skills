@@ -1,5 +1,5 @@
 {
-  "_comment": "Hand-written showcase copy. scripts/build-showcase.py merges it with the Skills/ tree and rewrites the generated regions of site/index.html. The tree decides WHICH skills, categories, groups and counts appear; this file only supplies the words and glyphs. A Core skill with no entry here still gets a card, built from its SKILL.md frontmatter.",
+  "_comment": "Hand-written showcase copy. scripts/build-showcase.py merges it with the skills/ tree and rewrites the generated regions of site/index.html. The tree decides WHICH skills, categories, groups and counts appear; this file only supplies the words and glyphs. A Core skill with no entry here still gets a card, built from its SKILL.md frontmatter.",
   "core": [
     {
       "name": "repo-docs-builder",

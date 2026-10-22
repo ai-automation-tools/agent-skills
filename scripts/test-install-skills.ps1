@@ -8,7 +8,7 @@
        layout: exactly one <dir>/<name>/SKILL.md per leaf skill in the repo, nothing
        else at the top level, and no reports/ folder carried along.
     2. Installs a bare run (Core only) and asserts no Domain or Projects skill leaks in.
-    3. Copies Skills/ and the installer into a scratch repo, duplicates one skill
+    3. Copies skills/ and the installer into a scratch repo, duplicates one skill
        under a second category, and asserts the install throws on the collision.
 
     Touches nothing outside the temp directory, so it never writes to ~/.claude.
@@ -21,7 +21,7 @@ $ErrorActionPreference = 'Stop'
 
 $RepoRoot   = Split-Path -Parent $PSScriptRoot
 $Installer  = Join-Path $PSScriptRoot 'install-skills.ps1'
-$SkillsRoot = Join-Path $RepoRoot 'Skills'
+$SkillsRoot = Join-Path $RepoRoot 'skills'
 $Tmp        = Join-Path ([IO.Path]::GetTempPath()) "install-skills-test-$([guid]::NewGuid().ToString('N'))"
 
 function Assert([bool] $Condition, [string] $Message) {
@@ -54,7 +54,7 @@ try {
     # 2. A bare run installs Core only.
     $core = Join-Path $Tmp 'core'
     & $Installer -Destination $core *> $null
-    $coreExpected  = @(Get-LeafNames (Join-Path $SkillsRoot 'Core'))
+    $coreExpected  = @(Get-LeafNames (Join-Path $SkillsRoot 'core'))
     $coreInstalled = @(Get-ChildItem -Path $core -Directory | Select-Object -ExpandProperty Name | Sort-Object)
     Assert (-not (Compare-Object $coreExpected $coreInstalled)) "a bare run installs exactly the Core tier ($($coreExpected.Count))"
 
@@ -65,7 +65,7 @@ try {
     Copy-Item -Path $Installer -Destination (Join-Path $scratch 'scripts')
     $scratchInstaller = Join-Path $scratch 'scripts/install-skills.ps1'
 
-    $victim = Get-ChildItem -Path (Join-Path $scratch 'Skills/Core') -Recurse -File -Filter 'SKILL.md' |
+    $victim = Get-ChildItem -Path (Join-Path $scratch 'skills/core') -Recurse -File -Filter 'SKILL.md' |
         Select-Object -First 1 -ExpandProperty Directory
     New-Item -ItemType Directory -Path (Join-Path $victim.FullName 'reports') | Out-Null
     Set-Content -Path (Join-Path $victim.FullName 'reports/run.txt') -Value 'local output'
@@ -75,7 +75,7 @@ try {
     Assert (Test-Path (Join-Path $reportsOut "$($victim.Name)/SKILL.md")) "-Skill installs one named skill ($($victim.Name))"
     Assert (-not (Get-ChildItem -Path $reportsOut -Recurse -Directory -Filter 'reports')) 'reports/ run output is not installed'
 
-    $twin = Join-Path $scratch "Skills/Core/Zz-Collision/$($victim.Name)"
+    $twin = Join-Path $scratch "skills/core/Zz-Collision/$($victim.Name)"
     New-Item -ItemType Directory -Path $twin -Force | Out-Null
     Copy-Item -Path (Join-Path $victim.FullName 'SKILL.md') -Destination $twin
     $collisionOut = Join-Path $Tmp 'collision'

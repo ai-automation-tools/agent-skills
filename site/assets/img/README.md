@@ -17,14 +17,14 @@
 
 | Skill | Primary image | Gallery extras |
 |:---|:---|:---|
-| [**repo-docs-builder**](../../../Skills/Core/Documentation/repo-docs-builder/SKILL.md) | `repo-docs-builder.png` | `-2`, `-3`, `-4` |
-| [**business-plan-builder**](../../../Skills/Core/Business/business-plan-builder/SKILL.md) | `business-plan-builder.png` | `-2`, `-3`, `-4` |
-| [**recipe-validator**](../../../Skills/Core/Cooking/recipe-validator/SKILL.md) | `recipe-validator.png` | `-2`, `-3`, `-4` |
-| [**html-email-templates**](../../../Skills/Core/Automation/html-email-templates/SKILL.md) | `html-email-templates.png` | `-2`, `-3`, `-4` |
-| [**task-router**](../../../Skills/Core/Automation/task-router/SKILL.md) | `task-router.png` | `-2`, `-3`, `-4` |
-| [**news-images**](../../../Skills/Core/Image-Gen/news-images/SKILL.md) | `news-images.png` | `-2`, `-3`, `-4` |
-| [**project-hub-scaffold**](../../../Skills/Core/Web/project-hub-scaffold/SKILL.md) | `project-hub-scaffold.png` | `-2`, `-3`, `-4` |
-| [**automated-dev-pipeline**](../../../Skills/Core/Automation/automated-dev-pipeline/SKILL.md) | `automated-dev-pipeline.png` | `-2`, `-3`, `-4` |
+| [**repo-docs-builder**](../../../skills/core/documentation/repo-docs-builder/SKILL.md) | `repo-docs-builder.png` | `-2`, `-3`, `-4` |
+| [**business-plan-builder**](../../../skills/core/business/business-plan-builder/SKILL.md) | `business-plan-builder.png` | `-2`, `-3`, `-4` |
+| [**recipe-validator**](../../../skills/core/cooking/recipe-validator/SKILL.md) | `recipe-validator.png` | `-2`, `-3`, `-4` |
+| [**html-email-templates**](../../../skills/core/automation/html-email-templates/SKILL.md) | `html-email-templates.png` | `-2`, `-3`, `-4` |
+| [**task-router**](../../../skills/core/automation/task-router/SKILL.md) | `task-router.png` | `-2`, `-3`, `-4` |
+| [**news-images**](../../../skills/core/image-gen/news-images/SKILL.md) | `news-images.png` | `-2`, `-3`, `-4` |
+| [**project-hub-scaffold**](../../../skills/core/web/project-hub-scaffold/SKILL.md) | `project-hub-scaffold.png` | `-2`, `-3`, `-4` |
+| [**automated-dev-pipeline**](../../../skills/core/automation/automated-dev-pipeline/SKILL.md) | `automated-dev-pipeline.png` | `-2`, `-3`, `-4` |
 
 `-2` means the gallery name, so `task-router-2.png` is the second image on the `task-router` card.
 
@@ -41,7 +41,7 @@
 Every card has an image:
 
 - **`repo-docs-builder`** ships with four captures copied from
-  `Resources/Skill-Data/Core/Documentation/repo-docs-builder/Images/Screenshots/`, so the gallery
+  `resources/skill-data/core/documentation/repo-docs-builder/images/screenshots/`, so the gallery
   and lightbox have something real to show.
 - **`project-hub-scaffold`** has two: the workspace dashboard and the markdown viewer.
 - **`business-plan-builder`** has three: the expanded output tree for one idea, plus the collapsed
@@ -69,5 +69,5 @@ Replace any of them whenever you like. The filenames are all that matters.
 <p align="center">
   <a href="../../README.md">← Showcase site</a> ·
   <a href="../../../README.md">Repository home</a> ·
-  <a href="../../../Skills/Core/README.md">Core skills</a>
+  <a href="../../../skills/core/README.md">Core skills</a>
 </p>

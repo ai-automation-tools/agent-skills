@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <a href="./docs/USING-SKILLS.md"><strong>Explore the docs »</strong></a>
+  <a href="./docs/README.md"><strong>Explore the docs »</strong></a>
 </p>
 
 <p align="center">
@@ -37,25 +37,25 @@ A collection of reusable skills for Claude Code and compatible AI agents. Each s
 
 | Folder | What's inside |
 |:---|:---|
-| [**🧩 Core**](./Skills/Core/README.md) | Reusable skills that work across repositories and install into your agent's user-level skills directory. |
-| [**🧭 Domain**](./Skills/Domain/README.md) | Field-specific skills (engineering, security, business, media, API) mirrored from the org's agent workspaces. Portable, installed on request. |
-| [**🗂️ Projects**](./Skills/Projects/README.md) | Additional skills for specific repositories, installed into the project they belong to. |
+| [**🧩 Core**](./skills/core/README.md) | Reusable skills that work across repositories and install into your agent's user-level skills directory. |
+| [**🧭 Domain**](./skills/domain/README.md) | Field-specific skills (engineering, security, business, media, API) mirrored from the org's agent workspaces. Portable, installed on request. |
+| [**🗂️ Projects**](./skills/projects/README.md) | Additional skills for specific repositories, installed into the project they belong to. |
 | [**🖥️ Showcase site**](./site/README.md) | A static page that presents every Core skill as a card, with screenshots and install commands. Published at [agent-skills.ai-automation-tools.dev](https://agent-skills.ai-automation-tools.dev). |
 
 ## 📦 Core skills
 
 | Skill | Category | What it does |
 |:---|:---|:---|
-| [**✉️ html-email-templates**](./Resources/Skill-Data/Core/Automation/html-email-templates/README.md) | Automation | Creates HTML emails for notifications, reports, and digests. |
-| [**🏭 automated-dev-pipeline**](./Resources/Skill-Data/Core/Automation/automated-dev-pipeline/README.md) | Automation | Sets up scheduled AI agents that build projects through PRs, publish them to a GitHub account or organization behind scripted gates and a human approval, and keep every repo current. Also covers pipelines whose stages are folders in one repo that deploys a site. |
-| [**🧠 agent-workspace-builder**](./Resources/Skill-Data/Core/Automation/agent-workspace-builder/README.md) | Automation | Creates or standardizes a specialized agent workspace repo (AGENTS.md doctrine, docs tree, capability reference, curated resources, portable skills) and sets up its weekly roadmap and upkeep automations. |
-| [**🚦 task-router**](./Resources/Skill-Data/Core/Automation/task-router/README.md) | Automation | Chooses a workflow and model tier based on the task. |
-| [**📈 business-plan-builder**](./Resources/Skill-Data/Core/Business/business-plan-builder/README.md) | Business | Evaluates business ideas and writes a decision memo and build plan. |
-| [**🍳 recipe-validator**](./Resources/Skill-Data/Core/Cooking/recipe-validator/README.md) | Cooking | Checks recipes for food safety, nutrition, quantities, and allergens. |
-| [**🏗️ repo-docs-builder**](./Resources/Skill-Data/Core/Documentation/repo-docs-builder/README.md) | Documentation | Organizes repositories and creates linked READMEs, a docs tree, and the roadmap + changelog that go with it. |
-| [**🖼️ news-images**](./Resources/Skill-Data/Core/Image-Gen/news-images/README.md) | Image-Gen | Generates illustrated news collages and montages. |
-| [**🌐 project-hub-scaffold**](./Resources/Skill-Data/Core/Web/project-hub-scaffold/README.md) | Web | Builds a local web interface for browsing project documents. |
-| [**🎨 web-house-style**](./Resources/Skill-Data/Core/Web/web-house-style/README.md) | Web | Gives a page the org sites' shared look: dark-first tokens, a Light / Dark switch top right, the source bar, a top bar or icon sidebar, and the phone pass. |
+| [**✉️ html-email-templates**](./resources/skill-data/core/automation/html-email-templates/README.md) | Automation | Creates HTML emails for notifications, reports, and digests. |
+| [**🏭 automated-dev-pipeline**](./resources/skill-data/core/automation/automated-dev-pipeline/README.md) | Automation | Sets up scheduled AI agents that build projects through PRs, publish them to a GitHub account or organization behind scripted gates and a human approval, and keep every repo current. Also covers pipelines whose stages are folders in one repo that deploys a site. |
+| [**🧠 agent-workspace-builder**](./resources/skill-data/core/automation/agent-workspace-builder/README.md) | Automation | Creates or standardizes a specialized agent workspace repo (AGENTS.md doctrine, docs tree, capability reference, curated resources, portable skills) and sets up its weekly roadmap and upkeep automations. |
+| [**🚦 task-router**](./resources/skill-data/core/automation/task-router/README.md) | Automation | Chooses a workflow and model tier based on the task. |
+| [**📈 business-plan-builder**](./resources/skill-data/core/business/business-plan-builder/README.md) | Business | Evaluates business ideas and writes a decision memo and build plan. |
+| [**🍳 recipe-validator**](./resources/skill-data/core/cooking/recipe-validator/README.md) | Cooking | Checks recipes for food safety, nutrition, quantities, and allergens. |
+| [**🏗️ repo-docs-builder**](./resources/skill-data/core/documentation/repo-docs-builder/README.md) | Documentation | Organizes repositories and creates linked READMEs, a docs tree, and the roadmap + changelog that go with it. |
+| [**🖼️ news-images**](./resources/skill-data/core/image-gen/news-images/README.md) | Image-Gen | Generates illustrated news collages and montages. |
+| [**🌐 project-hub-scaffold**](./resources/skill-data/core/web/project-hub-scaffold/README.md) | Web | Builds a local web interface for browsing project documents. |
+| [**🎨 web-house-style**](./resources/skill-data/core/web/web-house-style/README.md) | Web | Gives a page the org sites' shared look: dark-first tokens, a Light / Dark switch top right, the source bar, a top bar or icon sidebar, and the phone pass. |
 
 ## 🧭 Domain skills
 
@@ -66,11 +66,11 @@ when you ask: `install-skills.ps1 -Domain`. Edit them in their workspace repo; t
 
 | Domain folder | What's inside |
 |:---|:---|
-| [**🛠️ Engineering**](./Skills/Domain/Engineering/) | How to build software well: debugging, performance work, and test strategy. From `fullstack-agent`. |
-| [**🌐 API**](./Skills/Domain/API/) | Working with third-party APIs: judging one before you integrate, writing clients that survive failures, staying inside rate limits and quotas, normalizing responses into one traceable shape, and testing integrations without hitting live services. From `api-agent`. |
-| [**📈 Business**](./Skills/Domain/Business/) | Field tactics for business decisions: running customer discovery interviews, planning go-to-market, and setting prices. From `business-agent`. |
-| [**🔐 Security**](./Skills/Domain/Security/) | Communicating and steering security work: turning verified findings into a report a client acts on, disclosing a vulnerability responsibly, and measuring a security program with metrics, SLAs and a risk register. From `security-agent`. |
-| [**🎬 Media**](./Skills/Domain/Media/) | Getting a media asset ready to publish and learning from it afterward: captions, alt text, accessibility checks, rights clearance, and reading post-publish analytics. From `media-studio`. |
+| [**🛠️ Engineering**](./skills/domain/engineering/) | How to build software well: debugging, performance work, and test strategy. From `fullstack-agent`. |
+| [**🌐 API**](./skills/domain/api/) | Working with third-party APIs: judging one before you integrate, writing clients that survive failures, staying inside rate limits and quotas, normalizing responses into one traceable shape, and testing integrations without hitting live services. From `api-agent`. |
+| [**📈 Business**](./skills/domain/business/) | Field tactics for business decisions: running customer discovery interviews, planning go-to-market, and setting prices. From `business-agent`. |
+| [**🔐 Security**](./skills/domain/security/) | Communicating and steering security work: turning verified findings into a report a client acts on, disclosing a vulnerability responsibly, and measuring a security program with metrics, SLAs and a risk register. From `security-agent`. |
+| [**🎬 Media**](./skills/domain/media/) | Getting a media asset ready to publish and learning from it afterward: captions, alt text, accessibility checks, rights clearance, and reading post-publish analytics. From `media-studio`. |
 
 ## 🗂️ Project skills
 
@@ -78,12 +78,12 @@ Each folder lists the project's existing skills and any additional skills provid
 
 | Project folder | Additional skills in this repo |
 |:---|:---|
-| [**💬 agent-chat**](./Skills/Projects/agent-chat/README.md) | `agent-chat-conv-types`, `agent-chat-delivery` and `agent-chat-run-triage`. |
-| [**⏱️ cronsole**](./Skills/Projects/cronsole/README.md) | `cronsole-windows-jobs` and `cronsole-claude-routines`. |
-| [**📡 edge-radar**](./Skills/Projects/edge-radar/README.md) | `edge-radar-strategy-profiles` and `edge-radar-strategy-evidence`. |
-| [**📉 edge-spectrum**](./Skills/Projects/edge-spectrum/README.md) | `edge-spectrum-hub-tool`, `edge-spectrum-dataset` and `edge-spectrum-endpoint`. |
-| [**🌐 project-hub**](./Skills/Projects/project-hub/README.md) | `project-hub-scan`, `project-hub-client` and `project-hub-demo`. (`project-hub-scaffold` is listed under Core.) |
+| [**💬 agent-chat**](./skills/projects/agent-chat/README.md) | `agent-chat-conv-types`, `agent-chat-delivery` and `agent-chat-run-triage`. |
+| [**⏱️ cronsole**](./skills/projects/cronsole/README.md) | `cronsole-windows-jobs` and `cronsole-claude-routines`. |
+| [**📡 edge-radar**](./skills/projects/edge-radar/README.md) | `edge-radar-strategy-profiles` and `edge-radar-strategy-evidence`. |
+| [**📉 edge-spectrum**](./skills/projects/edge-spectrum/README.md) | `edge-spectrum-hub-tool`, `edge-spectrum-dataset` and `edge-spectrum-endpoint`. |
+| [**🌐 project-hub**](./skills/projects/project-hub/README.md) | `project-hub-scan`, `project-hub-client` and `project-hub-demo`. (`project-hub-scaffold` is listed under Core.) |
 
 <a id="-using-a-skill"></a>
 
-See the [Using Skills guide](./docs/USING-SKILLS.md) for installation and authoring instructions, or browse [Resources](./Resources/README.md) for examples and supporting material. What's planned next is in the [roadmap](./docs/ROADMAP.md), and what has already changed is in the [changelog](./docs/CHANGELOG.md).
+See the [Using Skills guide](./docs/USING-SKILLS.md) for installation and authoring instructions, or browse [Resources](./resources/README.md) for examples and supporting material. What's planned next is in the [roadmap](./docs/ROADMAP.md), and what has already changed is in the [changelog](./docs/CHANGELOG.md).
