@@ -1,7 +1,7 @@
-<h1 align="center">💬 Agent-chat skills</h1>
+<h1 align="center">💬 Roundtable skills</h1>
 
 <p align="center">
-  <em>Additional skills for <a href="https://github.com/ai-automation-tools/Agent-chat"><code>Agent-chat</code></a> — an overlay on top of the skills that repo already owns.</em>
+  <em>Additional skills for <a href="https://github.com/ai-automation-tools/roundtable"><code>roundtable</code></a> — an overlay on top of the skills that repo already owns.</em>
 </p>
 
 <p align="center">

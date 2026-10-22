@@ -1,7 +1,7 @@
 <h1 align="center">📡 Edge-Radar skills</h1>
 
 <p align="center">
-  <em>Additional skills for <a href="https://github.com/ai-automation-tools/Edge-Radar"><code>Edge-Radar</code></a> — an overlay on top of the skills that repo already owns.</em>
+  <em>Additional skills for <a href="https://github.com/ai-automation-tools/edge-radar"><code>edge-radar</code></a> — an overlay on top of the skills that repo already owns.</em>
 </p>
 
 <p align="center">

@@ -21,7 +21,7 @@
 
 ## Where it came from
 
-It was written to standardize the five agent workspaces in the [ai-automation-tools](https://github.com/ai-automation-tools) org (`api-agent`, `business-agent`, `security-agent`, `fullstack-agent`, `media-studio`). The four scripts started as the shared copies those repos already carried; `check-structure.py` is new, and `validate-skills.py` now covers the portable `skills/` folder too.
+It was written to standardize the five agent workspaces in the [ai-automation-tools](https://github.com/ai-automation-tools) org (`api-agent`, `business-agent`, `security-agent`, `fullstack-agent`, `media-agent`). The four scripts started as the shared copies those repos already carried; `check-structure.py` is new, and `validate-skills.py` now covers the portable `skills/` folder too.
 
 ## Files
 
