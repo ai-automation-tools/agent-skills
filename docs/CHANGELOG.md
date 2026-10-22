@@ -27,6 +27,7 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 ## 2026-10-22
 
 **Added**
+- `repo-docs-builder`: `scripts/check-org-layout.py`, the org layout check. It reads each clone's tracked files and prints one `ISSUE:` line per drift from `org-repo-layout.md`; Org Upkeep runs it weekly across every org clone, and CI runs its `--self-check`. First run: 25 repos, 14 drifting, 53 issues, all on the 2026-10-22 migration list.
 - `repo-docs-builder`: `references/org-repo-layout.md`, the org repo layout standard: lowercase-kebab folders, and one home each for docs, diagrams, code, front end, MCP servers (`mcp-server/` or `docs/mcp-server.md`), skills, prompts, scripts, tests and images, with `AGENTS.md` canonical. §1 points to it; `agent-workspace-builder` step 6 follows it. Closes the convention half of org ROADMAP P2-15.
 
 **Changed**
