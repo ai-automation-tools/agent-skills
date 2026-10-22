@@ -48,11 +48,11 @@ tooling without a signed scope"; "pasted output, or it's a hypothesis".⟩
 ## Other agent CLIs
 
 This workspace is built for Claude Code, and `scripts/gen-vendor-configs.py` generates what
-it can for **Codex** (`.codex/`), **Gemini CLI** (`.gemini/`, `.geminiignore`) and
-**Antigravity** (`.agents/`): the wired skills, MCP servers, command rules and guard hooks.
+it can for **Codex** (`.codex/`) and **Antigravity** (`.agents/`): the wired skills, MCP
+servers, command rules and guard hooks.
 **Not every guardrail carries over.** [`docs/reference/OTHER-CLIS.md`](docs/reference/OTHER-CLIS.md)
-lists what doesn't, per CLI; read it before working here outside Claude Code. Codex and
-Gemini load their folder only after you trust it. To change any of it, edit `.claude/` or
+lists what doesn't, per CLI; read it before working here outside Claude Code. Codex loads
+`.codex/` only after you trust the folder. To change any of it, edit `.claude/` or
 `.mcp.json` and rerun the script; never edit the generated files.
 
 ## Capabilities
