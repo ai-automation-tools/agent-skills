@@ -6,18 +6,18 @@ How to install, invoke, and author the custom Agent Skills in this repo.
 
 A **Skill** is a reusable, model-invocable capability packaged as a single `SKILL.md` file. It teaches an agent (Claude Code and compatible CLIs) how to perform a specific task well. The agent loads the skill's instructions only when the skill is invoked, so skills keep specialized knowledge out of the base context until it's needed.
 
-Skills sit in **three tiers** under [`../Skills/`](../Skills), and they do not install to the same place:
+Skills sit in **three tiers** under [`../skills/`](../skills), and they do not install to the same place:
 
 ```
-Skills/
-├── Core/                    # portable — installs to ~/.claude/skills
-│   └── <Category>/          # e.g. Business, Documentation, Image-Gen
+skills/
+├── core/                    # portable — installs to ~/.claude/skills
+│   └── <category>/          # e.g. Business, Documentation, Image-Gen
 │       └── <skill-name>/
 │           └── SKILL.md     # YAML frontmatter (name, description) + instructions
-├── Domain/                  # portable FIELD skills mirrored from the org's agent workspaces —
-│   └── <Domain>/            # installs to ~/.claude/skills only with -Domain
+├── domain/                  # portable FIELD skills mirrored from the org's agent workspaces —
+│   └── <domain>/            # installs to ~/.claude/skills only with -Domain
 │       └── <skill-name>/
-└── Projects/                # ADDITIONAL skills for one org repo — installs into THAT repo,
+└── projects/                # ADDITIONAL skills for one org repo — installs into THAT repo,
     │                        # on top of the skills it already owns
     └── <repo-slug>/         # agent-chat · cronsole · edge-radar · …
         └── <skill-name>/
@@ -25,13 +25,13 @@ Skills/
 ```
 
 One question decides the tier: **would you invoke this from a repo other than the one it was
-written for?** Yes → [`Core`](../Skills/Core/README.md). No → [`Projects`](../Skills/Projects/README.md).
+written for?** Yes → [`Core`](../skills/core/README.md). No → [`Projects`](../skills/projects/README.md).
 The test is about where you invoke it, not what it is about — `project-hub-scaffold` is Core
 despite being named for an org product, because you run it from whatever repo is *getting* a hub.
 
-Categories inside `Core/` just group related skills. Add one when a skill fits none of them.
+Categories inside `core/` just group related skills. Add one when a skill fits none of them.
 
-[`Domain`](../Skills/Domain/README.md) is the third tier, and you don't author into it. A weekly
+[`Domain`](../skills/domain/README.md) is the third tier, and you don't author into it. A weekly
 harvest mirrors field skills (engineering, security, business, media, API) from the org's agent
 workspaces into it, which keeps Core a short list. Install them with
 `pwsh scripts/install-skills.ps1 -Domain`, and edit them in their workspace repo.
@@ -74,7 +74,7 @@ Skills are picked up from an agent's skills directory. Three options:
 
    A bare run installs **Core only**, so a project skill cannot leak into user scope by accident.
    Re-run it after editing any skill. Restart the Claude Code session to reload the catalog.
-2. **Point at this repo** — configure your agent's skills path to include this repo's `Skills/Core/` folder.
+2. **Point at this repo** — configure your agent's skills path to include this repo's `skills/core/` folder.
 3. **Copy an individual skill** — copy a single `<skill-name>/` folder (the leaf folder, not its tier or category) into your agent's skills directory.
 
 > [!NOTE]
@@ -98,19 +98,19 @@ The folder name should match the skill's `name`. Restart or reload the agent so 
 
 ## Authoring a new skill
 
-1. Pick the tier with the invoke-it-anywhere test, then create `Skills/Core/<Category>/<skill-name>/SKILL.md` (in the category that fits, or a new one) or `Skills/Projects/<repo-slug>/<skill-name>/SKILL.md`.
+1. Pick the tier with the invoke-it-anywhere test, then create `skills/core/<category>/<skill-name>/SKILL.md` (in the category that fits, or a new one) or `skills/projects/<repo-slug>/<skill-name>/SKILL.md`.
 2. Write the frontmatter — a unique `name` and a description that leads with the capability and names the trigger conditions.
 3. Write the body: purpose, when-to-use, principles, a concrete execution checklist, and explicit anti-patterns. Concrete examples beat abstract advice.
 4. Keep it self-contained — the agent won't have your surrounding conversation when the skill loads.
-5. Add a row to the matching table — the repo [`../README.md`](../README.md) and [`Skills/Core/README.md`](../Skills/Core/README.md) for a Core skill, or the project's own README for a project skill.
+5. Add a row to the matching table — the repo [`../README.md`](../README.md) and [`skills/core/README.md`](../skills/core/README.md) for a Core skill, or the project's own README for a project skill.
 6. If it's worth documenting further (design rationale, longer usage notes), add a doc here in `docs/`.
 
 > [!TIP]
-> The [`repo-docs-builder`](../Skills/Core/Documentation/repo-docs-builder/SKILL.md) skill is a good reference implementation — it shows the frontmatter + when-to-use + principles + workflow + anti-patterns structure.
+> The [`repo-docs-builder`](../skills/core/documentation/repo-docs-builder/SKILL.md) skill is a good reference implementation — it shows the frontmatter + when-to-use + principles + workflow + anti-patterns structure.
 
 ## Testing a skill
 
-- Run `python scripts/validate-skills.py` from the repo root. It checks the frontmatter, the name, the description length, the paths the body cites, the README rows and the `Resources/Skill-Data/` mirror for every skill, and lists every failure it finds. Standard library only, so nothing to install. CI runs the same check on every pull request (`.github/workflows/validate.yml`).
+- Run `python scripts/validate-skills.py` from the repo root. It checks the frontmatter, the name, the description length, the paths the body cites, the README rows and the `resources/skill-data/` mirror for every skill, and lists every failure it finds. Standard library only, so nothing to install. CI runs the same check on every pull request (`.github/workflows/validate.yml`).
 - Run `python scripts/check-links.py` too. It fails on any relative link in a README, `docs/` or the showcase page that points at a path that doesn't exist (case-sensitive), which is what a rename or a move leaves behind. CI runs it in the same workflow.
 - If you changed the installer, run `pwsh -NoProfile -File scripts/test-install-skills.ps1`. It installs into a temp directory, never your real skills folder, and fails if the layout isn't flat or a duplicated name doesn't throw. CI runs it too.
 - Invoke it explicitly (`/<skill-name>`) on a real task and confirm the output follows the skill's rules.

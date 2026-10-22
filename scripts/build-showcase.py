@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild the generated parts of site/index.html from the Skills/ tree.
+"""Rebuild the generated parts of site/index.html from the skills/ tree.
 
 The tree decides WHICH skills, categories, groups and counts the showcase shows. The
 hand-written words (taglines, feature bullets, glyphs, screenshot alt text) live in
@@ -27,7 +27,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SKILLS = ROOT / "Skills"
+SKILLS = ROOT / "skills"
 INDEX = ROOT / "site" / "index.html"
 SHOWCASE = ROOT / "site" / "showcase.json"
 IMG = ROOT / "site" / "assets" / "img"
@@ -73,6 +73,11 @@ def tree(tier: str) -> dict[str, list[tuple[str, dict[str, str]]]]:
         group, skill = skill_md.parent.parent.name, skill_md.parent.name
         out.setdefault(group, []).append((skill, frontmatter(skill_md)))
     return out
+
+
+def label(folder: str) -> str:
+    """Display name for a lowercase-kebab category or domain folder: `image-gen` -> `Image-Gen`, `api` -> `API`."""
+    return "API" if folder == "api" else "-".join(w.capitalize() for w in folder.split("-"))
 
 
 def first_sentence(text: str) -> str:
@@ -128,7 +133,7 @@ def card(idx: int, category: str, skill: str, fm: dict[str, str], copy: dict) ->
         f'            <span class="idx">{n}</span>',
         "          </div>",
         '          <div class="card-body">',
-        f'            <span class="cat" data-cat="{category.lower()}"><i aria-hidden="true"></i>{category}</span>',
+        f'            <span class="cat" data-cat="{category.lower()}"><i aria-hidden="true"></i>{label(category)}</span>',
         f'            <h3 class="card-title"><span class="glyph" aria-hidden="true">{glyph}</span><code>{skill}</code></h3>',
         f'            <p class="tagline">{tagline}</p>',
     ]
@@ -144,7 +149,7 @@ def card(idx: int, category: str, skill: str, fm: dict[str, str], copy: dict) ->
         f'                <span class="cmd-text">-Skill {skill}</span>',
         '                <span class="cmd-icon" aria-hidden="true">copy</span>',
         "              </button>",
-        f'              <a class="link" href="{REPO_URL}/blob/main/Skills/Core/{category}/{skill}/SKILL.md" target="_blank" rel="noopener">SKILL.md <span aria-hidden="true">↗</span></a>',
+        f'              <a class="link" href="{REPO_URL}/blob/main/skills/core/{category}/{skill}/SKILL.md" target="_blank" rel="noopener">SKILL.md <span aria-hidden="true">↗</span></a>',
         "            </div>",
         "          </div>",
         "        </article>",
@@ -152,15 +157,18 @@ def card(idx: int, category: str, skill: str, fm: dict[str, str], copy: dict) ->
     return "\n".join(lines)
 
 
-def group_list(tier: str, groups: dict, meta: list[dict]) -> str:
+def group_list(tier: str, groups: dict, meta: list[dict], name=lambda g: g) -> str:
+    """`name` turns a folder into the label shown and matched against showcase.json."""
+    groups = {name(g): (g, skills) for g, skills in groups.items()}
     glyphs = {g["name"]: g.get("glyph", "📁") for g in meta}
     order = [g["name"] for g in meta if g["name"] in groups] + sorted(g for g in groups if g not in glyphs)
     items = []
     for g in order:
-        skills = "".join(f"<code>{s}</code>" for s, _ in groups[g])
+        folder, members = groups[g]
+        skills = "".join(f"<code>{s}</code>" for s, _ in members)
         items.append("\n".join([
             "        <li>",
-            f'          <a class="proj" href="{REPO_URL}/tree/main/Skills/{tier}/{g}" target="_blank" rel="noopener">',
+            f'          <a class="proj" href="{REPO_URL}/tree/main/skills/{tier}/{folder}" target="_blank" rel="noopener">',
             f'            <span class="proj-glyph" aria-hidden="true">{glyphs.get(g, "📁")}</span>',
             '            <span class="proj-main">',
             f'              <span class="proj-name">{g}</span>',
@@ -176,7 +184,7 @@ def group_list(tier: str, groups: dict, meta: list[dict]) -> str:
 def build() -> tuple[dict[str, str], list[str]]:
     """The generated value for every marker key, plus any problems worth failing on."""
     data = json.loads(SHOWCASE.read_text(encoding="utf-8"))
-    core = tree("Core")
+    core = tree("core")
     copy = {c["name"]: c for c in data.get("core", [])}
     by_skill = {s: (cat, fm) for cat, skills in core.items() for s, fm in skills}
 
@@ -186,13 +194,13 @@ def build() -> tuple[dict[str, str], list[str]]:
 
     total = len(by_skill)
     chips = [f'        <button class="chip" type="button" data-filter="all" aria-pressed="true">All <span>{total}</span></button>']
-    chips += [f'        <button class="chip" type="button" data-filter="{c.lower()}" aria-pressed="false">{c} <span>{len(core[c])}</span></button>' for c in sorted(core)]
+    chips += [f'        <button class="chip" type="button" data-filter="{c.lower()}" aria-pressed="false">{label(c)} <span>{len(core[c])}</span></button>' for c in sorted(core)]
 
     return {
         "cards": "\n\n".join(cards),
         "chips": "\n".join(chips),
-        "domains": group_list("Domain", tree("Domain"), data.get("domains", [])),
-        "projects": group_list("Projects", tree("Projects"), data.get("projects", [])),
+        "domains": group_list("domain", tree("domain"), data.get("domains", []), label),
+        "projects": group_list("projects", tree("projects"), data.get("projects", [])),
         "core-count": f"{total:02d}",
         "core-count-word": word(total),
         "core-count-Word": word(total).capitalize(),
@@ -232,7 +240,7 @@ def main() -> int:
         print(f"ERROR: {p}")
     if check:
         if new != page:
-            print("site/index.html is out of date with the Skills/ tree or site/showcase.json.")
+            print("site/index.html is out of date with the skills/ tree or site/showcase.json.")
             print("Run `python scripts/build-showcase.py` and commit the result.")
             return 1
         if problems:

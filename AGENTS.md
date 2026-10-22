@@ -1,0 +1,226 @@
+# AGENTS.md — Agent Skills
+
+> **Repo:** `github.com/ai-automation-tools/agent-skills` (public) · **Branch:** work on `mike_desktop` (the lab-wide convention since 2026-10-22), push it, and open a PR into `main`; scheduled jobs open PRs from their own branches (`roadmap/…`, `harvest/…`, `docs/…`). `main` is the deploy branch: never commit to it locally.
+> **Renamed 2026-09-10** from `My-Custom-Skills`; the local clone moved to `Repos/AI-Automation-Tools/Tools/agent-skills` in the same pass. GitHub redirects the old path, but repoint any clone with `git remote set-url` — a redirect keeps pushes working and tells you nothing.
+> **Ecosystem context:** this repo is one entry in a wider Agent-Skills index kept in a personal Obsidian vault, which since 2026-09-10 is no longer this repo's parent folder. That index is background; **this file is authoritative for work inside `agent-skills/`.**
+
+## Your role
+
+You maintain **Mike's personal collection of Agent Skills** — reusable, model-invocable capabilities packaged as `SKILL.md` files. Your job is to **manage this repo**: author new skills, validate existing ones, keep supporting resources organized, and keep the docs/index in sync. Prioritize correct, portable, well-structured skills over commentary. Be direct.
+
+A **Skill** = a single `SKILL.md` (YAML frontmatter + instructions) that an agent loads *only when invoked*, keeping specialized knowledge out of base context until needed. In Claude Code, skills surface as `/skill-name`.
+
+---
+
+## Repository layout
+
+```
+agent-skills/
+├── README.md                       # public index — Skills table by category + Docs table
+├── AGENTS.md                       # this file: the rules every agent CLI reads
+├── CLAUDE.md                       # `@AGENTS.md` plus Claude-only notes
+├── .gitignore
+├── .github/workflows/
+│   ├── pages.yml                   # publishes site/ to agent-skills.ai-automation-tools.dev
+│   └── validate.yml                # runs validate-skills.py, build-showcase.py --check, check-links.py and test-install-skills.ps1 on every push to main and every PR
+├── site/                           # the showcase page — vanilla HTML/CSS/JS, no build step
+│   ├── index.html · styles.css · script.js   # cards, chips, lists and counts are GENERATED (see below)
+│   ├── showcase.json               # hand-written card copy keyed by skill name
+│   ├── CNAME                       # agent-skills.ai-automation-tools.dev
+│   ├── favicon.svg                 # the shared Agent Skills icon (house style: web-house-style skill)
+│   └── assets/img/ · assets/diagrams/
+├── scripts/
+│   ├── install-skills.ps1          # mirror leaf skills into a skills dir (repo tooling, not a skill)
+│   ├── test-install-skills.ps1     # smoke test: installs into a temp dir, asserts the flat layout and that a name collision throws
+│   ├── validate-skills.py          # stdlib-only check of every SKILL.md + the indexes (run before a PR)
+│   ├── build-showcase.py           # stdlib-only: regenerates the showcase from skills/ + site/showcase.json; --check in CI
+│   └── check-links.py              # stdlib-only: every relative link in READMEs, docs/ and site/index.html resolves (case-sensitive)
+├── docs/
+│   ├── README.md                   # index of docs/
+│   ├── USING-SKILLS.md             # install / invoke / author guide
+│   ├── SKILL-IDEAS.md              # backlog of candidate skills
+│   ├── HARVEST.md                  # ledger of workspace skills mirrored into skills/domain
+│   ├── ROADMAP.md                  # repo work queue — worked weekly by a roadmap routine
+│   └── CHANGELOG.md                # what changed, newest first — tick a roadmap item and log it together
+├── skills/
+│   ├── core/                       # TIER 1 — portable, installs to ~/.claude/skills
+│   │   ├── README.md
+│   │   └── <category>/             # e.g. Business, Cooking, Documentation, Image-Gen
+│   │       └── <skill-name>/       # the LEAF folder — this is the portable unit
+│   │           ├── SKILL.md        # required: frontmatter + instructions
+│   │           ├── scripts/        # optional: deterministic helpers (Python, etc.)
+│   │           ├── references/     # optional: standards/knowledge the body cites
+│   │           ├── prompts/        # optional: prompt templates the skill follows
+│   │           ├── evals/          # optional: TRACKED test-case definitions
+│   │           └── reports/        # optional: gitignored RUN OUTPUT (never committed)
+│   ├── domain/                     # TIER 3 — portable FIELD skills mirrored from the five org
+│   │   ├── README.md               #   agent workspaces by the weekly harvest. Opt-in install
+│   │   └── <domain>/<skill-name>/  #   (-Domain). Engineering · Security · Business · Media · API
+│   └── projects/                   # TIER 2 — ADDITIONAL skills for one org repo, installed
+│       │                           #   into that repo on top of the skills it already owns
+│       ├── README.md               # the tier test + per-project index + taken names
+│       └── <repo-slug>/            # agent-chat · cronsole · edge-radar · edge-spectrum · project-hub
+│           ├── README.md           # what the repo is, what it already ships, its traps
+│           └── <skill-name>/       # same leaf shape as Core
+└── resources/
+    ├── skill-data/
+    │   ├── core/<category>/<skill-name>/     # per-skill supporting data, MIRRORS the Skills tree
+    │   │   ├── README.md                     #   (examples, screenshots, sample outputs, notes)
+    │   │   ├── examples/ · images/           #   heavy assets that shouldn't bloat the skill
+    │   └── projects/<repo-slug>/<skill-name>/
+    └── links/                                # curated external references for skill-building
+```
+
+### The tiers
+
+One question decides where a skill goes: **would you invoke it from a repo other than the one it
+was written for?**
+
+| | `skills/core/` | `skills/domain/<domain>/` | `skills/projects/<repo>/` |
+|:---|:---|:---|:---|
+| **Holds** | Portable — assumes nothing about the cwd. A short, hand-picked list | Portable **field** skills mirrored from the org's agent workspaces. Never authored here | **Additional** skills for one org repo. Names that repo's files, schema, commands, or protocol |
+| **Installs to** | User scope, `~/.claude/skills` | User scope, **opt-in** | That repo's `.claude/skills`, so it loads only there |
+| **Command** | `install-skills.ps1 -Core` (the default) | `install-skills.ps1 -Domain` | `install-skills.ps1 -Project <repo> -Destination <clone>/.claude/skills` |
+
+**Domain is the harvest's tier, not an authoring choice.** A new skill you write here is Core or
+Projects. Domain holds only what the weekly Skill Harvest mirrors from the workspaces, grouped by
+field (`engineering`, `security`, `business`, `media`, `api`), so Core stays short and highlighted.
+
+The test is **where you invoke it**, not what it is about. `project-hub-scaffold` is Core despite
+being named for an org product, because you run it from whatever repo is *getting* a hub.
+
+Skills install **flat** as `<skills-dir>/<name>/`, so the nesting vanishes at install time. That
+has two consequences: names must be unique **across the whole repo** (the install script throws on
+a collision rather than silently overwriting), and a project skill at user scope would follow you
+into every unrelated session — which is why a bare install run covers Core only.
+
+**Current Core categories:** `automation`, `business`, `cooking`, `documentation`, `image-gen`, `web` (folders are lowercase-kebab, per the org layout standard). Add a new one only when a skill genuinely fits none of these.
+
+**Current projects:** `agent-chat`, `cronsole`, `edge-radar`, `edge-spectrum`, `project-hub` — the org's repos, slug lowercased regardless of how the repo itself is cased.
+
+### Two folders people confuse
+
+- **`skills/<tier>/…/<name>/`** — the skill itself. This LEAF folder is the unit that gets copied into an agent's skills directory; it must be **self-contained and portable** (tier and category levels are a repo convenience, not part of the skill).
+- **`resources/skill-data/<tier>/…/<name>/`** — bulky supporting material *about* a skill (example runs, screenshots, sample reports, design notes). Keep it here, **not** inside the skill folder, so the portable skill stays lean. The Skill-Data tree mirrors the `skills/` path exactly. Its `README.md` is the skill's **overview page**: the skill-name links in the root README's and `skills/core/README.md`'s Core tables open it, so every Core skill needs one. It starts with `# <emoji> <name>` and a `> **Overview page.**` line linking the skill's `SKILL.md`, then shows any diagram or screenshot before the file list.
+- Inside a skill: **`evals/`** = tracked test cases (committed); **`reports/`** = local run output (gitignored). Never mix them up.
+
+---
+
+## Anatomy of a `SKILL.md`
+
+```markdown
+---
+name: skill-name
+description: One line that tells the agent WHEN to load this. Lead with capability, then triggers.
+---
+
+Instructions the agent loads on invocation…
+```
+
+- **`name`** — kebab-case, unique across the repo, and **must match the leaf folder name**. Every skill follows this now; `News-Images` was the last PascalCase holdout and was renamed to `news-images` on 2026-08-17. **No personal or project-specific suffixes** — the `-mfs` suffix four skills carried was dropped on 2026-09-11 when the repo went public, and names should read plainly to a stranger.
+- **`description`** — the single most important line: the agent reads *only* this to decide whether to load the skill. State the trigger conditions explicitly ("Use when…", "Use whenever the user wants to…"). A vague description = a skill that never auto-invokes. May use YAML block scalar (`>-`) when long.
+- **Body** — loaded only after invocation, so it can be detailed. Aim for: **purpose → when-to-use → principles → a concrete execution checklist → explicit anti-patterns.** Concrete examples beat abstract advice. Must be **self-contained** — the agent won't have the surrounding conversation when the skill loads; don't reference "as discussed above" or repo state that isn't stated in the skill.
+
+**Reference implementations to match:** [`repo-docs-builder`](./skills/core/documentation/repo-docs-builder/SKILL.md) (clean frontmatter + when-to-use + numbered principle sections + workflow + audit + anti-patterns), and [`recipe-validator`](./skills/core/cooking/recipe-validator/SKILL.md) (a **hybrid** skill: a deterministic `scripts/` scanner does the repeatable checks, `references/` hold the standards, the body applies judgment).
+
+---
+
+## Standing instructions (keep things in sync)
+
+Whenever you **add, rename, remove, or recategorize a skill**, update *all* of:
+
+1. **Pick the tier first** — apply the invoke-it-anywhere test. Core and Projects have different install targets, so getting this wrong puts a repo-specific skill in every session's catalog.
+2. **`README.md`** → for Core, the matching category table (create the `### Category` section if new). Row = linked skill name + one-line description.
+3. **`skills/core/README.md`**, **`skills/domain/README.md`** or **`skills/projects/<repo>/README.md`** → the tier's own catalog.
+4. **`docs/SKILL-IDEAS.md`** → if the skill came from the backlog, remove/strike its idea row.
+5. **The leaf folder name, the `name:` frontmatter, and the `resources/skill-data/` mirror path** must all agree.
+6. **The showcase** → run `python scripts/build-showcase.py`. It rebuilds the cards, filter chips, Domain and Project lists and every count in `site/index.html` from the tree; CI fails if you forget. For a **Core** skill, also add its copy to `site/showcase.json` (glyph, tagline, features, alt) — without it the card falls back to the first sentence of `description`. A renamed or removed Core skill must leave `showcase.json` too, or the check fails.
+
+For a **new category**, also mention it in `README.md`'s "Structure" prose and (if relevant) `docs/USING-SKILLS.md`. For a **new project**, add the folder, its README, and a row in `skills/projects/README.md`.
+
+The public **`README.md`** and **`docs/`** are the source of truth for *what skills exist and how to use them* — never let them drift from the actual `skills/` tree.
+
+### Cross-skill references — keep dependents in sync
+
+Before finishing an edit to any skill, check whether another skill *references* it (grep the `skills/` tree for the skill's `name`), and update those dependents in the same commit. Also refresh the skill's Skill-Data folder under `resources/skill-data/<tier>/…/<skill-name>/` when its examples or target output change.
+
+**The project tier is additive.** Every org repo keeps its own skills — a shipped `skills/` and a tracked `.claude/skills/`, both edited in that repo. `skills/projects/<repo>/` is a second layer installed on top. Never move a repo's skills into here, and never assume a name is free: installs are flat, so an overlay can overwrite a skill the repo owns. Each project README lists the taken names, and the installer marks rows `New` or `Replaced` plus warns when a `-Project` install replaced anything.
+
+**One real duplicate exists.** `project-hub-scaffold` sits here (Core) *and* in the `project-hub` repo, kept byte-identical. This repo is canonical: edit here, then copy the folder to `project-hub/Skills/project-hub-scaffold/` in the same change. Since 2026-10-22 `project-hub`'s CI (`scaffold copy` job in `test.yml`) diffs its copy against this repo's `main` and fails on drift, so a feature PR there that updates only the travel copy goes red until this side matches. It is a one-off, not a pattern to copy.
+
+> [!IMPORTANT]
+> **Harvested skills are mirrors. Don't edit them here.** Since 2026-09-22 a weekly Skill Harvest job (Sun 08:00, `\AI-Automation-Tools-Org\Integrate-Projects\`) copies portable skills from the five org agent workspaces (`api-agent`, `business-agent`, `security-agent`, `fullstack-agent`, `media-agent`) into `skills/domain/<domain>/`, byte for byte, by `harvest/auto-<date>` PR. [`docs/HARVEST.md`](./docs/HARVEST.md) lists every one with its source. Edit the skill in its workspace repo and the next harvest re-syncs it. An edit made here gets flagged, not merged back. The roadmap routine follows the same rule.
+
+> [!NOTE]
+> **Prefer one self-contained skill over a composite.** [`repo-docs-builder`](./skills/core/documentation/repo-docs-builder/SKILL.md) used to be an orchestrator that referenced three source skills (`readme-builder-mfs`, `readme-header-mfs`, `repo-docs-mfs`); on 2026-08-05 all four were merged into it and the three sources retired. The composite kept drifting out of sync with its sources, and the split forced a reader to load three files to build one README. If you're tempted to build a new "mega" skill that composes others, prefer folding the content into one skill with clear sections — and if you do build a composite, add a "keep synced" note here naming its sources.
+
+> [!NOTE]
+> **Keep synced — `business-plan-builder`.** Added 2026-08-17. Its eight analysis passes are condensed from the eight skills in a private Claude Code project template (its `.claude/skills/` folder, kept outside this repo): `business-analysis`, `competitive-intel`, `roi-modeling`, `decision-memos`, `product-spec`, `technical-architecture`, `build-estimation`, `shipping-discipline`. Per the note above this is a **fold-in, not a composite** — the content lives in `references/analysis-passes.md` so the skill is portable and doesn't need those eight files present. It also carries a travel copy of the `repo-docs-builder` header/tree/voice rules in `references/output-templates.md`, for the same reason; if `repo-docs-builder` is installed the skill defers to it. When either upstream changes, fold the relevant parts in by hand. There is no automatic sync.
+
+> [!NOTE]
+> **Keep synced — `project-hub-scaffold`.** Added 2026-09-03. Its `references/design-system.md` and `references/config-schema.md` are extracted from the live `Hub/hub.mjs` + `Hub/index.html` at the [`project-hub`](https://github.com/ai-automation-tools/project-hub) repo (local clone: `Repos/AI-Automation-Tools/Tools/HTML-Project-Design`) — the single shared server mounting workspace configs from `Projects/<Name>/hub.config.json`. No automatic sync: if that source's theme tokens, config schema, or endpoints change, fold the change into this skill's `references/` by hand. The `scripts/scaffold-hub.ps1` helper reads/writes `hub.config.json` directly against that live folder, so if its schema changes the script needs the matching update too.
+
+> [!NOTE]
+> **Keep synced — `web-house-style`.** Added 2026-10-13. Its tokens, components and phone rules were extracted from the org's live front ends: `index.html` and `docs/MAINTAINING.md` in `ai-automation-tools.github.io` (the reference, and the source-bar rule in its README), `src/web/assets.py` in `Agent-Chat` (the icon sidebar), `Hub/index.html` in `project-hub` (the drawer variant), and the 2026-10-13 mobile-polish commits in Agent-Chat, Cronsole, Edge-Radar, Edge Spectrum and Project Hub. No automatic sync: when the landing page's tokens, the accent list or the source-bar convention change, fold the change into `references/design-system.md` and both `assets/` starters by hand.
+
+> [!NOTE]
+> **Keep synced — `automated-dev-pipeline`.** Added 2026-09-23. A general skill for building, publishing and keeping repos current with scheduled agents, for a personal account or an organization. Its design rules, stage contracts, keep-current guidance and audit checklist were written from the live `ai-automation-tools` pipeline (stage prompts and runner in `~/.claude/routines/jobs/_org-pipeline/`, publish and security scripts in `GitHub-Org-Security/`). That pipeline's paths and parameter values are deliberately **not** in this repo: they're in `~/.claude/routines/jobs/_org-pipeline/reference-implementation.md`, which the skill points to. **This repo's copy is canonical.** Edit it here and reinstall with `install-skills.ps1 -AllAgents -Skill automated-dev-pipeline` (Claude Code, Codex + Kimi, agy, the Antigravity IDE and opencode; Kilo when installed), never in an installed copy, because the install wipes those folders. When the pipeline learns a new rule, fold it into the skill by hand. There is no automatic sync.
+
+> [!NOTE]
+> **Keep synced — `agent-workspace-builder`.** Added 2026-10-20. Its `scripts/` are the canonical copies of the checks the five Org_Agents workspaces (`api-agent`, `business-agent`, `security-agent`, `fullstack-agent`, `media-agent`) carry in their own `scripts/`, and its `assets/upkeep-prompt.md` is the portable form of the live shared upkeep prompt in `~/.claude/routines/jobs/_workspace-refresh-prompt.md`. **This repo's copy is canonical.** When a script changes here, copy it into each workspace by PR; when the live prompt learns something portable, fold it into the asset by hand. There is no automatic sync.
+
+> [!NOTE]
+> **Keep synced — `repo-docs-builder` §0.** On 2026-08-05 the voice rules from the external `humanizer` skill (kept outside this repo) were adapted into `repo-docs-builder` §0 rather than referenced, so the builder needs one file to write a README. The copy is **condensed and docs-scoped**, not verbatim: it drops the essay-writing examples, adds §0.1 carve-outs so the house-style emoji headers / bold leftmost links / badges survive the pass, and softens the humanizer's blanket de-hyphenation rule (technical compounds like `end-to-end` keep their hyphens). If the upstream humanizer gains new patterns, fold the docs-relevant ones into §0.2 by hand — there is no automatic sync.
+
+---
+
+## Authoring a new skill
+
+1. Decide the tier (invoke-it-anywhere → Core, else Projects), then create `skills/core/<category>/<skill-name>/SKILL.md` or `skills/projects/<repo-slug>/<skill-name>/SKILL.md`.
+2. Write frontmatter: unique kebab-case `name` (== folder), and a trigger-rich `description` (capability first, then "Use when…").
+3. Write the body: purpose, when-to-use, principles, a concrete step-by-step checklist, and explicit anti-patterns. Keep it self-contained.
+4. Add optional assets only if they earn their place: `scripts/` for deterministic/repeatable work, `references/` for standards the body cites, `prompts/` for templates, `evals/` for tracked test cases. Put bulky examples/screenshots under the matching `resources/skill-data/` mirror path, not in the skill.
+5. Update `README.md` (+ `SKILL-IDEAS.md`) per the standing instructions above.
+6. The `skill-writer` skill, where your CLI has it installed, is the canonical guide for authoring — prefer it for structure/frontmatter questions.
+
+**Good skill candidates** are narrow, repeatable tasks with a clear "done" state — the thing you'd otherwise re-explain every time. "Be a good engineer" is too broad to be a skill.
+
+---
+
+## Validating a skill
+
+When asked to validate / review / audit skills, check:
+
+- **Frontmatter** — parses as YAML; `name` present, kebab-case, unique, and equal to the leaf folder name; `description` present and **trigger-rich** (would the agent know *when* to load it from the description alone?).
+- **Portability** — the leaf `<skill-name>/` folder is self-contained: no reference to conversation state, and any `scripts/`/`references/`/`prompts/` it cites actually exist at the paths named in the body.
+- **Body quality** — has when-to-use, principles, a concrete checklist, and anti-patterns; no dangling "see above"; examples are concrete.
+- **Scripts** — run on Windows with the repo's Python; paths are relative to the skill; no hardcoded secrets or machine-specific absolute paths.
+- **Sync** — the skill appears in `README.md`'s category table; no stale row points at a moved/removed skill.
+- **Live test** — invoke `/<skill-name>` on a real task and confirm the output follows the skill's own rules. Then test **auto-invocation**: phrase a request that should match the `description` and see whether the agent loads it unprompted; if not, tighten the description's trigger wording.
+
+**Run `python scripts/validate-skills.py` first.** It's stdlib-only and checks every skill in all three tiers: the frontmatter parses; `name` is kebab-case, matches its folder and is unique; `description` is 40–1,024 characters; every `references/…` and `prompts/…` path the body names exists (plus `scripts/…` and `evals/…` when the skill ships that folder, since a project skill may name its target repo's own `scripts/`); the skill has a row in `README.md` (Domain: its domain folder's row) and in its tier README; and every `resources/skill-data/` folder mirrors a real `skills/` path. It prints every failure and exits 1 if there are any. `.github/workflows/validate.yml` runs it on every push to `main` and every pull request, so a failing PR shows a red check. Fix the repo, never the rule. A path in another skill should be written with that skill's name in front (`cronsole/references/task-authoring.md`) so it isn't read as this skill's own.
+
+**Then run `python scripts/check-links.py`.** Also stdlib-only, and also in `validate.yml`. It checks every relative link in every `README.md`, every `docs/*.md` and `site/index.html` — Markdown links, `href`/`src` attributes, and the showcase's `github.com/ai-automation-tools/agent-skills/blob|tree/main/…` links back into this repo — and fails on any that don't resolve. It matches case exactly, as git and Linux CI do, so a `Docs/` link to `docs/` fails on Windows too. Web links and `#anchors` are skipped.
+
+**If you changed `scripts/install-skills.ps1`, run `pwsh -NoProfile -File scripts/test-install-skills.ps1`.** Also in `validate.yml`. It installs every tier into a temp directory (never `~/.claude`) and asserts one `<dir>/<name>/SKILL.md` per leaf skill, that a bare run installs Core only, that `-Skill` narrows and `reports/` is dropped, and — in a scratch copy of `skills/` with one name duplicated — that the install throws and writes nothing.
+
+Beyond that there is no test runner. Skill-specific `evals/` (e.g. `recipe-validator/evals/evals.json`) define that skill's test cases — use them when validating that skill.
+
+---
+
+## Conventions & hygiene
+
+- **Windows-first.** PowerShell 7+ for shell work; forward slashes in paths/JSON work fine. Invoke Python scripts explicitly (`python skills/<name>/scripts/<script>.py …`).
+- **Markdown.** These docs target both GitHub and Obsidian rendering — pure native markdown, GitHub-style callouts (`> [!NOTE]`), diagrams sparingly and only when they earn their place, never by default (matches the `repo-docs-builder` philosophy).
+- **Never commit:** secrets (`.env*`, `*.key`), OS cruft, and per-skill `reports/` run output (all covered by `.gitignore` — verify before committing).
+- **Git.** Remote is `ai-automation-tools/agent-skills`; changes reach `main` only through a PR, from `mike_desktop` or a job's own branch (moved from `michaelschecht/` 2026-09-09, renamed from `My-Custom-Skills` 2026-09-10; both old paths redirect, but repoint any clone with `git remote set-url`). Commit/push **only when Mike asks.** Imperative-mood subjects matching the existing log ("Organize skills into category folders"). Small, focused commits.
+- **Read before editing.** Match the style and structure of the skill/doc you're changing. When a task targets one skill, read its `SKILL.md` (and its `references/`) first.
+
+---
+
+## When in doubt
+
+- On skill structure/authoring: read [`docs/USING-SKILLS.md`](./docs/USING-SKILLS.md), then the reference skills above, or use `/skill-writer`.
+- On what to build next: [`docs/ROADMAP.md`](./docs/ROADMAP.md) for repo work, [`docs/SKILL-IDEAS.md`](./docs/SKILL-IDEAS.md) for skill ideas.
+- On where a skill lives / how it's grouped: [`README.md`](./README.md) is the index of record.
+- For ambiguous tasks (which category, rename vs new skill, edit vs review), ask one clarifying question rather than guess — a wrong assumption here means a multi-file rename.

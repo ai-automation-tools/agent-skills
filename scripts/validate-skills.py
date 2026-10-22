@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate every SKILL.md under Skills/ against the rules in CLAUDE.md.
+"""Validate every SKILL.md under skills/ against the rules in AGENTS.md.
 
 Standard library only, so it runs the same on Windows and in CI:
 
@@ -13,7 +13,7 @@ Checks, for every leaf skill (a folder that directly holds a SKILL.md):
     prompts/..., evals/...) exists inside the skill
   - the skill has a table row in README.md and in its tier's README
 And once for the repo:
-  - every folder under Resources/Skill-Data/ mirrors a real Skills/ path
+  - every folder under resources/skill-data/ mirrors a real skills/ path
 
 Prints every failure, then exits 1 if there were any, 0 otherwise.
 """
@@ -22,9 +22,9 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SKILLS = ROOT / "Skills"
-SKILL_DATA = ROOT / "Resources" / "Skill-Data"
-TIERS = ("Core", "Domain", "Projects")
+SKILLS = ROOT / "skills"
+SKILL_DATA = ROOT / "resources" / "skill-data"
+TIERS = ("core", "domain", "projects")
 
 KEBAB = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 TOP_KEY = re.compile(r"^([A-Za-z_][\w-]*):\s*(.*)$")
@@ -105,7 +105,7 @@ def main():
         rel = leaf.relative_to(ROOT).as_posix()
         parts = leaf.relative_to(SKILLS).parts
         if len(parts) != 3 or parts[0] not in TIERS:
-            fail(rel, "expected Skills/<Core|Domain|Projects>/<group>/<skill-name>/SKILL.md")
+            fail(rel, "expected skills/<core|domain|projects>/<group>/<skill-name>/SKILL.md")
             continue
         tier, group, folder = parts
 
@@ -142,14 +142,14 @@ def main():
                 fail(rel, f"body names {path} but it does not exist in the skill")
 
         token = name or folder
-        if tier == "Domain":
+        if tier == "domain":
             # The root README lists Domain skills by domain folder, not by name.
-            if not mentions(readme_rows, f"Skills/Domain/{group}"):
+            if not mentions(readme_rows, f"skills/domain/{group}"):
                 fail(rel, f"README.md has no row for the Domain folder {group!r}")
         elif not mentions(readme_rows, token):
             fail(rel, f"README.md has no table row naming {token!r}")
 
-        tier_readme = SKILLS / tier / ("README.md" if tier != "Projects" else f"{group}/README.md")
+        tier_readme = SKILLS / tier / ("README.md" if tier != "projects" else f"{group}/README.md")
         rows = table_rows(tier_readme)
         tier_rel = tier_readme.relative_to(ROOT).as_posix()
         if rows is None:
@@ -157,7 +157,7 @@ def main():
         elif not mentions(rows, token):
             fail(rel, f"{tier_rel} has no table row naming {token!r}")
 
-    # Resources/Skill-Data/<Tier>/<group>/<skill>/ must mirror Skills/ exactly;
+    # resources/skill-data/<tier>/<group>/<skill>/ must mirror skills/ exactly;
     # anything deeper is the skill's own supporting data.
     if SKILL_DATA.is_dir():
         for d in sorted(p for p in SKILL_DATA.rglob("*") if p.is_dir()):
@@ -165,7 +165,7 @@ def main():
             if len(parts) > 3:
                 continue
             if not (SKILLS.joinpath(*parts)).is_dir() or (len(parts) == 3 and not (SKILLS.joinpath(*parts) / "SKILL.md").is_file()):
-                fail(d.relative_to(ROOT).as_posix(), f"does not mirror a real path under Skills/ (no Skills/{'/'.join(parts)})")
+                fail(d.relative_to(ROOT).as_posix(), f"does not mirror a real path under skills/ (no skills/{'/'.join(parts)})")
 
     for f in failures:
         print(f"FAIL  {f}")
