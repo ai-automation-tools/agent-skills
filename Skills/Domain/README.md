@@ -29,7 +29,7 @@ where they come from and how they install:
 ## 🔁 These are mirrors
 
 Every skill here is a **byte-for-byte copy** of a skill in one of the five agent workspaces:
-`api-agent`, `business-agent`, `security-agent`, `fullstack-agent` and `media-studio`.
+`api-agent`, `business-agent`, `security-agent`, `fullstack-agent` and `media-agent`.
 A weekly Skill Harvest job copies the ones that pass its checks and re-syncs them when the
 source changes. [`docs/HARVEST.md`](../../docs/HARVEST.md) lists every one with its source.
 
@@ -55,8 +55,8 @@ source changes. [`docs/HARVEST.md`](../../docs/HARVEST.md) lists every one with 
 | **Security** | [`vulnerability-disclosure`](./Security/vulnerability-disclosure/SKILL.md) | security-agent | Run coordinated disclosure — report a flaw to its owner, negotiate a timeline and embargo, request a CVE, or stand up an inbound disclosure process. |
 | **Security** | [`security-report-writing`](./Security/security-report-writing/SKILL.md) | security-agent | Turn verified findings into a client-ready report — one-page executive summary, impact-and-fix findings, honest severity, redaction. |
 | **Security** | [`security-metrics-and-posture`](./Security/security-metrics-and-posture/SKILL.md) | security-agent | Measure a security program over time — decision-driving metrics, remediation SLAs and MTTR, a living risk register, honest trend reporting to leadership. |
-| **Media** | [`post-publish-analytics`](./Media/post-publish-analytics/SKILL.md) | media-studio | Turn post-publish numbers into the next decision — reach vs engagement vs conversion, retention curves, fair thumbnail and title A/B tests. |
-| **Media** | [`captions-and-accessibility`](./Media/captions-and-accessibility/SKILL.md) | media-studio | Make media usable by everyone and verify it — accurate captions, alt text, contrast, safe-area, audio description. |
-| **Media** | [`media-rights-and-licensing`](./Media/media-rights-and-licensing/SKILL.md) | media-studio | Establish that every music, footage, font, AI-generated, or likeness element is cleared, and record it, before publishing. |
+| **Media** | [`post-publish-analytics`](./Media/post-publish-analytics/SKILL.md) | media-agent | Turn post-publish numbers into the next decision — reach vs engagement vs conversion, retention curves, fair thumbnail and title A/B tests. |
+| **Media** | [`captions-and-accessibility`](./Media/captions-and-accessibility/SKILL.md) | media-agent | Make media usable by everyone and verify it — accurate captions, alt text, contrast, safe-area, audio description. |
+| **Media** | [`media-rights-and-licensing`](./Media/media-rights-and-licensing/SKILL.md) | media-agent | Establish that every music, footage, font, AI-generated, or likeness element is cleared, and record it, before publishing. |
 
 Domains so far: `Engineering`, `API`, `Business`, `Security`, `Media`.

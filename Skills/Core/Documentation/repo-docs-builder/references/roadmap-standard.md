@@ -6,7 +6,7 @@ the org pipeline's graduate stage) parse it to decide what to build next and whe
 project can go live. The parsing is why the details below are rules, not taste.
 
 Two reference roadmaps follow it: Collector (`ai-automation-tools/collector`, a project still
-before release) and AI Command Center (`ai-automation-tools/ai-command-center`, one already
+before release) and Houston (`ai-automation-tools/houston`, one already
 public). When this page and a roadmap disagree, this page wins.
 
 ## The rules
