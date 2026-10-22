@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Check every relative link in the READMEs, Docs/ and the showcase page.
+"""Check every relative link in the READMEs, docs/ and the showcase page.
 
 Standard library only, so it runs the same on Windows and in CI:
 
     python scripts/check-links.py
 
-Scans every README.md in the repo, every Markdown file in Docs/, and
+Scans every README.md in the repo, every Markdown file in docs/, and
 site/index.html. For each link it checks that the target file or folder exists:
   - Markdown links and images: [text](path), ![alt](path)
   - HTML attributes: href="path", src="path"
@@ -17,7 +17,7 @@ anything inside a code fence or inline code. The #fragment of a file link is
 dropped, so only the file is checked.
 
 Paths are matched case-sensitively, as git and Linux CI see them, even on
-Windows, so `docs/` fails where the folder is `Docs/`.
+Windows, so `Docs/` fails where the folder is `docs/`.
 
 Prints every broken link, then exits 1 if there were any, 0 otherwise.
 """
@@ -44,7 +44,7 @@ def files_to_check():
         for f in filenames:
             if f == "README.md":
                 yield Path(dirpath) / f
-    yield from sorted((ROOT / "Docs").glob("*.md"))
+    yield from sorted((ROOT / "docs").glob("*.md"))
     yield ROOT / "site" / "index.html"
 
 

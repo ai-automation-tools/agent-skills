@@ -132,5 +132,5 @@ Since 2026-10-05 the cards, chips, group lists and counts are generated from the
 <p align="center">
   <a href="../README.md">← Repository home</a> ·
   <a href="../Skills/Core/README.md">Core skills</a> ·
-  <a href="../Docs/USING-SKILLS.md">Using skills</a>
+  <a href="../docs/USING-SKILLS.md">Using skills</a>
 </p>

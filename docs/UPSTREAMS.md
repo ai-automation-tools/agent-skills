@@ -21,16 +21,16 @@ source. `—` means never checked.
 
 | Upstream | What the repo assumes | Code | Check at | Last checked |
 |:---|:---|:---|:---|:---|
-| **Agent Skills format (Claude Code)** | A skill is a folder with a `SKILL.md`: YAML frontmatter first, `name` (kebab-case, equal to its folder) and `description` (the validator enforces 40–1,024 characters, the open spec's cap; Claude Code itself allows 1,536 for `description` plus `when_to_use`), then Markdown instructions; optional `scripts/`, `references/` and other folders loaded on demand. Personal skills in `~/.claude/skills/<name>/`, project skills in `<repo>/.claude/skills/<name>/`; invoked as `/skill-name` | `scripts/validate-skills.py`, `Docs/USING-SKILLS.md`, `CLAUDE.md`, every `SKILL.md` | code.claude.com/docs/en/skills; docs.claude.com/en/docs/agents-and-tools/agent-skills; github.com/anthropics/claude-code/blob/main/CHANGELOG.md | 2026-10-06 |
-| **Open Agent Skills spec** | The same frontmatter is portable to other agents that read the open spec, so one leaf folder installs everywhere | `Docs/USING-SKILLS.md`, `README.md` | agentskills.io; github.com/anthropics/skills | 2026-10-06 |
+| **Agent Skills format (Claude Code)** | A skill is a folder with a `SKILL.md`: YAML frontmatter first, `name` (kebab-case, equal to its folder) and `description` (the validator enforces 40–1,024 characters, the open spec's cap; Claude Code itself allows 1,536 for `description` plus `when_to_use`), then Markdown instructions; optional `scripts/`, `references/` and other folders loaded on demand. Personal skills in `~/.claude/skills/<name>/`, project skills in `<repo>/.claude/skills/<name>/`; invoked as `/skill-name` | `scripts/validate-skills.py`, `docs/USING-SKILLS.md`, `CLAUDE.md`, every `SKILL.md` | code.claude.com/docs/en/skills; docs.claude.com/en/docs/agents-and-tools/agent-skills; github.com/anthropics/claude-code/blob/main/CHANGELOG.md | 2026-10-06 |
+| **Open Agent Skills spec** | The same frontmatter is portable to other agents that read the open spec, so one leaf folder installs everywhere | `docs/USING-SKILLS.md`, `README.md` | agentskills.io; github.com/anthropics/skills | 2026-10-06 |
 
 ## Install targets
 
 | Upstream | What the repo assumes | Code | Check at | Last checked |
 |:---|:---|:---|:---|:---|
-| **Codex + Kimi** | Global skills read from `~/.agents/skills` (shared); `~/.codex/skills` is Codex's legacy path | `scripts/install-skills.ps1` (`-AllAgents`), `Docs/USING-SKILLS.md` | learn.chatgpt.com/docs/build-skills (was developers.openai.com/codex/skills); github.com/openai/codex/releases; Kimi CLI docs | 2026-10-06 |
-| **Antigravity CLI (agy) and IDE** | CLI reads `~/.gemini/antigravity-cli/skills`; the IDE reads `~/.gemini/config/skills` | `scripts/install-skills.ps1`, `Docs/USING-SKILLS.md` | antigravity.google/docs; github.com/google-gemini/gemini-cli/releases | 2026-10-06 |
-| **opencode** | Global skills in `~/.config/opencode/skills` | `scripts/install-skills.ps1`, `Docs/USING-SKILLS.md` | opencode.ai/docs; github.com/sst/opencode/releases | 2026-10-06 |
+| **Codex + Kimi** | Global skills read from `~/.agents/skills` (shared); `~/.codex/skills` is Codex's legacy path | `scripts/install-skills.ps1` (`-AllAgents`), `docs/USING-SKILLS.md` | learn.chatgpt.com/docs/build-skills (was developers.openai.com/codex/skills); github.com/openai/codex/releases; Kimi CLI docs | 2026-10-06 |
+| **Antigravity CLI (agy) and IDE** | CLI reads `~/.gemini/antigravity-cli/skills`; the IDE reads `~/.gemini/config/skills` | `scripts/install-skills.ps1`, `docs/USING-SKILLS.md` | antigravity.google/docs; github.com/google-gemini/gemini-cli/releases | 2026-10-06 |
+| **opencode** | Global skills in `~/.config/opencode/skills` | `scripts/install-skills.ps1`, `docs/USING-SKILLS.md` | opencode.ai/docs; github.com/sst/opencode/releases | 2026-10-06 |
 | **Kilo** | Global skills in `~/.kilo/skills`; skipped unless installed | `scripts/install-skills.ps1` | kilo.ai/docs; github.com/Kilo-Org/kilocode/releases | 2026-10-06 |
 
 ## Tooling and CI

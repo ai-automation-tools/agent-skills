@@ -67,7 +67,7 @@ Locally they load from `site/.env` via `dotenv/config` in `server.ts`. **`.env*`
 
 `failures` is an in-process `Map` keyed by IP: 8 failures per 15-minute window. Serverless instances
 are short-lived, so this is a damper against online guessing, not a hard limit. Durable rate
-limiting (Upstash / Vercel KV) is tracked in `Docs/Ideas/hub_improvement_plan.md`. **Do not describe
+limiting (Upstash / Vercel KV) is tracked in `docs/Ideas/hub_improvement_plan.md`. **Do not describe
 it as a rate limit in user-facing copy**, and do not rely on it as the only thing between the key
 and the internet — a decent passcode is.
 
@@ -80,7 +80,7 @@ Behind a proxy that does not set either, every caller shares one bucket.
 2. Add the case to `scripts/check-deployment.ts`. It already loops every mode and asserts
    **zero network calls**; a new branch belongs in that loop.
 3. `npm run check:deployment`.
-4. If it changes what users see, update `Docs/self-hosting.md` and `src/pages/Setup.tsx`.
+4. If it changes what users see, update `docs/self-hosting.md` and `src/pages/Setup.tsx`.
 
 The one rule that is not negotiable: **a missing or misconfigured secret produces 503, never a
 working endpoint.**

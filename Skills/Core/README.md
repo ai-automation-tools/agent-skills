@@ -70,5 +70,5 @@ share it; until then use the closest existing one.
   ·
   <a href="../Projects/README.md">Project skills</a>
   ·
-  <a href="../../Docs/USING-SKILLS.md">Authoring guide</a>
+  <a href="../../docs/USING-SKILLS.md">Authoring guide</a>
 </p>
