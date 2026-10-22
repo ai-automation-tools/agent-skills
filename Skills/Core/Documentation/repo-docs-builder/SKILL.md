@@ -173,6 +173,8 @@ The header, emoji, bold leftmost links, and table shape are untouched — those 
 
 Before writing any README, get the **layout** right. A professional repo root is mostly documentation and project meta; the application lives in its own folder.
 
+> **In an `ai-automation-tools` org repo, [`references/org-repo-layout.md`](references/org-repo-layout.md) decides every folder name and location** (lowercase-kebab folders; `docs/`, `docs/diagrams/`, `src/`, `site/`, `skills/`, `prompts/`, `mcp-server/` or `docs/mcp-server.md`, `tests/`, `images/`; `AGENTS.md` canonical). Read it before creating or moving any folder there; it wins over the general guidance below.
+
 ### 1.1 Web-app repos: app artifacts go in `src/` or `site/`, never the root
 
 When the repo (or folder) is a **web app or site**, all web/app artifacts — HTML, CSS, JS/TS, components, pages, routes, assets, styles — live under a dedicated **`src/`** or **`site/`** folder, **not** loose at the repo root.

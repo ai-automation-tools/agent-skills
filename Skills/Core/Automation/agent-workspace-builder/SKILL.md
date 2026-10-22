@@ -112,7 +112,8 @@ the shared frame, never the work folders.
 5. **Seed the portable skills**: two or three field skills that don't overlap the wired
    ones, cataloged in `skills/README.md`.
 6. **Write the docs with `repo-docs-builder`** (if installed; otherwise follow its house
-   style): root README, `docs/README.md` index linking every subfolder, `docs/ROADMAP.md`
+   style; folder spelling and the shared `docs/`, `skills/`, `prompts/`, `scripts/`, `tests/`
+   paths follow its `references/org-repo-layout.md`): root README, `docs/README.md` index linking every subfolder, `docs/ROADMAP.md`
    in the roadmap standard with a Go-live split (`## After public release` if it's headed
    public, `## After go-live` if it stays private), and `docs/CHANGELOG.md` with the first entry.
 7. **Seed RESOURCES.md and intel** by research, not memory: 15–30 resources across the

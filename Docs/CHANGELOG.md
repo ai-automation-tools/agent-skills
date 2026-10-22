@@ -24,6 +24,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-10-22
+
+**Added**
+- `repo-docs-builder`: `references/org-repo-layout.md`, the org repo layout standard: lowercase-kebab folders, and one home each for docs, diagrams, code, front end, MCP servers (`mcp-server/` or `docs/mcp-server.md`), skills, prompts, scripts, tests and images, with `AGENTS.md` canonical. §1 points to it; `agent-workspace-builder` step 6 follows it. Closes the convention half of org ROADMAP P2-15.
+
 ## 2026-10-20
 
 **Added**
