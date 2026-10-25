@@ -24,6 +24,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-10-25
+
+**Changed**
+- `automated-dev-pipeline`: after the sweep runner updates a BEHIND branch it waits, capped, for the required checks the push restarted. `BLOCKED` while checks run counts as transient; without the wait the re-gate saw `BLOCKED` on its first poll and held a PR whose checks were about to go green.
+
 ## 2026-10-22
 
 **Changed**
