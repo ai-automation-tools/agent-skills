@@ -50,6 +50,14 @@ It is wrong, and sometimes destructive, otherwise.
 `429` deserves its own path. A rate-limit response is the provider telling you the
 correct delay; guessing a shorter one is how a client gets blocked.
 
+Providers do not signal throttling uniformly. Read the status and the headers together:
+
+- Frankfurter answers a rate-limited range query with `503` plus `Retry-After`, so honor
+  `Retry-After` on `503` too, not only on `429`.
+- REST Countries returns `429` for a burst, but `403` once the monthly request cap is
+  exceeded, and that `403` lasts until the billing anniversary or a plan upgrade. Retrying
+  it is useless; surface it as a quota error.
+
 ## Backoff with jitter
 
 Fixed-interval retries from many clients synchronize into a thundering herd that
