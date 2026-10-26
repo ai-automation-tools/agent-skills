@@ -32,7 +32,7 @@ standing sync instructions, and what makes a skill portable.
 ## 🚦 Public release
 
 - [x] CI green on push and PR: `validate.yml` runs the skill validator, then the link check, the showcase `--check` and the installer smoke test as they landed — done 2026-10-01: `validate.yml` on push to `main`, every PR and by hand
-- [ ] README usage (catalog, install commands, authoring guide) verified against the real `skills/` tree and `scripts/install-skills.ps1` from a clean clone
+- [x] README usage (catalog, install commands, authoring guide) verified against the real `skills/` tree and `scripts/install-skills.ps1` from a clean clone — done 2026-10-22: every table and install command checked against a fresh clone of `main`; fixed the Media source name in `README.md` and the category case and Core authoring steps in `docs/USING-SKILLS.md`
 - [ ] `SECURITY.md`, and a full-history secret scan that comes back clean
 - [ ] Licence chosen and `LICENSE` added. The repo is public with no license, which by default means nobody may reuse it. The org docs record this as deliberate (org roadmap P2-10). Revisit it before any promotion 🔒 Needs Mike
 - [x] Live at its URL: the showcase at `https://agent-skills.ai-automation-tools.dev`, deployed by `pages.yml` — done 2026-09-16: published the same day the static showcase was added

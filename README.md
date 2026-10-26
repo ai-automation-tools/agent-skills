@@ -70,7 +70,7 @@ when you ask: `install-skills.ps1 -Domain`. Edit them in their workspace repo; t
 | [**🌐 API**](./skills/domain/api/) | Working with third-party APIs: judging one before you integrate, writing clients that survive failures, staying inside rate limits and quotas, normalizing responses into one traceable shape, and testing integrations without hitting live services. From `api-agent`. |
 | [**📈 Business**](./skills/domain/business/) | Field tactics for business decisions: running customer discovery interviews, planning go-to-market, and setting prices. From `business-agent`. |
 | [**🔐 Security**](./skills/domain/security/) | Communicating and steering security work: turning verified findings into a report a client acts on, disclosing a vulnerability responsibly, and measuring a security program with metrics, SLAs and a risk register. From `security-agent`. |
-| [**🎬 Media**](./skills/domain/media/) | Getting a media asset ready to publish and learning from it afterward: captions, alt text, accessibility checks, rights clearance, and reading post-publish analytics. From `media-studio`. |
+| [**🎬 Media**](./skills/domain/media/) | Getting a media asset ready to publish and learning from it afterward: captions, alt text, accessibility checks, rights clearance, and reading post-publish analytics. From `media-agent`. |
 
 ## 🗂️ Project skills
 
