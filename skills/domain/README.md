@@ -1,13 +1,13 @@
 <h1 align="center">🧭 Domain skills</h1>
 
 <p align="center">
-  <em>Field-specific skills from the org's five agent workspaces: engineering, security,<br>
-  business, media and API work. They're portable, but you install them on purpose.</em>
+  <em>Field-specific skills from the org's agent workspaces: engineering, security,<br>
+  business, media, API and science work. They're portable, but you install them on purpose.</em>
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/tier-domain-F59E0B?style=for-the-badge" alt="Domain tier">
-  <img src="https://img.shields.io/badge/skills-17-0078D4?style=for-the-badge" alt="17 skills">
+  <img src="https://img.shields.io/badge/skills-20-0078D4?style=for-the-badge" alt="17 skills">
   <img src="https://img.shields.io/badge/scope-user,_opt--in-8B5CF6?style=for-the-badge" alt="User scope, opt-in">
   <a href="../core/README.md"><img src="https://img.shields.io/badge/↔-Core_skills-2ea44f?style=for-the-badge" alt="Core skills"></a>
   <a href="../../README.md"><img src="https://img.shields.io/badge/↩-repository_root-6B7280?style=for-the-badge" alt="Repository root"></a>
@@ -28,8 +28,8 @@ where they come from and how they install:
 
 ## 🔁 These are mirrors
 
-Every skill here is a **byte-for-byte copy** of a skill in one of the five agent workspaces:
-`api-agent`, `business-agent`, `security-agent`, `fullstack-agent` and `media-agent`.
+Every skill here is a **byte-for-byte copy** of a skill in one of the agent workspaces:
+`api-agent`, `business-agent`, `security-agent`, `fullstack-agent`, `media-agent` and `science-agent`.
 A weekly Skill Harvest job copies the ones that pass its checks and re-syncs them when the
 source changes. [`docs/HARVEST.md`](../../docs/HARVEST.md) lists every one with its source.
 
@@ -58,5 +58,8 @@ source changes. [`docs/HARVEST.md`](../../docs/HARVEST.md) lists every one with 
 | **Media** | [`post-publish-analytics`](./media/post-publish-analytics/SKILL.md) | media-agent | Turn post-publish numbers into the next decision — reach vs engagement vs conversion, retention curves, fair thumbnail and title A/B tests. |
 | **Media** | [`captions-and-accessibility`](./media/captions-and-accessibility/SKILL.md) | media-agent | Make media usable by everyone and verify it — accurate captions, alt text, contrast, safe-area, audio description. |
 | **Media** | [`media-rights-and-licensing`](./media/media-rights-and-licensing/SKILL.md) | media-agent | Establish that every music, footage, font, AI-generated, or likeness element is cleared, and record it, before publishing. |
+| **Science** | [`critical-appraisal`](./science/critical-appraisal/SKILL.md) | science-agent | Appraise a paper or claim — PICO framing, the hierarchy of evidence, named risk-of-bias tools, GRADE, and a red-flag checklist for p-hacking and spin. |
+| **Science** | [`research-data-management`](./science/research-data-management/SKILL.md) | science-agent | Keep research data findable and reusable — FAIR, naming and READMEs, durable formats, 3-2-1 backups, sensitive data, data management plans, repository deposit with a DOI. |
+| **Science** | [`scientific-figures`](./science/scientific-figures/SKILL.md) | science-agent | Make figures that show the data honestly — the plot for the comparison, labelled error bars, colorblind-safe palettes, sized for the final column, exported from a script. |
 
-Domains so far: `Engineering`, `API`, `Business`, `Security`, `Media`.
+Domains so far: `Engineering`, `API`, `Business`, `Security`, `Media`, `Science`.

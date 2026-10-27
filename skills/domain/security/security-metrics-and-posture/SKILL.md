@@ -47,6 +47,11 @@ remediation measurable at all.
   Critical in days, high in weeks, medium in a quarter, low as capacity allows — tuned
   to what the org can actually sustain. An SLA nobody can meet is theater that
   everyone learns to ignore.
+- **Start the clock earlier for known-exploited bugs.** A CVE on CISA's KEV catalog, or
+  one with a public proof of concept, gets a window of days whatever its CVSS score.
+  Recent exploitation has followed fixes within hours or days (a vCenter flaw within five
+  days of the patch, an Atlassian file-access flaw within hours of a public write-up), so a
+  severity-only SLA of weeks leaves the exposure open while the exploit circulates.
 - **Measure mean-time-to-remediate against it**, and track the breach rate. The breach
   rate is the honest signal: a rising one means capacity is short, not that people are
   lazy, and the fix is usually resourcing, not exhortation.

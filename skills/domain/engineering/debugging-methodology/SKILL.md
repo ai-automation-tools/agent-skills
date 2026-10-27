@@ -91,6 +91,20 @@ The commit it lands on is the one that introduced the bug. Reading that one diff
 usually faster than reading all the code, and it works even when you do not understand
 the system.
 
+Once the reproduction is a failing test or script, let git drive the search:
+
+```bash
+git bisect start HEAD <known-good> --
+git bisect run sh -c "npm ci && npm test -- path/to/failing.test.ts"
+git bisect reset
+```
+
+Exit `0` marks a commit good, `1`–`127` (except `125`) marks it bad, and `125` skips a
+commit that cannot be tested, such as one that does not build. Any other code, including
+anything from `128` up, aborts the run. A test runner that exits `127` because it is not
+installed will be read as "bad" on every commit, so check the command works on both
+endpoints first.
+
 **In code.** Disable half the pipeline. Does the bug persist? It is in the half still
 running. Repeat on that half.
 
