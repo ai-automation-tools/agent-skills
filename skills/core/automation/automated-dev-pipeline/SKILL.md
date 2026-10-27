@@ -17,7 +17,7 @@ The pattern does three jobs. They can be adopted separately:
 |:---|:---|:---|
 | **Build** | ideate → incubate → roadmap routine → PR sweep | Ideas become private repos that grow one verified PR at a time |
 | **Publish** | graduate (scripted gates → approval → public) | A finished project goes public on a personal account or an organization, with its security controls verified |
-| **Keep current** | refresh, review, upkeep, and the same roadmap routines | Every repo, new or old, keeps up with its dependencies, platforms, security practice and standards |
+| **Keep current** | refresh, review, upkeep, a security sweep, and the same roadmap routines | Every repo, new or old, keeps up with its dependencies, platforms, security practice and standards |
 
 The publish target is a parameter: a personal account works the same as an organization.
 "The landing page" is then your profile README or portfolio site, if you keep one.
@@ -36,7 +36,7 @@ writing a stage prompt.** Most of what goes wrong on a first build is already wr
 | Stand up a new pipeline, or add a stage or routine | `references/architecture.md`, then `references/stage-contracts.md` |
 | Build stages as folders inside one repo, with a site that deploys on merge | `references/architecture.md` → "The single-repo variant" |
 | Decide where ideas come from, or connect a new idea source | `references/idea-sourcing.md` |
-| Keep existing repos current, or bring a stale one back up to date | `references/keeping-current.md` |
+| Keep existing repos current, bring a stale one back up to date, or run a weekly security sweep across them | `references/keeping-current.md` |
 | Audit an existing fleet (cost, overlap, safety, drift) | `references/audit-checklist.md` |
 | Operate or debug a live pipeline | That pipeline's own operator notes: file paths, parameter values, run commands. The reference implementation keeps them at `~/.claude/routines/jobs/_org-pipeline/reference-implementation.md`. If none exist, write them before changing anything |
 
@@ -55,7 +55,7 @@ ideas ──ideate──▶ approved plan ──incubate──▶ private repo +
                    public + security re-verified ──▶ landing page, records
                                                   │
                                                   ▼
-         keep current: refresh + review + upkeep ──▶ PRs into the same sweep
+   keep current: refresh + review + upkeep + security ──▶ PRs into the same sweep
 ```
 
 The full flow, as swimlanes for build, merge gate, publish, the owner's decisions and

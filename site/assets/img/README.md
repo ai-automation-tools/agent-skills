@@ -55,10 +55,11 @@ Every card has an image:
 - **`task-router`** has one, and it isn't a screenshot. `../diagrams/task-router.html` draws the
   four routing tiers in the site's own palette and renders to exactly 1600 × 1000, so the card
   frame crops nothing.
-- **`automated-dev-pipeline`** has one, drawn the same way: `../diagrams/automated-dev-pipeline.html`
-  shows the build flow (ideas → ideate → incubate → roadmap routine → PR sweep) over the skill's
-  three jobs, rendered at 1600 × 1000 and saved as WebP at quality 86. The skill's own
-  `pipeline-flow.svg` is a swimlane export that isn't 16:10 and doesn't use the site palette.
+- **`automated-dev-pipeline`** has one, and it is the same Archify diagram the card links to
+  (`../diagrams/automated-dev-pipeline-workflow.html`): its dark **Export → PNG**, centred on the
+  diagram's own background colour to 16:10, resized to 1600 × 1000 and saved as WebP at quality 86.
+  Rebuild it whenever the diagram changes, so the card, the interactive page and the skill's
+  `pipeline-flow.svg` never show different pipelines.
 
 The `business-plan-builder` sources are small enough (4–23 KB) that they stayed PNG.
 

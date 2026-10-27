@@ -113,7 +113,7 @@
         "Ideas become scored plans, then private repos built one roadmap item per PR",
         "One PR sweep reviews and merges what every routine opened",
         "Going public takes scripted gates <em>and</em> a human approval",
-        "Keep-current jobs refresh every repo against what it depends on",
+        "Keep-current jobs refresh every repo against what it depends on, and a weekly security sweep fixes what the scanners find",
         "A single-repo variant: stages as folders, a merge that deploys a site"
       ],
       "diagram": "assets/diagrams/automated-dev-pipeline-workflow.html"

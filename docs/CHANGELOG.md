@@ -24,9 +24,21 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-10-26
+
+**Changed**
+- `automated-dev-pipeline` diagram: the Archify source gains the security sweep (keep-current lane, fix PRs to the sweep, leaked keys to the owner) and a card line on key rotation. `pipeline-flow.svg` and the interactive page are re-exported from it. The hand-drawn card diagram (`site/assets/diagrams/automated-dev-pipeline.html`) is removed; the card image is now the Archify diagram's own dark export, so all three show the same pipeline.
+- `automated-dev-pipeline`: keep-current now has a fifth mechanism, a weekly security sweep across every active repo. `references/keeping-current.md` describes it (a script gathers alerts, a redacted secret scan of the deploy branch and tracked `.env` files; the session judges, reviews code, CI and live headers, fixes one PR per repo and reports the rest), adds its merge rule and two anti-patterns. `SKILL.md` and the showcase card mention it.
+
+## 2026-10-25
+
+**Changed**
+- `automated-dev-pipeline`: after the sweep runner updates a BEHIND branch it waits, capped, for the required checks the push restarted. `BLOCKED` while checks run counts as transient; without the wait the re-gate saw `BLOCKED` on its first poll and held a PR whose checks were about to go green.
+
 ## 2026-10-22
 
 **Changed**
+- README usage checked against a clean clone of `main`: the Core, Domain and Projects tables match the `skills/` tree (10, 17 and 13 skills), and every install command in `README.md`, `docs/USING-SKILLS.md` and the tier READMEs ran as documented (`-List`, bare, `-Core -Skill`, `-WhatIf`, `-Domain`, `-Project`, `-AllAgents -WhatIf`). Fixed what had drifted: the Media domain is from `media-agent` (was `media-studio`), the guide's category example is lowercase, and its authoring steps name a Core skill's overview page, `showcase.json` card and showcase rebuild. *Public release*
 - `repo-docs-builder`: a repo that ships an MCP server links `docs/mcp-server.md` from its root README (the MCP feature row or section, and the docs table), and that page gives the install line for each client: Claude Code, Codex, opencode, Antigravity. `check-org-layout.py` flags a README without the link, with a self-check case. Gemini CLI, deprecated, is dropped from the layout reference.
 - `project-hub-scaffold` and the three `project-hub-*` project skills follow project-hub's lowercase folders (`hub/`, `project-hub/`, `projects/`, `demo/`). The project skills also pick up two changes that had reached only project-hub's installed copies: per-workspace `maxDepth` and bookmark groups.
 - `agent-workspace-builder`: Gemini CLI, deprecated, is no longer a target. `gen-vendor-configs.py` stops writing `.gemini/settings.json`, `.gemini/commands/`, `.geminiignore` and the Gemini section of `OTHER-CLIS.md`, and keeps `.gemini/` and `.geminiignore` as owned paths so the next regen deletes what an older version wrote (`--check` flags them until then); Codex and Antigravity output is unchanged. The self-check pins that no `.gemini*` file is produced; SKILL.md, the references and assets drop Gemini CLI, and the hook fallback is now just the working directory. `install-skills.ps1`'s help shows agy's real path, `~/.gemini/antigravity-cli/skills`.
