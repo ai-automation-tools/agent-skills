@@ -17,7 +17,7 @@ The diagram lives on the [homepage](https://agent-skills.ai-automation-tools.dev
 | **Merge gate** | One PR sweep, on the strongest model, reviews every routine's PRs by branch prefix; the runner merges what it approves after re-running the hard gates. PRs that touch a deploy path or carry a personal commit email wait for the owner |
 | **Publish (scripted)** | When every release gate is ticked, a script runs the gates (secret scan, CI, commit emails, live 200s), opens an approval issue, and goes public only after the owner closes it as Completed, re-running the gates and reading the security controls back |
 | **Owner decides** | The three places a person acts: held PRs, the approval issue, and the weekly `[Approval needed]` digest |
-| **Keep current** | Refresh and review cover every repo, published or not, with a cited source for each change, and send their PRs through the same sweep. Upkeep reports stalls, drift and counts to the digest |
+| **Keep current** | Refresh and review cover every repo, published or not, with a cited source for each change, and send their PRs through the same sweep. A weekly security sweep checks every repo, sends fix PRs to the sweep and leaves leaked keys for the owner to rotate. Upkeep reports stalls, drift and counts to the digest. A fleet improver proposes one change a week to the fleet itself |
 
 The four rule cards in the interactive version cover what the lanes don't: scripts decide while
 prompts judge, irreversible steps belong to a person, the runner closes the feedback loop (run
@@ -37,9 +37,12 @@ node ~/.claude/skills/archify/bin/archify.mjs finalize workflow \
   --quality showcase --out-dir <scratch-folder>
 ```
 
-Delete the `*.delivery.json` receipt it leaves beside the HTML. Then open the HTML, choose
-**Export → SVG · Auto** (it follows the reader's light or dark theme), and save the download over
-`skills/core/automation/automated-dev-pipeline/pipeline-flow.svg`.
+Delete the `*.delivery.json` receipt it leaves beside the HTML. Then open the HTML (served over
+`http://`, not `file://`), choose **Export → SVG · Auto** (it follows the reader's light or dark
+theme), and save the download over `skills/core/automation/automated-dev-pipeline/pipeline-flow.svg`.
+Switch to dark, **Export → PNG**, and rebuild the site card from it as
+[`site/assets/img/README.md`](../../../../../site/assets/img/README.md) describes. All three come
+from this one source; there is no hand-drawn version.
 
 ## Files
 
@@ -49,6 +52,7 @@ Nothing here is read at runtime; the skill is self-contained in its leaf folder.
 |:---|:---|
 | [`pipeline-flow.svg`](../../../../../skills/core/automation/automated-dev-pipeline/pipeline-flow.svg) | The static diagram. It ships in the skill folder, so an agent can show it to the user |
 | [`automated-dev-pipeline-workflow.html`](../../../../../site/assets/diagrams/automated-dev-pipeline-workflow.html) | The interactive version, self-contained. It lives under `site/` so the homepage publishes it, and the skill's card links to it (`diagram` in `site/showcase.json`) |
+| [`automated-dev-pipeline.webp`](../../../../../site/assets/img/automated-dev-pipeline.webp) | The card image: the same diagram's dark PNG export at 16:10 |
 | [`diagrams/pipeline-workflow.json`](diagrams/pipeline-workflow.json) | The source both are built from |
 
 ---

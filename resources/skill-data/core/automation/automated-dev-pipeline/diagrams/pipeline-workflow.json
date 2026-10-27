@@ -7,57 +7,314 @@
     "quality_profile": "showcase",
     "legend": {
       "entries": {
-        "frontend": { "label": "Owner action" },
-        "backend": { "label": "Scheduled job" },
-        "security": { "label": "Gate" },
-        "cloud": { "label": "Public repo" },
-        "external": { "label": "Input" }
+        "frontend": {
+          "label": "Owner action"
+        },
+        "backend": {
+          "label": "Scheduled job"
+        },
+        "security": {
+          "label": "Gate"
+        },
+        "cloud": {
+          "label": "Public repo"
+        },
+        "external": {
+          "label": "Input"
+        }
       }
     },
     "output": "site/assets/diagrams/automated-dev-pipeline-workflow.html"
   },
   "lanes": [
-    { "id": "build", "label": "Build stages" },
-    { "id": "merge", "label": "Merge gate" },
-    { "id": "publish", "label": "Publish (scripted)" },
-    { "id": "owner", "label": "Owner decides", "variant": "exception" },
-    { "id": "keep", "label": "Keep current" }
+    {
+      "id": "build",
+      "label": "Build stages"
+    },
+    {
+      "id": "merge",
+      "label": "Merge gate"
+    },
+    {
+      "id": "publish",
+      "label": "Publish (scripted)"
+    },
+    {
+      "id": "owner",
+      "label": "Owner decides",
+      "variant": "exception"
+    },
+    {
+      "id": "keep",
+      "label": "Keep current"
+    }
   ],
   "phases": [
-    { "id": "build_phase", "label": "Build", "fromCol": 0, "toCol": 3, "variant": "emphasis" },
-    { "id": "publish_phase", "label": "Publish", "fromCol": 4, "toCol": 5, "variant": "security" }
+    {
+      "id": "build_phase",
+      "label": "Build",
+      "fromCol": 0,
+      "toCol": 3,
+      "variant": "emphasis"
+    },
+    {
+      "id": "publish_phase",
+      "label": "Publish",
+      "fromCol": 4,
+      "toCol": 5,
+      "variant": "security"
+    }
   ],
-  "mainPath": ["ideas", "ideate", "incubate", "roadmap", "sweep", "gates", "approve", "flip"],
+  "mainPath": [
+    "ideas",
+    "ideate",
+    "incubate",
+    "roadmap",
+    "sweep",
+    "gates",
+    "approve",
+    "flip"
+  ],
   "nodes": [
-    { "id": "ideas", "lane": "build", "col": 0, "type": "external", "label": "Idea source", "sublabel": "read-only, stable IDs" },
-    { "id": "ideate", "lane": "build", "col": 1, "type": "backend", "label": "Ideate", "sublabel": "score vs fit criteria", "tag": "runs when backlog low" },
-    { "id": "incubate", "lane": "build", "col": 2, "type": "backend", "label": "Incubate", "sublabel": "private repo + controls", "tag": "capped, MVP gates" },
-    { "id": "roadmap", "lane": "build", "col": 3, "type": "backend", "label": "Roadmap routine", "sublabel": "1 feature or 4 small", "tag": "pre-check: skip if idle" },
-    { "id": "sweep", "lane": "merge", "col": 3, "type": "security", "label": "PR sweep", "sublabel": "review + merge by prefix", "tag": "strongest model" },
-    { "id": "gates", "lane": "publish", "col": 4, "type": "security", "label": "Scripted gates", "sublabel": "secrets, CI, emails, 200s" },
-    { "id": "flip", "lane": "publish", "col": 5, "type": "cloud", "label": "Go public", "sublabel": "re-run gates, read back", "tag": "landing page + ledger" },
-    { "id": "digest", "lane": "owner", "col": 1, "type": "frontend", "label": "Weekly digest", "sublabel": "[Approval needed]" },
-    { "id": "held", "lane": "owner", "col": 2, "type": "frontend", "label": "Held PR", "sublabel": "owner merges" },
-    { "id": "approve", "lane": "owner", "col": 4, "type": "frontend", "label": "Approval issue", "sublabel": "close as Completed" },
-    { "id": "upkeep", "lane": "keep", "col": 1, "type": "backend", "label": "Upkeep", "sublabel": "stalls, drift, counts" },
-    { "id": "refresh", "lane": "keep", "col": 3, "type": "backend", "label": "Refresh + review", "sublabel": "every repo, cited sources" },
-    { "id": "improve", "lane": "keep", "col": 4, "type": "backend", "label": "Fleet improver", "sublabel": "1 change a week, by PR", "tag": "skips while one waits" },
-    { "id": "fleetpr", "lane": "owner", "col": 5, "type": "frontend", "label": "Fleet PR", "sublabel": "owner or gated runner merges", "tag": "guard files: owner" }
+    {
+      "id": "ideas",
+      "lane": "build",
+      "col": 0,
+      "type": "external",
+      "label": "Idea source",
+      "sublabel": "read-only, stable IDs"
+    },
+    {
+      "id": "ideate",
+      "lane": "build",
+      "col": 1,
+      "type": "backend",
+      "label": "Ideate",
+      "sublabel": "score vs fit criteria",
+      "tag": "runs when backlog low"
+    },
+    {
+      "id": "incubate",
+      "lane": "build",
+      "col": 2,
+      "type": "backend",
+      "label": "Incubate",
+      "sublabel": "private repo + controls",
+      "tag": "capped, MVP gates"
+    },
+    {
+      "id": "roadmap",
+      "lane": "build",
+      "col": 3,
+      "type": "backend",
+      "label": "Roadmap routine",
+      "sublabel": "1 feature or 4 small",
+      "tag": "pre-check: skip if idle"
+    },
+    {
+      "id": "sweep",
+      "lane": "merge",
+      "col": 3,
+      "type": "security",
+      "label": "PR sweep",
+      "sublabel": "review + merge by prefix",
+      "tag": "strongest model"
+    },
+    {
+      "id": "gates",
+      "lane": "publish",
+      "col": 4,
+      "type": "security",
+      "label": "Scripted gates",
+      "sublabel": "secrets, CI, emails, 200s"
+    },
+    {
+      "id": "flip",
+      "lane": "publish",
+      "col": 5,
+      "type": "cloud",
+      "label": "Go public",
+      "sublabel": "re-run gates, read back",
+      "tag": "landing page + ledger"
+    },
+    {
+      "id": "digest",
+      "lane": "owner",
+      "col": 1,
+      "type": "frontend",
+      "label": "Weekly digest",
+      "sublabel": "[Approval needed]"
+    },
+    {
+      "id": "held",
+      "lane": "owner",
+      "col": 2,
+      "type": "frontend",
+      "label": "Held PR",
+      "sublabel": "owner merges"
+    },
+    {
+      "id": "approve",
+      "lane": "owner",
+      "col": 4,
+      "type": "frontend",
+      "label": "Approval issue",
+      "sublabel": "close as Completed"
+    },
+    {
+      "id": "upkeep",
+      "lane": "keep",
+      "col": 1,
+      "type": "backend",
+      "label": "Upkeep",
+      "sublabel": "stalls, drift, counts"
+    },
+    {
+      "id": "security",
+      "lane": "keep",
+      "col": 2,
+      "type": "backend",
+      "label": "Security sweep",
+      "sublabel": "every repo, weekly",
+      "tag": "report + fix PRs"
+    },
+    {
+      "id": "refresh",
+      "lane": "keep",
+      "col": 3,
+      "type": "backend",
+      "label": "Refresh + review",
+      "sublabel": "every repo, cited sources"
+    },
+    {
+      "id": "improve",
+      "lane": "keep",
+      "col": 4,
+      "type": "backend",
+      "label": "Fleet improver",
+      "sublabel": "1 change a week, by PR",
+      "tag": "skips while one waits"
+    },
+    {
+      "id": "fleetpr",
+      "lane": "owner",
+      "col": 5,
+      "type": "frontend",
+      "label": "Fleet PR",
+      "sublabel": "owner or gated runner merges",
+      "tag": "guard files: owner"
+    }
   ],
   "edges": [
-    { "id": "e-ideas", "from": "ideas", "to": "ideate", "label": "candidates" },
-    { "id": "e-plan", "from": "ideate", "to": "incubate", "label": "scored plan", "variant": "emphasis" },
-    { "id": "e-repo", "from": "incubate", "to": "roadmap", "label": "new repo" },
-    { "id": "e-pr", "from": "roadmap", "to": "sweep", "label": "PR", "variant": "emphasis" },
-    { "id": "e-ready", "from": "sweep", "to": "gates", "label": "MVP gates ticked" },
-    { "id": "e-hold", "from": "sweep", "to": "held", "label": "hold path", "variant": "security", "role": "branch" },
-    { "id": "e-ask", "from": "gates", "to": "approve", "label": "issue + email", "variant": "security" },
-    { "id": "e-yes", "from": "approve", "to": "flip", "label": "Completed", "variant": "emphasis" },
-    { "id": "e-stay", "from": "flip", "to": "refresh", "label": "stays current", "variant": "dashed", "role": "async" },
-    { "id": "e-fixes", "from": "refresh", "to": "sweep", "label": "sourced PRs", "variant": "dashed", "role": "return" },
-    { "id": "e-stalls", "from": "upkeep", "to": "digest", "label": "what waits", "variant": "dashed", "role": "async" },
-    { "id": "e-improve", "from": "improve", "to": "fleetpr", "label": "config PR", "variant": "security" },
-    { "id": "e-follow", "from": "fleetpr", "to": "improve", "label": "next run registers", "variant": "dashed", "role": "return" }
+    {
+      "id": "e-ideas",
+      "from": "ideas",
+      "to": "ideate",
+      "label": "candidates"
+    },
+    {
+      "id": "e-plan",
+      "from": "ideate",
+      "to": "incubate",
+      "label": "scored plan",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-repo",
+      "from": "incubate",
+      "to": "roadmap",
+      "label": "new repo"
+    },
+    {
+      "id": "e-pr",
+      "from": "roadmap",
+      "to": "sweep",
+      "label": "PR",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-ready",
+      "from": "sweep",
+      "to": "gates",
+      "label": "MVP gates ticked"
+    },
+    {
+      "id": "e-hold",
+      "from": "sweep",
+      "to": "held",
+      "label": "hold path",
+      "variant": "security",
+      "role": "branch"
+    },
+    {
+      "id": "e-ask",
+      "from": "gates",
+      "to": "approve",
+      "label": "issue + email",
+      "variant": "security"
+    },
+    {
+      "id": "e-yes",
+      "from": "approve",
+      "to": "flip",
+      "label": "Completed",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-stay",
+      "from": "flip",
+      "to": "refresh",
+      "label": "stays current",
+      "variant": "dashed",
+      "role": "async"
+    },
+    {
+      "id": "e-fixes",
+      "from": "refresh",
+      "to": "sweep",
+      "label": "sourced PRs",
+      "variant": "dashed",
+      "role": "return"
+    },
+    {
+      "id": "e-stalls",
+      "from": "upkeep",
+      "to": "digest",
+      "label": "what waits",
+      "variant": "dashed",
+      "role": "async"
+    },
+    {
+      "id": "e-secfix",
+      "from": "security",
+      "to": "sweep",
+      "label": "fix PRs",
+      "variant": "dashed",
+      "role": "return"
+    },
+    {
+      "id": "e-rotate",
+      "from": "security",
+      "to": "held",
+      "label": "keys to rotate",
+      "variant": "security",
+      "role": "async"
+    },
+    {
+      "id": "e-improve",
+      "from": "improve",
+      "to": "fleetpr",
+      "label": "config PR",
+      "variant": "security"
+    },
+    {
+      "id": "e-follow",
+      "from": "fleetpr",
+      "to": "improve",
+      "label": "next run registers",
+      "variant": "dashed",
+      "role": "return"
+    }
   ],
   "cards": [
     {
@@ -74,7 +331,8 @@
       "title": "Irreversible means human",
       "items": [
         "Only a closed-as-Completed issue lets the script flip visibility",
-        "Merges to paths that deploy a public site are held for the owner"
+        "Merges to paths that deploy a public site are held for the owner",
+        "The security sweep reports leaked keys; only the owner rotates them"
       ]
     },
     {
