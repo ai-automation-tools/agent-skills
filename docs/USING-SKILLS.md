@@ -11,7 +11,7 @@ Skills sit in **three tiers** under [`../skills/`](../skills), and they do not i
 ```
 skills/
 ├── core/                    # portable — installs to ~/.claude/skills
-│   └── <category>/          # e.g. Business, Documentation, Image-Gen
+│   └── <category>/          # e.g. business, documentation, image-gen
 │       └── <skill-name>/
 │           └── SKILL.md     # YAML frontmatter (name, description) + instructions
 ├── domain/                  # portable FIELD skills mirrored from the org's agent workspaces —
@@ -55,7 +55,7 @@ Instructions the agent loads on invocation...
 
 Skills are picked up from an agent's skills directory. Three options:
 
-1. **Run the install script (recommended for Claude Code)** — from the repo root, run the bundled installer. It mirrors every leaf skill folder into `~/.claude/skills/<name>/` (whole folder, so `scripts/`/`references/`/`prompts/`/`evals/` come along; local `reports/` output never does):
+1. **Run the install script (recommended for Claude Code)** — from the repo root, run the bundled installer. It mirrors every Core leaf skill folder into `~/.claude/skills/<name>/` (whole folder, so `scripts/`/`references/`/`prompts/`/`evals/` come along; local `reports/` output never does):
 
    ```powershell
    pwsh scripts/install-skills.ps1                          # Core tier -> ~/.claude/skills
@@ -103,6 +103,7 @@ The folder name should match the skill's `name`. Restart or reload the agent so 
 3. Write the body: purpose, when-to-use, principles, a concrete execution checklist, and explicit anti-patterns. Concrete examples beat abstract advice.
 4. Keep it self-contained — the agent won't have your surrounding conversation when the skill loads.
 5. Add a row to the matching table — the repo [`../README.md`](../README.md) and [`skills/core/README.md`](../skills/core/README.md) for a Core skill, or the project's own README for a project skill.
+   A Core skill also needs its overview page at `resources/skill-data/core/<category>/<skill-name>/README.md` (the README rows link to it), a card entry in `site/showcase.json`, and a fresh `python scripts/build-showcase.py` run. If it came from [`SKILL-IDEAS.md`](SKILL-IDEAS.md), strike its row there.
 6. If it's worth documenting further (design rationale, longer usage notes), add a doc here in `docs/`.
 
 > [!TIP]

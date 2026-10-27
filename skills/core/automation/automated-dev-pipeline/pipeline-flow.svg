@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg viewBox="0 0 1022 786" data-reader-fit="width-first" data-layout-contract="readable-v2" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-animation="trace" data-preset="classic" data-quality-profile="showcase" data-node-ui="" style="--flow-cycle: 9.110s; width: 1022px; height: 786px; min-width: 0px;" width="1022" height="786" xmlns="http://www.w3.org/2000/svg"><style>
+<svg viewBox="0 0 1022 786" data-reader-fit="width-first" data-layout-contract="readable-v2" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-animation="trace" data-preset="classic" data-quality-profile="showcase" data-node-ui="" style="--flow-cycle: 8.585s; width: 1022px; height: 786px; min-width: 0px;" width="1022" height="786" xmlns="http://www.w3.org/2000/svg"><style>
 /*
 JetBrains Mono variable WOFF2 subsets from Google Fonts service revision v24.
 These fixed bytes are shared by the viewer and its SVG/raster exports.
@@ -399,234 +399,262 @@ svg[data-preset="editorial"] { --flow-halo-peak: 0.07; --flow-glow-peak: 0.28; -
 }
 @keyframes archify-relay-ripple { 
   0% { r: 2px; opacity: var(--flow-peak, 0.6); }
-  8.232%, 100% { r: 20px; opacity: 0; }
+  8.736%, 100% { r: 20px; opacity: 0; }
 }
 @keyframes archify-relay-comet-0 { 
   0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
-  0.922% { opacity: var(--flow-peak, 0.9); }
-  4.61% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
-  6.366%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
+  0.978% { opacity: var(--flow-peak, 0.9); }
+  4.892% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
+  6.756%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
 }
 @keyframes archify-relay-wake-0 { 
-  0%, 1.383% { opacity: 0; }
-  4.61% { opacity: var(--flow-peak, 0.3); }
-  14.489%, 100% { stroke-dashoffset: 0px; opacity: 0; }
+  0%, 1.468% { opacity: 0; }
+  4.892% { opacity: var(--flow-peak, 0.3); }
+  15.375%, 100% { stroke-dashoffset: 0px; opacity: 0; }
 }
 @keyframes archify-relay-comet-1 { 
   0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
-  1.317% { opacity: var(--flow-peak, 0.9); }
-  12.466% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
-  14.222%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
+  1.398% { opacity: var(--flow-peak, 0.9); }
+  13.229% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
+  15.092%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
 }
 @keyframes archify-relay-wake-1 { 
-  0%, 3.74% { opacity: 0; }
-  12.466% { opacity: var(--flow-peak, 0.3); }
-  22.345%, 100% { stroke-dashoffset: 0px; opacity: 0; }
+  0%, 3.969% { opacity: 0; }
+  13.229% { opacity: var(--flow-peak, 0.3); }
+  23.712%, 100% { stroke-dashoffset: 0px; opacity: 0; }
 }
 @keyframes archify-relay-comet-2 { 
   0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
-  1.317% { opacity: var(--flow-peak, 0.9); }
-  6.938% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
-  8.694%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
+  1.398% { opacity: var(--flow-peak, 0.9); }
+  7.362% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
+  9.226%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
 }
 @keyframes archify-relay-wake-2 { 
-  0%, 2.081% { opacity: 0; }
-  6.938% { opacity: var(--flow-peak, 0.3); }
-  16.817%, 100% { stroke-dashoffset: 0px; opacity: 0; }
+  0%, 2.209% { opacity: 0; }
+  7.362% { opacity: var(--flow-peak, 0.3); }
+  17.846%, 100% { stroke-dashoffset: 0px; opacity: 0; }
 }
 @keyframes archify-relay-comet-3 { 
   0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
-  1.317% { opacity: var(--flow-peak, 0.9); }
-  12.364% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
-  14.12%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
+  1.398% { opacity: var(--flow-peak, 0.9); }
+  13.12% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
+  14.983%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
 }
 @keyframes archify-relay-wake-3 { 
-  0%, 3.709% { opacity: 0; }
-  12.364% { opacity: var(--flow-peak, 0.3); }
-  22.242%, 100% { stroke-dashoffset: 0px; opacity: 0; }
+  0%, 3.936% { opacity: 0; }
+  13.12% { opacity: var(--flow-peak, 0.3); }
+  23.603%, 100% { stroke-dashoffset: 0px; opacity: 0; }
 }
 @keyframes archify-relay-comet-4 { 
   0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
-  0.922% { opacity: var(--flow-peak, 0.9); }
-  4.61% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
-  6.366%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
+  0.978% { opacity: var(--flow-peak, 0.9); }
+  4.892% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
+  6.756%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
 }
 @keyframes archify-relay-wake-4 { 
   0% { stroke-dashoffset: var(--flow-len, 0px); opacity: var(--flow-peak, 0.3); animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
-  4.61% { stroke-dashoffset: 0px; opacity: var(--flow-peak, 0.3); }
-  14.489%, 100% { stroke-dashoffset: 0px; opacity: 0; }
+  4.892% { stroke-dashoffset: 0px; opacity: var(--flow-peak, 0.3); }
+  15.375%, 100% { stroke-dashoffset: 0px; opacity: 0; }
 }
 @keyframes archify-relay-comet-5 { 
   0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
-  1.317% { opacity: var(--flow-peak, 0.9); }
-  6.977% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
-  8.733%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
+  1.398% { opacity: var(--flow-peak, 0.9); }
+  7.404% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
+  9.267%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
 }
 @keyframes archify-relay-wake-5 { 
-  0%, 2.093% { opacity: 0; }
-  6.977% { opacity: var(--flow-peak, 0.3); }
-  16.855%, 100% { stroke-dashoffset: 0px; opacity: 0; }
+  0%, 2.221% { opacity: 0; }
+  7.404% { opacity: var(--flow-peak, 0.3); }
+  17.887%, 100% { stroke-dashoffset: 0px; opacity: 0; }
 }
 @keyframes archify-relay-comet-6 { 
   0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
-  0.922% { opacity: var(--flow-peak, 0.9); }
-  4.61% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
-  6.366%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
+  0.978% { opacity: var(--flow-peak, 0.9); }
+  4.892% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
+  6.756%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
 }
 @keyframes archify-relay-wake-6 { 
   0% { stroke-dashoffset: var(--flow-len, 0px); opacity: var(--flow-peak, 0.3); animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
-  4.61% { stroke-dashoffset: 0px; opacity: var(--flow-peak, 0.3); }
-  14.489%, 100% { stroke-dashoffset: 0px; opacity: 0; }
+  4.892% { stroke-dashoffset: 0px; opacity: var(--flow-peak, 0.3); }
+  15.375%, 100% { stroke-dashoffset: 0px; opacity: 0; }
 }
 @keyframes archify-relay-comet-7 { 
   0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
-  0.922% { opacity: var(--flow-peak, 0.9); }
-  4.61% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
-  6.366%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
+  0.978% { opacity: var(--flow-peak, 0.9); }
+  4.892% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
+  6.756%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
 }
 @keyframes archify-relay-wake-7 { 
   0% { stroke-dashoffset: var(--flow-len, 0px); opacity: var(--flow-peak, 0.3); animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
-  4.61% { stroke-dashoffset: 0px; opacity: var(--flow-peak, 0.3); }
-  14.489%, 100% { stroke-dashoffset: 0px; opacity: 0; }
+  4.892% { stroke-dashoffset: 0px; opacity: var(--flow-peak, 0.3); }
+  15.375%, 100% { stroke-dashoffset: 0px; opacity: 0; }
 }
 @keyframes archify-relay-comet-8 { 
   0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
-  1.317% { opacity: var(--flow-peak, 0.9); }
-  6.663% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
-  8.419%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
+  1.398% { opacity: var(--flow-peak, 0.9); }
+  7.071% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
+  8.934%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
 }
 @keyframes archify-relay-wake-8 { 
   0% { stroke-dashoffset: var(--flow-len, 0px); opacity: var(--flow-peak, 0.3); animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
-  6.663% { stroke-dashoffset: 0px; opacity: var(--flow-peak, 0.3); }
-  16.542%, 100% { stroke-dashoffset: 0px; opacity: 0; }
+  7.071% { stroke-dashoffset: 0px; opacity: var(--flow-peak, 0.3); }
+  17.554%, 100% { stroke-dashoffset: 0px; opacity: 0; }
 }
 @keyframes archify-relay-comet-9 { 
   0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
-  0.922% { opacity: var(--flow-peak, 0.9); }
-  4.61% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
-  6.366%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
+  0.978% { opacity: var(--flow-peak, 0.9); }
+  4.892% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
+  6.756%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
 }
 @keyframes archify-relay-wake-9 { 
   0% { stroke-dashoffset: var(--flow-len, 0px); opacity: var(--flow-peak, 0.3); animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
-  4.61% { stroke-dashoffset: 0px; opacity: var(--flow-peak, 0.3); }
-  14.489%, 100% { stroke-dashoffset: 0px; opacity: 0; }
+  4.892% { stroke-dashoffset: 0px; opacity: var(--flow-peak, 0.3); }
+  15.375%, 100% { stroke-dashoffset: 0px; opacity: 0; }
 }
 @keyframes archify-relay-comet-10 { 
   0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
-  0.922% { opacity: var(--flow-peak, 0.9); }
-  4.61% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
-  6.366%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
+  0.978% { opacity: var(--flow-peak, 0.9); }
+  4.892% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
+  6.756%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
 }
 @keyframes archify-relay-wake-10 { 
-  0%, 1.383% { opacity: 0; }
-  4.61% { opacity: var(--flow-peak, 0.3); }
-  14.489%, 100% { stroke-dashoffset: 0px; opacity: 0; }
+  0%, 1.468% { opacity: 0; }
+  4.892% { opacity: var(--flow-peak, 0.3); }
+  15.375%, 100% { stroke-dashoffset: 0px; opacity: 0; }
 }
 @keyframes archify-relay-comet-11 { 
   0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
-  1.317% { opacity: var(--flow-peak, 0.9); }
-  16.465% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
-  18.221%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
+  1.398% { opacity: var(--flow-peak, 0.9); }
+  16.946% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
+  18.809%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
 }
 @keyframes archify-relay-wake-11 { 
-  0%, 4.939% { opacity: 0; }
-  16.465% { opacity: var(--flow-peak, 0.3); }
-  26.343%, 100% { stroke-dashoffset: 0px; opacity: 0; }
+  0%, 5.084% { opacity: 0; }
+  16.946% { opacity: var(--flow-peak, 0.3); }
+  27.429%, 100% { stroke-dashoffset: 0px; opacity: 0; }
 }
 @keyframes archify-relay-comet-12 { 
   0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
-  1.317% { opacity: var(--flow-peak, 0.9); }
-  7.329% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
-  9.085%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
+  0.978% { opacity: var(--flow-peak, 0.9); }
+  4.892% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
+  6.756%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
 }
 @keyframes archify-relay-wake-12 { 
+  0%, 1.468% { opacity: 0; }
+  4.892% { opacity: var(--flow-peak, 0.3); }
+  15.375%, 100% { stroke-dashoffset: 0px; opacity: 0; }
+}
+@keyframes archify-relay-comet-13 { 
+  0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
+  1.398% { opacity: var(--flow-peak, 0.9); }
+  17.472% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
+  19.335%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
+}
+@keyframes archify-relay-wake-13 { 
+  0%, 5.242% { opacity: 0; }
+  17.472% { opacity: var(--flow-peak, 0.3); }
+  27.955%, 100% { stroke-dashoffset: 0px; opacity: 0; }
+}
+@keyframes archify-relay-comet-14 { 
+  0% { stroke-dashoffset: calc(var(--flow-len, 0px) + var(--flow-shift, 0px)); opacity: 0; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
+  1.398% { opacity: var(--flow-peak, 0.9); }
+  7.777% { stroke-dashoffset: var(--flow-shift, 0px); opacity: var(--flow-peak, 0.9); }
+  9.641%, 100% { stroke-dashoffset: var(--flow-shift, 0px); opacity: 0; }
+}
+@keyframes archify-relay-wake-14 { 
   0% { stroke-dashoffset: var(--flow-len, 0px); opacity: var(--flow-peak, 0.3); animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
-  7.329% { stroke-dashoffset: 0px; opacity: var(--flow-peak, 0.3); }
-  17.208%, 100% { stroke-dashoffset: 0px; opacity: 0; }
+  7.777% { stroke-dashoffset: 0px; opacity: var(--flow-peak, 0.3); }
+  18.26%, 100% { stroke-dashoffset: 0px; opacity: 0; }
 }
 @keyframes archify-relay-node-0 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
   0% { filter: var(--ambient-node-base-filter, none); }
-  1.317%, 4.61% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
-  13.172% { filter: var(--ambient-node-base-filter, none); }
+  1.398%, 4.892% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
+  13.977% { filter: var(--ambient-node-base-filter, none); }
 }
 @keyframes archify-relay-node-1 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
   0% { filter: var(--ambient-node-base-filter, none); }
-  1.317%, 4.61% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
-  13.172% { filter: var(--ambient-node-base-filter, none); }
+  1.398%, 4.892% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
+  13.977% { filter: var(--ambient-node-base-filter, none); }
 }
 @keyframes archify-relay-node-2 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
-  4.61% { filter: var(--ambient-node-base-filter, none); }
-  5.927%, 9.22% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
-  17.782% { filter: var(--ambient-node-base-filter, none); }
+  0% { filter: var(--ambient-node-base-filter, none); }
+  1.398%, 4.892% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
+  13.977% { filter: var(--ambient-node-base-filter, none); }
 }
 @keyframes archify-relay-node-3 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
-  4.61% { filter: var(--ambient-node-base-filter, none); }
-  5.927%, 9.22% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
-  17.782% { filter: var(--ambient-node-base-filter, none); }
+  4.892% { filter: var(--ambient-node-base-filter, none); }
+  6.29%, 9.784% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
+  18.869% { filter: var(--ambient-node-base-filter, none); }
 }
 @keyframes archify-relay-node-4 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
-  10.318% { filter: var(--ambient-node-base-filter, none); }
-  11.635%, 14.928% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
-  23.489% { filter: var(--ambient-node-base-filter, none); }
+  4.892% { filter: var(--ambient-node-base-filter, none); }
+  6.29%, 9.784% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
+  18.869% { filter: var(--ambient-node-base-filter, none); }
 }
 @keyframes archify-relay-node-5 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
-  16.026% { filter: var(--ambient-node-base-filter, none); }
-  17.343%, 20.636% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
-  29.197% { filter: var(--ambient-node-base-filter, none); }
+  16.946% { filter: var(--ambient-node-base-filter, none); }
+  18.344%, 21.838% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
+  30.923% { filter: var(--ambient-node-base-filter, none); }
 }
 @keyframes archify-relay-node-6 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
-  21.733% { filter: var(--ambient-node-base-filter, none); }
-  23.05%, 26.343% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
-  34.905% { filter: var(--ambient-node-base-filter, none); }
+  4.892% { filter: var(--ambient-node-base-filter, none); }
+  6.29%, 9.784% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
+  18.869% { filter: var(--ambient-node-base-filter, none); }
 }
 @keyframes archify-relay-node-7 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
-  35.194% { filter: var(--ambient-node-base-filter, none); }
-  36.512%, 39.805% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
-  48.366% { filter: var(--ambient-node-base-filter, none); }
+  10.949% { filter: var(--ambient-node-base-filter, none); }
+  12.347%, 15.841% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
+  24.926% { filter: var(--ambient-node-base-filter, none); }
 }
 @keyframes archify-relay-node-8 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
-  29.494% { filter: var(--ambient-node-base-filter, none); }
-  30.811%, 34.104% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
-  42.666% { filter: var(--ambient-node-base-filter, none); }
+  17.006% { filter: var(--ambient-node-base-filter, none); }
+  18.404%, 21.898% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
+  30.983% { filter: var(--ambient-node-base-filter, none); }
 }
 @keyframes archify-relay-node-9 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
-  35.202% { filter: var(--ambient-node-base-filter, none); }
-  36.519%, 39.812% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
-  48.373% { filter: var(--ambient-node-base-filter, none); }
+  25.181% { filter: var(--ambient-node-base-filter, none); }
+  26.579%, 30.073% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
+  39.159% { filter: var(--ambient-node-base-filter, none); }
 }
 @keyframes archify-relay-node-10 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
-  43.628% { filter: var(--ambient-node-base-filter, none); }
-  44.946%, 48.238% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
-  56.8% { filter: var(--ambient-node-base-filter, none); }
+  31.238% { filter: var(--ambient-node-base-filter, none); }
+  32.636%, 36.13% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
+  45.215% { filter: var(--ambient-node-base-filter, none); }
 }
 @keyframes archify-relay-node-11 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
-  61.191% { filter: var(--ambient-node-base-filter, none); }
-  62.508%, 65.801% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
-  74.362% { filter: var(--ambient-node-base-filter, none); }
+  40.18% { filter: var(--ambient-node-base-filter, none); }
+  41.578%, 45.072% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
+  54.158% { filter: var(--ambient-node-base-filter, none); }
 }
 @keyframes archify-relay-node-12 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
-  0% { filter: var(--ambient-node-base-filter, none); }
-  1.317%, 4.61% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
-  13.172% { filter: var(--ambient-node-base-filter, none); }
+  58.817% { filter: var(--ambient-node-base-filter, none); }
+  60.214%, 63.709% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
+  72.794% { filter: var(--ambient-node-base-filter, none); }
 }
 @keyframes archify-relay-node-13 { 
   0%, 100% { filter: var(--ambient-node-base-filter, none); }
-  6.938% { filter: var(--ambient-node-base-filter, none); }
-  8.255%, 11.548% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
-  20.11% { filter: var(--ambient-node-base-filter, none); }
+  0% { filter: var(--ambient-node-base-filter, none); }
+  1.398%, 4.892% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
+  13.977% { filter: var(--ambient-node-base-filter, none); }
+}
+@keyframes archify-relay-node-14 { 
+  0%, 100% { filter: var(--ambient-node-base-filter, none); }
+  7.362% { filter: var(--ambient-node-base-filter, none); }
+  8.76%, 12.255% { filter: var(--ambient-node-base-filter,) drop-shadow(0 0 10px var(--arrow-emphasis)); }
+  21.34% { filter: var(--ambient-node-base-filter, none); }
 }
 svg[data-node-ui] [data-node-id] &gt; rect:not(.c-mask) { stroke-width: 1.25px; }
 :is([data-theme="dark"] svg[data-node-ui], svg[data-node-ui][data-theme="dark"]) [data-node-id] &gt; rect:not(.c-mask).c-frontend { fill: color-mix(in srgb, var(--frontend-stroke) 13%, var(--mask)); stroke: color-mix(in srgb, var(--frontend-stroke) 72%, var(--mask)); }
@@ -737,9 +765,11 @@ rect.c-bg-rect { fill: var(--bg); }
         <path data-edge-from="roadmap" data-edge-to="sweep" data-edge-label="PR" data-edge-key="7" data-edge-id="e-pr" data-composition-routing="workflow-v2-auto" data-edge-role="" data-composition-points="573.2,154;573.2,212" d="M 573.2 154 L 573.2 212" class="a-emphasis" data-animate="edge" style="--step: 3;" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         <path data-edge-from="sweep" data-edge-to="gates" data-edge-label="MVP gates ticked" data-edge-key="8" data-edge-id="e-ready" data-composition-routing="workflow-v2-auto" data-edge-role="" data-composition-points="597.2,280;597.2,306;707.2,306;707.2,346" d="M 597.2 280 L 597.2 298 Q 597.2 306 605.2 306 L 699.2 306 Q 707.2 306 707.2 314 L 707.2 346" class="a-default" data-animate="edge" style="--step: 4;" stroke-width="1.4" marker-end="url(#arrowhead)"/>
         <path data-edge-from="incubate" data-edge-to="roadmap" data-edge-label="new repo" data-edge-key="9" data-edge-id="e-repo" data-composition-routing="workflow-v2-auto" data-edge-role="" data-composition-points="468.8,120;525.2,120" d="M 468.8 120 L 525.2 120" class="a-default" data-animate="edge" style="--step: 2;" stroke-width="1.4" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="upkeep" data-edge-to="digest" data-edge-label="what waits" data-edge-key="10" data-edge-id="e-stalls" data-composition-routing="workflow-v2-auto" data-edge-role="async" data-composition-points="252,598;252,524" d="M 252 598 L 252 524" class="a-dashed" data-animate="edge" style="--step: 12;" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
-        <path data-edge-from="flip" data-edge-to="refresh" data-edge-label="stays current" data-edge-key="11" data-edge-id="e-stay" data-composition-routing="workflow-v2-auto" data-edge-role="async" data-composition-points="907.2,372;1005.6,372;1005.6,666;573.2,666;573.2,650" d="M 907.2 372 L 997.6 372 Q 1005.6 372 1005.6 380 L 1005.6 658 Q 1005.6 666 997.6 666 L 581.2 666 Q 573.2 666 573.2 658 L 573.2 650" class="a-dashed" data-animate="edge" style="--step: 12;" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
-        <path data-edge-from="approve" data-edge-to="flip" data-edge-label="Completed" data-edge-key="12" data-edge-id="e-yes" data-composition-routing="workflow-v2-auto" data-edge-role="" data-composition-points="753.2,498;769.2,498;769.2,432;857.2,432;857.2,406" d="M 753.2 498 L 761.2 498 Q 769.2 498 769.2 490 L 769.2 440 Q 769.2 432 777.2 432 L 849.2 432 Q 857.2 432 857.2 424 L 857.2 406" class="a-emphasis" data-animate="edge" style="--step: 6;" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="security" data-edge-to="held" data-edge-label="keys to rotate" data-edge-key="10" data-edge-id="e-rotate" data-composition-routing="workflow-v2-auto" data-edge-role="async" data-composition-points="418.8,590;418.8,524" d="M 418.8 590 L 418.8 524" class="a-security" data-animate="edge" style="--step: 12;" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="security" data-edge-to="sweep" data-edge-label="fix PRs" data-edge-key="11" data-edge-id="e-secfix" data-composition-routing="workflow-v2-auto" data-edge-role="return" data-composition-points="464.8,624;480.8,624;480.8,420;537.2,420;537.2,280" d="M 464.8 624 L 472.8 624 Q 480.8 624 480.8 616 L 480.8 428 Q 480.8 420 488.8 420 L 529.2 420 Q 537.2 420 537.2 412 L 537.2 280" class="a-dashed" data-animate="edge" style="--step: 12;" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="upkeep" data-edge-to="digest" data-edge-label="what waits" data-edge-key="12" data-edge-id="e-stalls" data-composition-routing="workflow-v2-auto" data-edge-role="async" data-composition-points="252,598;252,524" d="M 252 598 L 252 524" class="a-dashed" data-animate="edge" style="--step: 12;" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="flip" data-edge-to="refresh" data-edge-label="stays current" data-edge-key="13" data-edge-id="e-stay" data-composition-routing="workflow-v2-auto" data-edge-role="async" data-composition-points="907.2,372;1005.6,372;1005.6,666;573.2,666;573.2,650" d="M 907.2 372 L 997.6 372 Q 1005.6 372 1005.6 380 L 1005.6 658 Q 1005.6 666 997.6 666 L 581.2 666 Q 573.2 666 573.2 658 L 573.2 650" class="a-dashed" data-animate="edge" style="--step: 12;" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="approve" data-edge-to="flip" data-edge-label="Completed" data-edge-key="14" data-edge-id="e-yes" data-composition-routing="workflow-v2-auto" data-edge-role="" data-composition-points="753.2,498;769.2,498;769.2,432;857.2,432;857.2,406" d="M 753.2 498 L 761.2 498 Q 769.2 498 769.2 490 L 769.2 440 Q 769.2 432 777.2 432 L 849.2 432 Q 857.2 432 857.2 424 L 857.2 406" class="a-emphasis" data-animate="edge" style="--step: 6;" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
 
         <!-- Nodes -->
         <g id="node-ideas" data-node-id="ideas" data-node-label="Idea source" tabindex="0" role="button" aria-label="Focus Idea source, read-only, stable IDs, Build stages › Build" aria-pressed="false" data-node-kind="external" data-node-sublabel="read-only, stable IDs" data-node-context="Build stages › Build">
@@ -757,7 +787,7 @@ rect.c-bg-rect { fill: var(--bg); }
         <g id="node-ideate" data-node-id="ideate" data-node-label="Ideate" tabindex="0" role="button" aria-label="Focus Ideate, score vs fit criteria, Build stages › Build" aria-pressed="false" data-node-kind="backend" data-node-sublabel="score vs fit criteria" data-node-tag="runs when backlog low" data-node-context="Build stages › Build">
           <title>Ideate · score vs fit criteria · Build stages › Build · runs when backlog low</title>
           <rect x="206" y="86" width="92" height="68" rx="8" class="c-mask"/>
-          <rect x="206" y="86" width="92" height="68" rx="8" class="c-backend" data-animate="node" style="--step: 1; --flow-node-name: archify-relay-node-2;" stroke-width="1.5"/>
+          <rect x="206" y="86" width="92" height="68" rx="8" class="c-backend" data-animate="node" style="--step: 1; --flow-node-name: archify-relay-node-3;" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(212 92) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
@@ -769,7 +799,7 @@ rect.c-bg-rect { fill: var(--bg); }
         <g id="node-incubate" data-node-id="incubate" data-node-label="Incubate" tabindex="0" role="button" aria-label="Focus Incubate, private repo + controls, Build stages › Build" aria-pressed="false" data-node-kind="backend" data-node-sublabel="private repo + controls" data-node-tag="capped, MVP gates" data-node-context="Build stages › Build">
           <title>Incubate · private repo + controls · Build stages › Build · capped, MVP gates</title>
           <rect x="368.8" y="86" width="100" height="68" rx="8" class="c-mask"/>
-          <rect x="368.8" y="86" width="100" height="68" rx="8" class="c-backend" data-animate="node" style="--step: 2; --flow-node-name: archify-relay-node-4;" stroke-width="1.5"/>
+          <rect x="368.8" y="86" width="100" height="68" rx="8" class="c-backend" data-animate="node" style="--step: 2; --flow-node-name: archify-relay-node-7;" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(374.8 92) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
@@ -781,7 +811,7 @@ rect.c-bg-rect { fill: var(--bg); }
         <g id="node-roadmap" data-node-id="roadmap" data-node-label="Roadmap routine" tabindex="0" role="button" aria-label="Focus Roadmap routine, 1 feature or 4 small, Build stages › Build" aria-pressed="false" data-node-kind="backend" data-node-sublabel="1 feature or 4 small" data-node-tag="pre-check: skip if idle" data-node-context="Build stages › Build">
           <title>Roadmap routine · 1 feature or 4 small · Build stages › Build · pre-check: skip if idle</title>
           <rect x="525.2" y="86" width="96" height="68" rx="8" class="c-mask"/>
-          <rect x="525.2" y="86" width="96" height="68" rx="8" class="c-backend" data-animate="node" style="--step: 3; --flow-node-name: archify-relay-node-5;" stroke-width="1.5"/>
+          <rect x="525.2" y="86" width="96" height="68" rx="8" class="c-backend" data-animate="node" style="--step: 3; --flow-node-name: archify-relay-node-8;" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(531.2 92) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
@@ -793,7 +823,7 @@ rect.c-bg-rect { fill: var(--bg); }
         <g id="node-sweep" data-node-id="sweep" data-node-label="PR sweep" tabindex="0" role="button" aria-label="Focus PR sweep, review + merge by prefix, Merge gate › Build" aria-pressed="false" data-node-kind="security" data-node-sublabel="review + merge by prefix" data-node-tag="strongest model" data-node-context="Merge gate › Build">
           <title>PR sweep · review + merge by prefix · Merge gate › Build · strongest model</title>
           <rect x="511.20000000000005" y="212" width="124" height="68" rx="8" class="c-mask"/>
-          <rect x="511.20000000000005" y="212" width="124" height="68" rx="8" class="c-security" data-animate="node" style="--step: 4; --flow-node-name: archify-relay-node-6;" stroke-width="1.5"/>
+          <rect x="511.20000000000005" y="212" width="124" height="68" rx="8" class="c-security" data-animate="node" style="--step: 4; --flow-node-name: archify-relay-node-5;" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(517.2 218) scale(0.6875)">
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
@@ -806,7 +836,7 @@ rect.c-bg-rect { fill: var(--bg); }
         <g id="node-gates" data-node-id="gates" data-node-label="Scripted gates" tabindex="0" role="button" aria-label="Focus Scripted gates, secrets, CI, emails, 200s, Publish (scripted) › Publish" aria-pressed="false" data-node-kind="security" data-node-sublabel="secrets, CI, emails, 200s" data-node-context="Publish (scripted) › Publish">
           <title>Scripted gates · secrets, CI, emails, 200s · Publish (scripted) › Publish</title>
           <rect x="643.2" y="346" width="128" height="52" rx="8" class="c-mask"/>
-          <rect x="643.2" y="346" width="128" height="52" rx="8" class="c-security" data-animate="node" style="--step: 5; --flow-node-name: archify-relay-node-8;" stroke-width="1.5"/>
+          <rect x="643.2" y="346" width="128" height="52" rx="8" class="c-security" data-animate="node" style="--step: 5; --flow-node-name: archify-relay-node-9;" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(649.2 352) scale(0.6875)">
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
@@ -818,7 +848,7 @@ rect.c-bg-rect { fill: var(--bg); }
         <g id="node-flip" data-node-id="flip" data-node-label="Go public" tabindex="0" role="button" aria-label="Focus Go public, re-run gates, read back, Publish (scripted) › Publish" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="re-run gates, read back" data-node-tag="landing page + ledger" data-node-context="Publish (scripted) › Publish">
           <title>Go public · re-run gates, read back · Publish (scripted) › Publish · landing page + ledger</title>
           <rect x="807.2" y="338" width="100" height="68" rx="8" class="c-mask"/>
-          <rect x="807.2" y="338" width="100" height="68" rx="8" class="c-cloud" data-animate="node" style="--step: 7; --flow-node-name: archify-relay-node-10;" stroke-width="1.5"/>
+          <rect x="807.2" y="338" width="100" height="68" rx="8" class="c-cloud" data-animate="node" style="--step: 7; --flow-node-name: archify-relay-node-11;" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(813.2 344) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
@@ -830,7 +860,7 @@ rect.c-bg-rect { fill: var(--bg); }
         <g id="node-digest" data-node-id="digest" data-node-label="Weekly digest" tabindex="0" role="button" aria-label="Focus Weekly digest, [Approval needed], Owner decides › Build" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="[Approval needed]" data-node-context="Owner decides › Build">
           <title>Weekly digest · [Approval needed] · Owner decides › Build</title>
           <rect x="206" y="472" width="92" height="52" rx="8" class="c-mask"/>
-          <rect x="206" y="472" width="92" height="52" rx="8" class="c-frontend" data-animate="node" style="--step: 12; --flow-node-name: archify-relay-node-3;" stroke-width="1.5"/>
+          <rect x="206" y="472" width="92" height="52" rx="8" class="c-frontend" data-animate="node" style="--step: 12; --flow-node-name: archify-relay-node-6;" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(212 478) scale(0.6875)">
             <rect x="2" y="3" width="12" height="10" rx="2"/>
             <path d="M2 6.5h12"/>
@@ -844,7 +874,7 @@ rect.c-bg-rect { fill: var(--bg); }
         <g id="node-held" data-node-id="held" data-node-label="Held PR" tabindex="0" role="button" aria-label="Focus Held PR, owner merges, Owner decides › Build" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="owner merges" data-node-context="Owner decides › Build">
           <title>Held PR · owner merges · Owner decides › Build</title>
           <rect x="372.8" y="472" width="92" height="52" rx="8" class="c-mask"/>
-          <rect x="372.8" y="472" width="92" height="52" rx="8" class="c-frontend" data-animate="node" style="--step: 12; --flow-node-name: archify-relay-node-7;" stroke-width="1.5"/>
+          <rect x="372.8" y="472" width="92" height="52" rx="8" class="c-frontend" data-animate="node" style="--step: 12; --flow-node-name: archify-relay-node-4;" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(378.8 478) scale(0.6875)">
             <rect x="2" y="3" width="12" height="10" rx="2"/>
             <path d="M2 6.5h12"/>
@@ -858,7 +888,7 @@ rect.c-bg-rect { fill: var(--bg); }
         <g id="node-approve" data-node-id="approve" data-node-label="Approval issue" tabindex="0" role="button" aria-label="Focus Approval issue, close as Completed, Owner decides › Publish" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="close as Completed" data-node-context="Owner decides › Publish">
           <title>Approval issue · close as Completed · Owner decides › Publish</title>
           <rect x="661.2" y="472" width="92" height="52" rx="8" class="c-mask"/>
-          <rect x="661.2" y="472" width="92" height="52" rx="8" class="c-frontend" data-animate="node" style="--step: 6; --flow-node-name: archify-relay-node-9;" stroke-width="1.5"/>
+          <rect x="661.2" y="472" width="92" height="52" rx="8" class="c-frontend" data-animate="node" style="--step: 6; --flow-node-name: archify-relay-node-10;" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(667.2 478) scale(0.6875)">
             <rect x="2" y="3" width="12" height="10" rx="2"/>
             <path d="M2 6.5h12"/>
@@ -872,7 +902,7 @@ rect.c-bg-rect { fill: var(--bg); }
         <g id="node-fleetpr" data-node-id="fleetpr" data-node-label="Fleet PR" tabindex="0" role="button" aria-label="Focus Fleet PR, owner or gated runner merges, Owner decides › Publish" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="owner or gated runner merges" data-node-tag="guard files: owner" data-node-context="Owner decides › Publish">
           <title>Fleet PR · owner or gated runner merges · Owner decides › Publish · guard files: owner</title>
           <rect x="785.2" y="464" width="144" height="68" rx="8" class="c-mask"/>
-          <rect x="785.2" y="464" width="144" height="68" rx="8" class="c-frontend" data-animate="node" style="--step: 12; --flow-node-name: archify-relay-node-12;" stroke-width="1.5"/>
+          <rect x="785.2" y="464" width="144" height="68" rx="8" class="c-frontend" data-animate="node" style="--step: 12; --flow-node-name: archify-relay-node-13;" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(791.2 470) scale(0.6875)">
             <rect x="2" y="3" width="12" height="10" rx="2"/>
             <path d="M2 6.5h12"/>
@@ -887,7 +917,7 @@ rect.c-bg-rect { fill: var(--bg); }
         <g id="node-upkeep" data-node-id="upkeep" data-node-label="Upkeep" tabindex="0" role="button" aria-label="Focus Upkeep, stalls, drift, counts, Keep current › Build" aria-pressed="false" data-node-kind="backend" data-node-sublabel="stalls, drift, counts" data-node-context="Keep current › Build">
           <title>Upkeep · stalls, drift, counts · Keep current › Build</title>
           <rect x="206" y="598" width="92" height="52" rx="8" class="c-mask"/>
-          <rect x="206" y="598" width="92" height="52" rx="8" class="c-backend" data-animate="node" style="--step: 12; --flow-node-name: archify-relay-node-1;" stroke-width="1.5"/>
+          <rect x="206" y="598" width="92" height="52" rx="8" class="c-backend" data-animate="node" style="--step: 12; --flow-node-name: archify-relay-node-2;" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(212 604) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
@@ -895,10 +925,22 @@ rect.c-bg-rect { fill: var(--bg); }
           <text x="252" y="636" class="t-muted" font-size="6.6" text-anchor="middle">stalls, drift, counts</text>
         </g>
 
+        <g id="node-security" data-node-id="security" data-node-label="Security sweep" tabindex="0" role="button" aria-label="Focus Security sweep, every repo, weekly, Keep current › Build" aria-pressed="false" data-node-kind="backend" data-node-sublabel="every repo, weekly" data-node-tag="report + fix PRs" data-node-context="Keep current › Build">
+          <title>Security sweep · every repo, weekly · Keep current › Build · report + fix PRs</title>
+          <rect x="372.8" y="590" width="92" height="68" rx="8" class="c-mask"/>
+          <rect x="372.8" y="590" width="92" height="68" rx="8" class="c-backend" data-animate="node" style="--step: 12; --flow-node-name: archify-relay-node-1;" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(378.8 596) scale(0.6875)">
+            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
+          </g>
+          <text data-node-label="" x="418.8" y="621" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Security sweep</text>
+          <text x="418.8" y="635.3" class="t-muted" font-size="7.7" text-anchor="middle">every repo, weekly</text>
+        <text x="418.8" y="648.1" class="t-backend" font-size="7" text-anchor="middle">report + fix PRs</text>
+        </g>
+
         <g id="node-refresh" data-node-id="refresh" data-node-label="Refresh + review" tabindex="0" role="button" aria-label="Focus Refresh + review, every repo, cited sources, Keep current › Build" aria-pressed="false" data-node-kind="backend" data-node-sublabel="every repo, cited sources" data-node-context="Keep current › Build">
           <title>Refresh + review · every repo, cited sources · Keep current › Build</title>
           <rect x="519.2" y="598" width="108" height="52" rx="8" class="c-mask"/>
-          <rect x="519.2" y="598" width="108" height="52" rx="8" class="c-backend" data-animate="node" style="--step: 12; --flow-node-name: archify-relay-node-11;" stroke-width="1.5"/>
+          <rect x="519.2" y="598" width="108" height="52" rx="8" class="c-backend" data-animate="node" style="--step: 12; --flow-node-name: archify-relay-node-12;" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(525.2 604) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
@@ -909,7 +951,7 @@ rect.c-bg-rect { fill: var(--bg); }
         <g id="node-improve" data-node-id="improve" data-node-label="Fleet improver" tabindex="0" role="button" aria-label="Focus Fleet improver, 1 change a week, by PR, Keep current › Publish" aria-pressed="false" data-node-kind="backend" data-node-sublabel="1 change a week, by PR" data-node-tag="skips while one waits" data-node-context="Keep current › Publish">
           <title>Fleet improver · 1 change a week, by PR · Keep current › Publish · skips while one waits</title>
           <rect x="659.2" y="590" width="96" height="68" rx="8" class="c-mask"/>
-          <rect x="659.2" y="590" width="96" height="68" rx="8" class="c-backend" data-animate="node" style="--step: 12; --flow-node-name: archify-relay-node-13;" stroke-width="1.5"/>
+          <rect x="659.2" y="590" width="96" height="68" rx="8" class="c-backend" data-animate="node" style="--step: 12; --flow-node-name: archify-relay-node-14;" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(665.2 596) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
@@ -959,15 +1001,23 @@ rect.c-bg-rect { fill: var(--bg); }
           <rect x="472.8" y="100" width="48.4" height="14" rx="3" class="c-mask"/>
           <text x="497" y="110" class="t-muted" font-size="8" text-anchor="middle">new repo</text>
         </g>
-        <g data-edge-from="upkeep" data-edge-to="digest" data-edge-label="what waits" data-edge-key="10" data-edge-id="e-stalls">
+        <g data-edge-from="security" data-edge-to="held" data-edge-label="keys to rotate" data-edge-key="10" data-edge-id="e-rotate">
+          <rect x="380.2" y="547" width="77.2" height="14" rx="3" class="c-mask"/>
+          <text x="418.8" y="557" class="t-edge-security" font-size="8" text-anchor="middle">keys to rotate</text>
+        </g>
+        <g data-edge-from="security" data-edge-to="sweep" data-edge-label="fix PRs" data-edge-key="11" data-edge-id="e-secfix">
+          <rect x="487.2" y="400" width="43.6" height="14" rx="3" class="c-mask"/>
+          <text x="509" y="410" class="t-edge-dashed" font-size="8" text-anchor="middle">fix PRs</text>
+        </g>
+        <g data-edge-from="upkeep" data-edge-to="digest" data-edge-label="what waits" data-edge-key="12" data-edge-id="e-stalls">
           <rect x="223" y="551" width="58" height="14" rx="3" class="c-mask"/>
           <text x="252" y="561" class="t-edge-dashed" font-size="8" text-anchor="middle">what waits</text>
         </g>
-        <g data-edge-from="flip" data-edge-to="refresh" data-edge-label="stays current" data-edge-key="11" data-edge-id="e-stay">
+        <g data-edge-from="flip" data-edge-to="refresh" data-edge-label="stays current" data-edge-key="13" data-edge-id="e-stay">
           <rect x="753.2" y="646" width="72.4" height="14" rx="3" class="c-mask"/>
           <text x="789.4000000000001" y="656" class="t-edge-dashed" font-size="8" text-anchor="middle">stays current</text>
         </g>
-        <g data-edge-from="approve" data-edge-to="flip" data-edge-label="Completed" data-edge-key="12" data-edge-id="e-yes">
+        <g data-edge-from="approve" data-edge-to="flip" data-edge-label="Completed" data-edge-key="14" data-edge-id="e-yes">
           <rect x="786.6" y="412" width="53.199999999999996" height="14" rx="3" class="c-mask"/>
           <text x="813.2" y="422" class="t-edge-emphasis" font-size="8" text-anchor="middle">Completed</text>
         </g>
