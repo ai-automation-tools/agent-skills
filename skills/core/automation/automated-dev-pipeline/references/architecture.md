@@ -153,7 +153,7 @@ What changes because of it:
 | Stage session crashes | The runner exits non-zero, and the wrapper emails `failed` |
 | Session exits non-zero with no work done (`API Error: 529`, `429`) | One retry after 2 minutes if it failed fast and wrote nothing, then `failed` with exit 1. Never `quiet`, and on a sweep never `held` |
 | An incubating project's open gates all wait on the owner, no roadmap PR merged in 14 days, ledger row older than that | Incubate's runner parks it before the cap check: disables its roadmap task, sets the Stage to `parked`, logs a `PARKED:` line. Nothing is deleted. Unpark by hand: tick the item, set the Stage back, re-enable the task |
-| A PR is BEHIND a base that requires up-to-date branches | The sweep runner runs `gh pr update-branch` and re-gates, instead of holding it for a person to press the same button |
+| A PR is BEHIND a base that requires up-to-date branches | The sweep runner runs `gh pr update-branch` and re-gates, instead of holding it for a person to press the same button. The push restarts the required checks, so it waits (capped) while they run: `BLOCKED` with checks still running is transient, `BLOCKED` once they finish is a real hold |
 | A sweep approves a PR, and by merge time it no longer passes a gate (a sibling's merge turned its changelog DIRTY) | The runner union-merges a changelog-only conflict and re-gates; anything else stays open for the next sweep |
 | A run dies without reaching its outcome check (no exit line, no email) | Only the run history shows it: a `start` record with no `end`. The next run clears the stale lock |
 | A sweep holds a PR | The comment is the next appending run's first item, because the APPEND MODE banner makes it read `gh pr view --comments` |
