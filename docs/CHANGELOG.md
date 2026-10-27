@@ -24,6 +24,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-10-26
+
+**Changed**
+- `automated-dev-pipeline`: keep-current now has a fifth mechanism, a weekly security sweep across every active repo. `references/keeping-current.md` describes it (a script gathers alerts, a redacted secret scan of the deploy branch and tracked `.env` files; the session judges, reviews code, CI and live headers, fixes one PR per repo and reports the rest), adds its merge rule and two anti-patterns. `SKILL.md` and the showcase card mention it.
+
 ## 2026-10-22
 
 **Changed**
