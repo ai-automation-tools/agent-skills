@@ -27,6 +27,7 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 ## 2026-10-26
 
 **Changed**
+- `automated-dev-pipeline` diagram: the Archify source gains the security sweep (keep-current lane, fix PRs to the sweep, leaked keys to the owner) and a card line on key rotation. `pipeline-flow.svg` and the interactive page are re-exported from it. The hand-drawn card diagram (`site/assets/diagrams/automated-dev-pipeline.html`) is removed; the card image is now the Archify diagram's own dark export, so all three show the same pipeline.
 - `automated-dev-pipeline`: keep-current now has a fifth mechanism, a weekly security sweep across every active repo. `references/keeping-current.md` describes it (a script gathers alerts, a redacted secret scan of the deploy branch and tracked `.env` files; the session judges, reviews code, CI and live headers, fixes one PR per repo and reports the rest), adds its merge rule and two anti-patterns. `SKILL.md` and the showcase card mention it.
 
 ## 2026-10-22
