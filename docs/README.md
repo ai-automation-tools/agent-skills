@@ -20,6 +20,9 @@
 | [**UPSTREAMS.md**](UPSTREAMS.md) | Every external standard, tool and platform the library depends on, and when each was last checked. |
 | [**ROADMAP.md**](ROADMAP.md) | The repo's work queue, worked weekly by the roadmap routine. |
 | [**CHANGELOG.md**](CHANGELOG.md) | What changed, newest first, including each roadmap item as it's finished. |
+| [**OPEN-QUESTIONS.md**](OPEN-QUESTIONS.md) | Decisions the scheduled runs need from Mike, and the answers once given. |
+
+How to report a security problem is in [`SECURITY.md`](../SECURITY.md).
 
 The rules for working in the repo are in [`AGENTS.md`](../AGENTS.md).
 

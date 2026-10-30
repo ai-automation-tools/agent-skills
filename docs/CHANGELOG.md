@@ -24,6 +24,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-10-29
+
+**Added**
+- `SECURITY.md`: report privately to the org security address (private vulnerability reporting is off on this repo), what counts as a vulnerability in a skill library (instructions that steer an agent into destructive or outward actions, skill scripts and the installer writing outside their paths, committed secrets, the showcase), how harvested Domain skills get fixed, and how to repeat the secret scan. A full-history gitleaks scan of every commit on every branch came back clean. *Public release*
+
 ## 2026-10-26
 
 **Changed**
