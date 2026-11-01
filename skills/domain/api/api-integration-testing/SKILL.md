@@ -78,6 +78,9 @@ Assert the minimum:
 - Their types are what you parse them as.
 - The documented error shape still appears for a deliberately bad request.
 - Pagination still signals its end the way you detect it.
+- Only fields the provider always populates. Some fill fields late or by priority (NVD
+  leaves CVSS and CPE empty on low-priority CVEs), so pick a record that is known to be
+  enriched and treat the rest as optional.
 
 Do not assert on values. `records[0].name == "Canada"` is a test of the world, not of
 the contract, and it will fail for reasons that are not your problem.
