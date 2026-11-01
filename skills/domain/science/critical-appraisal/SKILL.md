@@ -31,7 +31,7 @@ Use the tool that fits the design, and name it:
 | Design | Tool | Key domains |
 |:---|:---|:---|
 | Randomized trial | RoB 2 | Randomization, deviations from intervention, missing outcome data, outcome measurement, selective reporting |
-| Non-randomized intervention study | ROBINS-I (or ROBINS-E for exposures) | Confounding, selection, classification, deviations, missing data, measurement, reporting |
+| Non-randomized intervention study | ROBINS-I (or ROBINS-E for exposures). Most published reviews used the 2016 version; ROBINS-I V2 (20 Nov 2025, still marked draft) adds algorithms from signalling questions to judgements, immortal-time questions and a "Critical" triage | Confounding, selection, classification, missing data, measurement, reporting; the 2016 version also had deviations from intended interventions, which V2 drops. Say which version was used |
 | Diagnostic accuracy | QUADAS-3 (Feb 2026; replaces QUADAS-2, which older reviews still use) | Judged per accuracy estimate, not per study; an Analysis domain replaces flow and timing; overall judgment section |
 | Lab and animal work | No single tool; ask | Was the unit right (no pseudoreplication)? Randomized and blinded? Controls? Pre-registered? |
 

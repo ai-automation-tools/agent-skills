@@ -20,12 +20,12 @@ It never pushes to `main`. Each run's changes arrive as one `harvest/auto-<date>
 | skill | source repo | status | path | source SHA | date | note |
 |:---|:---|:---|:---|:---|:---|:---|
 | api-client-resilience | api-agent | mirrored | `skills/domain/api/api-client-resilience` | `88d9158` | 2026-10-25 | first harvest promotion, new Domain |
-| api-integration-testing | api-agent | mirrored | `skills/domain/api/api-integration-testing` | `3e60863` | 2026-09-22 | first harvest promotion, new Domain |
+| api-integration-testing | api-agent | mirrored | `skills/domain/api/api-integration-testing` | `26ef9e2` | 2026-11-01 | first harvest promotion, new Domain |
 | api-response-normalization | api-agent | mirrored | `skills/domain/api/api-response-normalization` | `3e60863` | 2026-10-04 | passes tier test — no workspace layout assumed |
 | public-api-evaluation | api-agent | mirrored | `skills/domain/api/public-api-evaluation` | `3e60863` | 2026-09-22 | first harvest promotion, new Domain |
 | rate-limit-and-quota-management | api-agent | mirrored | `skills/domain/api/rate-limit-and-quota-management` | `3e60863` | 2026-09-27 | passes tier test — no workspace layout assumed |
 | customer-discovery | business-agent | mirrored | `skills/domain/business/customer-discovery` | `d0a3ca3` | 2026-09-27 | first harvest promotion, new Domain |
-| go-to-market | business-agent | mirrored | `skills/domain/business/go-to-market` | `d0a3ca3` | 2026-09-28 | passes tier test — no workspace layout assumed |
+| go-to-market | business-agent | mirrored | `skills/domain/business/go-to-market` | `99b6686` | 2026-11-01 | passes tier test — no workspace layout assumed |
 | pricing-strategy | business-agent | mirrored | `skills/domain/business/pricing-strategy` | `d0a3ca3` | 2026-09-28 | passes tier test — no workspace layout assumed |
 | debugging-methodology | fullstack-agent | mirrored | `skills/domain/engineering/debugging-methodology` | `5284708` | 2026-10-25 | moved from Core 2026-09-22 |
 | performance-optimization | fullstack-agent | mirrored | `skills/domain/engineering/performance-optimization` | `6f8bc8d` | 2026-09-22 | moved from Core 2026-09-22 |
@@ -33,7 +33,10 @@ It never pushes to `main`. Each run's changes arrive as one `harvest/auto-<date>
 | captions-and-accessibility | media-studio | mirrored | `skills/domain/media/captions-and-accessibility` | `5698b35` | 2026-09-27 | first harvest promotion, new Domain |
 | media-rights-and-licensing | media-studio | mirrored | `skills/domain/media/media-rights-and-licensing` | `5698b35` | 2026-10-04 | passes tier test — no workspace layout assumed |
 | post-publish-analytics | media-studio | mirrored | `skills/domain/media/post-publish-analytics` | `5698b35` | 2026-10-11 | passes tier test — no workspace layout assumed |
-| critical-appraisal | science-agent | mirrored | `skills/domain/science/critical-appraisal` | `9548d18` | 2026-10-25 | passes tier test, new Domain |
+| myth-and-motif-analysis | religion-agent | mirrored | `skills/domain/religion/myth-and-motif-analysis` | `9a4d799` | 2026-11-01 | passes tier test, new Domain |
+| religious-calendars | religion-agent | mirrored | `skills/domain/religion/religious-calendars` | `9a4d799` | 2026-11-01 | passes tier test, new Domain |
+| writing-about-religion | religion-agent | mirrored | `skills/domain/religion/writing-about-religion` | `9a4d799` | 2026-11-01 | passes tier test, new Domain |
+| critical-appraisal | science-agent | mirrored | `skills/domain/science/critical-appraisal` | `de896fb` | 2026-11-01 | passes tier test, new Domain |
 | research-data-management | science-agent | mirrored | `skills/domain/science/research-data-management` | `ef47944` | 2026-10-25 | passes tier test — no workspace layout assumed |
 | scientific-figures | science-agent | mirrored | `skills/domain/science/scientific-figures` | `ef47944` | 2026-10-25 | passes tier test — no workspace layout assumed |
 | security-metrics-and-posture | security-agent | mirrored | `skills/domain/security/security-metrics-and-posture` | `9af3ba6` | 2026-10-25 | passes tier test — no workspace layout assumed |

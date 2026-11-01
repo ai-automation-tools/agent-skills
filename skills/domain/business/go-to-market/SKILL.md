@@ -95,6 +95,11 @@ Do this before the launch, not after the first quarter's spend.
 
 - **CAC by channel**, fully loaded — ad spend plus the people time it consumes.
   Content and community look free and are not; they cost salary.
+- **Distribution and payment fees**, taken off revenue before contribution margin.
+  App-store and marketplace take rates and processor fees differ by payment path
+  and region and change often (Apple and Google both restructured theirs in 2026),
+  so use the lowest rate you can actually reach, from the platform's current
+  published terms with the date you read them.
 - **Payback period** — months of contribution margin to recover CAC. Under twelve
   months is comfortable for most software businesses; beyond eighteen you are
   financing growth out of capital you may not have.
