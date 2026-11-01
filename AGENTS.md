@@ -19,6 +19,7 @@ agent-skills/
 ├── README.md                       # public index — Skills table by category + Docs table
 ├── AGENTS.md                       # this file: the rules every agent CLI reads
 ├── CLAUDE.md                       # `@AGENTS.md` plus Claude-only notes
+├── SECURITY.md                     # how to report a vulnerability, what's in scope, the secret-scan command
 ├── .gitignore
 ├── .github/workflows/
 │   ├── pages.yml                   # publishes site/ to agent-skills.ai-automation-tools.dev
@@ -41,7 +42,8 @@ agent-skills/
 │   ├── SKILL-IDEAS.md              # backlog of candidate skills
 │   ├── HARVEST.md                  # ledger of workspace skills mirrored into skills/domain
 │   ├── ROADMAP.md                  # repo work queue — worked weekly by a roadmap routine
-│   └── CHANGELOG.md                # what changed, newest first — tick a roadmap item and log it together
+│   ├── CHANGELOG.md                # what changed, newest first — tick a roadmap item and log it together
+│   └── OPEN-QUESTIONS.md           # decisions scheduled runs need from Mike, and his answers
 ├── skills/
 │   ├── core/                       # TIER 1 — portable, installs to ~/.claude/skills
 │   │   ├── README.md
