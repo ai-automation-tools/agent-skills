@@ -24,6 +24,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-11-01
+
+**Changed**
+- `automated-dev-pipeline`: `references/architecture.md` failure handling gains a row: pass the prompt to the agent CLI on stdin, never as an argument, because a growing prompt eventually passes the OS command-line limit and the launch fails before any API call.
+
 ## 2026-10-29
 
 **Added**
