@@ -11,6 +11,7 @@ not just the ones the build stages created.
 - Five mechanisms, cheapest first
 - The refresh session
 - The security sweep
+- The status report
 - Merge rules for currency PRs
 - Cadence
 - Anti-patterns
@@ -40,7 +41,12 @@ and the least repeatable, so it gets only what the tools can't do.
 2. **The upkeep job reports.** Once a week it checks what's measurable across every repo:
    main is green, controls are on, no PR is stuck, docs match reality, every task still
    runs. It fixes only a short allow-list (a homepage URL, a count) and reports the rest.
-   Reporting is the point. Drift nobody sees never gets fixed.
+   It also keeps every public list of the repos in step (the landing page, and the account or
+   organization profile README, which no build stage touches and which goes stale first), by
+   PR. The profile is the most public page you have, so its PR waits for the owner.
+   Reporting is the point. Drift nobody sees never gets fixed. Beside it, a weekly
+   **status report** gives the owner one page on the whole fleet of repos: what stage each
+   is in and whether it is healthy. See below.
 3. **A refresh session per repo or workspace.** Research first, then fix, in one PR (design
    rule 7). This handles platforms, APIs, tooling and standards. See below.
 4. **A security sweep across every repo.** One weekly session reads what the tools found,
@@ -123,6 +129,41 @@ The session never uses, tests or prints a credential, never rotates one, never r
 history, never changes a repo setting or a deploy workflow, and never edits a repo that
 moves money; those go to the top of the owner's list with the exact command. Removing a
 leaked key from the tree does not un-leak it, so the PR says so and rotation comes first.
+
+## The status report
+
+Upkeep, the security sweep and the roadmap routines each report on their own slice. None of
+them answers the owner's first question on a Sunday: **what does the whole fleet look like,
+and which repos need me?** A weekly status report does, as one page across every active repo.
+
+**1. A script gathers the facts.** Per repo, read-only: visibility, the local folder (which
+is the lifecycle stage when clones are filed by stage), last push, latest release, the
+homepage's HTTP status, the latest CI run on the default branch (push events only, or the
+dependency bot's runs hide the real build), open PRs (how many from routines, how old the
+oldest), open issues, the creation date (so a repo new to the fleet is flagged, not
+discovered), and the roadmap's open items **above** the release heading, each by its title,
+with the owner-only ones marked, plus a count of the items after it. Add the pipeline ledger
+and the roadmap status script's output. A source that fails is `NOT READ`, never green.
+
+**2. The session classifies and summarizes, nothing else.** Each repo gets one stage and one
+health, by written thresholds so the colours mean the same every week: **red** for a failing
+default branch, a homepage that doesn't answer 200, or a routine PR stuck past the sweep's
+patience; **amber** for a repo with a roadmap but no push in a month, no open work before its
+next gate, items waiting on the owner, or a pile of open PRs. The report leads with three to
+five lines on the fleet, then the repos new this week, the ones **almost public** (private,
+a few gates left or all done and waiting on approval), red and amber with a reason each, one
+table per stage answering per project *is it public, is the roadmap done, what's left*, with a
+plain one-line status and links to the repo, its homepage and the running app. Link only URLs
+the script saw answer 200 that week (it probes the conventional app address itself), never
+ones the model builds, so the report can't send the owner to a dead or guessed page, the pipeline, what changed since last week's report, and what
+waits on the owner (pointing at the digest rather than repeating it).
+
+**3. Report only.** It opens no PRs and edits no repo, so it needs no prefix in the sweep and
+can run on a mid-tier model in a few minutes. Fixes stay with the jobs that own them. Schedule
+it after the week's sweeps, publishes and upkeep finish, so it shows the week's end state, and
+before the owner's digest. Email it with the same runner-printed HTML attachment as the
+security sweep, and let only a red repo or an unread source turn the email to *attention*.
+Unlike the per-run mail, route it to the owner's inbox: it is the one page they read weekly.
 
 ## Merge rules for currency PRs
 

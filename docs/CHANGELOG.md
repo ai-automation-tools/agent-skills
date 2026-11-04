@@ -24,6 +24,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-11-04
+
+**Changed**
+- `automated-dev-pipeline`: keep-current gains a weekly status report, one report-only page on every active repo's stage and health. `references/keeping-current.md` describes it (a script gathers per-repo facts and the roadmap status; the session classifies each repo Green / Amber / Red by written thresholds and summarizes; no PRs, scheduled after the weekend's sweeps and publishes). `SKILL.md`, the Archify source (a Status report node in the keep-current lane, feeding the owner's digest), `pipeline-flow.svg`, the interactive page and the card image are updated from it. The report answers per project whether it is public, whether its roadmap is done and what's left, lists the almost-public and new repos, and links each repo, homepage and app only when the script saw it answer 200. Upkeep's mechanism also covers the account or organization profile README, by an owner-merged PR.
+
 ## 2026-11-01
 
 **Changed**
