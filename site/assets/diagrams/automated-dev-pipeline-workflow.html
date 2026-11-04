@@ -5290,8 +5290,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <path data-edge-from="security" data-edge-to="held" data-edge-label="keys to rotate" data-edge-key="10" data-edge-id="e-rotate" data-composition-routing="workflow-v2-auto" data-edge-role="async" data-composition-points="418.8,590;418.8,524" d="M 418.8 590 L 418.8 524" class="a-security" data-animate="edge" style="--step:12" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
         <path data-edge-from="security" data-edge-to="sweep" data-edge-label="fix PRs" data-edge-key="11" data-edge-id="e-secfix" data-composition-routing="workflow-v2-auto" data-edge-role="return" data-composition-points="464.8,624;480.8,624;480.8,420;537.2,420;537.2,280" d="M 464.8 624 L 472.8 624 Q 480.8 624 480.8 616 L 480.8 428 Q 480.8 420 488.8 420 L 529.2 420 Q 537.2 420 537.2 412 L 537.2 280" class="a-dashed" data-animate="edge" style="--step:12" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
         <path data-edge-from="upkeep" data-edge-to="digest" data-edge-label="what waits" data-edge-key="12" data-edge-id="e-stalls" data-composition-routing="workflow-v2-auto" data-edge-role="async" data-composition-points="252,598;252,524" d="M 252 598 L 252 524" class="a-dashed" data-animate="edge" style="--step:12" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
-        <path data-edge-from="flip" data-edge-to="refresh" data-edge-label="stays current" data-edge-key="13" data-edge-id="e-stay" data-composition-routing="workflow-v2-auto" data-edge-role="async" data-composition-points="907.2,372;1005.6,372;1005.6,666;573.2,666;573.2,650" d="M 907.2 372 L 997.6 372 Q 1005.6 372 1005.6 380 L 1005.6 658 Q 1005.6 666 997.6 666 L 581.2 666 Q 573.2 666 573.2 658 L 573.2 650" class="a-dashed" data-animate="edge" style="--step:12" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
-        <path data-edge-from="approve" data-edge-to="flip" data-edge-label="Completed" data-edge-key="14" data-edge-id="e-yes" data-composition-routing="workflow-v2-auto" data-edge-role="" data-composition-points="753.2,498;769.2,498;769.2,432;857.2,432;857.2,406" d="M 753.2 498 L 761.2 498 Q 769.2 498 769.2 490 L 769.2 440 Q 769.2 432 777.2 432 L 849.2 432 Q 857.2 432 857.2 424 L 857.2 406" class="a-emphasis" data-animate="edge" style="--step:6" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="status" data-edge-to="digest" data-edge-label="org at a glance" data-edge-key="13" data-edge-id="e-status" data-composition-routing="workflow-v2-auto" data-edge-role="async" data-composition-points="140,624;172,624;172,456;252,456;252,472" d="M 140 624 L 164 624 Q 172 624 172 616 L 172 464 Q 172 456 180 456 L 244 456 Q 252 456 252 464 L 252 472" class="a-dashed" data-animate="edge" style="--step:12" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="flip" data-edge-to="refresh" data-edge-label="stays current" data-edge-key="14" data-edge-id="e-stay" data-composition-routing="workflow-v2-auto" data-edge-role="async" data-composition-points="907.2,372;1005.6,372;1005.6,666;573.2,666;573.2,650" d="M 907.2 372 L 997.6 372 Q 1005.6 372 1005.6 380 L 1005.6 658 Q 1005.6 666 997.6 666 L 581.2 666 Q 573.2 666 573.2 658 L 573.2 650" class="a-dashed" data-animate="edge" style="--step:12" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="approve" data-edge-to="flip" data-edge-label="Completed" data-edge-key="15" data-edge-id="e-yes" data-composition-routing="workflow-v2-auto" data-edge-role="" data-composition-points="753.2,498;769.2,498;769.2,432;857.2,432;857.2,406" d="M 753.2 498 L 761.2 498 Q 769.2 498 769.2 490 L 769.2 440 Q 769.2 432 777.2 432 L 849.2 432 Q 857.2 432 857.2 424 L 857.2 406" class="a-emphasis" data-animate="edge" style="--step:6" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
 
         <!-- Nodes -->
         <g id="node-ideas" data-node-id="ideas" data-node-label="Idea source" tabindex="0" role="button" aria-label="Focus Idea source, read-only, stable IDs, Build stages › Build" aria-pressed="false" data-node-kind="external" data-node-sublabel="read-only, stable IDs" data-node-context="Build stages › Build">
@@ -5436,15 +5437,27 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="fine" x="857.2" y="520" class="t-frontend" font-size="7" text-anchor="middle">guard files: owner</text>
         </g>
 
-        <g id="node-upkeep" data-node-id="upkeep" data-node-label="Upkeep" tabindex="0" role="button" aria-label="Focus Upkeep, stalls, drift, counts, Keep current › Build" aria-pressed="false" data-node-kind="backend" data-node-sublabel="stalls, drift, counts" data-node-context="Keep current › Build">
-          <title>Upkeep · stalls, drift, counts · Keep current › Build</title>
-          <rect x="206" y="598" width="92" height="52" rx="8" class="c-mask"/>
-          <rect x="206" y="598" width="92" height="52" rx="8" class="c-backend" data-animate="node" style="--step:12" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(212 604) scale(0.6875)">
+        <g id="node-status" data-node-id="status" data-node-label="Status report" tabindex="0" role="button" aria-label="Focus Status report, every repo, linked, Keep current › Build" aria-pressed="false" data-node-kind="backend" data-node-sublabel="every repo, linked" data-node-tag="report only" data-node-context="Keep current › Build">
+          <title>Status report · every repo, linked · Keep current › Build · report only</title>
+          <rect x="48" y="590" width="92" height="68" rx="8" class="c-mask"/>
+          <rect x="48" y="590" width="92" height="68" rx="8" class="c-backend" data-animate="node" style="--step:12" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(54 596) scale(0.6875)">
+            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="94" y="621.9" class="t-primary" font-size="10.7" font-weight="600" text-anchor="middle">Status report</text>
+          <text data-detail="context" x="94" y="636.4" class="t-muted" font-size="7.7" text-anchor="middle">every repo, linked</text>
+        <text data-detail="fine" x="94" y="649.2" class="t-backend" font-size="7" text-anchor="middle">report only</text>
+        </g>
+
+        <g id="node-upkeep" data-node-id="upkeep" data-node-label="Upkeep" tabindex="0" role="button" aria-label="Focus Upkeep, stalls, drift, public lists, Keep current › Build" aria-pressed="false" data-node-kind="backend" data-node-sublabel="stalls, drift, public lists" data-node-context="Keep current › Build">
+          <title>Upkeep · stalls, drift, public lists · Keep current › Build</title>
+          <rect x="182" y="598" width="140" height="52" rx="8" class="c-mask"/>
+          <rect x="182" y="598" width="140" height="52" rx="8" class="c-backend" data-animate="node" style="--step:12" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(188 604) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
           <text data-node-label="" data-detail-anchor="" x="252" y="619" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Upkeep</text>
-          <text data-detail="context" x="252" y="636" class="t-muted" font-size="6.6" text-anchor="middle">stalls, drift, counts</text>
+          <text data-detail="context" x="252" y="636" class="t-muted" font-size="8" text-anchor="middle">stalls, drift, public lists</text>
         </g>
 
         <g id="node-security" data-node-id="security" data-node-label="Security sweep" tabindex="0" role="button" aria-label="Focus Security sweep, every repo, weekly, Keep current › Build" aria-pressed="false" data-node-kind="backend" data-node-sublabel="every repo, weekly" data-node-tag="report + fix PRs" data-node-context="Keep current › Build">
@@ -5535,11 +5548,15 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <rect x="223" y="551" width="58" height="14" rx="3" class="c-mask"/>
           <text x="252" y="561" class="t-edge-dashed" font-size="8" text-anchor="middle">what waits</text>
         </g>
-        <g data-detail="context" data-edge-from="flip" data-edge-to="refresh" data-edge-label="stays current" data-edge-key="13" data-edge-id="e-stay">
+        <g data-detail="context" data-edge-from="status" data-edge-to="digest" data-edge-label="org at a glance" data-edge-key="13" data-edge-id="e-status">
+          <rect x="171" y="436" width="82" height="14" rx="3" class="c-mask"/>
+          <text x="212" y="446" class="t-edge-dashed" font-size="8" text-anchor="middle">org at a glance</text>
+        </g>
+        <g data-detail="context" data-edge-from="flip" data-edge-to="refresh" data-edge-label="stays current" data-edge-key="14" data-edge-id="e-stay">
           <rect x="753.2" y="646" width="72.4" height="14" rx="3" class="c-mask"/>
           <text x="789.4000000000001" y="656" class="t-edge-dashed" font-size="8" text-anchor="middle">stays current</text>
         </g>
-        <g data-detail="context" data-edge-from="approve" data-edge-to="flip" data-edge-label="Completed" data-edge-key="14" data-edge-id="e-yes">
+        <g data-detail="context" data-edge-from="approve" data-edge-to="flip" data-edge-label="Completed" data-edge-key="15" data-edge-id="e-yes">
           <rect x="786.6" y="412" width="53.199999999999996" height="14" rx="3" class="c-mask"/>
           <text x="813.2" y="422" class="t-edge-emphasis" font-size="8" text-anchor="middle">Completed</text>
         </g>
@@ -5754,6 +5771,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <li>Yes/no checks are scripts with exit codes; the model writes, reviews, picks</li>
           <li>A pre-check logs SKIPPED and exits 0 with no session when there is no work</li>
           <li>Only PRs reach default branches, all through the one sweep</li>
+          <li>A status report gathers every repo&#39;s facts by script; the model only summarizes</li>
         </ul>
       </div>
 

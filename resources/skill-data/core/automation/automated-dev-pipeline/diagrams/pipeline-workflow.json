@@ -162,12 +162,21 @@
       "sublabel": "close as Completed"
     },
     {
+      "id": "status",
+      "lane": "keep",
+      "col": 0,
+      "type": "backend",
+      "label": "Status report",
+      "sublabel": "every repo, linked",
+      "tag": "report only"
+    },
+    {
       "id": "upkeep",
       "lane": "keep",
       "col": 1,
       "type": "backend",
       "label": "Upkeep",
-      "sublabel": "stalls, drift, counts"
+      "sublabel": "stalls, drift, public lists"
     },
     {
       "id": "security",
@@ -285,6 +294,14 @@
       "role": "async"
     },
     {
+      "id": "e-status",
+      "from": "status",
+      "to": "digest",
+      "label": "org at a glance",
+      "variant": "dashed",
+      "role": "async"
+    },
+    {
       "id": "e-secfix",
       "from": "security",
       "to": "sweep",
@@ -323,7 +340,8 @@
       "items": [
         "Yes/no checks are scripts with exit codes; the model writes, reviews, picks",
         "A pre-check logs SKIPPED and exits 0 with no session when there is no work",
-        "Only PRs reach default branches, all through the one sweep"
+        "Only PRs reach default branches, all through the one sweep",
+        "A status report gathers every repo's facts by script; the model only summarizes"
       ]
     },
     {
