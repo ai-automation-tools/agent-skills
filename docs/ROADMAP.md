@@ -15,7 +15,7 @@
 ---
 
 The Agent-Skills Weekly Roadmap routine (`agent-skills-roadmap`, Thursday 21:00) works this
-file top to bottom: it takes the first open item that isn't `🔒 Needs Mike` and that it can
+file top to bottom: it takes the first open item that isn't `🔒 Needs owner` and that it can
 finish and verify, opens a `roadmap/auto-<date>` pull request, and the Sunday PR sweep merges
 it. A person can take any item too. **Every item above `## After public release` is a
 release gate.** The repo and its showcase are already public, so the open gates are catch-up
@@ -23,8 +23,8 @@ work, taken first. Ticking an item adds its line to the [changelog](CHANGELOG.md
 the phase in italics, and updates any doc it made stale, in the same commit.
 
 Markers: `- [ ]` open, `- [-]` claimed by a run in progress, `- [x]` done, `- [!]` blocked
-(the reason follows on the line). `small` marks an item a check verifies; `🔒 Needs Mike`
-marks one only Mike can do.
+(the reason follows on the line). `small` marks an item a check verifies; `🔒 Needs owner`
+marks one only the owner can do.
 
 The rules every item follows are in [`AGENTS.md`](../AGENTS.md): the two tiers, the
 standing sync instructions, and what makes a skill portable.
@@ -70,8 +70,8 @@ landing page now sends traffic to the site.
 - [ ] Raise `--text-faint` to at least 4.5:1 against the card background. It measures about 4:1 today
 - [ ] No-JS fallback for the hero panel, so it isn't blank when the script fails
 - [ ] Homepage on the About panel. Run `gh repo edit ai-automation-tools/agent-skills --homepage https://agent-skills.ai-automation-tools.dev`
-- [ ] Decide whether the four seeded `repo-docs-builder` images stay 🔒 Needs Mike
-- [ ] Check the layout on a real phone 🔒 Needs Mike
+- [ ] Decide whether the four seeded `repo-docs-builder` images stay 🔒 Needs owner
+- [ ] Check the layout on a real phone 🔒 Needs owner
 
 ### 🧩 Phase 3: skills from the backlog
 
@@ -86,7 +86,7 @@ be portable Core unless it names a single repo.
 - [ ] env-doctor: finds env vars the code reads that are missing from `.env.example`, and example entries nothing reads
 - [ ] api-reference-writer: endpoint reference docs from route definitions, using one consistent response envelope
 - [ ] Retire the `repo-doc-structure` idea. `repo-docs-builder` already covers it, so strike the row with a note saying so
-- [ ] obsidian-note-author: decide whether it's portable Core or too tied to one vault to publish 🔒 Needs Mike
+- [ ] obsidian-note-author: decide whether it's portable Core or too tied to one vault to publish 🔒 Needs owner
 
 ### 📏 Phase 4: make every skill measurable
 
