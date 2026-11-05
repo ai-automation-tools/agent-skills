@@ -38,7 +38,7 @@ writing a stage prompt.** Most of what goes wrong on a first build is already wr
 | Decide where ideas come from, or connect a new idea source | `references/idea-sourcing.md` |
 | Keep existing repos current, bring a stale one back up to date, run a weekly security sweep across them, or report every repo's status | `references/keeping-current.md` |
 | Audit an existing fleet (cost, overlap, safety, drift) | `references/audit-checklist.md` |
-| Operate or debug a live pipeline | That pipeline's own operator notes: file paths, parameter values, run commands. The reference implementation keeps them at `~/.claude/routines/jobs/_org-pipeline/reference-implementation.md`. If none exist, write them before changing anything |
+| Operate or debug a live pipeline | That pipeline's own operator notes: file paths, parameter values, run commands. Keep them in one file beside the stage prompts (a `reference-implementation.md`, say) that maps each component to its path. If none exist, write them before changing anything |
 
 ## The loop
 
