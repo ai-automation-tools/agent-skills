@@ -216,6 +216,27 @@ Each rule is here because the reference implementation paid for learning it.
       PRs no sweep merges, unanswered questions, parked items and silent deaths. Send
       nothing in a week with nothing waiting, and say which checks failed rather than
       reporting them as empty.
+14. **Start every session through one adapter, never the agent CLI directly.** A runner,
+    script or job that calls `claude -p` (or any CLI) itself hard-codes the vendor, the
+    model names and the permission flags in every file that does it. Put one function
+    between the jobs and the CLI. Jobs name a **tier** (`fast` / `standard` / `deep`), and
+    one config file says which CLI runs and what each tier means for it. The adapter also
+    owns three more things:
+    - **The permission fence**, exactly one per session: the fleet deny list (rule 11), a
+      true allowlist, the repo's own permission settings, or no tools at all.
+    - **The prompt on stdin.** Passed as an argument, it can hit the command-line limit.
+    - **One event stream** every runner renders and parses (session start, tool call, tool
+      error, result), so a log line or a gate keeps its shape when the CLI changes.
+
+    It refuses any provider that lacks both an adapter and a guard, so a switch can't
+    start an unguarded session. Give it a command-line front door for bash and Python
+    callers. That front door enforces the timeout by killing the session's process tree,
+    because an outer `timeout` ends only the wrapper on Windows. Two traps:
+    - `--allowedTools` alone only **pre-approves**. Tools the user's settings allow still
+      run. A real allowlist also limits which tools exist (`--tools`), refuses the rest
+      (`dontAsk`), and loads project settings only.
+    - Switching the CLI still needs the prompts and the runners' tool-name checks
+      (`Read`, `Edit`, `Bash`) made neutral, because those are vendor vocabulary too.
 
 ## Parameters
 
@@ -252,6 +273,8 @@ in `Needs Alex`, so the email filter and the upkeep report can match it.
    converted first, or the job sees no work.
 2. Split its logic. The deterministic parts go in the runner's pre-check or a script
    (rules 1, 5), and the judgment goes in the prompt, following `references/stage-contracts.md`.
+   If it starts a session, it goes through the adapter with a tier and a fence (rule 14),
+   never by calling the CLI.
 3. Register the branch prefix and its merge rule in the sweep config and the sweep prompt.
 4. Pick a schedule slot that fits the sweep. Its PR should be waiting when the sweep
    runs, and whatever it feeds should run after the sweep.
