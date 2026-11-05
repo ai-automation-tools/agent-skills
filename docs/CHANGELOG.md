@@ -30,6 +30,9 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 - `automated-dev-pipeline`: design rule 14, *start every session through one adapter*. Jobs name a tier, one config picks the CLI, and the adapter owns the permission fence, the stdin prompt and one event stream. It also covers the `--allowedTools` trap, where tools are pre-approved, not restricted. Procedure step 2 and the audit checklist now check for direct CLI calls.
 - `LICENSE`: Apache-2.0, the maintainer's decision on org roadmap P2-10, matching the other licensed public org repos. `README.md` gains a License section. Until now the public repo carried no licence, so nobody could legally reuse a skill. *Public release*
 
+**Changed**
+- `project-hub-scaffold`: `references/design-system.md` describes project-hub's icon-button sidebar header (`.hbtn`: add folder, collapse all, panel toggle) in place of the old text links and `«`/`»` toggle. It also covers the Bookmarks footer: a note that each browser keeps its own list, plus New Group and export/import of `project-hub-bookmarks.json` (project-hub #34).
+
 ## 2026-11-04
 
 **Changed**
