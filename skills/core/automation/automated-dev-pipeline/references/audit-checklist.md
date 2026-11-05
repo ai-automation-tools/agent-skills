@@ -15,6 +15,7 @@ schedule is a claim to verify, not evidence.
 - [ ] The secret scanner is installed, scans all refs, and fails closed when missing
 - [ ] Commit-identity gate: only the approved public email or noreply addresses. Check that squash-merge authors pass too
 - [ ] No model prompt can change visibility or close the approval issue (a stated rule, plus a deny rule if possible)
+- [ ] No job, runner or script calls the agent CLI directly: every session starts through the adapter with exactly one permission fence (rule 14). Grep the fleet and its callers' repos for `claude -p`, `claude --print` and `--dangerously-skip-permissions`. A tool allowlist passed only as `--allowedTools` counts as a failure here, because it pre-approves and doesn't restrict
 - [ ] Every MCP server reachable from an unattended session has been reviewed. Anything that acts on hardware, a live user session or a live system is in the fleet deny file, every runner (stages and sweeps included) passes it, and a dry run's log shows the file and any per-job exceptions
 - [ ] The sweep session cannot merge: `gh pr merge` is denied and the runner merges approved PRs after re-running every gate
 - [ ] A merge that deploys a public site is held by a runner-level path gate (`holdPaths`), not by prompt wording. The gate was tested against a PR that should trip it
