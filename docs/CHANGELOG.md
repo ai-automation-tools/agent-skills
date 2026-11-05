@@ -24,6 +24,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-11-05
+
+**Added**
+- `LICENSE`: Apache-2.0, Mike's decision on org roadmap P2-10, matching the other licensed public org repos. `README.md` gains a License section. Until now the public repo carried no licence, so nobody could legally reuse a skill. *Public release*
+
 ## 2026-11-04
 
 **Changed**

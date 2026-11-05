@@ -89,3 +89,7 @@ Each folder lists the project's existing skills and any additional skills provid
 <a id="-using-a-skill"></a>
 
 See the [Using Skills guide](./docs/USING-SKILLS.md) for installation and authoring instructions, or browse [Resources](./resources/README.md) for examples and supporting material. What's planned next is in the [roadmap](./docs/ROADMAP.md), and what has already changed is in the [changelog](./docs/CHANGELOG.md).
+
+## 📄 License
+
+[Apache-2.0](./LICENSE). Where a skill draws on an outside source, the skill credits it.
