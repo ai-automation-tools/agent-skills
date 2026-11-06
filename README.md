@@ -93,3 +93,9 @@ See the [Using Skills guide](./docs/USING-SKILLS.md) for installation and author
 ## 📄 License
 
 [Apache-2.0](./LICENSE). Where a skill draws on an outside source, the skill credits it.
+
+---
+
+<p align="center">
+  <a href="./docs/USING-SKILLS.md">Using Skills</a> · <a href="./docs/README.md">Docs</a> · <a href="./LICENSE">License</a>
+</p>

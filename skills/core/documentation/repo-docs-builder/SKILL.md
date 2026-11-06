@@ -359,7 +359,7 @@ Mark roadmap-derived entries with the phase in italics, as above — that one ta
 
 Two header types. Pick by the file's place in the repo: the **repo-root** `README.md` gets the root hero; **every other** README — at the root of `docs/`, and of each folder and subfolder — gets the lighter folder/section header. Same family, less weight.
 
-Both are pure HTML + shields.io images. The `<h1 align="center">` / `<p align="center">` wrappers hold **only text, emoji, and shields images** — never nested markdown — so they render in both GitHub and Obsidian (see §4.1).
+Both are pure HTML + shields.io images. The centered `h1` and `p` wrappers hold **only text, emoji, and shields images** — never nested markdown — so they render in both GitHub and Obsidian (see §4.1).
 
 ### 3.1 Root hero header
 
