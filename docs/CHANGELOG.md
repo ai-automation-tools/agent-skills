@@ -24,6 +24,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-11-06
+
+**Changed**
+- Docs sweep: `resources/README.md` gets the section header and a footer nav row, the root `README.md` a closing footer row, and `repo-docs-builder/SKILL.md` no longer names the centred tags in prose. The 2026-10-01 and 2026-10-03 entries swap places so the headings run newest first.
+
 ## 2026-11-05
 
 **Added**
@@ -169,12 +174,6 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
   with a diagram drawn in the site's palette (`site/assets/diagrams/automated-dev-pipeline.html`).
   The page now says eight Core skills. *Phase 2*
 
-## 2026-10-01
-
-**Added**
-- `.github/workflows/validate.yml` runs `scripts/validate-skills.py` on every push to `main`
-  and every pull request, read-only, so a broken skill shows up as a red check before merge.
-  `CLAUDE.md` and `Docs/USING-SKILLS.md` mention it. *Phase 1*
 ## 2026-10-03
 
 **Changed**
@@ -189,6 +188,13 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 - `edge-spectrum-endpoint` names the two new `strategySchema.ts` assertions.
 - `agent-chat-conv-types` fixes the `max_members` rule; `agent-chat-run-triage` covers
   auto-written seat permissions and the relative-`$AGENT_CHAT_DB` startup exit.
+
+## 2026-10-01
+
+**Added**
+- `.github/workflows/validate.yml` runs `scripts/validate-skills.py` on every push to `main`
+  and every pull request, read-only, so a broken skill shows up as a red check before merge.
+  `CLAUDE.md` and `Docs/USING-SKILLS.md` mention it. *Phase 1*
 
 ## 2026-09-30
 

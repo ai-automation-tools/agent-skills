@@ -1,4 +1,14 @@
-# Resources
+<h1 align="center">📦 Resources</h1>
+
+<p align="center">
+  <em>Supporting material for the skills, kept out of the portable skill folders.</em>
+</p>
+
+<p align="center">
+  <a href="../README.md"><img src="https://img.shields.io/badge/↩-repository_root-6B7280?style=for-the-badge" alt="Repository root"></a>
+</p>
+
+---
 
 Supporting material for the skills in this repo that should **not** ship inside the portable skill folders. Keeping it here lets each `skills/<category>/<skill-name>/` folder stay lean and copyable while example runs, screenshots, and reference material live separately.
 
@@ -16,3 +26,10 @@ For a skill at `skills/<category>/<skill-name>/`, its supporting data lives at t
 Put here: example/expected outputs, before/after screenshots, sample reports, demo GIFs, and design notes — anything that documents or demonstrates a skill but that the skill itself doesn't need loaded at runtime.
 
 Do **not** put here: files the skill reads when it runs (those belong in the skill's own `references/`, `scripts/`, or `prompts/`), or local run output (that belongs in the skill's gitignored `reports/`).
+
+---
+
+<p align="center">
+  <a href="../README.md">← Repository home</a> ·
+  <a href="../docs/README.md">Docs</a>
+</p>
