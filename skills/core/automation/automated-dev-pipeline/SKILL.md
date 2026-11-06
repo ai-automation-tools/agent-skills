@@ -17,7 +17,7 @@ The pattern does three jobs. They can be adopted separately:
 |:---|:---|:---|
 | **Build** | ideate → incubate → roadmap routine → PR sweep | Ideas become private repos that grow one verified PR at a time |
 | **Publish** | graduate (scripted gates → approval → public) | A finished project goes public on a personal account or an organization, with its security controls verified |
-| **Keep current** | refresh, review, upkeep, a security sweep, a status report, and the same roadmap routines | Every repo, new or old, keeps up with its dependencies, platforms, security practice and standards, and one weekly page shows where each stands |
+| **Keep current** | refresh, review, upkeep, a security sweep, a docs sweep, a homepage job, a status report, and the same roadmap routines | Every repo, new or old, keeps up with its dependencies, platforms, security practice and docs standard; its README, homepage, demo and landing card say the same thing; and one weekly page shows where each stands |
 
 The publish target is a parameter: a personal account works the same as an organization.
 "The landing page" is then your profile README or portfolio site, if you keep one.
@@ -36,7 +36,7 @@ writing a stage prompt.** Most of what goes wrong on a first build is already wr
 | Stand up a new pipeline, or add a stage or routine | `references/architecture.md`, then `references/stage-contracts.md` |
 | Build stages as folders inside one repo, with a site that deploys on merge | `references/architecture.md` → "The single-repo variant" |
 | Decide where ideas come from, or connect a new idea source | `references/idea-sourcing.md` |
-| Keep existing repos current, bring a stale one back up to date, run a weekly security sweep across them, or report every repo's status | `references/keeping-current.md` |
+| Keep existing repos current, bring a stale one back up to date, run a weekly security or docs-standard sweep across them, keep a fact the same across README, homepage, demo and landing page, handle a vendor rename, or report every repo's status | `references/keeping-current.md` |
 | Audit an existing fleet (cost, overlap, safety, drift) | `references/audit-checklist.md` |
 | Operate or debug a live pipeline | That pipeline's own operator notes: file paths, parameter values, run commands. Keep them in one file beside the stage prompts (a `reference-implementation.md`, say) that maps each component to its path. If none exist, write them before changing anything |
 
@@ -55,7 +55,7 @@ ideas ──ideate──▶ approved plan ──incubate──▶ private repo +
                    public + security re-verified ──▶ landing page, records
                                                   │
                                                   ▼
-   keep current: refresh + review + upkeep + security ──▶ PRs into the same sweep
+   keep current: refresh + review + upkeep + security + docs + homepage ──▶ PRs into the same sweep
                  status report (report only) ──▶ one weekly page on every repo
 ```
 
@@ -336,5 +336,8 @@ where, and how you'll know it worked. People act on the second one.
 - **Adding a repo to a sweep whose prefix list is shared across repos.** If that repo also
   hosts routines whose PRs must wait for a person (facts about the physical world, version
   claims), the shared list sweeps them too. Give the repo its own prefixes, or its own sweep.
+- **Moving a doc or renaming a heading in a maintenance PR.** Apps, homepages and other repos
+  deep-link to both, and the link fails silently. Maintenance jobs fix links, never targets;
+  a rename the standard wants is a roadmap item, done with the code that links to it.
 - **Holding publishes with prompt wording.** "Hold anything that touches the site" in a sweep
   prompt is a request. A path gate in the runner is a guarantee.

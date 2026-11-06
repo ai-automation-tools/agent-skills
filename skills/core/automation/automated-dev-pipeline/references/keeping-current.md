@@ -8,9 +8,11 @@ not just the ones the build stages created.
 ## Contents
 
 - What goes stale
-- Five mechanisms, cheapest first
+- Six mechanisms, cheapest first
 - The refresh session
 - The security sweep
+- The docs sweep
+- One fact, many surfaces
 - The status report
 - Merge rules for currency PRs
 - Cadence
@@ -25,10 +27,12 @@ not just the ones the build stages created.
 | **Platforms and APIs** | A deprecated endpoint, a changed rate limit, a new auth requirement, a renamed model | A refresh session reading release notes and changelogs |
 | **Tooling and CI** | Deprecated GitHub Actions versions, a linter rule set that moved, a build tool's new default | CI warnings, then a refresh session |
 | **Standards and practice** | Accessibility guidelines, docs conventions, API design norms, a better testing pattern | A refresh or review session with cited sources |
-| **The repo's own docs** | README commands that no longer run, badges and counts that drifted, dead links | The upkeep job |
+| **The repo's own docs** | README commands that no longer run, badges and counts that drifted, dead links, a layout or format that wandered from the house standard | The docs sweep, and the upkeep job |
+| **Facts repeated across surfaces** | A version, a count, a feature list or a tagline that the README, the homepage, the demo, the landing page and the repo's About box each state, after the app changed one of them | Scripted comparisons in the upkeep job, then a homepage job (see "One fact, many surfaces") |
+| **Vendor names** | A vendor renames a product or feature the repo names in prose, UI strings, headings and file names | The refresh session for the prose, then a roadmap item for the rest |
 | **The pipeline itself** | Model names in prompts, a CLI flag the runner uses, the scheduler's settings | The audit, and a refresh of the pipeline's own skills |
 
-## Five mechanisms, cheapest first
+## Six mechanisms, cheapest first
 
 Use the cheapest one that catches each kind of drift. An AI session is the most expensive
 and the least repeatable, so it gets only what the tools can't do.
@@ -52,7 +56,10 @@ and the least repeatable, so it gets only what the tools can't do.
 4. **A security sweep across every repo.** One weekly session reads what the tools found,
    judges it, looks for what they can't see (code, CI, live headers), fixes what a repo
    change can fix and reports the rest. See below.
-5. **The roadmap routine.** Anything too big for a refresh PR (a major upgrade, a migration,
+5. **A docs sweep across every repo.** A script measures every repo's distance from one
+   docs standard each week; a session fixes a rotating share of the repos, Markdown only,
+   one PR each. See below.
+6. **The roadmap routine.** Anything too big for a refresh PR (a major upgrade, a migration,
    a redesign to a new standard) becomes a roadmap item. The routine that builds new
    features then does the work one verified step at a time. The refresh session is allowed
    to *add* such items; it doesn't attempt them.
@@ -80,6 +87,14 @@ entry in the intel file. Small, safe fixes go in the PR: a pinned action version
 config key, a docs correction, a skill or prompt that names an outdated model. Anything that
 changes behaviour, needs a migration, or would fail the repo's tests goes to the roadmap as
 a new item instead.
+
+**Vendor renames need two speeds.** When a vendor renames a product or feature the repo
+names, fix the prose in the PR and add "(formerly X)" at the first mention, so readers who
+know the old name still find it. Never change a heading, a file name, a URL path, a UI
+string, an identifier or test data in a refresh: apps, homepages and other repos link to
+those, and a renamed heading breaks its anchor with no error. Add one roadmap item instead,
+with "done when" covering the UI, the headings and every link to them, the homepage and
+the demo. The roadmap routine can change code and links together.
 
 Then open one PR with the intel file, the fixes and any new roadmap items. A week with no
 relevant changes is a valid outcome: write "no changes found since <date>" and open no PR.
@@ -130,6 +145,67 @@ history, never changes a repo setting or a deploy workflow, and never edits a re
 moves money; those go to the top of the owner's list with the exact command. Removing a
 leaked key from the tree does not un-leak it, so the PR says so and rotation comes first.
 
+## The docs sweep
+
+A standard that only lives in a skill or a style guide is followed by the repos written
+after it and nobody else. Refresh sessions fix facts, the roadmap routine builds features,
+and upkeep checks layout, so docs formatting drifts with no owner. One weekly job fixes that.
+
+**1. A script measures, across every repo.** Read-only, from each repo's default branch (not
+the owner's working copy): the root and folder headers and footers the standard asks for,
+folder indexes, orphan docs nothing links to, broken relative links and anchors, dead outside
+links (only 404, 410 and DNS failures; a bot wall is not dead), Markdown that won't render
+inside HTML blocks, changelog order, and the writing tells the standard bans. It also lists
+**protected docs**: every doc that code, config or another repo names by path. And it checks
+every full deep link into the repos (`github.com/<owner>/<repo>/blob/<branch>/<path>#anchor`,
+in docs or code) against that repo's tree and headings, because an app's help link to a
+moved doc fails silently: the host still serves a page, just not the right one.
+
+**2. The session fixes a share of the repos.** Rotate a third (or a quarter) of the repos a
+week by week number, so each PR stays reviewable and every repo comes round within a month.
+Per repo, in a worktree: links and anchors first, then indexes and orphans, headers and
+footers, outside links, and the prose pass last, with a file cap per run. Markdown only, on
+its own branch prefix, with the repo's own checks run before the PR opens.
+
+**3. It never moves anything that something links to.** No file moves or renames, no heading
+text changes. Fix the link, never the heading. When the standard wants a rename (a folder's
+case, a file name, a heading that carries a vendor's old name), the sweep adds a roadmap item
+whose "done when" names every in-repo reference, the homepage and the app's in-app links,
+and the repo's roadmap routine does it with the code. The one safe exception is a page title
+nothing links to, after a search across every repo shows that.
+
+**4. The standard isn't the sweep's to change.** A flag the session thinks is wrong (a tag
+quoted inside backticks, say) goes in the report's "scanner false positives" section, and a
+person fixes the script. A session told only "make the scanner quiet" will edit the standard.
+
+## One fact, many surfaces
+
+A public app states the same facts in many places: the README, the docs, the homepage, the
+demo, the organization's landing page, the profile README, the repo's About box and topics,
+the release list, and the app's own UI and help links. Each surface is written by a
+different job or person at a different time, so "the repo says one thing and the app says
+another" is the normal state unless something compares them.
+
+- **Name one surface of record per fact.** Version: the package manifest and the newest
+  changelog heading (a release tag must match). Feature list and commands: the README.
+  Counts: the data in the repo, counted by a script, never a sentence. Tagline: the README's.
+  Write this down once, in the upkeep prompt.
+- **Compare by script, fix by the job that owns the surface.** Upkeep diffs every other
+  surface against the record each week and reports each mismatch as "surface says X, record
+  says Y". A homepage job reads that report and fixes the homepage by PR, the landing-page
+  PR fixes the cards, and the About box goes through the security wrapper. A mismatch in the
+  record itself goes to the repo's roadmap.
+- **A homepage job closes the gap after a big release.** Weekly, per app: what shipped since
+  the homepage last changed (changelog, merged PRs) against what the page says. It also opens
+  the demo in a browser: a demo built from an old commit, or demo data that no longer shows
+  the shipped features, becomes a roadmap item on the app, not an edit to the app.
+- **Make the demo say what it was built from.** A build SHA or version in a meta tag or
+  footer turns "is the demo stale?" from a judgment into a string compare.
+- **Click-test the live sites.** A browser test suite in CI that loads every homepage and
+  demo, and keeps one issue open while anything fails, catches what file diffs can't. A
+  weekly fix job reads that issue and the upkeep report, root-causes each finding and opens
+  one PR per repo.
+
 ## The status report
 
 Upkeep, the security sweep and the roadmap routines each report on their own slice. None of
@@ -175,6 +251,8 @@ Give each kind its own branch prefix so the sweep can apply a path-based rule:
 | Refresh | Every change is inside the intel folder, docs, and the repo's skills or prompts, and each has a source | It touches source code, CI config, a public contract (API, CLI flags, config schema), or deletes or renames anything |
 | Security sweep | Dependency bumps, code or CI fixes with passing tests, ignore-file entries, each traced to a finding in the report | It touches deploy config, a deploy workflow or an auth flow, changes behaviour users will notice (a request that now gets 403), or removes more than the finding needs |
 | Review (periodic, hand-curated content) | Each change cites a source and stays inside the reviewed files | It adds, renames or removes an item, or restructures |
+| Docs sweep | Only `.md` files change, no file is moved, renamed or deleted, no heading text changes, and the repo's checks pass | It touches anything that isn't Markdown, or a generated, vendored or dated-record file |
+| Homepage | Only the homepage's files change, and every fact it adds traces to the repo's default branch | It changes the app, or the homepage lives in a deploying path a person must merge |
 
 A held PR is fine. The refresh still did its job by writing the change down, and a person
 decides the rest.
@@ -209,5 +287,10 @@ job that copies those skills elsewhere.
   hand.
 - **Suppressing scanner hits without opening them.** An ignore-file entry is a judgment; one
   added in bulk to quiet the report hides the one real key among the placeholders.
+- **A docs job that renames to meet the standard.** Moving a file or retitling a heading
+  breaks every deep link to it, from apps, homepages and other repos, with no error. Queue
+  the rename on the roadmap where the code changes with it.
+- **Letting a session edit the standard its scanner checks.** It will, to make a flag go
+  away. Route disputed flags to a report section for a person.
 - **Forgetting the pipeline itself.** Its prompts name models, CLI flags and paths too.
   They go stale the same way, and nothing else is watching them.

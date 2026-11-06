@@ -24,6 +24,8 @@ first if you already have repos; the build and publish rows only matter for new 
 | **Upkeep** *(keep current)* | mid-tier model, weekly | Syncs the landing page with what's published, by PR, sweeps security controls, fixes homepages, and flags red CI, stuck PRs, coverage gaps, thin runway, blocked gates and stalled projects | a dated report + an optional PR |
 | **Harvest** *(keep current, optional)* | mid-tier model, weekly | For setups where agent workspaces share a skills library: mirrors portable skills byte for byte into it, with gates (tier, name collision, duplicate, secrets) | one `harvest/auto-*` PR |
 | **Refresh** *(keep current)* | mid-tier model, weekly, one per repo or workspace | Records sourced changes in the repo's field, then fixes what they make stale (see `keeping-current.md`) | one `workspace/refresh-*` PR per workspace |
+| **Docs sweep** *(keep current)* | script + mid-tier model, weekly | A script measures every repo's drift from one docs standard (headers, indexes, orphans, links, anchors, deep links into the docs); the session fixes a rotating third of the repos, Markdown only, never moving a file or renaming a heading (see `keeping-current.md`) | one `docs-sweep/auto-*` PR per repo in the batch, a dated report |
+| **Homepage refresh** *(keep current)* | mid-tier model, weekly | Compares what each app shipped since its homepage last changed with what the page says, and opens the demo in a browser; a stale demo becomes a roadmap item on the app | one `homepage/auto-*` PR per homepage that drifted |
 | **Periodic review** *(keep current)* | mid-tier model, monthly | Source-cited currency fixes to the shared library's hand-curated tiers | one `skills/monthly-review-*` PR |
 
 ## The weekly rhythm
