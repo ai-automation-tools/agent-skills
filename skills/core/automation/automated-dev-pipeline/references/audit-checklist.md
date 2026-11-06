@@ -50,6 +50,10 @@ schedule is a claim to verify, not evidence.
 - [ ] Is every task Enabled, with a last result of 0 or never-run? Freshly re-registered tasks show never-run, which is expected
 - [ ] Is a task whose Last Run Time is older than its interval plus a day flagged? A task that stops firing keeps its last result of 0, so the result code alone never catches it
 - [ ] Is there a documented one-liner to pause and resume the whole fleet?
+- [ ] For each fact the fleet repeats (version, counts, feature list, commands, tagline), is one surface named as the record, and does one weekly check compare every other surface (homepage, demo, landing card, profile README, the repo's About box) with it?
+- [ ] Are full deep links into repo docs, from apps, homepages and other repos, checked to resolve (file and anchor) on the default branch?
+- [ ] Does any maintenance job move a doc or rename a heading? It should queue the rename on the roadmap instead
+- [ ] Does any job's write-up of the fleet (this skill, its operator notes) get compared with the config repo's log since it last changed? Hand edits to the fleet bypass the improver and leave the write-up behind
 
 ## 6. Currency
 
@@ -58,6 +62,8 @@ schedule is a claim to verify, not evidence.
 - [ ] Does every change in a refresh PR cite a primary source? Sample three
 - [ ] Are big upgrades going to the roadmap instead of being attempted in a refresh PR?
 - [ ] Do the pipeline's own prompts name current models and flags?
+- [ ] Does each refresh check the vendor's current product and feature names, and queue a rename that reaches UI strings, headings or file names as a roadmap item?
+- [ ] Does every repo come round in a docs sweep at least monthly, and do its disputed flags reach a person instead of an edit to the standard?
 
 ## 7. Collisions
 

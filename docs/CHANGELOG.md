@@ -26,6 +26,9 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 
 ## 2026-11-06
 
+**Added**
+- `automated-dev-pipeline`: `keeping-current.md` gains *The docs sweep* (a script measures every repo against one docs standard and checks deep links into the docs; a session fixes a rotating third, Markdown only, never moving a file or renaming a heading) and *One fact, many surfaces* (one surface of record per fact, scripted comparison, a homepage job with a demo pass, build stamps on demos, click tests). Refreshes handle vendor renames in two speeds. New merge rules, anti-patterns, two architecture rows and six audit checks
+
 **Changed**
 - Docs sweep: `resources/README.md` gets the section header and a footer nav row, the root `README.md` a closing footer row, and `repo-docs-builder/SKILL.md` no longer names the centred tags in prose. The 2026-10-01 and 2026-10-03 entries swap places so the headings run newest first.
 
