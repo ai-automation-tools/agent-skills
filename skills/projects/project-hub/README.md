@@ -21,7 +21,7 @@ a copy of them and not a place to move them to. The repo's own skills stay in th
 
 | Skill | Covers |
 |:---|:---|
-| [**`project-hub-scan`**](./project-hub-scan/SKILL.md) | The scanner and serve layer in `hub/hub.mjs` — the filter chain, the node `kind` vocabulary, the `BUCKETS`/`USER_RUNTIMES` tables, the `resolveId()` deny gate, scan caching and the watcher |
+| [**`project-hub-scan`**](./project-hub-scan/SKILL.md) | The scanner and serve layer in `hub/scan.mjs` and `hub/hub.mjs` — the filter chain, the node `kind` vocabulary, the `BUCKETS`/`USER_RUNTIMES` tables, the `resolveId()` deny gate, scan caching and the watcher |
 | [**`project-hub-client`**](./project-hub-client/SKILL.md) | The single-file interface, `hub/index.html` — the `renderPage()` view dispatch, the eight theme blocks, `S` state and `reindex()`, hash routes, localStorage keys, the `%NONCE%` contract |
 | [**`project-hub-demo`**](./project-hub-demo/SKILL.md) | The hosted demo — `demo/build-demo.mjs`, the fixture, the `sub()` literal assertions against `index.html`, the `demo.js` shim, and the Pages deploy |
 
