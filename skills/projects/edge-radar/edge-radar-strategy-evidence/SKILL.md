@@ -39,6 +39,8 @@ strategy; the repo's `/edge-radar-analysis` covers the routine performance repor
 | "Do our bets resolve together? Should we damp correlated slates?" | `correlation_check.py` | [`references/tool-map.md`](references/tool-map.md) §3 |
 | "Is this sport underperforming because the book was thin?" | `book_width_check.py` | [`references/tool-map.md`](references/tool-map.md) §4 |
 | "Are we extrapolating a totals model too far from a real quote?" | `totals_distance_check.py` | [`references/tool-map.md`](references/tool-map.md) §5 |
+| "Is any sport quietly broken?" (dead series, context leaking between sports, one-directional over-claim) | `betting_audit.py` | [`references/tool-map.md`](references/tool-map.md) §7 |
+| "Are NFL margins priced right?" (key-number weights) | `fit_nfl_margin.py` | [`references/tool-map.md`](references/tool-map.md) §8 |
 | "How are we doing?" (routine, by sport/side/band) | the repo's `/edge-radar-analysis` | — |
 
 **If no tool answers it, the honest answer is usually "the log does not carry that."** Two real

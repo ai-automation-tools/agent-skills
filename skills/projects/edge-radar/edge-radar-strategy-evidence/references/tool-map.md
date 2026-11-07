@@ -1,4 +1,4 @@
-# Six tools, six questions
+# Eight tools, eight questions
 
 Everything in `scripts/backtest/`. Each was written for one question that could not be answered from
 the routine performance report, and each carries its motivation in its module docstring — **read the
@@ -138,9 +138,43 @@ Full structure → [`launch-and-kill.md`](../../edge-radar-strategy-profiles/ref
 
 ---
 
-## 7. And `shadow_book.py`
+## 7. `betting_audit.py` — is any sport quietly broken?
 
-The seventh, and the only one that generates evidence rather than reading it. It has its own file:
+**The question:** the `/betting-logic-review` battery, run mechanically across every sport.
+
+```bash
+python scripts/backtest/betting_audit.py --save
+python scripts/backtest/betting_audit.py --save --analyze auto   # adds a read-only claude -p pass
+```
+
+Born from defects found only by hand: a sport scanned at zero markets all season (dead series
+prefixes), rest-day context leaking between sports that share a team code, and spread/total models
+that over-claim in one direction while outcomes track the market. It reads local data only (settlement
+and trade logs, shadow book, logs, the latest drift probe), writes nothing but its report and never
+touches `.env`. It runs weekly, folded into the Sunday Weekly-Analysis email. Read it before
+designing a bespoke check — the defect may already be one of its rows.
+
+---
+
+## 8. `fit_nfl_margin.py` — are NFL margins priced right?
+
+**The question:** NFL margins are whole numbers that pile on 3 and 7, so a normal CDF over-priced
+"a small favourite wins by over 7.5" by ~8 points (3,949 games; 2026-11-03). Production now prices NFL
+spreads on key-number weights (`edge_detector._NFL_KEY_WEIGHTS`), and this script fits and validates
+them: fit on seasons through 2020, score later seasons with the **production** functions.
+
+```bash
+python scripts/backtest/fit_nfl_margin.py            # holdout table + refit
+```
+
+Read-only: paste refitted weights into `_NFL_KEY_WEIGHTS` by hand. **Shape to copy:** when one strike
+dominates a sport's bets, compare the model to history at that strike before trusting the edge.
+
+---
+
+## 9. And `shadow_book.py`
+
+The only one that generates evidence rather than reading it. It has its own file:
 [`shadow-book.md`](shadow-book.md).
 
 ---
@@ -155,4 +189,5 @@ The seventh, and the only one that generates evidence rather than reading it. It
 | Someone wants a new damping rule for correlated slates | §3 `correlation_check.py` — and read the per-stratum number |
 | "What if we had done X instead" | §2 `backtester.py --simulate`, remembering it can only narrow |
 | A gate needs to move | §6's template |
+| A weekly "is anything broken across sports" sweep | §7 `betting_audit.py` |
 | The segment is frozen and has no settlements | [`shadow-book.md`](shadow-book.md) |

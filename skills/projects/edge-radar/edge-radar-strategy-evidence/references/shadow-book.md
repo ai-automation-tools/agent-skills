@@ -36,10 +36,15 @@ python scripts/backtest/shadow_book.py --self-check
 ```
 
 - **`collect`** scores the sport and appends rows not already logged, keyed so re-running is
-  idempotent. `--min-edge` defaults to **0.0** — you want everything the model said, not what would
+  idempotent. It scans with `max_per_game=None` — **every strike**, since the default 2-per-game cap
+  keeps only the highest-edge strikes and a "pre-gate" population is only pre-gate if nothing ranked it. `--min-edge` defaults to **0.0** — you want everything the model said, not what would
   have passed.
 - **`settle`** fills in each open row's outcome from Kalshi. **No money is involved at any point.**
-- **`review`** prints the model/market Brier pair plus a margin-stdev sweep.
+- **`review`** prints the model/market Brier pair plus a stdev sweep, **split into spreads
+  (`margin_stdev`) and totals (`total_stdev`)** — a pooled sweep can call 1.0x best while the two halves
+  want opposite moves (NCAAF 2026-11-03: spreads ~0.8x, totals ~1.2x). Each best fit carries a
+  **game-clustered** 95% CI on its gain over 1.0x, since one game's strikes move together; if it
+  straddles zero, keep collecting.
 - Schedule `collect` daily and `settle` alongside the normal settle task; the evidence accrues on
   its own while the freeze holds.
 
@@ -60,7 +65,8 @@ being judged. Reading `last_scan.json` instead would measure the freeze.
 ## 4. Fitting a parameter it could never fit from live bets
 
 `review` re-projects each stored row's consensus at a range of candidate stdevs and reports which
-minimises **model** Brier. This is the part that cannot be done any other way.
+minimises **model** Brier. (Rows priced by the discrete NFL model, `margin_model: nfl_discrete`, are
+skipped — the inversion is normal-only; that fit lives in `fit_nfl_margin.py`.) This is the part that cannot be done any other way.
 
 The motivating case: all 11 NCAAF bets ever placed were YES on "team covers a big alternate spread",
 and the entire claimed edge was one uncalibrated `margin_stdev` — **15.0 in the code against a market

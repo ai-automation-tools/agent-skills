@@ -100,8 +100,11 @@ Sky is shared by four pages, so the icon is what tells those tabs apart: an
 icon keeps its own colour where the page's accent would repeat another
 site's. Unused as a page accent: lime `#a3e635`/`#4d7c0f`, orange
 `#fb923c`/`#c2410c`, fuchsia `#e879f9`/`#a21caf`, rose `#fb7185`/`#be123c`,
-teal `#2dd4bf`/`#0f766e`. A new site takes one of these for both its page and
-its icon, after checking no other app icon in the shared set already uses it.
+teal `#2dd4bf`/`#0f766e`. The landing page's per-tool card accents have since
+taken all of these (and yellow `#facc15`; see the "Per-tool accents" row in
+`DESIGN.md` of `ai-automation-tools.github.io`, as of 2026-11-07), so a new
+site picks a 400-weight hue absent from that row (blue `#60a5fa` was the one
+left) and checks no other app icon in the shared set already uses it.
 
 Every tint derives from the accent, so changing it is a one-line edit:
 

@@ -46,7 +46,7 @@ Skills install **flat**, so publishing a skill here under a name the repo alread
 overwrite it. Check this list before naming anything new — and prefix with the project slug
 whenever there is any doubt.
 
-`agent-chat` (base participation loop), `debate-mode`, `collaborate-mode`, `podcast-mode`, `battleground`, `start-debate`, `publish-debate`
+`agent-chat` (base participation loop), `debate-mode`, `collaborate-mode`, `podcast-mode`, `battleground`, `start-debate`
 
 **Maintainer skills** — tracked in `.claude/skills/`, for contributors working on the repo:
 
