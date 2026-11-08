@@ -91,6 +91,11 @@ defensible.
 - **A short ordered list beats a wall of criticals.** Ten findings all rated critical
   tell the reader nothing about where to start, which is the one thing the rating was
   supposed to do.
+- **Date and source any outside claim.** "Known exploited," a CVSS score or a fixed
+  version is a statement about a moment. Cite the primary page (CISA KEV, the vendor
+  advisory) with the date you read it. Sources disagree: a vendor may rate a flaw low
+  while a CNA rates it high, and a flaw can reach KEV after the advisory said "no known
+  exploitation." Report the disagreement and which figure you used.
 - **Label the unconfirmed as suspected.** A lead you could not fully demonstrate
   belongs in the report as exactly that. Presenting it at the same confidence as a
   proven finding is the fastest way to lose credibility on the ones you did prove.
