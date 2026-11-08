@@ -72,3 +72,7 @@ Funders often require one. Cover: what data will be produced (types, volumes, fo
 standards and metadata; storage, backup and security during the project; ethics and legal
 constraints; where it'll be shared, when, and under what licence; who is responsible; and
 the cost. Check the specific funder's template and current policy, which change.
+
+For NIH awards, use the standardized DMS Plan template (NOT-OD-26-046). Since 1 October 2026
+a change to repository, timeline or scope is reported in the RPPR (section C.5.c), not
+requested as prior approval (NOT-OD-26-100).

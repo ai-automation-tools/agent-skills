@@ -83,6 +83,9 @@ A 200ms response carrying 2023 data is slow data served quickly. Say so plainly.
 - Is the API versioned in the path, a header, or not at all?
 - Is there a deprecation policy with a notice period?
 - Does the provider publish a changelog or status page?
+- Do responses carry `Deprecation` and `Sunset` headers (RFC 9745, RFC 8594)? Frankfurter
+  added `Deprecation` and `Link` headers to every V1 response in September 2026, before
+  announcing any sunset date. Log them in the envelope's `warnings` when they appear.
 - Search for recent breaking-change complaints. An unversioned API with an active
   issue tracker full of "this broke overnight" is a maintenance commitment.
 

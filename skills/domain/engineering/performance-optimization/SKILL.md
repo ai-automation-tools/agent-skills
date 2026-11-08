@@ -61,7 +61,9 @@ immediately. The request should do the minimum to answer and defer the rest.
 inputs. Cache the result, keyed on the full input, with a TTL no longer than the
 data's real freshness. Cache correctness is harder than it looks — a stale or
 mis-keyed cache serves wrong data confidently — so cache deliberately, not
-everywhere.
+everywhere. Framework caches fail the same way: Next.js shipped cross-user disclosure
+and cache-poisoning fixes for `use cache` and `unstable_cache` in 16.4.5 (November 2026).
+Never cache per-user data under a shared key, and keep the framework patched.
 
 ## The usual suspects, frontend
 
@@ -85,7 +87,7 @@ navigation will need; collapse chatty request chains.
 Right-size and compress them, serve modern formats, set explicit dimensions to avoid
 layout shift, and lazy-load off-screen images.
 
-**Core Web Vitals.** LCP (largest content paint), CLS (layout shift), and INP
+**Core Web Vitals.** LCP (Largest Contentful Paint), CLS (layout shift), and INP
 (interaction responsiveness) are measurable and each has direct fixes — a slow LCP is
 usually a large image or render-blocking resource; CLS is usually missing dimensions
 or late-injected content; poor INP is usually main-thread work blocking input.

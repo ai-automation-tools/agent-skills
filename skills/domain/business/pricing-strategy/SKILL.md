@@ -40,6 +40,7 @@ A good value metric:
 | Per outcome | The outcome is attributable and countable | Attribution disputes; long measurement lag |
 | Flat platform fee | Value is access, not volume | No expansion path; every customer pays the same |
 | Hybrid | A platform fee plus a metered component | Complexity; hard to compare against rivals |
+| Credits (prepaid allowance) | Variable AI/compute cost per task, but buyers want a flat monthly price | Allowance sized below real usage hides the true cost until promo credits end; price from cost per task, not per token |
 
 Test a candidate metric against your own customer list: if the biggest users are not
 paying meaningfully more than the smallest, the metric is not capturing value.
