@@ -23,7 +23,7 @@ agent-skills/
 ├── .gitignore
 ├── .github/workflows/
 │   ├── pages.yml                   # publishes site/ to agent-skills.ai-automation-tools.dev
-│   └── validate.yml                # runs validate-skills.py, build-showcase.py --check, check-links.py and test-install-skills.ps1 on every push to main and every PR
+│   └── validate.yml                # runs validate-skills.py, build-showcase.py --check, check-links.py, test-install-skills.ps1 and test-skill-scripts.py/.ps1 on every push to main and every PR
 ├── site/                           # the showcase page — vanilla HTML/CSS/JS, no build step
 │   ├── index.html · styles.css · script.js   # cards, chips, lists and counts are GENERATED (see below)
 │   ├── showcase.json               # hand-written card copy keyed by skill name
@@ -33,6 +33,8 @@ agent-skills/
 ├── scripts/
 │   ├── install-skills.ps1          # mirror leaf skills into a skills dir (repo tooling, not a skill)
 │   ├── test-install-skills.ps1     # smoke test: installs into a temp dir, asserts the flat layout and that a name collision throws
+│   ├── test-skill-scripts.py       # stdlib-only tests for recipe-validator's scanner, on fixture recipes
+│   ├── test-skill-scripts.ps1      # tests for the project-hub-scaffold and cronsole-windows-jobs helpers, on fixtures in a temp dir
 │   ├── validate-skills.py          # stdlib-only check of every SKILL.md + the indexes (run before a PR)
 │   ├── build-showcase.py           # stdlib-only: regenerates the showcase from skills/ + site/showcase.json; --check in CI
 │   └── check-links.py              # stdlib-only: every relative link in READMEs, docs/ and site/index.html resolves (case-sensitive)
@@ -205,6 +207,8 @@ When asked to validate / review / audit skills, check:
 **Then run `python scripts/check-links.py`.** Also stdlib-only, and also in `validate.yml`. It checks every relative link in every `README.md`, every `docs/*.md` and `site/index.html` — Markdown links, `href`/`src` attributes, and the showcase's `github.com/ai-automation-tools/agent-skills/blob|tree/main/…` links back into this repo — and fails on any that don't resolve. It matches case exactly, as git and Linux CI do, so a `Docs/` link to `docs/` fails on Windows too. Web links and `#anchors` are skipped.
 
 **If you changed `scripts/install-skills.ps1`, run `pwsh -NoProfile -File scripts/test-install-skills.ps1`.** Also in `validate.yml`. It installs every tier into a temp directory (never `~/.claude`) and asserts one `<dir>/<name>/SKILL.md` per leaf skill, that a bare run installs Core only, that `-Skill` narrows and `reports/` is dropped, and — in a scratch copy of `skills/` with one name duplicated — that the install throws and writes nothing.
+
+**If you changed a script inside a skill, run `python scripts/test-skill-scripts.py` and `pwsh -NoProfile -File scripts/test-skill-scripts.ps1`.** Both are in `validate.yml`. The Python file covers `recipe-validator/scripts/scan_recipes.py` (parsing, nutrition thresholds, the allergen cross-check and its false friends, the doneness check, the danger patterns, the CLI over a fixture folder). The PowerShell file runs `project-hub-scaffold/scripts/scaffold-hub.ps1` against a fake project-hub checkout and `cronsole-windows-jobs/scripts/Invoke-ScheduledJob.ps1` against fixture jobs (ok, attention, failed, the notifier payload, `-WhatIfChild`); `Register-ScheduledJob.ps1 -WhatIf` and `run-hidden.vbs` are tested only on Windows, so CI skips them. Both work in a temp directory. A new helper script in a skill gets its checks added to the matching file.
 
 Beyond that there is no test runner. Skill-specific `evals/` (e.g. `recipe-validator/evals/evals.json`) define that skill's test cases — use them when validating that skill.
 
