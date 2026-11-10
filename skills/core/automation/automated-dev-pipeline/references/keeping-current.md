@@ -195,6 +195,11 @@ another" is the normal state unless something compares them.
   says Y". A homepage job reads that report and fixes the homepage by PR, the landing-page
   PR fixes the cards, and the About box goes through the security wrapper. A mismatch in the
   record itself goes to the repo's roadmap.
+- **A card carries its derived assets.** When the landing page shows a screenshot or thumbnail per
+  card, whoever adds or repoints a card also runs the page's own capture script for it and commits
+  the image with the card; a card without one renders blank on hover and nothing flags it. Write
+  the command into the page's runbook. If the capture fails, ship the card anyway and list it in
+  the report rather than blocking the stage.
 - **A homepage job closes the gap after a big release.** Weekly, per app: what shipped since
   the homepage last changed (changelog, merged PRs) against what the page says. It also opens
   the demo in a browser: a demo built from an old commit, or demo data that no longer shows

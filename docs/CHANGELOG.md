@@ -28,6 +28,22 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 
 **Changed**
 - `automated-dev-pipeline`: `references/architecture.md` failure handling gains a row: a routine must not both junction a dependency folder from the real clone and reinstall it, because `npm ci` through the junction empties the clone and breaks sibling jobs that rely on it.
+## 2026-11-07
+
+**Changed**
+- `task-router`: haiku tier is Haiku 5.5 (was 4.5), per the Anthropic models overview.
+- `repo-docs-builder`: the shields badge rule covers a literal dash and underscore (`--`, `__`).
+- `web-house-style`: accent guidance updated, since the landing page's per-tool card accents now use every previously unused hue.
+- `agent-workspace-builder`: CI template uses `actions/checkout@v7` and `actions/setup-python@v7`, matching current releases.
+- `project-hub-scaffold`: `current-features.md` notes that "Changed this week" starts folded (project-hub #62).
+- `automated-dev-pipeline`: derived assets (card screenshots) ship with the card; `pwsh -File` list parameters arrive as one string.
+- `agent-chat-conv-types`, `agent-chat-delivery`, `agent-chat-run-triage`: Agent-Chat is now Roundtable; ROADMAP is a tick-in-place checklist; `media_prompts` path fixed; permission rule is `mcp__roundtable`; removed `publish.ps1` example.
+- `cronsole-claude-routines`: notes Anthropic's routines to scheduled tasks rename.
+- `edge-radar-strategy-evidence`: adds `betting_audit.py` and `fit_nfl_margin.py`; shadow book collects every strike and sweeps spreads and totals separately.
+- `edge-radar-strategy-profiles`: per-category floor example refreshed (MLB and NFL spreads now off).
+- `edge-spectrum-dataset`: 234 records, Plotly self-hosted, per-bet-made unit rule. `edge-spectrum-endpoint`: the `.js` import trap reaches transitive imports. `edge-spectrum-hub-tool`: record count.
+- `project-hub-scan`: documents `/api/content`, `/api/links`, `/api/repo/changes`, `/api/repo/diff` and `/api/roots`. `project-hub-client`: `hub.collapsed` stores `open:<label>` for default-folded sections. `project-hub-demo`: documents the consent-gate `sub()` literal.
+- Project READMEs: agent-chat taken-names list drops `publish-debate`; edge-spectrum count; project-hub taken names and theme count.
 
 ## 2026-11-06
 

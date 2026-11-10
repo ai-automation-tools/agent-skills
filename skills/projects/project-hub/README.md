@@ -22,7 +22,7 @@ a copy of them and not a place to move them to. The repo's own skills stay in th
 | Skill | Covers |
 |:---|:---|
 | [**`project-hub-scan`**](./project-hub-scan/SKILL.md) | The scanner and serve layer in `hub/scan.mjs` and `hub/hub.mjs` — the filter chain, the node `kind` vocabulary, the `BUCKETS`/`USER_RUNTIMES` tables, the `resolveId()` deny gate, scan caching and the watcher |
-| [**`project-hub-client`**](./project-hub-client/SKILL.md) | The single-file interface, `hub/index.html` — the `renderPage()` view dispatch, the eight theme blocks, `S` state and `reindex()`, hash routes, localStorage keys, the `%NONCE%` contract |
+| [**`project-hub-client`**](./project-hub-client/SKILL.md) | The single-file interface, `hub/index.html` — the `renderPage()` view dispatch, the nine theme blocks, `S` state and `reindex()`, hash routes, localStorage keys, the `%NONCE%` contract |
 | [**`project-hub-demo`**](./project-hub-demo/SKILL.md) | The hosted demo — `demo/build-demo.mjs`, the fixture, the `sub()` literal assertions against `index.html`, the `demo.js` shim, and the Pages deploy |
 
 All three are maintainer skills: you invoke them while working **on** the hub's own code,
@@ -41,12 +41,11 @@ overwrite it. Check this list before naming anything new — and prefix with the
 whenever there is any doubt.
 
 `project-hub-scaffold` — the repo's travel copy of the Core scaffold skill, at `skills/` (it carried the old `-mfs` suffix until 2026-10-05).
-Nothing else. Everything here is prefixed `project-hub-…`, so the only name to keep clear of
-is that one.
+The repo also tracks its own synced copies of the three skills here (`project-hub-scan`, `project-hub-client`, `project-hub-demo`) in `.claude/skills/`, so those names are taken by design. Nothing else; any new skill here should be prefixed `project-hub-…`.
 
 **Maintainer skills** — tracked in `.claude/skills/`, for contributors working on the repo:
 
-none
+`project-hub-scan`, `project-hub-client`, `project-hub-demo` (byte-identical copies of the skills in this folder)
 
 > [!NOTE]
 > The repo carries a published copy of `project-hub-scaffold` at `skills/`. This repo is canonical; that copy is a travel copy so the skill works without this repo present. Edit here, then republish.

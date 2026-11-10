@@ -147,5 +147,5 @@ python scripts/gen-vendor-configs.py --check
 every scripts/*.py that has a --self-check
 ```
 
-Pin action versions (`actions/checkout@v4` or a SHA), give the workflow
+Pin action versions (`actions/checkout@v7` or a SHA), give the workflow
 `permissions: contents: read`, and never give CI a secret it doesn't use.

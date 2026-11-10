@@ -120,7 +120,7 @@ Per-viewer preferences are localStorage, never the scan payload:
 | Key | Holds |
 |:---|:---|
 | `hub.theme` `hub.design` `hub.rail` `hub.sbw` | scheme, the one-time move onto `obsidian`, collapsed sidebar, sidebar width |
-| `hub.collapsed` `hub.folderview` `hub.reader` | collapsed sections, grid/list, reader settings |
+| `hub.collapsed` `hub.folderview` `hub.reader` | collapsed sections (a `FOLDED_BY_DEFAULT` section such as *Changed this week* stores `open:<label>` instead, via `foldIsOpen()`), grid/list, reader settings |
 | `hub.side` `hub.websrc` | active activity-bar view, chosen browser profile for Favorites |
 | `hub.zoom` `hub.links` `hub.favsource` | interface size (also read by the pre-paint script), hub tabs on/off, manual or synced favorites |
 | `hub.bookmarks` `hub.recent` | paths only — via `navigation.mjs`, which is where the list logic is tested |
