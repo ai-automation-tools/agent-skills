@@ -523,7 +523,7 @@ In order:
 
 For anything without a real logo (a made-up label like `theme-dark_by_default`), **omit `logo`** and pick a neutral or thematic hex.
 
-**Shields URL rules** — inside a badge value use `_` for spaces and `·` (raw middle dot) for "or"-lists. A `|` pipe or a comma **breaks the URL**.
+**Shields URL rules** — inside a badge value use `_` for spaces and `·` (raw middle dot) for "or"-lists. A `|` pipe or a comma **breaks the URL**. A literal dash in a value is written `--` and a literal underscore `__`, because a single `-` separates label, message and color (`Live_Demo-my--app.dev-2ea44f`).
 
 **Badge budget** — ~3 hero badges and 3–6 inline tech badges on a root header; 1–3 badges on a folder header. A crowded header reads as noise. Never mix the two styles in one row (`for-the-badge` for the hero row, `flat-square` for the tech row).
 

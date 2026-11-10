@@ -45,6 +45,9 @@ Four endpoints exist today — `/api/backtest`, `/api/espn-scoreboard`, `/api/ad
 
 - **`api/*.ts` imports carry a `.js` extension** (`'../src/server/backtest.js'`); `server.ts`
   imports do not. That is the Vercel Node ESM resolver, not a typo. Copy the neighbouring file.
+  It applies to everything an `api/*` handler reaches, not just the handler's own imports —
+  `src/server/backtest.ts` imports `'../dataGenerator.js'`, and the missing `.js` there crashed
+  `/api/backtest` on Vercel while dev passed.
 - **The Vercel runtime types are hand-rolled** in `src/server/httpTypes.ts` (`ApiRequest` /
   `ApiResponse`) rather than installed, deliberately. Use those; do not add `@vercel/node`.
 

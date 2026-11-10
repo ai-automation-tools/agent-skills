@@ -90,8 +90,8 @@ at it. The guide links down to the launchers (`docs/guides/start-new-chat.md` is
 ## 7. Docs
 
 - `docs/CHANGELOG.md` — reverse-chronological, an entry for any user-visible behaviour change.
-- `docs/ROADMAP.md` — if this closes an item, **move** the row Open→Done with a `YYYY-MM-DD`
-  `Closed` date. Never delete rows.
+- `docs/ROADMAP.md` — if this closes an item, **tick** it in place with ` — done YYYY-MM-DD: …`.
+  Never delete items.
 - `CLAUDE.md`'s conv-types section if the change alters a rule, not just adds a row.
 
 ## 8. Nothing else
@@ -103,7 +103,7 @@ Explicitly **not** touched by a new type:
 | `scripts/lib/spawn-agents.ps1` | `New-AgentPrompt` is role-agnostic; it points every agent at `get_kickoff()`'s `role_brief` |
 | `src/web/render/orchestrate.py` | the radios and the *Special seats* dropdowns generate from `CONV_TYPES` |
 | `src/orchestrator/export.py` | the Type/Role rows read `type_label()` / `role_label()` |
-| `src/web/media_prompts.py` | generated from the registry |
+| `src/orchestrator/media_prompts.py` | generated from the registry |
 | Any `SCHEMA` copy | `conv_type` and `participant_roles` are existing columns |
 
 If you find yourself editing one of these to add a type, the registry is missing something —

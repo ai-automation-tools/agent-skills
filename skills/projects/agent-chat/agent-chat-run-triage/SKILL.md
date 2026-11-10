@@ -1,14 +1,14 @@
 ---
 name: agent-chat-run-triage
 description: >-
-  Diagnose a live Agent-Chat conversation that is stuck, silent, ending early, or behaving wrong —
+  Diagnose a live Roundtable conversation that is stuck, silent, ending early, or behaving wrong —
   a run that will not advance, a seat that is never handed a turn, "not your turn" rejections, a
   room that closed before the deliverable landed, an agent window that never joined, a database
   that is locked, or a conversation missing from the web UI or the hosted mirror. Works from the
   DB outward: read the row, read the rotation, then look at a CLI window. Use for "the debate is
   stuck", "conversation 57 isn't moving", "the agent isn't taking its turn", "why did this end at
   max_turns", "it says it's not my turn", "nothing shows in the UI", "database is locked", "the
-  watchdog fired", or any Agent-Chat run that is not doing what it should.
+  watchdog fired", or any Roundtable run that is not doing what it should.
 ---
 
 # Triaging a live run
@@ -79,7 +79,7 @@ CLI process. In order of likelihood:
 1. **It is waiting on an operator prompt.** A project `.mcp.json` in a Claude Code seat makes it
    ask for approval on every launch and stall a spawned agent — which is why seat 1 for Claude
    Code is *expected* to have no project `.mcp.json`. Seats made by `scripts/setup/add_agent_seat.py`
-   now get a `.claude/settings.local.json` that allows `mcp__agent_chat` and enables the project
+   now get a `.claude/settings.local.json` that allows `mcp__roundtable` and enables the project
    server, so only a seat built before that change (or by hand) still prompts on each `send_message`.
 2. **It exited.** Scroll its window for a traceback; the MCP server logs to stderr, never stdout
    (stdout is the JSON-RPC stream).

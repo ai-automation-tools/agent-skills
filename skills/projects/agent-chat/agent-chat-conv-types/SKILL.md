@@ -1,7 +1,7 @@
 ---
 name: agent-chat-conv-types
 description: >-
-  Add or change a conversation format in the Agent-Chat repo — a new conv_type (debate / podcast /
+  Add or change a conversation format in the Roundtable repo — a new conv_type (debate / podcast /
   collaborate / yours), a sub-type preset, a seat role, an extra role like the skeptic, or a type
   that produces a deliverable. Decides first whether the thing asked for is a TYPE or merely a
   PRESET, then walks the full multi-file ritual: CONV_TYPES, _ROLE_BRIEFS, the runtime skill, the
@@ -108,7 +108,7 @@ Full detail in [`references/add-a-type.md`](references/add-a-type.md). The short
 - [ ] A `.gitignore` line for `.claude/skills/<type>-mode/` (the junction would otherwise commit as files full of this machine's paths)
 - [ ] `docs/guides/<type>.md` + its row in the Guides index, and `ConvType.guide_url` pointing at it
 - [ ] A `PRESETS` default flavour, with `for_types` naming the new key
-- [ ] `docs/CHANGELOG.md` entry; `docs/ROADMAP.md` row moved Open→Done with a `YYYY-MM-DD` date if it closes one
+- [ ] `docs/CHANGELOG.md` entry; `docs/ROADMAP.md` item ticked in place with ` — done YYYY-MM-DD: …` if it closes one
 - [ ] `.\.venv\Scripts\python.exe tests\test_conv_types.py` and `tests\test_deliverable_flow.py` pass
 - [ ] Seed a real `--max-turns 2` run of the new type and confirm the row reaches `status='complete'`
 
