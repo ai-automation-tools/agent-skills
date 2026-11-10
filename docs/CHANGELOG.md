@@ -24,6 +24,10 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-11-08
+
+**Changed**
+- `automated-dev-pipeline`: `references/architecture.md` failure handling gains a row: a routine must not both junction a dependency folder from the real clone and reinstall it, because `npm ci` through the junction empties the clone and breaks sibling jobs that rely on it.
 ## 2026-11-07
 
 **Changed**
