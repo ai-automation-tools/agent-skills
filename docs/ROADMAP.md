@@ -14,11 +14,10 @@
 
 ---
 
-The Agent-Skills Weekly Roadmap routine (`agent-skills-roadmap`, Thursday 21:00) works this
-file top to bottom: it takes the first open item that isn't `🔒 Needs owner` and that it can
-finish and verify, opens a `roadmap/auto-<date>` pull request, and the Sunday PR sweep merges
-it. A person can take any item too. **Every item above `## After public release` is a
-release gate.** The repo and its showcase are already public, so the open gates are catch-up
+The Agent-Skills roadmap routine (`agent-skills-roadmap`) works this file top to bottom, one
+item per run, as `roadmap/auto-` PRs: it takes the first open item that isn't `🔒 Needs owner`
+and that it can finish and verify, and the org PR sweep merges it. A person can take any item
+too. **Every item above `## After public release` is a release gate.** The repo and its showcase are already public, so the open gates are catch-up
 work, taken first. Ticking an item adds its line to the [changelog](CHANGELOG.md), tagged with
 the phase in italics, and updates any doc it made stale, in the same commit.
 
@@ -43,9 +42,10 @@ Nothing below blocks go-live.
 
 ### 🔨 Phase 1: catch a broken skill before it ships
 
-There's no test runner and no CI beyond the Pages deploy. So a renamed skill, a
-`name:` that no longer matches its folder, or a `references/` path that moved only shows
-up once someone installs the skill and it fails.
+When this phase started there was no test runner and no CI beyond the Pages deploy, so a
+renamed skill, a `name:` that no longer matches its folder, or a `references/` path that moved
+only showed up once someone installed the skill and it failed. Since 2026-10-01 `validate.yml`
+catches them on every push and PR.
 
 - [x] Start `docs/CHANGELOG.md`. Newest first, seeded from the git log at the grain that's honest (one line per merged PR). Link it from the README's Docs table next to this file — done 2026-09-22: seeded per PR since #1, per change before that; linked from the README nav and "Using a skill" line, since the README has no Docs table
 - [x] Write `scripts/validate-skills.py`, with no third-party dependencies. For every `SKILL.md` it checks that the frontmatter parses; `name` is kebab-case, equals its leaf folder, and is unique across both tiers; `description` exists and is 40–1,024 characters long; every relative path the body mentions (`scripts/…`, `references/…`, `prompts/…`) exists; the skill has a row in `README.md` and in its tier's README; any `resources/skill-data/` folder mirrors a real skill path. It exits non-zero on the first class of failure and prints every failure, not just the first — done 2026-09-24: all six checks, run over all three tiers. Its first run caught `repo-docs-builder`'s 1,113-character description and two cronsole skills citing another skill's `references/`; both fixed. `scripts/` and `evals/` paths are checked only when the skill ships that folder, since project skills name their target repo's scripts
@@ -73,22 +73,7 @@ landing page now sends traffic to the site.
 - [ ] Decide whether the four seeded `repo-docs-builder` images stay. Seen 2026-11-11: two of them show other people's products (Amplication's feature grid, an Areg SDK comparison table), so replacing them with output from one of the org's own READMEs is the likely answer 🔒 Needs owner
 - [ ] Check the layout on a real phone 🔒 Needs owner
 
-### 🧩 Phase 3: skills from the backlog
-
-Pulled from [`SKILL-IDEAS.md`](SKILL-IDEAS.md). Each one ships with its `SKILL.md` and an
-`evals/` folder of at least three cases, a README row and a tier-README row, a showcase card
-if it's Core, and its idea row struck from the backlog. It's one skill per run. Each should
-be portable Core unless it names a single repo.
-
-- [ ] commit-msg-writer: writes imperative commit messages that match a repo's existing log style (Conventional or plain), reading `git log` before it writes
-- [ ] changelog-keeper: maintains a `CHANGELOG.md` from a commit range, and ticks matching roadmap items. It must agree with `repo-docs-builder` §2.5 and not contradict it
-- [ ] pr-describer: a structured PR body (summary, changes, test plan, what to review first) built from a diff
-- [ ] env-doctor: finds env vars the code reads that are missing from `.env.example`, and example entries nothing reads
-- [ ] api-reference-writer: endpoint reference docs from route definitions, using one consistent response envelope
-- [x] Retire the `repo-doc-structure` idea. `repo-docs-builder` already covers it, so strike the row with a note saying so — done 2026-11-11: struck in `SKILL-IDEAS.md`
-- [ ] obsidian-note-author: decide whether it's portable Core or too tied to one vault to publish 🔒 Needs owner
-
-### 📏 Phase 4: make every skill measurable
+### 📏 Phase 3: make every skill measurable
 
 Seven Core skills have evals since 2026-11-11. `agent-workspace-builder`, `automated-dev-pipeline` and `web-house-style` don't yet.
 
@@ -102,6 +87,23 @@ Seven Core skills have evals since 2026-11-11. `agent-workspace-builder`, `autom
 - [x] Close the gaps the eval pass found in `task-router` and `html-email-templates` — done 2026-11-11: Tier 3 opt-in defined; a plain-text part section, Template B's text slots and Template C's two footers explained
 - [ ] Close the gaps the eval pass found in four more skills. `news-images`: every prompt says "save, email, and publish" but the body makes email optional and never defines publish; "this year's" collage is unhandled; "editorial cartoon of this week's headlines" may not trigger it. `project-hub-scaffold`: step 5 restarts the server "when authorized" without saying whether to ask; the description promises theme matching that mode C limits to static pages (copy any change to project-hub's travel copy). `repo-docs-builder`: the no-logo fallback doesn't say whether the nav row and badges stay; the description says every project carries a ROADMAP but vaults skip it; de-slopping prose alone isn't in the description. `business-plan-builder`: "quick read" screen mode vs "not for a quick opinion"; audit item 4 contradicts the no-sources run
 - [ ] Trim `-AllAgents` to the folders nobody else reads. opencode also reads `~/.claude/skills` and `~/.agents/skills`, Kilo reads `~/.agents/skills`, and agy reads `~/.gemini/config/skills`, so today opencode gets three copies of each skill and agy and Kilo two. `~/.claude/skills`, `~/.agents/skills` and `~/.gemini/config/skills` cover all six CLIs. Needs a cleanup step for the copies already installed in the dropped folders, or they go stale
+- [ ] Evals for `agent-workspace-builder`, `automated-dev-pipeline` and `web-house-style`, six cases each in the `recipe-validator` format (their trigger cases are already in `scripts/trigger-cases.json`)
+- [ ] Publish a Cronsole catalog from `site/`: one template `agent-skills-update` (`git pull --ff-only`, then `install-skills.ps1 -AllAgents`; optional `-Domain`), a Registry v1 builder with `--check` in `validate.yml`, a registry-drift workflow, and a Schedule it section in `site/index.html` that reads `registry/index.json` live. The description says each run overwrites installed copies. Done when `https://agent-skills.ai-automation-tools.dev/registry/index.json` serves and the gallery lists the template. After the `-AllAgents` trim above
+
+### 🧩 Phase 4: skills from the backlog
+
+Pulled from [`SKILL-IDEAS.md`](SKILL-IDEAS.md). Each one ships with its `SKILL.md` and an
+`evals/` folder of at least three cases, a README row and a tier-README row, a showcase card
+if it's Core, and its idea row struck from the backlog. It's one skill per run. Each should
+be portable Core unless it names a single repo.
+
+- [ ] commit-msg-writer: writes imperative commit messages that match a repo's existing log style (Conventional or plain), reading `git log` before it writes
+- [ ] changelog-keeper: maintains a `CHANGELOG.md` from a commit range, and ticks matching roadmap items. It must agree with `repo-docs-builder` §2.5 and not contradict it
+- [ ] pr-describer: a structured PR body (summary, changes, test plan, what to review first) built from a diff
+- [ ] env-doctor: finds env vars the code reads that are missing from `.env.example`, and example entries nothing reads
+- [ ] api-reference-writer: endpoint reference docs from route definitions, using one consistent response envelope
+- [x] Retire the `repo-doc-structure` idea. `repo-docs-builder` already covers it, so strike the row with a note saying so — done 2026-11-11: struck in `SKILL-IDEAS.md`
+- [ ] obsidian-note-author: decide whether it's portable Core or too tied to one vault to publish 🔒 Needs owner
 
 ---
 
