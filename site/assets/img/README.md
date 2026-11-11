@@ -26,7 +26,7 @@
 | [**project-hub-scaffold**](../../../skills/core/web/project-hub-scaffold/SKILL.md) | `project-hub-scaffold.png` | `-2`, `-3`, `-4` |
 | [**automated-dev-pipeline**](../../../skills/core/automation/automated-dev-pipeline/SKILL.md) | `automated-dev-pipeline.png` | `-2`, `-3`, `-4` |
 
-`-2` means the gallery name, so `task-router-2.png` is the second image on the `task-router` card.
+`-2` means the gallery name, so `task-router-2.webp` is the second image on the `task-router` card.
 
 ## 🔍 How the page finds them
 

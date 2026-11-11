@@ -52,7 +52,7 @@ Three files, an icon and an image folder. No framework, no `package.json`, nothi
 Name the image after the skill and drop it into `assets/img/`:
 
 ```text
-site/assets/img/task-router.png
+site/assets/img/task-router.webp
 ```
 
 Then run `python scripts/build-showcase.py`. The generator looks the images up on disk and writes their paths into the card, so the browser never guesses at a filename (a guess that misses is a 404 in the console), and CI's `--check` fails until you do. Add `-2`, `-3` or `-4` to a name for extra shots in the lightbox gallery. A card with no image shows a placeholder, so you can fill them in a few at a time.
@@ -94,15 +94,15 @@ What's left before this page is finished, in rough order of what matters most.
 Every card has an image now.
 
 - [ ] Decide whether the four seeded `repo-docs-builder` images stay. They're rendered examples lifted from the skill's own `resources/` folder, so they show the output a run produces rather than the skill at work.
-- [ ] Compress what goes in. Most images are WebP now; the seeded `repo-docs-builder` PNGs still run up to 274 KB.
+- [x] Compress what goes in. Every showcase image is WebP: the 13 PNGs went 967 KB to 319 KB. *(2026-11-11)*
 
 ### 🌐 Hosting
 
 Published by [`pages.yml`](../.github/workflows/pages.yml) to `agent-skills.ai-automation-tools.dev`.
 
 - [x] Turn on GitHub Pages, source **GitHub Actions**, publishing `site/`.
-- [ ] Add the URL to the repo's About panel so people can find it from GitHub.
-- [ ] Add an `og:image` (a 1200 × 630 crop of the hero) and a `twitter:card`. A shared link previews as bare text right now, and the org landing page now sends traffic here.
+- [x] Add the URL to the repo's About panel so people can find it from GitHub.
+- [x] Add an `og:image` (a 1200 × 630 crop of the hero) and a `twitter:card`: `assets/img/og.png`, `summary_large_image`. Re-capture it when the hero changes. *(2026-11-11)*
 
 ### 🔁 Copy that drifts
 
@@ -115,9 +115,9 @@ Since 2026-10-05 the cards, chips, group lists and counts are generated from the
 ### ♿ Accessibility
 
 - [x] Give the filter chips `aria-pressed`, so the selected category is announced instead of only coloured. *(2026-10-19)*
-- [ ] Keep focus inside the lightbox while it's open. Closing it already hands focus back to the card that opened it.
-- [ ] Rewrite the screenshot `alt` text to describe the image itself rather than name the skill.
-- [x] Check the faint text colour against the card background. Gone with the house-style move: the page uses the shared `--fg-4`/`--fg-5` scale, whose light values are measured on `#fafafa`. *(2026-10-19)*
+- [x] Keep focus inside the lightbox while it's open. Closing it already hands focus back to the card that opened it. *(2026-11-11)*
+- [x] Rewrite the screenshot `alt` text to describe the image itself rather than name the skill. Card images use `alt`, lightbox extras use `alts` in `showcase.json`. *(2026-11-11)*
+- [x] Check the faint text colour against the card background. Gone with the house-style move: the page uses the shared `--fg-4`/`--fg-5` scale, whose light values are measured on `#fafafa`. *(2026-10-19)* Dark `--fg-4` re-measured at 3.8:1 on cards and raised to `#7e7e87` (4.6:1+). *(2026-11-11)*
 
 ### 🧹 Smaller things
 
@@ -125,7 +125,7 @@ Since 2026-10-05 the cards, chips, group lists and counts are generated from the
 - [ ] Fill the last grid row. Eight cards in three columns leaves one slot empty; `grid-column: span 2` on one card would close it, or leave it as is.
 - [x] Give the hero panel a no-JS fallback line, so it isn't blank when the script fails to load. It now ships with one skill's frontmatter in the markup. *(2026-10-19)*
 - [x] Add `site/` to the layout diagram in `CLAUDE.md`.
-- [ ] Add a link check across the READMEs and the card links, so a renamed skill fails loudly instead of 404ing quietly.
+- [x] Add a link check across the READMEs and the card links, so a renamed skill fails loudly instead of 404ing quietly: `scripts/check-links.py`, in CI. *(2026-10-08)*
 
 ---
 

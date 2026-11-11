@@ -5,6 +5,7 @@
       "name": "repo-docs-builder",
       "glyph": "🏗️",
       "alt": "A README built by repo-docs-builder",
+      "alts": ["A README feature section: six panels, each a feature heading and short blurb beside a product screenshot", "A README comparison table: features down the side, checkmarks for the project against warnings for the alternatives", "A README Installation section: five numbered steps, each with a copyable code block"],
       "tagline": "A repository that reads top to bottom like somebody meant it.",
       "features": [
         "Layout: app under <code>src/</code> or <code>site/</code>, root stays docs and meta",
@@ -18,6 +19,7 @@
       "name": "business-plan-builder",
       "glyph": "📈",
       "alt": "The generated output folder for a Hotel-Loyalty-Club idea, with analysis, decisions, models and research subfolders",
+      "alts": ["The output folder for a Health-Insurance-Agent idea: analysis, decisions, models and research subfolders and a README", "The output folder for the Hotel-Loyalty-Club idea, collapsed to its analysis, decisions, models and research subfolders"],
       "tagline": "Eight passes from napkin idea to decision memo — with a gate that can say no.",
       "features": [
         "Market sizing: TAM/SAM/SOM, JTBD, Five Forces",
@@ -31,6 +33,7 @@
       "name": "recipe-validator",
       "glyph": "🍳",
       "alt": "A recipe under review: an Indiana pork tenderloin sandwich with its ingredient list and ten numbered steps",
+      "alts": ["A spanakopita recipe page: allergen tags, an 18-item ingredient checklist with a serving-scale switch, and ten numbered steps"],
       "tagline": "A script does the arithmetic. You supply the judgment.",
       "features": [
         "Food-safety temperatures and dangerous-technique flags",
@@ -44,6 +47,7 @@
       "name": "html-email-templates",
       "glyph": "✉️",
       "alt": "A security advisory digest email: a dark banner heading over tables of new and updated CVEs",
+      "alts": ["A scheduled-job report email: an amber Completed with warnings banner over the task, script, exit code, duration and log paths"],
       "tagline": "Three email templates that survive the clients that strip your CSS.",
       "features": [
         "Template A — inline notification or alert for the body",
@@ -69,6 +73,7 @@
       "name": "news-images",
       "glyph": "🖼️",
       "alt": "A cartoon-editorial news montage, the week's stories woven into one illustrated scene",
+      "alts": ["A six-panel daily news collage in cartoon-editorial style, one headline per panel, from mail ballots to a Kennedy Center vote", "A six-panel monthly news collage for August 2026: a trade war, a heat wave, Nvidia, a measles surge, a court case and an eclipse"],
       "tagline": "Cartoon-editorial news imagery, eight ways.",
       "features": [
         "Four cadences: daily, weekly, monthly, yearly",
@@ -82,6 +87,7 @@
       "name": "project-hub-scaffold",
       "glyph": "🌐",
       "alt": "The Project Hub explorer: a sidebar document tree beside a dashboard of workspace repos",
+      "alts": ["The Project Hub demo: the explorer tree beside a rendered workspace README, with bookmark, copy-link and open-in-VS-Code buttons"],
       "tagline": "A clickable document tree over any folder — no build, no install.",
       "features": [
         "A zero-dependency Node server plus a static explorer",
@@ -95,6 +101,7 @@
       "name": "web-house-style",
       "glyph": "🎨",
       "alt": "The web-house-style document starter: the source bar, a top bar with the Light / Dark switch, a hero and a card grid",
+      "alts": ["The web-house-style app-shell starter in light mode: an icon sidebar, a breadcrumb bar and three stat cards"],
       "tagline": "One look for every site in the org — dark first, light on request.",
       "features": [
         "Token blocks for the dark default and the light theme, one accent per site",

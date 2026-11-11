@@ -59,7 +59,7 @@ A collection of reusable skills for Claude Code and compatible AI agents. Each s
 
 ## 🧭 Domain skills
 
-Field-specific skills from the org's five agent workspaces, copied here unchanged by a weekly
+Field-specific skills from the org's seven agent workspaces, copied here unchanged by a weekly
 harvest. They're kept apart from Core so Core stays a short list, and they install only
 when you ask: `install-skills.ps1 -Domain`. Edit them in their workspace repo; the
 [harvest ledger](./docs/HARVEST.md) says which one.

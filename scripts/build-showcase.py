@@ -117,7 +117,10 @@ def card(idx: int, category: str, skill: str, fm: dict[str, str], copy: dict) ->
     ]
     if imgs:
         lines += [
-            f'          <div class="card-media has-shot" data-shots="{" ".join(imgs)}">',
+            # data-alts: alt text for the lightbox's -2/-3/-4 images, from showcase.json "alts".
+            f'          <div class="card-media has-shot" data-shots="{" ".join(imgs)}"'
+            + (f' data-alts="{html.escape(json.dumps(copy["alts"], ensure_ascii=False), quote=True)}"' if copy.get("alts") else "")
+            + ">",
             f'            <img class="shot" data-name="{skill}" src="{imgs[0]}" alt="{alt}" loading="lazy" decoding="async">',
         ]
     else:

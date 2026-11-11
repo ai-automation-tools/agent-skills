@@ -30,7 +30,7 @@
   /* lines */
   --line: rgba(63,63,70,.45);  --line-2: rgba(63,63,70,.8);  --line-hover: #52525b;  --rule: rgba(39,39,42,.6);
   /* text, brightest to faintest */
-  --fg: #f4f4f5;  --fg-2: #d4d4d8;  --fg-3: #a1a1aa;  --fg-4: #71717a;  --fg-5: #52525b;
+  --fg: #f4f4f5;  --fg-2: #d4d4d8;  --fg-3: #a1a1aa;  --fg-4: #7e7e87;  --fg-5: #52525b;
   --fg-max: #fff;  --on-fg: #09090b;
   /* accent: amber, the Agent Skills icon colour */
   --accent: #f2b34b;  --accent-hover: #ffc65f;  --accent-ink: #14100a;
@@ -296,7 +296,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 28px 40px; font-size:
 footer .row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; }
 footer .right { margin-left: auto; display: flex; flex-wrap: wrap; gap: 6px 18px; }
 footer .right a:hover { color: var(--fg); }
-footer .fine { margin: 14px 0 0; font-size: 12px; color: var(--fg-5); }
+footer .fine { margin: 14px 0 0; font-size: 12px; color: var(--fg-4); }
 
 /* ---------- Lightbox ---------- */
 .lightbox { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: clamp(16px, 4vw, 56px); background: var(--scrim); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); animation: fade .25s var(--ease); }
