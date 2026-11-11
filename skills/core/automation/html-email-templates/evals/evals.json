@@ -1,0 +1,47 @@
+{
+  "skill_name": "html-email-templates",
+  "evals": [
+    {
+      "id": 1,
+      "name": "job-failure-alert",
+      "prompt": "My nightly backup job (slug: nightly-backup) failed last night at 02:14 because the target drive was full. Write the email it should send me, subject line included, and the plain-text version too.",
+      "expected_output": "Uses Template A (notification/alert) as the inline body: inline `style=\"...\"` attributes only, NO `<style>` block and NO CSS variables. Subject follows `{Job Name} failed — {date}` (e.g. `Nightly Backup failed — 2026-11-11`). Body text split into separate `<p>` tags, not one wrapped `<p>`. At most one CTA link, colored #0891b2. Footer is the shared one after an `<hr>`: `<strong>{sender_display_name}</strong> · automation fleet · Browse more →` in #888, with one fixed sender name. Recommends a label matching the job slug (`nightly-backup`). Includes a plain-text alternative. Must NOT use Template B's dark styling for an alert.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "weekly-report-attachment",
+      "prompt": "A Python job writes a weekly security briefing as markdown every Saturday. I want it emailed to me as a nice-looking report. Set up the HTML and the email.",
+      "expected_output": "Generates the report as a standalone Template B `.html` file named for what it is (e.g. `Weekly_Security_Briefing.html`), with the `<style>` block copied verbatim and only the title, eyebrow, banner title, subtitle, date and `.content` body changed; `.content` holds plain markdown-rendered h2/h3/p/ul/table elements. The report is ATTACHED or linked, not pasted into the email body. The email body itself is a short Template A notification with the shared fleet footer. Subject follows `Weekly Security Briefing — Week of YYYY-MM-DD to YYYY-MM-DD`. Template B's own footer is a one-line disclaimer or attribution, NOT the fleet footer.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "digest-converter-bugs",
+      "prompt": "My n8n workflow turns a weekly AI-news markdown digest into an HTML email with an mdToHtml function. In the email, the '- **Source:**' and '- **Link:**' lines under each '### headline' show up as raw text with dashes, and the '---' separators show up as literal '---'. Fix it and tell me how this email should be delivered.",
+      "expected_output": "Identifies Template C (inline light-card digest). Diagnoses both known bugs: a block whose first line is `### ` only converts that heading, so the bullets under it fall through unconverted (fix: split the remaining lines and run them through the `- ` → `<li>` logic, or treat heading+bullets as its own block type); a lone `---` falls into the `<p>` branch (fix: test `/^-{3,}$/` before the final else and emit an `<hr style=...>`). All output stays inline-styled, no CSS vars. Delivery: inline the FULL digest as the body and also attach the archived `.html`, with Template A's footer appended by the shared footer helper. Must NOT replace the digest with a short Template A summary body.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "pushback-inline-template-b",
+      "prompt": "I love the dark banner report template. Just paste that whole HTML straight into the Gmail body instead of attaching it so people see it without opening a file.",
+      "expected_output": "Pushes back: Template B relies on CSS custom properties (`var(--x)`), which Gmail and Outlook don't support, so every themed color resolves to nothing; `background-clip: text` is only partially supported too. Should NOT cite `backdrop-filter` as the blocker (the skill says those clients have supported it since January 2024). Offers the skill's alternatives: keep B as an attachment or hosted link with a Template A notification body, or render the content with Template C, which is inline-styles-only and safe to inline. Must NOT produce an email body containing Template B's `<style>` or `var(--...)` markup.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "name": "report-stat-cards-and-rebrand",
+      "prompt": "For this month's sales report using the dark report template, add three KPI stat cards at the top of the content and switch the colors to our brand purple.",
+      "expected_output": "Declines to redesign Template B: the `<style>` block is copied verbatim for every report and only the title/banner strings and `.content` change. Declines hand-built stat-card divs inside `.content` because the template has no classes for them; instead presents the KPIs as plain markdown output (e.g. a table, or an h2 plus a list) that the existing CSS already styles. Must NOT edit the `:root` color variables or add new CSS classes.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "name": "consolidate-senders-scheduler-key",
+      "prompt": "I have five Python scripts that each send their own emails with their own smtplib code and their own 'From' names. One of them works when I run it by hand but fails with a missing API key when Windows Task Scheduler runs it. Clean this up.",
+      "expected_output": "Recommends ONE shared sender module taking `(subject, html, text, attachments, tag)` that appends the shared footer and is the only code holding the API key; the five scripts call it instead of their own send functions. Explains the key failure: the scheduled task runs as a different user and never sees the interactive shell environment, so key resolution must be explicit (env set for that task, a secrets file, or the scheduler's secret store) and documented next to the sender. Consolidates to one `From` display name per automation family. Suggests a transactional email API over raw SMTP (SMTP gives up delivery tracking, bounce handling and per-message tagging) and verifying a sending domain. Must NOT hardcode the key in the scripts or keep per-job send functions.",
+      "files": []
+    }
+  ]
+}

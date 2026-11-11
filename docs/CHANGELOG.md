@@ -32,6 +32,10 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 - `repo-docs-builder`: the org layout standard makes `CLAUDE.md` optional. `check-org-layout.py` no longer requires it, still flags one that doesn't import `AGENTS.md`, and its self-check covers a repo without one.
 - `docs/SKILL-IDEAS.md`: the `repo-doc-structure` idea is struck; `repo-docs-builder` covers it. *Phase 3*
 - `docs/ROADMAP.md`: four items that had already shipped are ticked with their evidence: filter-chip `aria-pressed` and the no-JS hero (both 2026-10-19), the homepage URL on the About panel, and the `project-hub-scaffold` drift check (project-hub's `scaffold copy` CI job, since 2026-10-22). *Phase 1, Phase 2*
+- `docs/CHANGELOG.md`: the seven weekly harvest PRs since 2026-09-27 (#20 to #88) were never logged; each now has a **Harvest** line under its merge date.
+- Evals for six more Core skills, six cases each, in the `recipe-validator` format: `task-router`, `html-email-templates`, `repo-docs-builder` (with a small fixture repo), `business-plan-builder` (including a NO_GO idea), `project-hub-scaffold` and `news-images`. *Phase 4*
+- `scripts/check-triggers.py` and `scripts/trigger-cases.json`: a live auto-invocation test. Each Core skill has two requests that should load it and one near miss that shouldn't; each runs in a fresh headless `claude -p` session in an empty folder. Local only, since it needs a signed-in `claude`. `USING-SKILLS.md` and `AGENTS.md` describe the method. First run: 29 of 30 passed, and the one miss (`task-router`) passed both re-runs, so no description changed. *Phase 4*
+- `docs/USING-SKILLS.md`: a cross-agent table (where `-AllAgents` writes for each CLI, what else each reads, its project folder, how to call a skill), checked against each CLI's docs. It turned up duplicate copies for opencode, agy and Kilo, now a roadmap item. *Phase 4*
 - `docs/OPEN-QUESTIONS.md`: private vulnerability reporting stays off on this repo (owner's answer); `SECURITY.md` keeps the email route.
 - `web-house-style`: dark `--fg-4` is `#7e7e87` (was zinc-500 `#71717a`, 3.8:1 on cards), in `design-system.md` and both starters, with the dark contrast ratios noted beside the tokens. `--fg-5` is now decorative-only in both themes, so the footer `.fine` line and the app shell's sidebar group labels use `--fg-4`. The verify checklist covers both themes.
 
@@ -43,6 +47,9 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 - Dark `--fg-4` is `#7e7e87` (was `#71717a`, 3.8:1 on cards), so faint text passes 4.5:1 on every surface; the footer fine print moves from `--fg-5` to `--fg-4`. *Phase 2*
 
 ## 2026-11-08
+
+**Harvest**
+- No new skills. Re-synced `public-api-evaluation` (`Deprecation`/`Sunset` headers), `pricing-strategy` (prepaid credits), `performance-optimization` (cache poisoning, LCP wording), `research-data-management` (NIH DMS plan template) and `security-report-writing` (date and source outside claims). (#88)
 
 **Changed**
 - `automated-dev-pipeline`: `references/architecture.md` failure handling gains a row: a routine must not both junction a dependency folder from the real clone and reinstall it, because `npm ci` through the junction empties the clone and breaks sibling jobs that rely on it.
@@ -88,6 +95,9 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 
 ## 2026-11-01
 
+**Harvest**
+- New Religion domain from `religion-agent`: `myth-and-motif-analysis`, `religious-calendars`, `writing-about-religion`. Re-synced `api-integration-testing`, `go-to-market` and `critical-appraisal`. (#72)
+
 **Changed**
 - `automated-dev-pipeline`: `references/architecture.md` failure handling gains a row: pass the prompt to the agent CLI on stdin, never as an argument, because a growing prompt eventually passes the OS command-line limit and the launch fails before any API call.
 
@@ -95,6 +105,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 
 **Added**
 - `SECURITY.md`: report privately to the org security address (private vulnerability reporting is off on this repo), what counts as a vulnerability in a skill library (instructions that steer an agent into destructive or outward actions, skill scripts and the installer writing outside their paths, committed secrets, the showcase), how harvested Domain skills get fixed, and how to repeat the secret scan. A full-history gitleaks scan of every commit on every branch came back clean. *Public release*
+
+## 2026-10-27
+
+**Harvest**
+- New Science domain from `science-agent`: `critical-appraisal`, `research-data-management`, `scientific-figures`. Re-synced `api-client-resilience`, `debugging-methodology` and `security-metrics-and-posture`. (#67)
 
 ## 2026-10-26
 
@@ -179,6 +194,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 **Added**
 - `web-house-style` (Core · Web): the shared look, feel and navigation of the org's sites, written from the landing page, Agent Chat, Cronsole, Edge-Radar, Edge Spectrum and Project Hub. Dark-first tokens with a light theme, the Light / Dark switch in the top-right corner with its pre-paint script, the source bar, a sticky top bar or a collapsible icon sidebar, and the 2026-10-13 phone pass. Ships two starter pages, `assets/page.html` and `assets/app-shell.html`.
 
+## 2026-10-11
+
+**Harvest**
+- Mirrored `post-publish-analytics` (Media) and `security-metrics-and-posture` (Security) into `Skills/Domain/`. (#32)
+
 ## 2026-10-08
 
 **Added**
@@ -217,6 +237,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
   with a diagram drawn in the site's palette (`site/assets/diagrams/automated-dev-pipeline.html`).
   The page now says eight Core skills. *Phase 2*
 
+## 2026-10-04
+
+**Harvest**
+- Mirrored `api-response-normalization` (API), `media-rights-and-licensing` (Media) and `vulnerability-disclosure` (Security) into `Skills/Domain/`. (#26)
+
 ## 2026-10-03
 
 **Changed**
@@ -240,6 +265,9 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
   `CLAUDE.md` and `Docs/USING-SKILLS.md` mention it. *Phase 1*
 
 ## 2026-09-30
+
+**Harvest**
+- Mirrored `go-to-market` and `pricing-strategy` (Business) and `security-report-writing` (Security) into `Skills/Domain/`. (#21)
 
 **Added**
 - A flow diagram for `automated-dev-pipeline`,
@@ -271,6 +299,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
   `~/.gemini/config/skills` for the Antigravity IDE, plus opencode and Kilo. Before this,
   agy got `~/.agents/skills`, which it doesn't read. `Docs/USING-SKILLS.md` shows
   `-AllAgents` instead of hand-picked destinations.
+
+## 2026-09-27
+
+**Harvest**
+- Mirrored `rate-limit-and-quota-management` (API), `customer-discovery` (Business) and `captions-and-accessibility` (Media) into `Skills/Domain/`. (#20)
 
 ## 2026-09-24
 

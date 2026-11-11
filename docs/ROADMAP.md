@@ -70,7 +70,7 @@ landing page now sends traffic to the site.
 - [x] Raise `--text-faint` to at least 4.5:1 against the card background. It measures about 4:1 today — done 2026-11-11: the token is `--fg-4` since the house-style move. Dark `#71717a` measured 3.8:1 on cards; `#7e7e87` is 4.6:1 or better on every surface. Light already passed (5.4:1+). The footer fine print moved off `--fg-5` (2.4:1)
 - [x] No-JS fallback for the hero panel, so it isn't blank when the script fails — done 2026-10-19: the markup ships one skill's frontmatter; ticked here 2026-11-11
 - [x] Homepage on the About panel. Run `gh repo edit ai-automation-tools/agent-skills --homepage https://agent-skills.ai-automation-tools.dev` — done 2026-11-11: already set; `gh repo view` returns the URL
-- [ ] Decide whether the four seeded `repo-docs-builder` images stay 🔒 Needs owner
+- [ ] Decide whether the four seeded `repo-docs-builder` images stay. Seen 2026-11-11: two of them show other people's products (Amplication's feature grid, an Areg SDK comparison table), so replacing them with output from one of the org's own READMEs is the likely answer 🔒 Needs owner
 - [ ] Check the layout on a real phone 🔒 Needs owner
 
 ### 🧩 Phase 3: skills from the backlog
@@ -90,15 +90,16 @@ be portable Core unless it names a single repo.
 
 ### 📏 Phase 4: make every skill measurable
 
-Only `recipe-validator` has evals today.
+Seven Core skills have evals since 2026-11-11. `agent-workspace-builder`, `automated-dev-pipeline` and `web-house-style` don't yet.
 
-- [ ] Evals for `task-router`. Include requests that should route inline, to one agent, and to a fan-out, with the expected tier for each
-- [ ] Evals for `html-email-templates`
-- [ ] Evals for `repo-docs-builder`
-- [ ] Evals for `business-plan-builder`. Cover at least one idea that should come back NO_GO
-- [ ] Evals for `project-hub-scaffold` and `news-images`
-- [ ] Audit description triggers. For each Core skill, write two requests that should auto-load it and one that shouldn't. Tighten any description that fails, and record the method in `USING-SKILLS.md`
-- [ ] Cross-agent install table in `USING-SKILLS.md`. The directory each CLI that `-AllAgents` targets reads from, and what differs between them
+- [x] Evals for `task-router`. Include requests that should route inline, to one agent, and to a fan-out, with the expected tier for each — done 2026-11-11: six cases: inline (Tier 0), one agent, recon-then-plan, a fan-out on `opus`, an ambiguous ask that shouldn't be routed, and an excluded tier with a confirm-before-push gate
+- [x] Evals for `html-email-templates` — done 2026-11-11: six cases: a failure alert, a report wrapper, a digest, pushback on the wrong template, stat cards, and consolidating senders
+- [x] Evals for `repo-docs-builder` — done 2026-11-11: six cases (full run on a small fixture repo in `evals/fixtures/tidepool/`, header only, roadmap only, tick-and-log, humanize only, an Obsidian vault with no roadmap)
+- [x] Evals for `business-plan-builder`. Cover at least one idea that should come back NO_GO — done 2026-11-11: six cases; the meal-kit idea must come back NO_GO with no spec, ADRs, estimate or build plan written
+- [x] Evals for `project-hub-scaffold` and `news-images` — done 2026-11-11: six cases each. project-hub's travel copy needs the new `evals/` folder too, or its `scaffold copy` check fails
+- [x] Audit description triggers. For each Core skill, write two requests that should auto-load it and one that shouldn't. Tighten any description that fails, and record the method in `USING-SKILLS.md` — done 2026-11-11: `scripts/check-triggers.py` over `scripts/trigger-cases.json`, 30 cases. 29 passed first time; the `task-router` "how should we approach this" case passed 2 of 3 runs, which is run-to-run noise rather than a missing trigger (the phrase is already in the description), so no description changed
+- [x] Cross-agent install table in `USING-SKILLS.md`. The directory each CLI that `-AllAgents` targets reads from, and what differs between them — done 2026-11-11: checked against each CLI's docs: where `-AllAgents` writes, what else each CLI reads, its project folder, how to call a skill by name
+- [ ] Trim `-AllAgents` to the folders nobody else reads. opencode also reads `~/.claude/skills` and `~/.agents/skills`, Kilo reads `~/.agents/skills`, and agy reads `~/.gemini/config/skills`, so today opencode gets three copies of each skill and agy and Kilo two. `~/.claude/skills`, `~/.agents/skills` and `~/.gemini/config/skills` cover all six CLIs. Needs a cleanup step for the copies already installed in the dropped folders, or they go stale
 
 ---
 

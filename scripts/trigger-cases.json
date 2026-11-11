@@ -1,0 +1,75 @@
+{
+  "_comment": "Auto-invocation cases for scripts/check-triggers.py. Per Core skill: requests that should load it unprompted (load) and a near miss that should not (skip). Plain user wording, no skill names.",
+  "cases": {
+    "repo-docs-builder": {
+      "load": [
+        "This repo's docs are a pile of loose markdown files with no index. Restructure them so a reader can click from the root README down to every doc and back.",
+        "Write a ROADMAP.md of everything left before we launch this project, and start a CHANGELOG.md for it."
+      ],
+      "skip": ["Fix the typo 'recieve' on line 12 of README.md."]
+    },
+    "recipe-validator": {
+      "load": [
+        "Can you check this chili recipe for food-safety problems and whether the sodium per serving is too high?",
+        "Sanity-check every recipe in my recipes/ folder: allergens, cook temperatures, and salt, fat and sugar."
+      ],
+      "skip": ["Give me a quick recipe for banana bread."]
+    },
+    "business-plan-builder": {
+      "load": [
+        "Here's my business idea: a subscription dog-walking service for the suburbs. Is it worth building? Do the full analysis.",
+        "Evaluate this startup idea and write it up as a business plan: an AI tutor for bar-exam prep."
+      ],
+      "skip": ["What's the difference between TAM and SAM?"]
+    },
+    "html-email-templates": {
+      "load": [
+        "Build the HTML email our nightly backup job sends when it fails, so it renders in Outlook and Gmail.",
+        "I need an email template for the weekly status digest our automation sends out."
+      ],
+      "skip": ["Write a polite email to my landlord asking them to fix the heater."]
+    },
+    "task-router": {
+      "load": [
+        "How should we approach this: review the whole open PR for bugs, performance and security. One agent or several?",
+        "Which model should handle migrating 40 files from moment.js to date-fns?"
+      ],
+      "skip": ["Rename the variable cnt to count in utils.py."]
+    },
+    "news-images": {
+      "load": [
+        "Make today's news collage.",
+        "Create a weekly news montage of this week's top stories."
+      ],
+      "skip": ["Summarize today's top headlines in five bullet points."]
+    },
+    "project-hub-scaffold": {
+      "load": [
+        "Add my ~/work/acme folder as a workspace in our Project Hub.",
+        "Build me a browsable HTML explorer over this project's docs folder, with no build step."
+      ],
+      "skip": ["Set up a Docusaurus site for our API docs."]
+    },
+    "web-house-style": {
+      "load": [
+        "Build a landing page for our new tool that matches the look of our other ai-automation-tools sites.",
+        "Add a Light | Dark switch and a phone layout to this dashboard page, like our other apps."
+      ],
+      "skip": ["Explain the difference between CSS grid and flexbox."]
+    },
+    "automated-dev-pipeline": {
+      "load": [
+        "Set up a scheduled agent that works through each repo's roadmap and opens PRs, with a sweep that reviews and merges them.",
+        "Audit my scheduled Claude jobs for cost and overlapping work."
+      ],
+      "skip": ["Write a GitHub Actions workflow that runs pytest on every push."]
+    },
+    "agent-workspace-builder": {
+      "load": [
+        "Create a new agent workspace repo for legal research, with its own skills, agents and docs.",
+        "Our security-agent workspace's docs and skills have gone stale. Audit it against the standard."
+      ],
+      "skip": ["Create a new Python package repo with a src layout and pytest."]
+    }
+  }
+}
