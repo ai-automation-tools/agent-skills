@@ -42,6 +42,8 @@ output (`dist/`, `_site/`, `.next/`), virtualenvs (`.venv/`, `venv/`), old copie
 
 - **Publish-target repos** (`*.github.io`, `<app>-site`, `<app>-demo`) serve from the root; only
   `README.md` is required.
+- **Data repos** (`roundtable-personas`: files another app reads, no roadmap by design) follow the
+  same rule: only `README.md` is required. The checker names them in `DATA_REPOS`.
 - **`agent-skills`** is a catalog: `skills/<tier>/<category>/<name>/SKILL.md`, tiers and categories
   lowercase too.
 - **Agent workspaces** (`Org_Agents`) add work folders (`findings/`, `research/`, `projects/`…) per

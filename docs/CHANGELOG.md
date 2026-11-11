@@ -27,6 +27,7 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 ## 2026-11-11
 
 **Changed**
+- `repo-docs-builder`: `check-org-layout.py` treats data repos (`DATA_REPOS`, today `roundtable-personas`) like publish targets, so only `README.md` is required. Org Upkeep flagged that repo's five missing docs every week, though it has no roadmap by design. The layout standard states the exception.
 - `docs/ROADMAP.md` rechecked against the org's 2026-11 requirements. The intro names the roadmap routine without its day and time; the Phase 1 intro reads as history, since `validate.yml` has run since 2026-10-01. *Make every skill measurable* is now Phase 3, ahead of the backlog skills (now Phase 4), so fixes to shipped Core skills come before new ones; changelog lines above this one use the old numbers. New items: evals for `agent-workspace-builder`, `automated-dev-pipeline` and `web-house-style`, and a Cronsole catalog with an `agent-skills-update` template once the `-AllAgents` trim lands.
 - `repo-docs-builder`: the roadmap skeleton's intro names the job that works the file, never its days or times. Intros that stated a cadence went stale every time a schedule changed (the 2026-11-09 dispatcher move left 25 of them wrong).
 - `skills/projects/agent-chat/` renamed `skills/projects/roundtable/`, the repo's name since 2026-10-22, with the README, `AGENTS.md`, `USING-SKILLS.md` and showcase references. The three skills keep their `agent-chat-*` names, matching the prefix of roundtable's own skills and the copies already installed there.
