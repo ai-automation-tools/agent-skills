@@ -78,8 +78,9 @@ amber for where the project is now, green for its stage, grey for the way back.
 
 ---
 
-⟨Who works this file and when: "The ⟨name⟩ roadmap routine works this file top to bottom
-every ⟨day⟩", or "Worked by hand".⟩ **Every item above `## ⟨After public release | After
+⟨Who works this file: "The ⟨name⟩ roadmap routine works this file top to bottom, one item per
+run", or "Worked by hand". Name the job, never its days or times: the schedule lives with the job
+and changes.⟩ **Every item above `## ⟨After public release | After
 go-live⟩` is a go-live gate.** Ticking an item adds its line to the [changelog](CHANGELOG.md)
 and updates any doc it made stale, in the same commit.
 
