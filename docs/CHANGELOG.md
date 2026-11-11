@@ -27,6 +27,7 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 ## 2026-11-11
 
 **Changed**
+- `repo-docs-builder`: the roadmap skeleton's intro names the job that works the file, never its days or times. Intros that stated a cadence went stale every time a schedule changed (the 2026-11-09 dispatcher move left 25 of them wrong).
 - `skills/projects/agent-chat/` renamed `skills/projects/roundtable/`, the repo's name since 2026-10-22, with the README, `AGENTS.md`, `USING-SKILLS.md` and showcase references. The three skills keep their `agent-chat-*` names, matching the prefix of roundtable's own skills and the copies already installed there.
 - `AGENTS.md` and `README.md` name seven org agent workspaces, not five: the layout tree, the Domain field list, the harvest note and the `agent-workspace-builder` sync note add `science-agent` and `religion-agent` (harvested since 2026-10-27 and 2026-11-01).
 - `CLAUDE.md` removed; Claude Code reads `AGENTS.md` directly. Its three Claude-only notes moved into a *Claude Code notes* section of `AGENTS.md`, and the layout tree drops it. `AGENTS.md` also points the `project-hub-scaffold` travel copy at project-hub's lowercase `skills/` folder.
