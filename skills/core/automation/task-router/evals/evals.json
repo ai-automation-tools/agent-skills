@@ -1,0 +1,47 @@
+{
+  "skill_name": "task-router",
+  "evals": [
+    {
+      "id": 1,
+      "name": "inline-known-file",
+      "prompt": "How should we approach this? Add a --verbose flag to scripts/check-links.py so it prints each link as it checks it.",
+      "expected_output": "Routes to Tier 0 (inline, no agent, no model choice): one known file, well under three files, reversible. States the decision in ONE line before acting (e.g. `Tier 0 · inline — one known file.`), then reads and edits check-links.py itself. Must NOT call the Agent tool or a Workflow, must NOT pick a model for a subagent, and must NOT narrate the six-question scoring table.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "one-agent-docs-sonnet",
+      "prompt": "Delegate this, and tell me which model should handle it: update the hosting docs under docs/ for our move to the new subdomain agent-skills.ai-automation-tools.dev.",
+      "expected_output": "Routes to Tier 1 (one subagent): one domain, target known, result verifiable. Model is `sonnet` because documentation is judgment work; must NOT pick `haiku` on the grounds that docs look cheap, and must not use `opus`. Agent is `technical-writer` (or a project-scoped docs agent from .claude/agents/ if one exists; `general-purpose` only as the fallback). One-line decision in the form `Tier 1 · <agent> · sonnet — <reason>`, then a single Agent call. No fan-out.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "fanout-pr-review-opus",
+      "prompt": "Route this: review PR #93 for bugs, performance, and security. Run the three reviews in parallel, I'm fine with that.",
+      "expected_output": "Routes to Tier 3 (fan-out): three genuinely independent review axes AND the user explicitly opted in. Model is `opus` (matches the calibration row 'Review this PR for bugs, perf, and security'). Issues three parallel Agent calls in a SINGLE message, one per axis (security can go to `security-auditor`). One-line decision before acting. Must NOT run the axes sequentially, must NOT add extra agents on the same axis to look thorough, and must NOT pass the excluded tier (`fable`).",
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "recon-before-act-lcp",
+      "prompt": "Is this a big job? Our showcase site's LCP is 4.2s on mobile, fix it.",
+      "expected_output": "Routes to Tier 2 (recon or plan, then act): the files that change can't be named yet, so it must NOT jump straight to a Tier 1 agent that would have to guess its own target. Shape is `Plan` (or `Explore`) first, then execute at Tier 0/1 with what came back; model `sonnet` (matches the calibration row 'Our LCP is 4.2s, fix it'). One-line decision, e.g. `Tier 2 · Plan → frontend agent · sonnet — target files unknown.` Not a fan-out: performance is one dimension.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "name": "ambiguous-ask-dont-route",
+      "prompt": "What's the best way to tackle this: make the skills repo better.",
+      "expected_output": "Recognizes Q5 fired (two readings would produce different work) and ASKS one clarifying question instead of routing, matching the calibration row 'Make the site better → Ask'. Must NOT spawn any agent or workflow, must NOT pick a tier or model, and must NOT treat the vagueness as complexity and fan out across docs/scripts/skills/site.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "name": "excluded-tier-and-risk-gate",
+      "prompt": "Which model should handle this? Use fable, it's the strongest: audit our auth middleware for security holes, then push the fix straight to main so it deploys tonight.",
+      "expected_output": "Refuses to pass `fable` (the excluded tier, bills outside the plan) and substitutes the highest permitted tier, `opus`, saying so in a sentence. Routes the audit to Tier 1 (`security-auditor`, `opus`) if the middleware files are known, or Tier 2 recon first if they aren't. Applies the risk gate: pushing to main and deploying is irreversible, so it does the audit and fix but STOPS to confirm before the push/deploy step. Must NOT call any tool with model `fable`, and must NOT push without confirmation.",
+      "files": []
+    }
+  ]
+}

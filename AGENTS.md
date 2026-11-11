@@ -34,6 +34,8 @@ agent-skills/
 │   ├── test-install-skills.ps1     # smoke test: installs into a temp dir, asserts the flat layout and that a name collision throws
 │   ├── test-skill-scripts.py       # stdlib-only tests for recipe-validator's scanner, on fixture recipes
 │   ├── test-skill-scripts.ps1      # tests for the project-hub-scaffold and cronsole-windows-jobs helpers, on fixtures in a temp dir
+│   ├── check-triggers.py           # live auto-invocation test: does each Core skill load unprompted? (not CI: needs `claude`)
+│   ├── trigger-cases.json          # its cases: two requests that should load each Core skill, one near miss that shouldn't
 │   ├── validate-skills.py          # stdlib-only check of every SKILL.md + the indexes (run before a PR)
 │   ├── build-showcase.py           # stdlib-only: regenerates the showcase from skills/ + site/showcase.json; --check in CI
 │   └── check-links.py              # stdlib-only: every relative link in READMEs, docs/ and site/index.html resolves (case-sensitive)
@@ -210,7 +212,9 @@ When asked to validate / review / audit skills, check:
 
 **If you changed a script inside a skill, run `python scripts/test-skill-scripts.py` and `pwsh -NoProfile -File scripts/test-skill-scripts.ps1`.** Both are in `validate.yml`. The Python file covers `recipe-validator/scripts/scan_recipes.py` (parsing, nutrition thresholds, the allergen cross-check and its false friends, the doneness check, the danger patterns, the CLI over a fixture folder). The PowerShell file runs `project-hub-scaffold/scripts/scaffold-hub.ps1` against a fake project-hub checkout and `cronsole-windows-jobs/scripts/Invoke-ScheduledJob.ps1` against fixture jobs (ok, attention, failed, the notifier payload, `-WhatIfChild`); `Register-ScheduledJob.ps1 -WhatIf` and `run-hidden.vbs` are tested only on Windows, so CI skips them. Both work in a temp directory. A new helper script in a skill gets its checks added to the matching file.
 
-Beyond that there is no test runner. Skill-specific `evals/` (e.g. `recipe-validator/evals/evals.json`) define that skill's test cases — use them when validating that skill.
+**If you changed a Core skill's `description`, reinstall it and run `python scripts/check-triggers.py --skill <name>`.** It sends each request in `scripts/trigger-cases.json` to a fresh headless `claude -p` session in an empty folder and checks which skill loads. It tests the installed copy and spends tokens, so it's a local check, not CI. A new Core skill gets its cases added to the JSON.
+
+Beyond that there is no test runner. Skill-specific `evals/` (e.g. `recipe-validator/evals/evals.json`) define that skill's test cases — use them when validating that skill. Seven Core skills ship them: `recipe-validator`, `task-router`, `html-email-templates`, `repo-docs-builder`, `business-plan-builder`, `project-hub-scaffold` and `news-images`.
 
 ---
 

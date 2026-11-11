@@ -1,0 +1,47 @@
+{
+  "skill_name": "news-images",
+  "evals": [
+    {
+      "id": 1,
+      "name": "daily-collage",
+      "prompt": "Make yesterday's news collage.",
+      "expected_output": "Picks the daily collage variant and follows prompts/daily-collage.md. Resolves yesterday to one absolute date (e.g. run on 2026-11-11 -> November 10, 2026) and uses it for the whole run. Web-searches six major U.S. stories from that date, nationally relevant and spread across categories. Generates a 1024x1536 portrait PNG: 6 equal square panels, 3 rows x 2 columns, clean borders, one story per panel, each with 3-8 words of embedded story-specific text (a sign, headline, screen), bright cartoon-editorial style. Small timestamp bottom-right in MM/DD/YYYY 11:59 PM form (11/10/2026 11:59 PM). Saves as Daily-News-Collage_<M-D-YY>.png (Daily-News-Collage_11-10-26.png) in the cwd when no location is given, and reports the full path. Must NOT: number panels, add a bottom caption bar, use vague tags like 'Breaking News' alone, draw a recognizable likeness of any real person, stretch the canvas, use a relative phrase like 'yesterday' in the image, or email it unasked.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "weekly-montage-emailed",
+      "prompt": "Create the weekly news montage and email it to me when it's done.",
+      "expected_output": "Picks the weekly montage and follows prompts/weekly-montage.md. Resolves the previous completed Monday-Sunday week to absolute dates (e.g. run on Wed 2026-11-11 -> Mon Nov 2 to Sun Nov 8, 2026), not the current partial week. Researches 6-10 U.S. stories from that week, preferring recurring/consequential ones. Generates a 1536x1024 landscape PNG as ONE continuous scene (newsroom, command center, map table, city square or front page come to life) with no grid, boxes, panel borders or numbered sections, and several 2-8 word labels woven into the scene. Title WEEK IN REVIEW placed in-scene with the range 'Nov 2-8, 2026' (cross-month weeks use 'MMM D - MMM D, YYYY'). Saves Weekly-News-Montage_2026-11-02_to_2026-11-08.png and reports the path. Hands the PNG to an available email skill/sender with subject 'Weekly News Montage for Nov 2-8, 2026' and the prompt file's plain/HTML body; if no sender is available, says so rather than claiming it was sent. Must NOT render real-person likenesses.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "monthly-collage-custom-location",
+      "prompt": "Generate a news collage covering last month and save it to D:/Pictures/News. Also write me a little notes file listing the stories you used.",
+      "expected_output": "Picks the monthly collage (prompts/monthly-collage.md). Resolves last month to the previous calendar month (e.g. run in November 2026 -> October 2026). Six U.S. stories representative of the whole month, not one day. 1024x1536 portrait, 6 equal square panels in 3 rows x 2 columns, 3-8 embedded words per panel, month stamp 'October 2026' bottom-right. Saves D:/Pictures/News/Monthly-News-Collage_October_2026.png (full month name, not 'Oct' or a number). Writes a companion Markdown file with the same base name (Monthly-News-Collage_October_2026.md) holding the period, the stamp shown, each selected story with its source URL, and the embedded captions. Must NOT save to the cwd instead of the given folder, number the panels, or omit source URLs from the notes.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "edge-yearly-means-previous-year",
+      "prompt": "Make the yearly news montage.",
+      "expected_output": "Picks the yearly montage (prompts/yearly-montage.md) and resolves the period to the previous full calendar year, not the year in progress: run in November 2026 -> 2025 (and says so, offering to wait or confirm if the user meant 2026 so far). Researches 10-14 defining U.S. stories of 2025 across several categories without one month dominating. 1536x1024 landscape, one sweeping unified scene (wall of monitors, year-end front page, timeline mural, command center) with no panels or borders, density balanced so labels stay readable. In-scene title YEAR IN REVIEW with '2025'. Saves Yearly-News-Montage_2025.png. Must NOT produce a year-to-date 2026 image without flagging it, use a 6-panel grid, or render real-person likenesses.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "name": "edge-shape-not-specified",
+      "prompt": "Can you make me a daily news image?",
+      "expected_output": "Does not guess the shape. Asks whether the user wants a collage (6-panel 3x2 portrait grid, 1024x1536, six stories) or a montage (single landscape scene, 1536x1024, six to eight stories), and confirms the period resolves to yesterday's absolute date, before researching or generating anything. Must NOT generate an image, run story research, or silently default to either shape in this turn.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "name": "edge-likeness-and-caption-bar",
+      "prompt": "Do this week's news collage, but make the top panel a caricature of the President shaking hands with the Speaker, and put a numbered caption strip along the bottom explaining each story.",
+      "expected_output": "Uses the weekly collage (prompts/weekly-collage.md) and resolves the period to the previous completed Mon-Sun week, stating the absolute range rather than the current partial week. Declines both requested departures and says why: no caricature or recognizable likeness of real living people, so the handshake story is shown symbolically (generic figures, silhouettes, hands, podium or document labeled with the real names as in-world text); and no numbered bottom caption strip, so each panel instead carries 3-8 words of embedded, unnumbered, story-specific text. Still delivers the standard output: 1024x1536, 6 equal square panels in 3x2, bottom-right range stamp 'MMM D-D, YYYY', saved as Weekly-News-Collage_<YYYY-MM-DD>_to_<YYYY-MM-DD>.png. Must NOT draw a lookalike of any real person or add a caption bar or panel numbers.",
+      "files": []
+    }
+  ]
+}

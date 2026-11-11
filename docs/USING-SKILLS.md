@@ -82,19 +82,43 @@ Skills are picked up from an agent's skills directory. Three options:
 >
 > That flattening is also why **skill names must be unique across the whole repo**, both tiers included: two skills named the same would overwrite each other in the skills directory. The install script throws on a collision rather than letting it happen quietly.
 
-For **Claude Code**, place (or symlink) a skill folder under one of:
+### Where each agent CLI looks
 
-| Scope | Location |
-|:---|:---|
-| Personal (all projects) | `~/.claude/skills/<skill-name>/SKILL.md` |
-| Project (shared via repo) | `<project>/.claude/skills/<skill-name>/SKILL.md` |
+Every CLI below reads the same `<skill-name>/SKILL.md` folder. They differ in where they look,
+which other CLIs' folders they also read, and how you call a skill by name. **`-AllAgents`
+writes** is where the installer puts a copy; **also reads** is what the CLI picks up on its own.
+Checked against each CLI's docs on 2026-11-11.
 
-The folder name should match the skill's `name`. Restart or reload the agent so it re-scans the skills directory.
+| CLI | `-AllAgents` writes | Also reads (user scope) | Project folder | Call it by name |
+|:---|:---|:---|:---|:---|
+| **Claude Code** | `~/.claude/skills` | — | `.claude/skills` | `/<name>` |
+| **Codex** | `~/.agents/skills` (shared with Kimi) | — (`~/.codex/skills` is legacy; a copy there shows up twice) | `.agents/skills`, from the cwd up to the repo root | `$<name>`, or pick from `/skills` |
+| **Kimi Code** | `~/.agents/skills` (shared with Codex) | `~/.kimi-code/skills` | `.kimi-code/skills`, `.agents/skills` at the git root | `/skill:<name>` |
+| **agy** (Antigravity CLI) | `~/.gemini/antigravity-cli/skills` | `~/.gemini/config/skills`, `~/.gemini/skills` | `.agents/skills` (`.agent/skills` still works) | `/<name>`; `/skills reload` after adding one |
+| **Antigravity IDE / App** | `~/.gemini/config/skills` | `~/.gemini/antigravity/skills` (IDE, legacy) | `.agents/skills` | `/<name>` in the App; name it in the prompt in the IDE |
+| **opencode** | `~/.config/opencode/skills` | `~/.claude/skills`, `~/.agents/skills` | `.opencode/skills`, `.claude/skills`, `.agents/skills` | loaded through its `skill` tool |
+| **Kilo** | `~/.kilo/skills` (only if `~/.kilo` exists) | `~/.agents/skills`; `~/.claude/skills` with Claude Code compatibility on | `.kilo/skills`, `.agents/skills` | `/<name>`; `/reload` mid-session |
+
+What follows from the table:
+
+- **All of them load a skill on their own** when a request matches its `description`, so the
+  same trigger wording has to work everywhere. Codex can turn that off per skill
+  (`allow_implicit_invocation`), Kimi with `disableModelInvocation`.
+- **`~/.agents/skills` is the shared folder.** Codex, Kimi, opencode and Kilo all read it.
+  That's why `-AllAgents` installs there once for Codex and Kimi.
+- **Some CLIs get more than one copy.** opencode reads its own folder, `~/.claude/skills` and
+  `~/.agents/skills`, so after `-AllAgents` it finds three identical copies; agy and Kilo find
+  two. The copies are byte-identical, so nothing conflicts, but they can show up more than once
+  in a skill list.
+- **Restart or reload after installing.** Claude Code and Kilo re-scan at session start, agy
+  on `/skills reload`, and Codex picks up changes on its own (restart it if one doesn't appear).
+- **The folder name must match `name:`.** Kilo enforces it; the rest just expect it.
 
 ## Invoking a skill
 
-- **Explicitly** — type `/<skill-name>` in Claude Code (e.g. `/repo-docs-builder`).
-- **Automatically** — the agent may load a skill on its own when your request matches the skill's `description`. This is why a precise, trigger-rich description matters.
+- **Explicitly**: type `/<skill-name>` in Claude Code (e.g. `/repo-docs-builder`). Other CLIs use
+  their own syntax; see the last column of the table above.
+- **Automatically**: the agent may load a skill on its own when your request matches the skill's `description`. This is why a precise, trigger-rich description matters.
 
 ## Authoring a new skill
 
@@ -116,4 +140,5 @@ The folder name should match the skill's `name`. Restart or reload the agent so 
 - If you changed the installer, run `pwsh -NoProfile -File scripts/test-install-skills.ps1`. It installs into a temp directory, never your real skills folder, and fails if the layout isn't flat or a duplicated name doesn't throw. CI runs it too.
 - If you changed a script inside a skill, run `python scripts/test-skill-scripts.py` and `pwsh -NoProfile -File scripts/test-skill-scripts.ps1`. They run the helpers that ship in skills against fixture inputs in a temp directory. Adding a helper script? Add its checks to the matching file. CI runs both.
 - Invoke it explicitly (`/<skill-name>`) on a real task and confirm the output follows the skill's rules.
-- Check auto-invocation: phrase a request that should match the `description` and see whether the agent loads the skill unprompted. If it doesn't, tighten the trigger wording in the description.
+- Check auto-invocation. For each Core skill, [`scripts/trigger-cases.json`](../scripts/trigger-cases.json) holds two requests that should load it, in plain user wording with no skill name, and one near miss that shouldn't. `python scripts/check-triggers.py` sends each one to a fresh headless `claude -p` session in an empty folder, so no repo context helps, and reads which skill the session loaded. A request that should load the skill and doesn't means the `description` needs the user's words; a near miss that loads it means the description is too broad. Loading is not fully deterministic, so re-run a failed case before you edit anything: one miss in three runs is noise, a miss every time is a gap. Then tighten the description, reinstall, and re-run that skill (`--skill <name>`). It tests the installed copy and spends tokens, so it isn't in CI.
+- Run a skill's evals when it has them: `evals/evals.json` lists realistic prompts, each with the behaviour a grader checks for. Seven Core skills ship them.
