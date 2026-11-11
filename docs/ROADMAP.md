@@ -70,7 +70,7 @@ landing page now sends traffic to the site.
 - [x] Raise `--text-faint` to at least 4.5:1 against the card background. It measures about 4:1 today — done 2026-11-11: the token is `--fg-4` since the house-style move. Dark `#71717a` measured 3.8:1 on cards; `#7e7e87` is 4.6:1 or better on every surface. Light already passed (5.4:1+). The footer fine print moved off `--fg-5` (2.4:1)
 - [x] No-JS fallback for the hero panel, so it isn't blank when the script fails — done 2026-10-19: the markup ships one skill's frontmatter; ticked here 2026-11-11
 - [x] Homepage on the About panel. Run `gh repo edit ai-automation-tools/agent-skills --homepage https://agent-skills.ai-automation-tools.dev` — done 2026-11-11: already set; `gh repo view` returns the URL
-- [ ] Decide whether the four seeded `repo-docs-builder` images stay 🔒 Needs owner
+- [ ] Decide whether the four seeded `repo-docs-builder` images stay. Seen 2026-11-11: two of them show other people's products (Amplication's feature grid, an Areg SDK comparison table), so replacing them with output from one of the org's own READMEs is the likely answer 🔒 Needs owner
 - [ ] Check the layout on a real phone 🔒 Needs owner
 
 ### 🧩 Phase 3: skills from the backlog
