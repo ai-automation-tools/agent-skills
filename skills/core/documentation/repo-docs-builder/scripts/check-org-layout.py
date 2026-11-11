@@ -26,6 +26,8 @@ KEBAB = re.compile(r"^[a-z0-9]+(?:[-.][a-z0-9]+)*$")
 TOOL_NAMES = {"__tests__", "node_modules", "__pycache__"}
 # Repos that serve a site from their root: only README.md is required of them.
 PUBLISH_RE = re.compile(r"(\.github\.io|-site|-demo)$", re.IGNORECASE)
+# Data repos: files another app reads (no code, no roadmap by design). Same rule: README.md only.
+DATA_REPOS = {"roundtable-personas"}
 REQUIRED = ("README.md", "AGENTS.md", "docs/README.md", "docs/ROADMAP.md", "docs/CHANGELOG.md")
 # Never committed, at the repo root (build output and scratch) or anywhere (secrets, venvs).
 NEVER_AT_ROOT = {"artifacts", "logs", "temp", "output", "dist", "_site", ".next", "versions", "zip", ".archive"}
@@ -51,7 +53,7 @@ def check_files(name: str, files: list[str], read=lambda rel: "") -> list[str]:
     """Drift for one repo, given its tracked paths. `read` returns a tracked file's text."""
     issues: list[str] = []
     present = set(files)
-    if PUBLISH_RE.search(name):
+    if PUBLISH_RE.search(name) or name.lower() in DATA_REPOS:
         return [] if "README.md" in present else ["missing README.md"]
 
     for rel in REQUIRED:
@@ -147,6 +149,8 @@ def self_check() -> int:
     assert check_files("app", mcp, lambda r: "@AGENTS.md\n[MCP setup](docs/mcp-server.md)") == []
     assert check_files("houston-site", ["index.html", "README.md", "Images/x.png"]) == []
     assert check_files("x.github.io", ["index.html"]) == ["missing README.md"]
+    assert check_files("roundtable-personas", ["README.md", "covers/a.webp", "add_cover.py"]) == []
+    assert check_files("roundtable-personas", ["covers/a.webp"]) == ["missing README.md"]
     with tempfile.TemporaryDirectory() as d:
         root = Path(d)
         for rel in ("Live_Apps/a/.git", "Org_Agents/b/.git", "Archive/c/.git", "Live_Apps/a/sub/.git"):
