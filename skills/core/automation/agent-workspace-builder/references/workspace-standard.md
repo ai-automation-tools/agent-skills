@@ -129,7 +129,8 @@ AGENTS.md carries a short *Other agent CLIs* section pointing at `OTHER-CLIS.md`
 `assets/AGENTS.md`). The generated permission files are held paths: they change what another
 CLI may do. Codex loads a project's `.codex/` only after the user trusts it, which is
 a per-user setting, never something the repo does. opencode needs nothing generated: it
-reads `AGENTS.md` by name. Gemini CLI is no longer a target; the generator still owns
+reads `AGENTS.md` and `.claude/skills/` as they are, so it only gets a section of gaps in
+`OTHER-CLIS.md`. Gemini CLI is no longer a target; the generator still owns
 `.gemini/` and `.geminiignore` so the next run deletes what an older version wrote.
 
 ## `scripts/` and CI
