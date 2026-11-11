@@ -66,7 +66,7 @@ column is what this tier adds on top.
 
 | Project | Already in its own repo (names taken) | Added here |
 |:---|:---|:-:|
-| [💬 **agent-chat**](./agent-chat/README.md) | 6 conversation-protocol skills + `humanizer`, plus 4 maintainer skills | `agent-chat-conv-types` · `agent-chat-delivery` · `agent-chat-run-triage` |
+| [💬 **roundtable**](./roundtable/README.md) | 6 conversation-protocol skills + `humanizer`, plus 4 maintainer skills | `agent-chat-conv-types` · `agent-chat-delivery` · `agent-chat-run-triage` |
 | [⏱️ **cronsole**](./cronsole/README.md) | `cronsole`, `source-doctor`, a connect-pack, plus 2 maintainer skills | `cronsole-windows-jobs` · `cronsole-claude-routines` |
 | [📡 **edge-radar**](./edge-radar/README.md) | `edge-radar`, `edge-radar-analysis`, `betting-logic-review`, plus 4 maintainer skills | `edge-radar-strategy-profiles` · `edge-radar-strategy-evidence` |
 | [🌐 **project-hub**](./project-hub/README.md) | `project-hub-scaffold` *(duplicate of the Core copy)* | `project-hub-scan` · `project-hub-client` · `project-hub-demo` |
@@ -98,7 +98,7 @@ tracks before you publish into it.
 2. Mirror the folder under `resources/skill-data/projects/<repo-slug>/` if it needs examples.
 3. Add a row to the table above.
 
-Use the repo's own slug, lowercased — `agent-chat`, not `Agent-chat`. Casing across the org is
+Use the repo's own slug, lowercased — `edge-radar`, not `Edge-Radar`. Casing across the org is
 inconsistent; this tree is not.
 
 ---

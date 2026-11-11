@@ -14,6 +14,13 @@
 
 **The repo:** MCP server letting two CLI agents hold a structured conversation over a SQLite message bus.
 
+> [!NOTE]
+> **Folder `roundtable`, skills `agent-chat-*`.** The repo was renamed from `Agent-chat` on
+> 2026-10-22 and this folder followed on 2026-11-11. The skill names keep the `agent-chat-` prefix
+> on purpose: the repo's own skills (`agent-chat`, `agent-chat-schema`, …) still use it, and these
+> three are already installed under those names in its `.claude/skills/`. Renaming them would
+> leave the old copies behind on the next install.
+
 ## 📚 The skills
 
 | Skill | Use it for |

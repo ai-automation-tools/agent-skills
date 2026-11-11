@@ -65,7 +65,7 @@ agent-skills/
 │   └── projects/                   # TIER 2 — ADDITIONAL skills for one org repo, installed
 │       │                           #   into that repo on top of the skills it already owns
 │       ├── README.md               # the tier test + per-project index + taken names
-│       └── <repo-slug>/            # agent-chat · cronsole · edge-radar · edge-spectrum · project-hub
+│       └── <repo-slug>/            # roundtable · cronsole · edge-radar · edge-spectrum · project-hub
 │           ├── README.md           # what the repo is, what it already ships, its traps
 │           └── <skill-name>/       # same leaf shape as Core
 └── resources/
@@ -102,7 +102,7 @@ into every unrelated session — which is why a bare install run covers Core onl
 
 **Current Core categories:** `automation`, `business`, `cooking`, `documentation`, `image-gen`, `web` (folders are lowercase-kebab, per the org layout standard). Add a new one only when a skill genuinely fits none of these.
 
-**Current projects:** `agent-chat`, `cronsole`, `edge-radar`, `edge-spectrum`, `project-hub` — the org's repos, slug lowercased regardless of how the repo itself is cased.
+**Current projects:** `roundtable`, `cronsole`, `edge-radar`, `edge-spectrum`, `project-hub` — the org's repos, slug lowercased regardless of how the repo itself is cased.
 
 ### Two folders people confuse
 
