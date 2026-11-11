@@ -8,8 +8,9 @@ description: >-
   workflow, when choosing which model an agent should run on, or when the user asks
   "how should we approach this", "is this a big job", "what's the best way to tackle
   this", "route this", "delegate this", "who should do this", or "which model should
-  handle this". Also use when a task spans several repos, domains, or unknown files,
-  and before any multi-agent fan-out to confirm the fan-out is actually warranted.
+  handle this". Also use when a task spans several repos, domains, review axes or
+  unknown files (a PR review for bugs, performance and security, an audit of every
+  repo), and before any multi-agent fan-out to confirm it is warranted and opted into.
   The cost policy is a parameter — set it once and the routing table follows it.
 ---
 
@@ -125,6 +126,17 @@ fix is upstream of the reported symptom.
 **Do:** parallel `Agent` calls in a single message, or `Workflow` if the user asked for one.
 **Gate:** if the dimensions share state or must run in order, it is Tier 2, not Tier 3.
 
+**What counts as opting in.** Any one of these, for *this* request:
+
+- The user asked for parallel work in their own words: "in parallel", "fan out", "one agent per repo", "use several agents", "use a workflow".
+- The user answered yes when you proposed the fan-out.
+- A CLAUDE.md, AGENTS.md or skill instruction tells you to fan out for this kind of task.
+
+A big task is not an opt-in, and neither is an opt-in given earlier for different work.
+Without one, **propose instead of acting**: one line naming the dimensions, the agent count
+and the model, then ask. For example, `Tier 3 · 3 agents (bugs, perf, security) · opus. Run
+them in parallel?` If the user says no, run the dimensions one after another at Tier 1.
+
 **Escalating a tier costs one more call; de-escalating means throwing away finished work.
 Start one tier low.**
 
@@ -180,9 +192,12 @@ re-check §2 before overriding it.
 | "Rename this concept across the repo" | 2 | `haiku` after recon | `Explore` → mechanical edit |
 | "Our LCP is 4.2s, fix it" | 2 | `sonnet` | `Plan` → Tier 1 |
 | "Migrate auth from sessions to JWT" | 2 | `opus` | `Plan` → execute |
-| "Audit all 20 repos for leaked secrets" | 3 | `sonnet` | Fan out per repo |
-| "Review this PR for bugs, perf, and security" | 3 | `opus` | 3 parallel agents |
+| "Audit all 20 repos for leaked secrets" | 3 | `sonnet` | Fan out per repo † |
+| "Review this PR for bugs, perf, and security" | 3 | `opus` | 3 parallel agents † |
 | "Make the site better" | — | — | **Ask.** Q5 fired. |
+
+† Tier 3 rows show the shape *once the user has opted in* (§3). Asked cold, the right
+response is the one-line proposal, not the fan-out.
 
 ---
 
@@ -192,6 +207,7 @@ re-check §2 before overriding it.
 - **Sending documentation or research to `haiku`** because it "looks cheap." Both are
   judgment work — they are `sonnet`.
 - **Fanning out to look thorough.** Three agents on one dimension is one agent plus noise.
+- **Treating size as consent.** A large or multi-axis task still needs the user's opt-in for Tier 3; propose it in one line and ask.
 - **Tier 1 with an unknown target.** The subagent will guess at what to change. Recon first.
 - **Routing an ambiguous request.** If two readings give different work, ask one question.
 - **Treating a small diff as low risk.** Reversibility, not line count, sets the risk gate.

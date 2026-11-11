@@ -122,7 +122,7 @@ Since 2026-10-05 the cards, chips, group lists and counts are generated from the
 ### 🧹 Smaller things
 
 - [ ] Test the breakpoints on a real phone. The house-style phone pass was checked at 390px in an emulator (no sideways scroll, nav in a menu sheet, tap targets 36px+), not on a device.
-- [ ] Fill the last grid row. Eight cards in three columns leaves one slot empty; `grid-column: span 2` on one card would close it, or leave it as is.
+- [ ] Fill the last grid row. Ten cards in three columns leaves one card alone on the last row; `grid-column: span 3` on it, or `span 2` on two cards above it, would close the gap, or leave it as is.
 - [x] Give the hero panel a no-JS fallback line, so it isn't blank when the script fails to load. It now ships with one skill's frontmatter in the markup. *(2026-10-19)*
 - [x] Add `site/` to the layout diagram in `CLAUDE.md`.
 - [x] Add a link check across the READMEs and the card links, so a renamed skill fails loudly instead of 404ing quietly: `scripts/check-links.py`, in CI. *(2026-10-08)*
