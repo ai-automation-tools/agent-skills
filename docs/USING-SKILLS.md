@@ -19,7 +19,7 @@ skills/
 │       └── <skill-name>/
 └── projects/                # ADDITIONAL skills for one org repo — installs into THAT repo,
     │                        # on top of the skills it already owns
-    └── <repo-slug>/         # agent-chat · cronsole · edge-radar · …
+    └── <repo-slug>/         # roundtable · cronsole · edge-radar · …
         └── <skill-name>/
             └── SKILL.md
 ```

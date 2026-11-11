@@ -80,7 +80,7 @@ Each folder lists the project's existing skills and any additional skills provid
 
 | Project folder | Additional skills in this repo |
 |:---|:---|
-| [**💬 agent-chat**](./skills/projects/agent-chat/README.md) | `agent-chat-conv-types`, `agent-chat-delivery` and `agent-chat-run-triage`. |
+| [**💬 roundtable**](./skills/projects/roundtable/README.md) | `agent-chat-conv-types`, `agent-chat-delivery` and `agent-chat-run-triage`. |
 | [**⏱️ cronsole**](./skills/projects/cronsole/README.md) | `cronsole-windows-jobs` and `cronsole-claude-routines`. |
 | [**📡 edge-radar**](./skills/projects/edge-radar/README.md) | `edge-radar-strategy-profiles` and `edge-radar-strategy-evidence`. |
 | [**📉 edge-spectrum**](./skills/projects/edge-spectrum/README.md) | `edge-spectrum-hub-tool`, `edge-spectrum-dataset` and `edge-spectrum-endpoint`. |
