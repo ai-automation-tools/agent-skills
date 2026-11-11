@@ -25,6 +25,9 @@ Whatever doesn't carry over is listed per CLI in docs/reference/OTHER-CLIS.md, s
 under another CLI knows which guardrail it is running without. Codex loads a project's
 .codex/ only once the user has trusted the folder.
 
+opencode needs nothing generated: it reads AGENTS.md and .claude/skills/ as they are
+(opencode.ai/docs/skills, opencode.ai/docs/rules), so it only gets a section of gaps.
+
 Gemini CLI is no longer a target (dropped 2026-10-22). `.gemini/` and `.geminiignore` stay in
 OWNED so the next run deletes what an older version generated; --check reports them until then.
 
@@ -119,7 +122,7 @@ def relative_hook(command: str) -> str:
 def build(root: Path) -> tuple[dict[str, bytes], dict[str, list[str]]]:
     """Every generated file as {relative path: bytes}, plus the gaps per CLI."""
     files: dict[str, bytes] = {}
-    gaps: dict[str, list[str]] = {"Codex": [], "Antigravity": []}
+    gaps: dict[str, list[str]] = {"Codex": [], "Antigravity": [], "opencode": []}
 
     def put(rel: str, text: str) -> None:
         files[rel] = text.encode("utf-8")
@@ -147,6 +150,7 @@ def build(root: Path) -> tuple[dict[str, bytes], dict[str, list[str]]]:
         names = ", ".join(f"`/{c.stem}`" for c in commands)
         gaps["Codex"].append(f"Commands ({names}) aren't generated: describe the task and the matching skill loads.")
         gaps["Antigravity"].append(f"Commands ({names}) aren't generated: describe the task and the matching skill loads.")
+        gaps["opencode"].append(f"Commands ({names}) aren't generated: describe the task and the matching skill loads.")
 
     # Agents: Codex has repo-level agent definitions with instructions but no per-agent tool list.
     agents = sorted((claude / "agents").glob("*.md"))
@@ -164,6 +168,7 @@ def build(root: Path) -> tuple[dict[str, bytes], dict[str, list[str]]]:
         names = ", ".join(f"`{a.stem}`" for a in agents)
         gaps["Antigravity"].append(f"Reviewer agents ({names}) aren't generated (their tool names differ): ask for the review and point the session at `.claude/agents/<name>.md`.")
         gaps["Codex"].append(f"Reviewer agents ({names}) carry their tool limits as an instruction only; Codex has no per-agent tool list.")
+        gaps["opencode"].append(f"Reviewer agents ({names}) aren't generated: ask for the review and point the session at `.claude/agents/<name>.md`.")
 
     # MCP servers.
     codex_mcp, agy_mcp = [], {}
@@ -212,6 +217,7 @@ def build(root: Path) -> tuple[dict[str, bytes], dict[str, list[str]]]:
                 if event == "PreToolUse" and e.get("matcher") == "Bash":
                     codex_hooks.append({"matcher": "Bash", "hooks": [{"type": "command", "command": cmd}]})
                     gaps["Antigravity"].append(f"The `{event}` hook `{cmd}` doesn't run: Antigravity's hook payload has a different shape. Its guard does not apply.")
+                    gaps["opencode"].append(f"The `{event}` hook `{cmd}` doesn't run: opencode has plugins, not shell hooks. Its guard does not apply.")
                 else:
                     for items in gaps.values():
                         items.append(f"The `{event}` hook `{cmd}` (matcher `{e.get('matcher', '*')}`) is Claude Code only.")
@@ -221,6 +227,12 @@ def build(root: Path) -> tuple[dict[str, bytes], dict[str, list[str]]]:
     if perms:
         gaps["Antigravity"].append("No repo-level permissions file exists: none of `.claude/settings.json`'s allow, ask or deny rules apply. "
                                    "Set them in your user `settings.json` (`~/.gemini/antigravity-cli/`) or the app before working here.")
+    if mcp:
+        gaps["opencode"].append(f"MCP servers ({', '.join(f'`{n}`' for n in mcp)}) aren't generated: add them to your `opencode.json` if you want them.")
+    if perms:
+        gaps["opencode"].append("None of `.claude/settings.json`'s allow, ask or deny rules apply. "
+                                "Set `permission` in your `opencode.json` before working here.")
+    gaps["opencode"].insert(0, "opencode reads `AGENTS.md` and `.claude/skills/` (and `.agents/skills/`) as they are; nothing is generated for it.")
     gaps["Codex"].insert(0, "Codex loads `.codex/` only after you trust this folder; "
                             "until then none of its settings, rules, hooks or MCP servers apply.")
 
@@ -233,10 +245,10 @@ def render_doc(root: Path, files: dict[str, bytes], gaps: dict[str, list[str]]) 
     skills = sorted({p.split("/")[2] for p in files if p.startswith(".agents/skills/")})
     out = [f"<!-- {NOTE} -->", "", "# 🔀 Other agent CLIs", "",
            ("This workspace is built for Claude Code (`.claude/`), and `scripts/gen-vendor-configs.py` "
-            "derives what it can for Codex and Antigravity. `AGENTS.md` is the doctrine for all of "
+            "derives what it can for Codex and Antigravity; opencode reads the Claude Code layout directly. `AGENTS.md` is the doctrine for all of "
             "them. Edit `.claude/` or `.mcp.json`, then rerun the script; never edit the generated files."), "",
            "## What carries over", "",
-           f"- **Skills** ({len(skills)}): `.agents/skills/`, read by both." if skills else "- **Skills:** none wired.",
+           f"- **Skills** ({len(skills)}): `.agents/skills/`, read by Codex and Antigravity; opencode reads `.claude/skills/`." if skills else "- **Skills:** none wired.",
            "- **Generated files:** " + ", ".join(f"`{p}`" for p in gen if p != DOC), "",
            "## What doesn't, per CLI", "",
            "Read this before relying on a guardrail outside Claude Code.", ""]
@@ -341,7 +353,7 @@ def self_check() -> int:
 
         files, gaps = build(root)
         assert not any(p.startswith(".gemini") for p in files), sorted(files)
-        assert list(gaps) == ["Codex", "Antigravity"], list(gaps)
+        assert list(gaps) == ["Codex", "Antigravity", "opencode"], list(gaps)
 
         assert run(root, check=True) == 1
         assert run(root, check=False) == 0
@@ -362,6 +374,7 @@ def self_check() -> int:
         doc = (root / DOC).read_text(encoding="utf-8")
         assert "`Write(data/raw/**)` (ask) has no equivalent" in doc and "UserPromptSubmit" in doc
         assert "Gemini" not in doc and "### Codex" in doc and "### Antigravity" in doc
+        assert "### opencode" in doc and "opencode has plugins" in doc and "`m`, `h`" in doc
         (root / ".claude/commands/go.md").unlink()
         assert run(root, check=True) == 1  # a removed source leaves a stale generated file
     print("self-check ok")
