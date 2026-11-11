@@ -17,8 +17,7 @@ A **Skill** = a single `SKILL.md` (YAML frontmatter + instructions) that an agen
 ```
 agent-skills/
 ├── README.md                       # public index — Skills table by category + Docs table
-├── AGENTS.md                       # this file: the rules every agent CLI reads
-├── CLAUDE.md                       # `@AGENTS.md` plus Claude-only notes
+├── AGENTS.md                       # this file: the rules every agent CLI reads (Claude Code included; no CLAUDE.md)
 ├── SECURITY.md                     # how to report a vulnerability, what's in scope, the secret-scan command
 ├── .gitignore
 ├── .github/workflows/
@@ -57,9 +56,10 @@ agent-skills/
 │   │           ├── prompts/        # optional: prompt templates the skill follows
 │   │           ├── evals/          # optional: TRACKED test-case definitions
 │   │           └── reports/        # optional: gitignored RUN OUTPUT (never committed)
-│   ├── domain/                     # TIER 3 — portable FIELD skills mirrored from the five org
+│   ├── domain/                     # TIER 3 — portable FIELD skills mirrored from the seven org
 │   │   ├── README.md               #   agent workspaces by the weekly harvest. Opt-in install
-│   │   └── <domain>/<skill-name>/  #   (-Domain). Engineering · Security · Business · Media · API
+│   │   └── <domain>/<skill-name>/  #   (-Domain). Engineering · Security · Business · Media · API ·
+│   │                               #   Science · Religion
 │   └── projects/                   # TIER 2 — ADDITIONAL skills for one org repo, installed
 │       │                           #   into that repo on top of the skills it already owns
 │       ├── README.md               # the tier test + per-project index + taken names
@@ -88,7 +88,7 @@ was written for?**
 
 **Domain is the harvest's tier, not an authoring choice.** A new skill you write here is Core or
 Projects. Domain holds only what the weekly Skill Harvest mirrors from the workspaces, grouped by
-field (`engineering`, `security`, `business`, `media`, `api`), so Core stays short and highlighted.
+field (`engineering`, `security`, `business`, `media`, `api`, `science`, `religion`), so Core stays short and highlighted.
 
 The test is **where you invoke it**, not what it is about. `project-hub-scaffold` is Core despite
 being named for an org product, because you run it from whatever repo is *getting* a hub.
@@ -150,10 +150,10 @@ Before finishing an edit to any skill, check whether another skill *references* 
 
 **The project tier is additive.** Every org repo keeps its own skills — a shipped `skills/` and a tracked `.claude/skills/`, both edited in that repo. `skills/projects/<repo>/` is a second layer installed on top. Never move a repo's skills into here, and never assume a name is free: installs are flat, so an overlay can overwrite a skill the repo owns. Each project README lists the taken names, and the installer marks rows `New` or `Replaced` plus warns when a `-Project` install replaced anything.
 
-**One real duplicate exists.** `project-hub-scaffold` sits here (Core) *and* in the `project-hub` repo, kept byte-identical. This repo is canonical: edit here, then copy the folder to `project-hub/Skills/project-hub-scaffold/` in the same change. Since 2026-10-22 `project-hub`'s CI (`scaffold copy` job in `test.yml`) diffs its copy against this repo's `main` and fails on drift, so a feature PR there that updates only the travel copy goes red until this side matches. It is a one-off, not a pattern to copy.
+**One real duplicate exists.** `project-hub-scaffold` sits here (Core) *and* in the `project-hub` repo, kept byte-identical. This repo is canonical: edit here, then copy the folder to `project-hub/skills/project-hub-scaffold/` in the same change. Since 2026-10-22 `project-hub`'s CI (`scaffold copy` job in `test.yml`) diffs its copy against this repo's `main` and fails on drift, so a feature PR there that updates only the travel copy goes red until this side matches. It is a one-off, not a pattern to copy.
 
 > [!IMPORTANT]
-> **Harvested skills are mirrors. Don't edit them here.** Since 2026-09-22 a weekly Skill Harvest job (Sun 08:00, `\AI-Automation-Tools-Org\Integrate-Projects\`) copies portable skills from the five org agent workspaces (`api-agent`, `business-agent`, `security-agent`, `fullstack-agent`, `media-agent`) into `skills/domain/<domain>/`, byte for byte, by `harvest/auto-<date>` PR. [`docs/HARVEST.md`](./docs/HARVEST.md) lists every one with its source. Edit the skill in its workspace repo and the next harvest re-syncs it. An edit made here gets flagged, not merged back. The roadmap routine follows the same rule.
+> **Harvested skills are mirrors. Don't edit them here.** Since 2026-09-22 a weekly Skill Harvest job (Sun 08:00, `\AI-Automation-Tools-Org\Integrate-Projects\`) copies portable skills from the seven org agent workspaces (`api-agent`, `business-agent`, `security-agent`, `fullstack-agent`, `media-agent`, `science-agent`, `religion-agent`) into `skills/domain/<domain>/`, byte for byte, by `harvest/auto-<date>` PR. [`docs/HARVEST.md`](./docs/HARVEST.md) lists every one with its source. Edit the skill in its workspace repo and the next harvest re-syncs it. An edit made here gets flagged, not merged back. The roadmap routine follows the same rule.
 
 > [!NOTE]
 > **Prefer one self-contained skill over a composite.** [`repo-docs-builder`](./skills/core/documentation/repo-docs-builder/SKILL.md) used to be an orchestrator that referenced three source skills (`readme-builder-mfs`, `readme-header-mfs`, `repo-docs-mfs`); on 2026-08-05 all four were merged into it and the three sources retired. The composite kept drifting out of sync with its sources, and the split forced a reader to load three files to build one README. If you're tempted to build a new "mega" skill that composes others, prefer folding the content into one skill with clear sections — and if you do build a composite, add a "keep synced" note here naming its sources.
@@ -171,7 +171,7 @@ Before finishing an edit to any skill, check whether another skill *references* 
 > **Keep synced — `automated-dev-pipeline`.** Added 2026-09-23. A general skill for building, publishing and keeping repos current with scheduled agents, for a personal account or an organization. Its design rules, stage contracts, keep-current guidance and audit checklist were written from the live `ai-automation-tools` pipeline (stage prompts and runner in `~/.claude/routines/jobs/_org-pipeline/`, publish and security scripts in `GitHub-Org-Security/`). That pipeline's paths and parameter values are deliberately **not** in this repo: they're in `~/.claude/routines/jobs/_org-pipeline/reference-implementation.md`, which the skill points to. **This repo's copy is canonical.** Edit it here and reinstall with `install-skills.ps1 -AllAgents -Skill automated-dev-pipeline` (Claude Code, Codex + Kimi, agy, the Antigravity IDE and opencode; Kilo when installed), never in an installed copy, because the install wipes those folders. When the pipeline learns a new rule, fold it into the skill by hand. There is no automatic sync.
 
 > [!NOTE]
-> **Keep synced — `agent-workspace-builder`.** Added 2026-10-20. Its `scripts/` are the canonical copies of the checks the five Org_Agents workspaces (`api-agent`, `business-agent`, `security-agent`, `fullstack-agent`, `media-agent`) carry in their own `scripts/`, and its `assets/upkeep-prompt.md` is the portable form of the live shared upkeep prompt in `~/.claude/routines/jobs/_workspace-refresh-prompt.md`. **This repo's copy is canonical.** When a script changes here, copy it into each workspace by PR; when the live prompt learns something portable, fold it into the asset by hand. There is no automatic sync.
+> **Keep synced — `agent-workspace-builder`.** Added 2026-10-20. Its `scripts/` are the canonical copies of the checks the seven Org_Agents workspaces (`api-agent`, `business-agent`, `security-agent`, `fullstack-agent`, `media-agent`, `science-agent`, `religion-agent`) carry in their own `scripts/`, and its `assets/upkeep-prompt.md` is the portable form of the live shared upkeep prompt in `~/.claude/routines/jobs/_workspace-refresh-prompt.md`. **This repo's copy is canonical.** When a script changes here, copy it into each workspace by PR; when the live prompt learns something portable, fold it into the asset by hand. There is no automatic sync.
 
 > [!NOTE]
 > **Keep synced — `repo-docs-builder` §0.** On 2026-08-05 the voice rules from the external `humanizer` skill (kept outside this repo) were adapted into `repo-docs-builder` §0 rather than referenced, so the builder needs one file to write a README. The copy is **condensed and docs-scoped**, not verbatim: it drops the essay-writing examples, adds §0.1 carve-outs so the house-style emoji headers / bold leftmost links / badges survive the pass, and softens the humanizer's blanket de-hyphenation rule (technical compounds like `end-to-end` keep their hyphens). If the upstream humanizer gains new patterns, fold the docs-relevant ones into §0.2 by hand — there is no automatic sync.
@@ -221,6 +221,18 @@ Beyond that there is no test runner. Skill-specific `evals/` (e.g. `recipe-valid
 - **Never commit:** secrets (`.env*`, `*.key`), OS cruft, and per-skill `reports/` run output (all covered by `.gitignore` — verify before committing).
 - **Git.** Remote is `ai-automation-tools/agent-skills`; changes reach `main` only through a PR, from `mike_desktop` or a job's own branch (moved from `michaelschecht/` 2026-09-09, renamed from `My-Custom-Skills` 2026-09-10; both old paths redirect, but repoint any clone with `git remote set-url`). Commit/push **only when Mike asks.** Imperative-mood subjects matching the existing log ("Organize skills into category folders"). Small, focused commits.
 - **Read before editing.** Match the style and structure of the skill/doc you're changing. When a task targets one skill, read its `SKILL.md` (and its `references/`) first.
+
+---
+
+## Claude Code notes
+
+Claude Code reads this file directly, so the repo has no `CLAUDE.md`. Keep every rule here; don't add one back.
+
+- **Skills surface as `/skill-name`.** Use that to live-test a skill (`/<skill-name>` on a real task),
+  then phrase a request that should match its `description` and check that Claude loads it unprompted.
+- **`/skill-writer`** is the canonical authoring guide for structure and frontmatter questions, where it's installed.
+- **User scope is `~/.claude/skills`.** `install-skills.ps1 -Core` writes there; never edit an installed
+  copy, because the next install wipes it. Edit the skill here and reinstall.
 
 ---
 

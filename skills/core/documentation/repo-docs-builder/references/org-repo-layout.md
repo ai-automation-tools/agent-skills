@@ -20,7 +20,7 @@ and the per-repo migration list: `Custom-Domains/Public-ai-automation-tools.dev/
 
 | Content | Path | Rule |
 |:---|:---|:---|
-| Agent instructions | `AGENTS.md` + `CLAUDE.md` | `AGENTS.md` is canonical (Codex, opencode, Antigravity read it); `CLAUDE.md` is a bare `@AGENTS.md` plus Claude-only notes |
+| Agent instructions | `AGENTS.md` (+ optional `CLAUDE.md`) | `AGENTS.md` is canonical (Claude Code, Codex, opencode, Antigravity read it). A `CLAUDE.md` is optional; if a repo keeps one, it is a bare `@AGENTS.md` plus Claude-only notes |
 | Docs | `docs/` | `README.md` hub, `ROADMAP.md`, `CHANGELOG.md`; `UPSTREAMS.md` once live. Subfolders from this list before inventing one: `setup/`, `guides/`, `architecture/`, `decisions/` (ADRs), `product/`, `diagrams/`, `reports/`, `testing/` |
 | Diagrams | `docs/diagrams/` | Source (`.mmd`, `.json`, `.dot`) next to its render (`.svg`, `.png`, `.html`). A script that builds them lives in `scripts/` |
 | App / library code | `src/` | A split stack uses `backend/src/` + `frontend/src/` instead |
@@ -57,8 +57,8 @@ python scripts/check-org-layout.py --root <Repos/AI-Automation-Tools>   # every 
 python scripts/check-org-layout.py --repo <one repo>
 ```
 
-It checks: the required files (`README.md`, `AGENTS.md`, `CLAUDE.md`, `docs/README.md`,
-`docs/ROADMAP.md`, `docs/CHANGELOG.md`), that `CLAUDE.md` imports `AGENTS.md`, lowercase-kebab
+It checks: the required files (`README.md`, `AGENTS.md`, `docs/README.md`,
+`docs/ROADMAP.md`, `docs/CHANGELOG.md`), that a `CLAUDE.md`, where one exists, imports `AGENTS.md`, lowercase-kebab
 spelling for root folders and everything under `docs/`, `test/`, the never-committed folders, tracked
 `.env*` files, `docs/prompts/` and `docs/images/`, and `docs/mcp-server.md` wherever an MCP server is
 found, linked from the root `README.md`. Publish-target repos only need `README.md`. A `.env*.example` file, and a Vite mode file whose

@@ -26,7 +26,7 @@ KEBAB = re.compile(r"^[a-z0-9]+(?:[-.][a-z0-9]+)*$")
 TOOL_NAMES = {"__tests__", "node_modules", "__pycache__"}
 # Repos that serve a site from their root: only README.md is required of them.
 PUBLISH_RE = re.compile(r"(\.github\.io|-site|-demo)$", re.IGNORECASE)
-REQUIRED = ("README.md", "AGENTS.md", "CLAUDE.md", "docs/README.md", "docs/ROADMAP.md", "docs/CHANGELOG.md")
+REQUIRED = ("README.md", "AGENTS.md", "docs/README.md", "docs/ROADMAP.md", "docs/CHANGELOG.md")
 # Never committed, at the repo root (build output and scratch) or anywhere (secrets, venvs).
 NEVER_AT_ROOT = {"artifacts", "logs", "temp", "output", "dist", "_site", ".next", "versions", "zip", ".archive"}
 NEVER_ANYWHERE = {".venv", "venv"}
@@ -141,6 +141,7 @@ def self_check() -> int:
                  "should be ignored: artifacts/", "tracked virtualenv: venv/", "docs/prompts/", "docs/mcp-server.md"):
         assert want in found, f"self-check expected {want!r} in:\n{found}"
     assert check_files("app", ["README.md", "AGENTS.md", "CLAUDE.md"], lambda r: "copied text")[-1].startswith("CLAUDE.md does not import")
+    assert check_files("app", [f for f in good if f != "CLAUDE.md"]) == []  # CLAUDE.md is optional
     mcp = good + ["docs/mcp-server.md"]
     assert check_files("app", mcp, lambda r: "@AGENTS.md\n")[-1] == "root README.md does not link docs/mcp-server.md"
     assert check_files("app", mcp, lambda r: "@AGENTS.md\n[MCP setup](docs/mcp-server.md)") == []

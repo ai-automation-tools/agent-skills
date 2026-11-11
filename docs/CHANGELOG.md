@@ -24,6 +24,14 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-11-11
+
+**Changed**
+- `AGENTS.md` and `README.md` name seven org agent workspaces, not five: the layout tree, the Domain field list, the harvest note and the `agent-workspace-builder` sync note add `science-agent` and `religion-agent` (harvested since 2026-10-27 and 2026-11-01).
+- `CLAUDE.md` removed; Claude Code reads `AGENTS.md` directly. Its three Claude-only notes moved into a *Claude Code notes* section of `AGENTS.md`, and the layout tree drops it. `AGENTS.md` also points the `project-hub-scaffold` travel copy at project-hub's lowercase `skills/` folder.
+- `repo-docs-builder`: the org layout standard makes `CLAUDE.md` optional. `check-org-layout.py` no longer requires it, still flags one that doesn't import `AGENTS.md`, and its self-check covers a repo without one.
+- `docs/OPEN-QUESTIONS.md`: private vulnerability reporting stays off on this repo (owner's answer); `SECURITY.md` keeps the email route.
+
 ## 2026-11-08
 
 **Changed**
