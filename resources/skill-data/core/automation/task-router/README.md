@@ -13,6 +13,8 @@
 
 Shape comes first because it is the expensive mistake. A fan-out for a typo burns tokens and wall-clock; an inline guess at an architecture change burns an afternoon. Model choice only matters once the shape is right.
 
+Tier 3 also needs the user's opt-in for that request: they asked for parallel work, said yes to a proposed fan-out, or an instruction file says to fan out for this kind of task. A big task alone isn't consent. Without an opt-in the skill proposes the fan-out in one line (dimensions, agent count, model) and asks.
+
 ## Why it exists
 
 Two problems, one skill:
@@ -35,6 +37,7 @@ Supporting notes about the skill. Nothing here is read at runtime — the skill 
 | Path | What it is |
 |:---|:---|
 | *(this README)* | Rationale and the model policy in one place. |
+| [`evals/evals.json`](../../../../../skills/core/automation/task-router/evals/evals.json) | Seven graded cases, from an inline answer to a fan-out, including one that must propose rather than fan out unasked. |
 
 > [!NOTE]
 > The skill's own **§6 Calibration** table is its test fixture — fourteen worked examples from "fix the typo" (Tier 0) to "make the site better" (ask, don't route). If a routing decision disagrees with the nearest row, the table is what to check first. Promote it to a tracked `evals/evals.json` only if routing decisions start drifting from it in practice.
