@@ -33,8 +33,10 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 - `docs/SKILL-IDEAS.md`: the `repo-doc-structure` idea is struck; `repo-docs-builder` covers it. *Phase 3*
 - `docs/ROADMAP.md`: four items that had already shipped are ticked with their evidence: filter-chip `aria-pressed` and the no-JS hero (both 2026-10-19), the homepage URL on the About panel, and the `project-hub-scaffold` drift check (project-hub's `scaffold copy` CI job, since 2026-10-22). *Phase 1, Phase 2*
 - `docs/OPEN-QUESTIONS.md`: private vulnerability reporting stays off on this repo (owner's answer); `SECURITY.md` keeps the email route.
+- `web-house-style`: dark `--fg-4` is `#7e7e87` (was zinc-500 `#71717a`, 3.8:1 on cards), in `design-system.md` and both starters, with the dark contrast ratios noted beside the tokens. `--fg-5` is now decorative-only in both themes, so the footer `.fine` line and the app shell's sidebar group labels use `--fg-4`. The verify checklist covers both themes.
 
 **Site**
+- The `html-email-templates` gallery image no longer shows local paths: the script and log rows read `C:\jobs\docs-refresh\…`.
 - Social preview: `og:image` (`assets/img/og.png`, 1200×630, captured from the page) and a `summary_large_image` `twitter:card`. *Phase 2*
 - Every showcase PNG is WebP now, 967 KB to 319 KB; `web-house-style`'s overview page follows. *Phase 2*
 - Lightbox: Tab stays inside it while open, and each image has its own alt text. `showcase.json` takes an `alts` list for a card's extra images, and `build-showcase.py` writes it into the card as `data-alts`. *Phase 2*

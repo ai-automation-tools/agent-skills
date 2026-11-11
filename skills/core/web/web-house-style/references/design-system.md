@@ -31,8 +31,8 @@ blocks.
   --thumb: #27272a;
   /* lines */
   --line: rgba(63,63,70,.45);  --line-2: rgba(63,63,70,.8);  --line-hover: #52525b;  --rule: rgba(39,39,42,.6);
-  /* text, brightest to faintest */
-  --fg: #f4f4f5;  --fg-2: #d4d4d8;  --fg-3: #a1a1aa;  --fg-4: #71717a;  --fg-5: #52525b;
+  /* text, brightest to faintest. Contrast on #060606: 18.4 · 13.7 · 7.9 · 5.0 · 2.6 */
+  --fg: #f4f4f5;  --fg-2: #d4d4d8;  --fg-3: #a1a1aa;  --fg-4: #7e7e87;  --fg-5: #52525b;
   --fg-max: #fff;  --on-fg: #09090b;
   /* accent: the site's own hue, 400 weight (sky shown) */
   --accent: #38bdf8;  --accent-hover: #7dd3fc;  --accent-ink: #0b1220;
@@ -76,8 +76,10 @@ html.light {
 }
 ```
 
-`--fg-5` in light is 4.3:1 — use it only for large or decorative text (hints,
-counters). Body text is `--fg-2` or `--fg-3`.
+`--fg-4` is the faintest colour for small text: at least 4.5:1 on every surface in both
+themes (dark `#7e7e87` is 4.6:1 on a card; it was zinc-500 `#71717a`, 3.8:1, until
+2026-11-11). `--fg-5` (dark 2.6:1, light 4.3:1) is for decorative marks only: syntax
+punctuation, dividers, disabled states. Body text is `--fg-2` or `--fg-3`.
 
 ### Accent per site
 
@@ -358,7 +360,7 @@ centred `--pop-bg` panel over `--scrim`, arrow keys + Enter, Esc closes.
 
 **Footer** — one row: the site's domain in mono on the left; GitHub, the org home
 (`ai-automation-tools.dev`), *Cookies* and *Cookie settings* on the right; an optional
-`.fine` disclaimer line under it in `--fg-5`.
+`.fine` disclaimer line under it in `--fg-4`.
 
 **Consent** — public sites load the shared banner and expose its settings link:
 

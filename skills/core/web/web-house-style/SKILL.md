@@ -136,7 +136,7 @@ Every rule sits inside `@media (max-width: 600px)`, `(hover: none)` or
 ## Verify
 
 - [ ] Reload in light mode: no dark frame before paint; the address-bar colour follows.
-- [ ] Both themes: every text colour readable (light `--fg-4` and up are ≥ 4.5:1 on `#fafafa`), icons with a black or white mark keep a visible edge.
+- [ ] Both themes: every text colour readable (`--fg-4` and up are ≥ 4.5:1 on every surface in both themes; `--fg-5` never carries small text), icons with a black or white mark keep a visible edge.
 - [ ] `grep -nE '#[0-9a-fA-F]{3,8}|rgba?\(' ` the rules below the token blocks: only token references remain (plus the GitHub button).
 - [ ] The source bar is the first element in `<body>` and links the public repo.
 - [ ] Keyboard: Tab from the top reaches the skip link first; every control shows a focus ring.
