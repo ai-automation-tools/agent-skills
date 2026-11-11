@@ -30,7 +30,15 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 - `AGENTS.md` and `README.md` name seven org agent workspaces, not five: the layout tree, the Domain field list, the harvest note and the `agent-workspace-builder` sync note add `science-agent` and `religion-agent` (harvested since 2026-10-27 and 2026-11-01).
 - `CLAUDE.md` removed; Claude Code reads `AGENTS.md` directly. Its three Claude-only notes moved into a *Claude Code notes* section of `AGENTS.md`, and the layout tree drops it. `AGENTS.md` also points the `project-hub-scaffold` travel copy at project-hub's lowercase `skills/` folder.
 - `repo-docs-builder`: the org layout standard makes `CLAUDE.md` optional. `check-org-layout.py` no longer requires it, still flags one that doesn't import `AGENTS.md`, and its self-check covers a repo without one.
+- `docs/SKILL-IDEAS.md`: the `repo-doc-structure` idea is struck; `repo-docs-builder` covers it. *Phase 3*
+- `docs/ROADMAP.md`: four items that had already shipped are ticked with their evidence: filter-chip `aria-pressed` and the no-JS hero (both 2026-10-19), the homepage URL on the About panel, and the `project-hub-scaffold` drift check (project-hub's `scaffold copy` CI job, since 2026-10-22). *Phase 1, Phase 2*
 - `docs/OPEN-QUESTIONS.md`: private vulnerability reporting stays off on this repo (owner's answer); `SECURITY.md` keeps the email route.
+
+**Site**
+- Social preview: `og:image` (`assets/img/og.png`, 1200×630, captured from the page) and a `summary_large_image` `twitter:card`. *Phase 2*
+- Every showcase PNG is WebP now, 967 KB to 319 KB; `web-house-style`'s overview page follows. *Phase 2*
+- Lightbox: Tab stays inside it while open, and each image has its own alt text. `showcase.json` takes an `alts` list for a card's extra images, and `build-showcase.py` writes it into the card as `data-alts`. *Phase 2*
+- Dark `--fg-4` is `#7e7e87` (was `#71717a`, 3.8:1 on cards), so faint text passes 4.5:1 on every surface; the footer fine print moves from `--fg-5` to `--fg-4`. *Phase 2*
 
 ## 2026-11-08
 

@@ -9,7 +9,7 @@ A running backlog of candidate skills to build. Move an idea into the [Skills ta
 
 | Idea | What it would do |
 |:---|:---|
-| **repo-doc-structure** | Scaffold a repo's documentation layout — standard `docs/` tree, README/CONTRIBUTING/CHANGELOG stubs, and a consistent structure across projects. _(Category: Github.)_ |
+| ~~**repo-doc-structure**~~ | ~~Scaffold a repo's documentation layout — standard `docs/` tree, README/CONTRIBUTING/CHANGELOG stubs, and a consistent structure across projects.~~ Retired 2026-11-11: [`repo-docs-builder`](../skills/core/documentation/repo-docs-builder/SKILL.md) covers it (layout, docs tree, README at every level, ROADMAP and CHANGELOG). |
 | **commit-msg-writer** | Write clean, imperative-mood commit messages matched to a repo's existing log style (conventional vs. plain). |
 | **changelog-keeper** | Maintain a `CHANGELOG.md` in Keep-a-Changelog format from a range of commits. |
 | **obsidian-note-author** | Author Obsidian-flavored notes with correct frontmatter, wikilinks, callouts, and tags for the AI Lab vault. |

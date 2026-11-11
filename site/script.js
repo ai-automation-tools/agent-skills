@@ -167,10 +167,15 @@
         no request 404s.
      --------------------------------------------------------- */
   var gallery = {}; // skill name -> array of urls
+  var galleryAlts = {}; // skill name -> alt per url: the card's own alt, then data-alts
   document.querySelectorAll(".card-media[data-shots]").forEach(function (media) {
     var img = media.querySelector(".shot");
     var name = img && img.getAttribute("data-name");
-    if (name) gallery[name] = media.getAttribute("data-shots").split(/\s+/).filter(Boolean);
+    if (!name) return;
+    gallery[name] = media.getAttribute("data-shots").split(/\s+/).filter(Boolean);
+    var rest = [];
+    try { rest = JSON.parse(media.getAttribute("data-alts") || "[]"); } catch (e) {}
+    galleryAlts[name] = [img.alt].concat(rest);
   });
 
   /* ---------------------------------------------------------
@@ -197,7 +202,7 @@
   function paintLightbox() {
     var url = lbState.items[lbState.index];
     lbImg.src = url;
-    lbImg.alt = lbState.name + " — preview " + (lbState.index + 1);
+    lbImg.alt = (galleryAlts[lbState.name] || [])[lbState.index] || lbState.name + " — image " + (lbState.index + 1);
     lbCap.textContent = lbState.name + "  ·  " + (lbState.index + 1) + " / " + lbState.items.length;
     var multi = lbState.items.length > 1;
     if (lbPrev) lbPrev.hidden = !multi;
@@ -235,7 +240,15 @@
 
     document.addEventListener("keydown", function (e) {
       if (lb.hidden) return;
-      if (e.key === "Escape") closeLightbox();
+      if (e.key === "Tab") {
+        // Trap focus: cycle through the lightbox's visible buttons only.
+        var btns = Array.prototype.filter.call(lb.querySelectorAll("button"), function (b) { return !b.hidden; });
+        var i = btns.indexOf(document.activeElement);
+        var next = e.shiftKey ? (i <= 0 ? btns.length - 1 : i - 1) : (i + 1) % btns.length;
+        e.preventDefault();
+        btns[next].focus();
+      }
+      else if (e.key === "Escape") closeLightbox();
       else if (e.key === "ArrowLeft") stepLightbox(-1);
       else if (e.key === "ArrowRight") stepLightbox(1);
     });

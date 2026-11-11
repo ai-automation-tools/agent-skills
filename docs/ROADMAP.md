@@ -53,7 +53,7 @@ up once someone installs the skill and it fails.
 - [x] Link check. Check every relative link in the READMEs, `docs/`, and the showcase cards, so a renamed skill fails loudly instead of 404ing quietly. Add it to the same workflow — done 2026-10-08: `scripts/check-links.py`, stdlib-only, in `validate.yml`. Covers every `README.md`, `docs/*.md` and `site/index.html`, including the cards' GitHub links back into this repo, and matches case exactly. Its first run fixed nine broken back-links in Skill-Data and `site/assets/img/` READMEs
 - [x] Installer smoke test. Run `install-skills.ps1` into a temporary directory under `pwsh` in CI, then assert the flat layout (`<dir>/<name>/SKILL.md`) and that an induced name collision throws — done 2026-10-15: `scripts/test-install-skills.ps1`, in `validate.yml`. Also checks that a bare run is Core-only, that `-Skill` narrows and that `reports/` never ships. The collision is induced in a scratch copy of `skills/`, so the repo is never touched
 - [x] Tests for the deterministic scripts. Cover the helpers under `recipe-validator/scripts/`, `project-hub-scaffold/scripts/`, and `cronsole-windows-jobs/scripts/`, using fixture inputs and standard-library runners only — done 2026-11-05: `scripts/test-skill-scripts.py` (30 checks on the recipe scanner) and `scripts/test-skill-scripts.ps1` (30 checks on the scaffolder and job wrapper, 6 more on Windows for the registrar and `run-hidden.vbs`), both in `validate.yml`; passed on Windows and in Linux containers
-- [ ] Drift check for the one known duplicate. A script that compares `project-hub-scaffold` here with its copy in the public `ai-automation-tools/project-hub` repo and reports any difference. Run it from CI on a weekly schedule. This repo is canonical, so the check reports and never edits
+- [x] Drift check for the one known duplicate. A script that compares `project-hub-scaffold` here with its copy in the public `ai-automation-tools/project-hub` repo and reports any difference. Run it from CI on a weekly schedule. This repo is canonical, so the check reports and never edits — done 2026-11-11: covered from the other side since 2026-10-22. project-hub's `scaffold copy` CI job diffs its travel copy against this repo's `main` on every push and PR there and fails on drift. The copy only changes through project-hub PRs, so a per-PR check catches what a weekly one would, sooner
 
 ### 🪟 Phase 2: a showcase that stays true
 
@@ -62,14 +62,14 @@ landing page now sends traffic to the site.
 
 - [x] Generate the cards from frontmatter. A small script builds the card blocks in `site/index.html` from each Core skill's `name` and `description`, between marker comments, so the copy can't drift from `SKILL.md`. Run it in CI and fail if the output differs from what's committed — done 2026-10-05: `scripts/build-showcase.py`, stdlib-only. The tree decides which skills, categories and counts appear; the hand-written taglines and bullets moved to `site/showcase.json`, because a `description` is trigger text, not card copy. A Core skill with no entry still gets a card from its frontmatter. It also generates the filter chips, the Domain and Project lists and every count in the page. `validate.yml` runs `--check`
 - [x] Showcase card for `automated-dev-pipeline`. Core has eight skills since 2026-09-23 but the site shows seven. Add its card (category `automation`, glyph 🏭) with a diagram image in `site/assets/diagrams/` drawn from the loop in its `SKILL.md`, like `task-router`'s, and change "seven" to "eight" in the intro and the install block — done 2026-10-05: copy in `showcase.json`, diagram `site/assets/diagrams/automated-dev-pipeline.html` rendered to `assets/img/automated-dev-pipeline.webp`; the counts are generated now
-- [ ] `og:image` + `twitter:card`. A 1200×630 crop of the hero, so a shared link previews properly (org roadmap P2-8)
-- [ ] Compress the remaining PNGs. The seeded `repo-docs-builder` images run up to 274 KB, so convert them to WebP like the rest
-- [ ] Filter chips announce their state with `aria-pressed`
-- [ ] Lightbox focus. Trap focus while the lightbox is open, and hand it back to the card that opened it
-- [ ] Screenshot `alt` text that describes the image, not the skill's name
-- [ ] Raise `--text-faint` to at least 4.5:1 against the card background. It measures about 4:1 today
-- [ ] No-JS fallback for the hero panel, so it isn't blank when the script fails
-- [ ] Homepage on the About panel. Run `gh repo edit ai-automation-tools/agent-skills --homepage https://agent-skills.ai-automation-tools.dev`
+- [x] `og:image` + `twitter:card`. A 1200×630 crop of the hero, so a shared link previews properly (org roadmap P2-8) — done 2026-11-11: `site/assets/img/og.png`, captured from the page in headless Edge with reduced motion so the terminal shows its full frontmatter; `summary_large_image` card
+- [x] Compress the remaining PNGs. The seeded `repo-docs-builder` images run up to 274 KB, so convert them to WebP like the rest — done 2026-11-11: all 13 showcase PNGs are WebP (lossless, or q90 where smaller), 967 KB to 319 KB; the largest was 274 KB, now 35 KB
+- [x] Filter chips announce their state with `aria-pressed` — done 2026-10-19: shipped with the house-style move; ticked here 2026-11-11
+- [x] Lightbox focus. Trap focus while the lightbox is open, and hand it back to the card that opened it — done 2026-11-11: Tab and Shift+Tab cycle the lightbox's visible buttons; closing already returned focus to the card. Tested in a browser
+- [x] Screenshot `alt` text that describes the image, not the skill's name — done 2026-11-11: card images already used `showcase.json` `alt`; the lightbox said "<skill> — preview 2". A new `alts` list describes each gallery extra, written into the card as `data-alts` by `build-showcase.py`
+- [x] Raise `--text-faint` to at least 4.5:1 against the card background. It measures about 4:1 today — done 2026-11-11: the token is `--fg-4` since the house-style move. Dark `#71717a` measured 3.8:1 on cards; `#7e7e87` is 4.6:1 or better on every surface. Light already passed (5.4:1+). The footer fine print moved off `--fg-5` (2.4:1)
+- [x] No-JS fallback for the hero panel, so it isn't blank when the script fails — done 2026-10-19: the markup ships one skill's frontmatter; ticked here 2026-11-11
+- [x] Homepage on the About panel. Run `gh repo edit ai-automation-tools/agent-skills --homepage https://agent-skills.ai-automation-tools.dev` — done 2026-11-11: already set; `gh repo view` returns the URL
 - [ ] Decide whether the four seeded `repo-docs-builder` images stay 🔒 Needs owner
 - [ ] Check the layout on a real phone 🔒 Needs owner
 
@@ -85,7 +85,7 @@ be portable Core unless it names a single repo.
 - [ ] pr-describer: a structured PR body (summary, changes, test plan, what to review first) built from a diff
 - [ ] env-doctor: finds env vars the code reads that are missing from `.env.example`, and example entries nothing reads
 - [ ] api-reference-writer: endpoint reference docs from route definitions, using one consistent response envelope
-- [ ] Retire the `repo-doc-structure` idea. `repo-docs-builder` already covers it, so strike the row with a note saying so
+- [x] Retire the `repo-doc-structure` idea. `repo-docs-builder` already covers it, so strike the row with a note saying so — done 2026-11-11: struck in `SKILL-IDEAS.md`
 - [ ] obsidian-note-author: decide whether it's portable Core or too tied to one vault to publish 🔒 Needs owner
 
 ### 📏 Phase 4: make every skill measurable
