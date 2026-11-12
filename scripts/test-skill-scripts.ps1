@@ -86,8 +86,8 @@ try {
     Assert (($groups -join ',') -eq 'Tools,Apps') 'scaffold: repoScope groups are written in order'
 
     # Standalone: every engine file must exist in the source.
-    $engine = 'hub.mjs', 'scan.mjs', 'markdown.mjs', 'index.html', 'navigation.mjs', 'open-native.mjs', 'pictures.mjs', 'pictures-client.mjs',
-        'reports.mjs', 'webmarks.mjs', 'favorites.mjs', 'hub.test.mjs', 'pictures.test.mjs', 'reports.test.mjs',
+    $engine = 'hub.mjs', 'scan.mjs', 'markdown.mjs', 'index.html', 'navigation.mjs', 'open-native.mjs',
+        'reports.mjs', 'webmarks.mjs', 'favorites.mjs', 'hub.test.mjs', 'reports.test.mjs',
         'webmarks.test.mjs', 'favorites.test.mjs', 'package.json', 'Start-Hub.ps1', 'Watch-Hubs.ps1', 'run-watchdog-hidden.vbs'
     $target = Join-Path $Tmp 'standalone'
     $err = Get-Thrown { & $Scaffold -Name Solo -Dir $ws1 -HubDesignRoot $hub -Standalone -TargetDir $target -Base $Tmp }
