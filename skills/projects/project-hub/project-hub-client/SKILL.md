@@ -126,6 +126,18 @@ Per-viewer preferences are localStorage, never the scan payload:
 | `hub.bookmarks` `hub.recent` | paths only — via `navigation.mjs`, which is where the list logic is tested |
 | `hub.bmgroups` | `{closed, empty}` bookmark-group names: which are folded, which were created empty |
 
+| `hub.doctabs` `hub.rootorder` | document tabs on/off, the dragged order of top-level Explorer folders |
+
+**A new key goes in `SETTINGS_KEYS` in `navigation.mjs`.** Settings → Backup exports and
+imports every key in that list as one `project-hub-settings.json` (`exportSettings()` /
+`importSettings()`), and a test fails on a key the page writes that is neither there nor on
+the test's not-exported list (`hub.design`). Lists that should merge on import rather than be
+replaced, as `hub.bookmarks` and `hub.recent` do, need their own branch in `importSettings()`.
+The file's `server` half (folders, folder icons, scan depth, favorites) is read in the
+`#settings-export` handler and replayed by `importServerSettings()` through the same routes
+the Settings view uses; a new server-side setting needs both, plus its shape in
+`importSettings()`. The repo's `AGENTS.md` has the checklist.
+
 Every read and write is wrapped in `try/catch`. Private windows throw on access, and a
 throwing preference read must not take the page down.
 
