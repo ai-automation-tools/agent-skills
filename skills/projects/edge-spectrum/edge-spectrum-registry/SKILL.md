@@ -56,7 +56,9 @@ Rules it does **not** enforce, so you must:
 - **Bump `version`** on any change to `commandTemplate`, `parameters` or `trigger`. Nothing checks
   it yet (audit OPS-12); an importer can't tell a changed template from the old one without it.
 - **Keep `ESPN_NOTICE` and the README notice in step** (audit GOV-01). Change both or neither.
-- **No new network target, no secret parameter.** Both scripts need no key; keep it that way.
+- **No new network target, no secret parameter.** The templates run the collector's default, ESPN,
+  which needs no key; keep it that way. `--provider odds-api` (The Odds API, `ODDS_API_KEY` in
+  `site/.env`) is a manual opt-in for self-hosters and never goes into a template.
 
 Then:
 
@@ -80,7 +82,15 @@ follows a game into the neighbouring day files, reports a missing close as a gap
 showing the last pre-game line as a close, and exits 1 when the day has no capture file for any
 sport, because that means the capture task did not run.
 
-**`npm run check:lines`** runs both against a recorded ESPN shape with no network. A behaviour
+**`odds-api.ts`** (audit INT-06) shapes The Odds API's odds and scores like ESPN's parsed games, so
+`capture-lines.ts --provider odds-api` writes identical records through the same phase rule. Its terms
+allow storing the data for your own analysis, not redistributing it: nothing it captures is committed.
+
+**`grade-lines.ts`** (`npm run grade:lines`, audit PROD-10) grades a CSV of the user's bets against
+their archive, using the same `close` capture as the digest: EV at the de-vigged close, points gained,
+results. A game with no close capture is never graded against a pre-game line. Local only.
+
+**`npm run check:lines`** runs all four against recorded shapes with no network. A behaviour
 change gets a case there; it must fail on the old code.
 
 ESPN's endpoint is unofficial. Low volume, personal use, no republishing of captured lines by this

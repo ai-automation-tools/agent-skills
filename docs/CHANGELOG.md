@@ -30,6 +30,7 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 - `edge-spectrum-registry`: the Cronsole templates in `build-registry.mjs`, the command shape `validate()` allows, the line collector and digest they run, and what the daily registry-drift check means, with every file in it marked owner-held (edge-spectrum audit AI-09).
 
 **Changed**
+- `edge-spectrum-registry` covers `odds-api.ts` (the opt-in second line source, never in a template) and `grade-lines.ts` (local closing-line grading); `edge-spectrum-endpoint` says dataset questions carry matching rows into the advisor's prompt (edge-spectrum #112, #116, #117).
 - `edge-spectrum-dataset`: the published dataset's version is the newest `asOf` plus the CSV's short hash (edge-spectrum #115).
 - `edge-spectrum-hub-tool`: a `route` page is listed in five places now, the 404 page included, and the skill no longer quotes the rewrite alternation, which changes with every page. It points at `src/kelly.ts` for Kelly sizing (edge-spectrum #105).
 - `edge-spectrum-dataset`: `gen:edges` writes five artifacts now, including the published `edges.csv` and its `datapackage.json` (edge-spectrum #104, audit INT-07, GOV-03); the skill says where the columns are defined and not to rename one. It no longer claims the record count is carried in three files.
