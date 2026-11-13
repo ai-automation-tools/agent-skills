@@ -98,6 +98,10 @@ passcode (audit SEC-04). Rotating it invalidates every session. The model id is 
 defaulting to `DEFAULT_GEMINI_MODEL` in `advisor.ts`; the call carries an output-token cap and a
 timeout. The hourly and daily limits live in process memory, so they reset per instance.
 
+A question that names dataset activities or categories carries up to 12 matching rows, with figures
+and sources, into the prompt (`src/server/edgeContext.ts`, audit PROD-15); the model is told to answer
+from them. Matching is whole-word prefix, so a strategy question usually carries none.
+
 Only the advisor is gated. Every other tool works in demo mode, and **the public deployment stays in
 demo mode and must not hold Gemini credentials.**
 
