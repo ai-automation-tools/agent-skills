@@ -44,7 +44,8 @@ site/src/data/edges.ts          ← the ONLY file you edit
 `site/scripts/generate-edge-artifacts.ts`, and the data package's schema is built from the same
 list, so a new `EdgeRecord` field that should be published is one entry there. Renaming or
 dropping a column breaks people who download it; add, don't rename. Each `dataset-<version>`
-GitHub release attaches the three public files; the version is the newest `asOf`.
+GitHub release attaches the three public files; the version is the newest `asOf` plus the CSV's
+short hash (`2026-11-12+1b93619d`).
 
 `npm run gen:edges -- --check` is the CI form — it rewrites nothing and exits 1 listing every
 drifted file. **Edit `edges.ts`, run `gen:edges`, commit every changed file together.**
