@@ -86,13 +86,17 @@ types, sides, streak filters) when editing the unions. `_schemaFieldsMatch` does
 | Condition | Result |
 |:---|:---|
 | `EDGE_SPECTRUM_MODE` is anything but the exact string `full` | **403**, demo restriction. The advisor panel renders unavailable. |
-| `full` but `ADVISOR_PASSCODE` unset | **503** — *fails closed.* An unset env var must never expose the key. |
+| `full` but `ADVISOR_PASSCODE` or `ADVISOR_SECRET` unset | **503** — *fails closed.* An unset env var must never expose the key. |
 | `full` + passcode set, no valid session cookie | **401** |
 | Empty prompt, or over `MAX_PROMPT_CHARS` (1000) | **400** |
+| Over 10 calls an hour for the session or the address | **429** |
+| The day's `ADVISOR_DAILY_LIMIT` reached | **503** |
+| The model's reply is empty, not JSON, or not the asked-for shape | **502** (`parseAdvice` validates it; it is never forwarded raw) |
 
-`ADVISOR_SECRET` signs session tokens; when unset it is derived from a hash of the passcode, which
-means **rotating the passcode invalidates every existing session** — a feature, and the reason not
-to set `ADVISOR_SECRET` unless you want sessions to survive a rotation.
+`ADVISOR_SECRET` signs session tokens and is **required**: it is no longer derived from the
+passcode (audit SEC-04). Rotating it invalidates every session. The model id is `GEMINI_MODEL`,
+defaulting to `DEFAULT_GEMINI_MODEL` in `advisor.ts`; the call carries an output-token cap and a
+timeout. The hourly and daily limits live in process memory, so they reset per instance.
 
 Only the advisor is gated. Every other tool works in demo mode, and **the public deployment stays in
 demo mode and must not hold Gemini credentials.**

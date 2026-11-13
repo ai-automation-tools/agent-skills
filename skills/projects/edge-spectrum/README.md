@@ -26,14 +26,15 @@ written while working on this one.
 
 ## 📦 What this tier adds
 
-Three skills, split by **which of the repo's three layers** you are standing in. Each names this
+Four skills, split by **which part of the repo** you are standing in. Each names this
 repo's files, scripts and constants, so none of them means anything anywhere else.
 
 | Skill | Covers | Parts |
 |:---|:---|:---|
-| [**🧩 edge-spectrum-hub-tool**](./edge-spectrum-hub-tool/SKILL.md) | The hub surface — one `TOOLS` entry plus one page, the three `kind` branches and what each obliges, the literal `ACCENT` map Tailwind's JIT needs, the calculator pattern over `src/odds.ts` and `CalcUi.tsx`, and the `<Route path="*">` fallback that hides a bad `href`. | [`page-patterns`](./edge-spectrum-hub-tool/references/page-patterns.md) |
+| [**🧩 edge-spectrum-hub-tool**](./edge-spectrum-hub-tool/SKILL.md) | The hub surface — one `TOOLS` entry plus one page, the three `kind` branches and what each obliges, the literal `ACCENT` map Tailwind's JIT needs, the calculator pattern over `src/odds.ts` and `CalcUi.tsx`, and the four route lists a `route` tool must keep in step. | [`page-patterns`](./edge-spectrum-hub-tool/references/page-patterns.md) |
 | [**📊 edge-spectrum-dataset**](./edge-spectrum-dataset/SKILL.md) | The records in `src/data/edges.ts` and the three artifacts `gen:edges` writes from them, the `basis` each record declares, the per-category provenance ratchet and the dataset freeze, and the three measures — floored, unfloored, and agreeing on `ruinPoint`. | [`measures`](./edge-spectrum-dataset/references/measures.md) |
 | [**🔌 edge-spectrum-endpoint**](./edge-spectrum-endpoint/SKILL.md) | The dual entry point — `server.ts` and `api/*` as thin adapters over `src/server/` — Zod at the trust boundary, the `strategySchema`/`strategyBounds` split that keeps Zod out of the client bundle, and the advisor gate that fails **closed** on a missing secret. | [`gate`](./edge-spectrum-endpoint/references/gate.md) |
+| [**🗓️ edge-spectrum-registry**](./edge-spectrum-registry/SKILL.md) | The Cronsole templates in `build-registry.mjs` and the catalog it generates, the command shape `validate()` allows, the ESPN line collector and daily digest those templates run, and what the daily registry-drift check means. Owner-held files throughout. | — |
 
 ## ⛔ Names already taken in that repo
 
@@ -54,8 +55,8 @@ none tracked — `.claude/` is gitignored here, so installed copies stay on the 
 
 > [!NOTE]
 > The note that used to sit here asked whether the backtester's model assumptions deserve a review
-> skill the way Edge-Radar's betting math got `betting-logic-review`. Still open — the three skills
-> below cover *changing* the code, not auditing the simulation's assumptions.
+> skill the way Edge-Radar's betting math got `betting-logic-review`. Still open — the four skills
+> above cover *changing* the code, not auditing the simulation's assumptions.
 
 ## Adding one
 
