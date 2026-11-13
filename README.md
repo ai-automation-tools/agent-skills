@@ -83,7 +83,7 @@ Each folder lists the project's existing skills and any additional skills provid
 | [**💬 roundtable**](./skills/projects/roundtable/README.md) | `agent-chat-conv-types`, `agent-chat-delivery` and `agent-chat-run-triage`. |
 | [**⏱️ cronsole**](./skills/projects/cronsole/README.md) | `cronsole-windows-jobs` and `cronsole-claude-routines`. |
 | [**📡 edge-radar**](./skills/projects/edge-radar/README.md) | `edge-radar-strategy-profiles` and `edge-radar-strategy-evidence`. |
-| [**📉 edge-spectrum**](./skills/projects/edge-spectrum/README.md) | `edge-spectrum-hub-tool`, `edge-spectrum-dataset` and `edge-spectrum-endpoint`. |
+| [**📉 edge-spectrum**](./skills/projects/edge-spectrum/README.md) | `edge-spectrum-hub-tool`, `edge-spectrum-dataset`, `edge-spectrum-endpoint` and `edge-spectrum-registry`. |
 | [**🌐 project-hub**](./skills/projects/project-hub/README.md) | `project-hub-scan`, `project-hub-client` and `project-hub-demo`. (`project-hub-scaffold` is listed under Core.) |
 
 <a id="-using-a-skill"></a>

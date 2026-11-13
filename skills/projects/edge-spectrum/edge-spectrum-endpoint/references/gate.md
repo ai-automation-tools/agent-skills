@@ -23,11 +23,11 @@ process.env.EDGE_SPECTRUM_MODE === 'full' ? 'full' : 'demo'
 Exact string. `'FULL'`, `'true'`, `'1'` and unset are all **demo**, and `check-deployment.ts`
 asserts three of those explicitly.
 
-| Mode | `ADVISOR_PASSCODE` | Session cookie | `GET /api/advisor-auth` | `POST /api/advisor-auth` | `POST /api/strategy-advisor` |
+| Mode | `ADVISOR_PASSCODE` and `ADVISOR_SECRET` | Session cookie | `GET /api/advisor-auth` | `POST /api/advisor-auth` | `POST /api/strategy-advisor` |
 |:---|:---|:---|:---|:---|:---|
 | demo | — | — | `200 {mode:'demo', configured:false, authed:false}` | **403** demo restriction | **403** demo restriction |
-| full | unset | — | `200 {configured:false}` | **503** not configured | **503** not configured |
-| full | set | none / invalid / expired | `200 {authed:false}` | 401 on wrong passcode, 200 + `Set-Cookie` on right | **401** locked |
+| full | either unset | — | `200 {configured:false}` | **503** not configured | **503** not configured |
+| full | both set | none / invalid / expired | `200 {authed:false}` | 401 on wrong passcode, 200 + `Set-Cookie` on right | **401** locked |
 | full | set | valid | `200 {authed:true}` | 200 | proceeds → 400 on empty or >1000-char prompt |
 | full | set | any | — | **429** after 8 failures from one IP in 15 min | — |
 
@@ -43,7 +43,10 @@ be spent even if a caller reaches past the guard. Two layers, on purpose.
 |:---|:---|:---|
 | `EDGE_SPECTRUM_MODE` | no, defaults `demo` | only the exact `'full'` enables live AI |
 | `ADVISOR_PASSCODE` | **yes, for the advisor** | unset → the endpoint 503s and the panel renders unavailable. Every other tool is unaffected. |
-| `ADVISOR_SECRET` | no | signs session tokens. **Unset → derived from `sha256('es-advisor:' + passcode)`**, so rotating the passcode invalidates all sessions. Set it only if you want sessions to survive a rotation. |
+| `ADVISOR_SECRET` | **yes, for the advisor** | signs session tokens. Unset → the endpoint 503s like a missing passcode; it is never derived from the passcode (audit SEC-04). Rotating it invalidates every session. |
+| `GEMINI_MODEL` | no | overrides `DEFAULT_GEMINI_MODEL` in `advisor.ts` |
+| `ADVISOR_DAILY_LIMIT` | no | calls a day across everyone; over it the advisor 503s |
+| `TRUST_PROXY` | no | `1` trusts forwarding headers off Vercel; otherwise the socket address counts |
 | `GEMINI_API_KEY` | for `full` | server-side only. Never move it client-side. |
 
 Locally they load from `site/.env` via `dotenv/config` in `server.ts`. **`.env*` is gitignored
@@ -55,7 +58,7 @@ Locally they load from `site/.env` via `dotenv/config` in `server.ts`. **`.env*`
 
 - Token is `<expiry>.<nonce>.<hmac>` — exactly three dot-separated parts, HMAC-SHA256 over
   `exp.nonce`.
-- TTL 30 days (`SESSION_TTL_SECONDS`).
+- TTL 7 days (`SESSION_TTL_SECONDS`).
 - Cookie `es_advisor`, `Path=/`, `HttpOnly`, `SameSite=Lax`, and `Secure` **only when
   `NODE_ENV === 'production'`** — Secure would break local dev over a plain-http LAN address.
 - Comparisons go through `safeEqual`, which hashes both sides before `timingSafeEqual` so it does

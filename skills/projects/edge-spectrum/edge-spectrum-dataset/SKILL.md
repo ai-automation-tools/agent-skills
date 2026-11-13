@@ -65,6 +65,12 @@ page reads it.
 wheel, a fixed prize table), `'published'` (a rate, price, index or takeout someone publishes) or
 `'estimate'` (a typical outcome no one publishes as one figure: retail day trading, collectibles).
 
+**A `math` row must cite** a `source` for its rules and a `methodology` that shows the derivation;
+`check:edges` fails otherwise. A `math` row with a methodology is never badged **verify** on the
+Spectrum page however old its `asOf`, because a figure that follows from the rules does not age
+(`isStale` in the page, held by `check:spectrum`). When the source disagrees with the figure,
+change the figure, not the citation, and say so in the changelog: on 2026-11-12, 13 of 59 did.
+
 The citation (`source`, `asOf`, `window`, `methodology`) is optional and **ratcheted per
 category**: `provenance-baseline.json` holds each category's `records` and `cited` counts, and
 `check:edges` fails if a category's cited count goes *down*. Adding citations is always safe.
@@ -75,7 +81,7 @@ saying why in the PR.
 `MIN_CITED_SHARE` (in `edges.ts`) of its rows, `--write-baseline` refuses a new record in **any**
 category. `check:edges` ends by saying "growth frozen" or "growth open"; the coverage table in
 `data/edge_dataset.md` shows which categories are short. While frozen, cite existing rows instead
-(`math` rows first: they are the cheapest). Never edit the baseline to get a row past it. Removing
+(every `math` row is cited, so `published` rows next). Never edit the baseline to get a row past it. Removing
 a row that cannot be sourced is allowed.
 
 ## 3. What the guards actually assert
@@ -84,7 +90,7 @@ a row that cannot be sourced is allowed.
 |:---|:---|
 | `npm run gen:edges -- --check` | all three artifacts byte-match a fresh generation (LF-normalised, so CRLF working trees pass) |
 | `npm run check:market` | guards `dataGenerator.ts`'s simulated market hold — runs between `gen:edges --check` and `check:edges` in CI, but doesn't test the edge dataset itself |
-| `npm run check:edges` | record count matches `provenance-baseline.json`; every category has ≥1 record and no record has an unlisted one; names unique; `a > -100`; `du > 0`; `0 < ced ≤ 100`; a valid `basis`; per category, record count matches and cited count never falls; with `--write-baseline`, the freeze |
+| `npm run check:edges` | record count matches `provenance-baseline.json`; every category has ≥1 record and no record has an unlisted one; names unique; `a > -100`; `du > 0`; `0 < ced ≤ 100`; a valid `basis`; a `source` and `methodology` on every `math` row; per category, record count matches and cited count never falls; with `--write-baseline`, the freeze |
 | `npm run check:spectrum` | the three measures — see [`references/measures.md`](references/measures.md) |
 
 **The record count lives in one place:** `totalRecords` in `src/data/provenance-baseline.json`.
