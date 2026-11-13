@@ -30,6 +30,7 @@ Check this list before writing any odds arithmetic:
 | `DevigMethod`, `METHOD_LABEL`, `METHOD_BLURB` | `'multiplicative' \| 'power' \| 'shin'` + the UI copy |
 | `devig(decimals[], method)` → `DevigResult` | strips the margin; outputs sum to 1 |
 | `parlay(legs[], quotedDecimal?)` → `ParlayResult` | true joint probability vs the book's payout |
+| `kellyFraction`, `growthRate`, `drawdownChance`, `simultaneousKelly` (in `src/kelly.ts`) | Kelly sizing for `/kelly`; a bet is `{ p, d }` with `d` decimal |
 
 **Everything is in decimal internally.** Parse at the input edge, format at the output edge, and
 keep decimals in between — mixing American into the middle of a calculation is how a sign error
