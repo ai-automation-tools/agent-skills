@@ -24,6 +24,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-11-13
+
+**Changed**
+- Docs sweep: `web-house-style` names Roundtable and Promptbook where it said Agent Chat and My Prompt Library; `AGENTS.md` and `docs/OPEN-QUESTIONS.md` use the `roundtable` repo name; the Cronsole skills README and `cronsole-side.md` say Claude Code scheduled tasks.
+
 ## 2026-11-12
 
 **Added**

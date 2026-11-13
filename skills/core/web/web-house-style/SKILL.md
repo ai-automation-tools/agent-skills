@@ -17,7 +17,7 @@ description: >-
 
 # Web house style
 
-The sites in the `ai-automation-tools` org (the landing page, Agent Chat, Cronsole,
+The sites in the `ai-automation-tools` org (the landing page, Roundtable, Cronsole,
 Edge-Radar, Edge Spectrum, Project Hub, the Agent Skills showcase) were moved onto
 one design vocabulary on 2026-10-05, given a Light | Dark switch the same day, and
 given a phone pass on 2026-10-13. This skill is that vocabulary written down, so
