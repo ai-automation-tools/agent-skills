@@ -85,6 +85,11 @@ category. `check:edges` ends by saying "growth frozen" or "growth open"; the cov
 since inception, with the window on the row). Never edit the baseline to get a row past it. Removing
 a row that cannot be sourced is allowed.
 
+Since 2026-11-12 every `math` and `published` row is cited, so the uncited rows are all `estimate`.
+Citing one means finding a figure someone publishes for it, then changing its `basis` to
+`published` along with the citation. An `estimate` row with only a loose supporting reference stays
+`estimate`.
+
 ## 3. What the guards actually assert
 
 | Guard | Holds |
