@@ -121,7 +121,7 @@ row in that script before it gets merged.
 4. Add `site/api/<feature>.ts` — `export default function handler(req: ApiRequest, res: ApiResponse)`,
    method check, same call, same mapping. **`.js` on the import.**
 5. If it spends money or touches a secret, gate it and extend `scripts/check-deployment.ts`.
-6. `npm run lint && npm run check:deployment`, then `npm run dev` and hit it.
+6. `npm run verify` (every check CI runs), then `npm run dev` and hit it.
 7. **Verify on the PR's Vercel preview URL.** `server.ts` never runs in production — a local pass
    proves the logic, not the deployment.
 

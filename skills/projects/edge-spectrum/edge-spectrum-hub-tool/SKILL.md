@@ -90,7 +90,7 @@ The short version:
   against it. Reuse it. Re-deriving a conversion inside a page puts it outside the guard.
 - **Chrome goes in `components/CalcUi.tsx`** — `Panel`, `Select`, `Stat` are shared by both
   calculator pages.
-- **New non-trivial math earns a `check:*` script** and a line in `.github/workflows/ci.yml`.
+- **New non-trivial math earns a `check:*` script**, added to the `verify` script in `package.json` (CI runs `verify`).
   That is the house convention, not an optional extra: every other module of real logic has one.
 
 ## 4. Routes that are not tools
