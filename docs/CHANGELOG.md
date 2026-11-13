@@ -27,6 +27,7 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 ## 2026-11-12
 
 **Changed**
+- `edge-spectrum-dataset`: every record declares a `basis` (`math`, `published`, `estimate`), the provenance ratchet is per category, and the dataset freeze is explained: `check:edges -- --write-baseline` refuses a new record while any category cites under `MIN_CITED_SHARE` of its rows, so cite existing rows instead (edge-spectrum audit PROD-07, PROD-08; edge-spectrum #98).
 - Edge Spectrum skills (`edge-spectrum-dataset`, `-endpoint`, `-hub-tool` and their README): no record count or bundle size as a literal. They said 234 records and a 776 KB chunk; the repo has 240 and checks its bundle with `check:bundle`. The dataset skill now says the count lives only in `provenance-baseline.json`, which every check reads (edge-spectrum audit AI-08), and drops the `g`/`vol`/`wp`/`sk` fields the repo removed. The README no longer calls `.claude/skills/` empty: `.claude/` is gitignored there, so installed copies stay local.
 
 ## 2026-11-11
