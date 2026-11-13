@@ -130,6 +130,6 @@ new client route 404s on Vercel but works in dev, that rewrite is the first plac
 | For | See |
 |:---|:---|
 | The calculator page pattern, `odds.ts` and `CalcUi` reuse | [`references/page-patterns.md`](references/page-patterns.md) |
-| The 234-record dataset behind the `/spectrum` static tool | the `edge-spectrum-dataset` skill |
+| The dataset behind the `/spectrum` static tool | the `edge-spectrum-dataset` skill |
 | Adding an API endpoint a new tool needs | the `edge-spectrum-endpoint` skill |
 | Branch flow, preview deploys, CI gate order | the repo's `AGENTS.md` |

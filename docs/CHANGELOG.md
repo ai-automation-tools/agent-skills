@@ -24,6 +24,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-11-12
+
+**Changed**
+- Edge Spectrum skills (`edge-spectrum-dataset`, `-endpoint`, `-hub-tool` and their README): no record count or bundle size as a literal. They said 234 records and a 776 KB chunk; the repo has 240 and checks its bundle with `check:bundle`. The dataset skill now says the count lives only in `provenance-baseline.json`, which every check reads (edge-spectrum audit AI-08), and drops the `g`/`vol`/`wp`/`sk` fields the repo removed. The README no longer calls `.claude/skills/` empty: `.claude/` is gitignored there, so installed copies stay local.
+
 ## 2026-11-11
 
 **Changed**
