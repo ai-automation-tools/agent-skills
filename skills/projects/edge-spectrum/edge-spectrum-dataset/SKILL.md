@@ -50,8 +50,9 @@ short hash (`2026-11-12+1b93619d`).
 `npm run gen:edges -- --check` is the CI form — it rewrites nothing and exits 1 listing every
 drifted file. **Edit `edges.ts`, run `gen:edges`, commit every changed file together.**
 
-`data/edge_analysis*.md` (and `data/Legacy/`) are **frozen archives, not inputs.** Their horizon columns were computed
-under the single-axis model retired on 2026-08-31 and nothing recomputes them. Do not sync them.
+`data/edge_analysis12.md`, the V12 catalog, is a **frozen archive, not an input** (the older ones were deleted on
+2026-11-13; git history keeps them). Its horizon columns were computed
+under the single-axis model retired on 2026-08-31 and nothing recomputes them. Do not sync it.
 
 ## 2. The record shape
 
@@ -171,7 +172,7 @@ the result. That creates a contract in an unusual place:
 - **Flooring `expectedTurnoverCost`,** or plotting it against `returnOnCapital` on one axis.
 - **Renaming a section banner in `index.html`** while "tidying up".
 - **Storing a derivable field on a record.** Derive it in `toSpectrumRow`.
-- **Syncing `data/edge_analysis*.md`.** Frozen archives, computed under a retired model.
+- **Syncing `data/edge_analysis12.md`.** A frozen archive, computed under a retired model.
 - **Dropping a `source` to "clean up" a record.** The ratchet only goes one way.
 
 ---
