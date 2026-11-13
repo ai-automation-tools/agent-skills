@@ -13,7 +13,7 @@ description: >-
 
 # Endpoints
 
-**Every endpoint exists twice and must behave once.** `site/server.ts` (Express, local dev only)
+**Every endpoint exists twice and must behave once.** `site/server.ts` (Express: local dev and self-hosted builds)
 and `site/api/*.ts` (Vercel serverless, production) are two adapters over the same logic in
 `site/src/server/`. Anything that can differ between them, will.
 

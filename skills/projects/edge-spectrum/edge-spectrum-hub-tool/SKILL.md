@@ -3,7 +3,7 @@ name: edge-spectrum-hub-tool
 description: >-
   Add, change, retire or debug a tool on the Edge Spectrum hub — the `TOOLS` registry in
   site/src/tools.ts, the three `kind` branches (route / static / external) and what each one
-  obliges you to wire, the literal `ACCENT` map Tailwind's JIT depends on, and the calculator
+  obliges you to wire, the accent colour tokens a tile and page share, and the calculator
   page pattern built on src/odds.ts and components/CalcUi.tsx. Use for "add a tool to the hub",
   "new calculator page", "new tile", "the tile links nowhere", "the accent colour renders
   unstyled", "the static page 404s in dev but works on Vercel", "deep link reloads to the home
@@ -35,7 +35,7 @@ All commands run from **`site/`**, not the repo root.
   href:   '/kelly',
   kind:   'route',                 // 'route' | 'static' | 'external'
   status: 'live',                  // 'live' | 'wip' | 'soon'
-  accent: 'teal',                  // must exist in ACCENT in Home.tsx
+  accent: 'teal',                  // must exist in ACCENT_COLOR (components/ui.tsx)
   tag:    'Calculator',            // optional short category label on the tile
 }
 ```
@@ -51,7 +51,8 @@ Then, **by `kind`** — each one obliges exactly one more thing:
 A `route` page is listed in **five places**, and they must agree (the comment above `PAGE_META` in
 `App.tsx` says so): the `<Route>` in `App.tsx`, the `rewrites` in `site/vercel.json`
 (the `/:page(...)` alternation and its trailing-slash twin; `vercel.json` is owner-held), `CLIENT_ROUTES` in
-`site/server.ts`, `site/public/sitemap.xml`, and the list in `site/public/404.html`. Miss `vercel.json` and the deep link 404s in
+`site/server.ts`, `site/public/sitemap.xml`, and the list in `site/public/404.html`; give it a `PAGE_META`
+title and description in `App.tsx` too. Miss `vercel.json` and the deep link 404s in
 production while working in dev. The page itself is a `lazy()` import: `npm run check:bundle` fails
 CI if the home page passes 150 kB gzip.
 
@@ -61,19 +62,18 @@ CI if the home page passes 150 kB gzip.
 > that only shows up for whoever runs `npm run dev` next. `/spectrum/index.html` resolves
 > identically in both. This is written into the comment above the spectrum entry; keep it there.
 
-## 2. The accent must be a literal
+## 2. The accent is a theme token
 
-`ACCENT` in `site/src/pages/Home.tsx` is a `Record<Accent, …>` of **fully spelled-out Tailwind
-class strings**. Tailwind v4's JIT scans source text — it cannot see `text-${color}-400`. A new
-accent needs three things or the tile renders unstyled:
+`ACCENT_COLOR` in `site/src/components/ui.tsx` maps each `Accent` to a CSS variable
+(`var(--a-teal)`), and cards receive it as `--c` and derive every tint from it, so the light theme can
+darken it. A new accent needs three things or the tile renders without a colour:
 
 1. the key added to the `Accent` union in `tools.ts`,
-2. a row in the literal `ACCENT` map with `icon`, `corner` and `hoverBorder` spelled out in full,
-3. no interpolation anywhere in between.
+2. a row in `ACCENT_COLOR`,
+3. a `--a-<name>` token in `site/src/index.css`, for the dark theme and again for the light one.
 
 The seven that exist — `sky` `emerald` `violet` `amber` `rose` `teal` `cyan` — cover more tools
-than the hub has. **Reuse one before adding one.** The `STATUS` map right below it works the same
-way and already covers `live` / `wip` / `soon`; a tool that is not ready ships as `soon`, it does
+than the hub has. **Reuse one before adding one.** The `STATUS` map in `Home.tsx` already covers `live` / `wip` / `soon`; a tool that is not ready ships as `soon`, it does
 not ship absent.
 
 ## 3. Building a `route` page
