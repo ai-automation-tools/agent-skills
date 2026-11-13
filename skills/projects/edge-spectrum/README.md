@@ -32,8 +32,8 @@ repo's files, scripts and constants, so none of them means anything anywhere els
 | Skill | Covers | Parts |
 |:---|:---|:---|
 | [**🧩 edge-spectrum-hub-tool**](./edge-spectrum-hub-tool/SKILL.md) | The hub surface — one `TOOLS` entry plus one page, the three `kind` branches and what each obliges, the literal `ACCENT` map Tailwind's JIT needs, the calculator pattern over `src/odds.ts` and `CalcUi.tsx`, and the `<Route path="*">` fallback that hides a bad `href`. | [`page-patterns`](./edge-spectrum-hub-tool/references/page-patterns.md) |
-| [**📊 edge-spectrum-dataset**](./edge-spectrum-dataset/SKILL.md) | The 234 records in `src/data/edges.ts` and the three artifacts `gen:edges` writes from them, the record-count that lives in three files at once, the provenance ratchet, and the three measures — floored, unfloored, and agreeing on `ruinPoint`. | [`measures`](./edge-spectrum-dataset/references/measures.md) |
-| [**🔌 edge-spectrum-endpoint**](./edge-spectrum-endpoint/SKILL.md) | The dual entry point — `server.ts` and `api/*` as thin adapters over `src/server/` — Zod at the trust boundary, the `strategySchema`/`strategyBounds` split that keeps Zod out of a 776 KB bundle, and the advisor gate that fails **closed** on a missing secret. | [`gate`](./edge-spectrum-endpoint/references/gate.md) |
+| [**📊 edge-spectrum-dataset**](./edge-spectrum-dataset/SKILL.md) | The records in `src/data/edges.ts` and the three artifacts `gen:edges` writes from them, the record-count that lives in three files at once, the provenance ratchet, and the three measures — floored, unfloored, and agreeing on `ruinPoint`. | [`measures`](./edge-spectrum-dataset/references/measures.md) |
+| [**🔌 edge-spectrum-endpoint**](./edge-spectrum-endpoint/SKILL.md) | The dual entry point — `server.ts` and `api/*` as thin adapters over `src/server/` — Zod at the trust boundary, the `strategySchema`/`strategyBounds` split that keeps Zod out of the client bundle, and the advisor gate that fails **closed** on a missing secret. | [`gate`](./edge-spectrum-endpoint/references/gate.md) |
 
 ## ⛔ Names already taken in that repo
 
@@ -45,7 +45,7 @@ None — the only repo in the org with no skills of its own, so nothing here can
 
 **Maintainer skills** — tracked in `.claude/skills/`, for contributors working on the repo:
 
-none — `.claude/skills/` exists but is empty
+none tracked — `.claude/` is gitignored here, so installed copies stay on the machine that installed them
 
 > [!WARNING]
 > **This repo gitignores `.claude/` entirely**, unlike cronsole and the others that track it. An

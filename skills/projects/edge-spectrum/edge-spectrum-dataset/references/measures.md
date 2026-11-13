@@ -22,8 +22,9 @@ The ruin markers annotate the first.
 
 ## 2. The invariants, in the order the script checks them
 
-1. **`RAW.length === 234`** and **`RUIN_FLOOR === -100`.** Both hardcoded in the script. A record
-   count change updates it, `provenance-baseline.json` and `docs/ROADMAP.md` together.
+1. **`RAW.length` equals `totalRecords`** in `src/data/provenance-baseline.json`, and
+   **`RUIN_FLOOR === -100`**. A record-count change only rewrites the baseline
+   (`npm run check:edges -- --write-baseline`).
 2. **Every row is well-formed for the measure its mode selects.** `m: 'i'` needs a finite `a`;
    `m: 'g'` needs finite `e`, `du`, `ced` with `du > 0` and `ced > 0` — *ruin is undefined
    otherwise*, which is why the bound is strict rather than `>= 0`.

@@ -1,7 +1,7 @@
 ---
 name: edge-spectrum-dataset
 description: >-
-  Change, audit or debug the Edge Spectrum dataset — the canonical 234 edge records in
+  Change, audit or debug the Edge Spectrum dataset — the canonical edge records in
   site/src/data/edges.ts, the three artifacts `npm run gen:edges` writes from it (the inlined RAW
   block in public/spectrum/index.html, edges.json, data/edge_dataset.md),
   and the guards that hold them: check:edges (count, categories, provenance ratchet) and
@@ -14,7 +14,7 @@ description: >-
 
 # The dataset and its artifacts
 
-**`site/src/data/edges.ts` is the only place these 234 records are authored. Everything else that
+**`site/src/data/edges.ts` is the only place these records are authored. Everything else that
 holds them is generated.**
 
 Editing an artifact by hand is reverted by the next `npm run gen:edges` and fails CI in the
@@ -55,10 +55,10 @@ Two variants, discriminated on `m`:
 
 **Keep one unit per column.** `e` on a game row is the house edge **per bet made**, not per roll — five multi-roll craps bets once carried per-roll figures, so Place 5/9 read better than Pass Line.
 
-**Only fields that carry information live here.** `g`, `type`, `vol`, `wp` and `sk` are pure
-functions of `cat` and `m` — `toSpectrumRow()` re-expands them for the visualizer rather than
-storing 234 copies of the string `"Varies"`. If you find yourself adding a field that is derivable,
-derive it in `toSpectrumRow` instead.
+**Only fields that carry information live here.** `type` is a pure function of `m`, so
+`toSpectrumRow()` adds it for the visualizer rather than storing it on every record. If you find
+yourself adding a field that is derivable, derive it in `toSpectrumRow` instead, and only if the
+page reads it.
 
 Provenance (`source`, `asOf`, `window`, `methodology`) is optional and **ratcheted**: `check:edges`
 fails if the count of records carrying a `source` ever goes *down*. Adding citations is always safe;
@@ -73,20 +73,19 @@ removing one requires `npm run check:edges -- --write-baseline` and an explanati
 | `npm run check:edges` | record count matches `provenance-baseline.json`; every category has ≥1 record and no record has an unlisted one; names unique; `a > -100`; `du > 0`; `0 < ced ≤ 100`; the provenance ratchet |
 | `npm run check:spectrum` | the three measures — see [`references/measures.md`](references/measures.md) |
 
-**Two counts must agree and they live in different files.** `EXPECTED_RECORDS = 234` is hardcoded
-in `scripts/check-spectrum.ts`; `totalRecords` lives in `src/data/provenance-baseline.json`. Adding
-or removing a record means updating **both**, plus `docs/ROADMAP.md` — `check-spectrum` says so in
-its own failure message.
+**The record count lives in one place:** `totalRecords` in `src/data/provenance-baseline.json`.
+`check:edges`, `check:spectrum` and `check:spectrum-browser` all read it, and the `spectrum` tool's
+blurb in `src/tools.ts` is built from `EDGES.length`. Never write the count as a literal in code or
+in a skill.
 
 ## 4. Changing the record count
 
 1. Edit `EDGES` in `site/src/data/edges.ts`.
 2. `npm run gen:edges` — rewrites all three artifacts.
-3. `npm run check:edges -- --write-baseline` — records the new `totalRecords` / `withSource`.
-4. Update `EXPECTED_RECORDS` in `scripts/check-spectrum.ts`.
-5. Update the count wherever prose states it: `docs/ROADMAP.md`, `AGENTS.md`, and the `spectrum`
-   tool's `blurb` in `src/tools.ts` (it says "234 financial & betting activities").
-6. `npm run check:edges && npm run check:spectrum` — then `npm run lint`.
+3. `npm run check:edges -- --write-baseline` — records the new `totalRecords` / `withSource`,
+   which every check reads.
+4. Update the count wherever prose states it, if anywhere (`README.md`, `AGENTS.md`).
+5. `npm run check:edges && npm run check:spectrum` — then `npm run lint`.
 
 A new **category** additionally needs the string added to `EDGE_CATEGORIES`, and at least one
 record using it — an empty category fails `check:edges`.

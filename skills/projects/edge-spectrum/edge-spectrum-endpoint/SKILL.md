@@ -64,7 +64,7 @@ function — a timeout at best, a denial-of-wallet at worst.
 **The bounds/schema split matters.** The numbers live in `site/src/strategyBounds.ts` (no imports),
 and `src/server/strategySchema.ts` turns them into Zod. The strategy form imports `strategyBounds`
 directly, so the UI clamps to exactly the numbers the API enforces **without pulling Zod into the
-client bundle** — already one 776 KB chunk, with shrinking it a tracked roadmap item. Adding a
+client bundle**, whose size `npm run check:bundle` holds. Adding a
 bound means: constant in `strategyBounds.ts` → schema rule in `strategySchema.ts` → form clamp.
 
 `strategySchema.ts` also carries a `SameMembers<…>` type trick so that adding a sport or side
