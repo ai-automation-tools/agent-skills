@@ -29,9 +29,9 @@ source. `—` means never checked.
 | Upstream | What the repo assumes | Code | Check at | Last checked |
 |:---|:---|:---|:---|:---|
 | **Codex + Kimi** | Global skills read from `~/.agents/skills` (shared); `~/.codex/skills` is Codex's legacy path | `scripts/install-skills.ps1` (`-AllAgents`), `docs/USING-SKILLS.md` | learn.chatgpt.com/docs/build-skills (was developers.openai.com/codex/skills); github.com/openai/codex/releases; Kimi CLI docs | 2026-10-06 |
-| **Antigravity CLI (agy) and IDE** | CLI reads `~/.gemini/antigravity-cli/skills`; the IDE reads `~/.gemini/config/skills` | `scripts/install-skills.ps1`, `docs/USING-SKILLS.md` | antigravity.google/docs; github.com/google-gemini/gemini-cli/releases | 2026-10-06 |
-| **opencode** | Global skills in `~/.config/opencode/skills` | `scripts/install-skills.ps1`, `docs/USING-SKILLS.md` | opencode.ai/docs; github.com/sst/opencode/releases | 2026-10-06 |
-| **Kilo** | Global skills in `~/.kilo/skills`; skipped unless installed | `scripts/install-skills.ps1` | kilo.ai/docs; github.com/Kilo-Org/kilocode/releases | 2026-10-06 |
+| **Antigravity CLI (agy) and IDE** | Both read `~/.gemini/config/skills`, the `-AllAgents` target; the CLI also reads `~/.gemini/antigravity-cli/skills`, a retired target `-AllAgents` cleans up | `scripts/install-skills.ps1`, `docs/USING-SKILLS.md` | antigravity.google/docs; github.com/google-gemini/gemini-cli/releases | 2026-10-06 |
+| **opencode** | Reads `~/.claude/skills` and `~/.agents/skills` besides its own `~/.config/opencode/skills` (a retired target `-AllAgents` cleans up) | `scripts/install-skills.ps1`, `docs/USING-SKILLS.md` | opencode.ai/docs; github.com/sst/opencode/releases | 2026-10-06 |
+| **Kilo** | Reads `~/.agents/skills` besides its own `~/.kilo/skills` (a retired target `-AllAgents` cleans up); `~/.kilo` counts as a CLI that reads `~/.agents/skills` | `scripts/install-skills.ps1` | kilo.ai/docs; github.com/Kilo-Org/kilocode/releases | 2026-10-06 |
 
 ## Tooling and CI
 

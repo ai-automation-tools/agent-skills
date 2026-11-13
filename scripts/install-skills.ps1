@@ -26,26 +26,30 @@
     A bare run installs the Core tier only, so a project skill can never leak into
     user scope by accident and clutter the catalog of every unrelated session.
 
-    The agent CLIs read different global skills directories. -AllAgents installs to
-    every one that exists on this machine:
+    The agent CLIs read overlapping global skills directories, so three folders
+    reach all of them. -AllAgents installs to each one whose CLIs exist here:
 
-      Claude Code      ~/.claude/skills
-      Codex + Kimi     ~/.agents/skills          (shared; ~/.codex/skills is legacy)
-      agy              ~/.gemini/antigravity-cli/skills  (Antigravity CLI)
-      Antigravity IDE  ~/.gemini/config/skills
-      opencode         ~/.config/opencode/skills
-      Kilo             ~/.kilo/skills
+      ~/.claude/skills         Claude Code (opencode, and Kilo in Claude Code mode)
+      ~/.agents/skills         Codex, Kimi, opencode, Kilo (shared; ~/.codex/skills is legacy)
+      ~/.gemini/config/skills  Antigravity IDE and agy (the Antigravity CLI)
 
-    A CLI whose root folder is absent is skipped rather than created, so the switch
+    A folder whose CLIs are all absent is skipped rather than created, so the switch
     never litters ~ with directories for tools you don't have.
+
+    Until 2026-11-12 -AllAgents also wrote ~/.gemini/antigravity-cli/skills,
+    ~/.config/opencode/skills and ~/.kilo/skills, which those CLIs read on top of the
+    shared folders, so they listed every skill twice or three times. An -AllAgents
+    run now removes the copies it left there: only folders named like a skill being
+    installed, nothing else in those directories.
 
 .PARAMETER Destination
     Where to install. Defaults to "$HOME/.claude/skills".
 
 .PARAMETER AllAgents
-    Install to the global skills directory of every agent CLI present on this
-    machine (Claude Code, Codex + Kimi, agy, Antigravity IDE, opencode, Kilo) instead
-    of a single -Destination.
+    Install to the three global skills directories that cover every agent CLI
+    present on this machine (Claude Code, Codex, Kimi, agy, Antigravity IDE,
+    opencode, Kilo) instead of a single -Destination, and remove the copies older
+    runs left in the folders it no longer writes.
     Core tier only - project skills are per-repo by definition, so -Project is
     rejected here.
 
@@ -172,20 +176,22 @@ if ($List) {
     return
 }
 
-# Where this lands: one -Destination, or every agent CLI that's actually installed.
-# The CLIs read different global paths — keeping them in sync by hand is
-# how one of them silently goes stale.
-# Paths re-checked 2026-10-06 against each CLI's own docs (agy: antigravity.google/docs/skills).
-# ~/.codex/skills is Codex's LEGACY path: Codex now reads ~/.agents/skills, and a copy
-# in both shows up twice, so it is deliberately not a target.
+# Where this lands: one -Destination, or the shared folders every installed CLI reads.
+# The CLIs overlap: opencode also reads ~/.claude/skills and ~/.agents/skills, Kilo
+# reads ~/.agents/skills, agy reads ~/.gemini/config/skills. So three folders reach
+# all of them, and writing each CLI's own folder too only listed skills twice.
+# Paths re-checked 2026-11-11 against each CLI's own docs (table in docs/USING-SKILLS.md).
+# ~/.codex/skills is Codex's LEGACY path: a copy there shows up twice, so it is never a target.
+# Each folder is written when any CLI that reads it is present (its root folder exists);
+# creating a folder for CLIs you don't have is litter.
 $AgentSkillDirs = [ordered]@{
-    'Claude Code'     = Join-Path $HOME '.claude/skills'
-    'Codex + Kimi'    = Join-Path $HOME '.agents/skills'          # shared folder
-    'agy'             = Join-Path $HOME '.gemini/antigravity-cli/skills'  # Antigravity CLI
-    'Antigravity IDE' = Join-Path $HOME '.gemini/config/skills'
-    'opencode'        = Join-Path $HOME '.config/opencode/skills'
-    'Kilo'            = Join-Path $HOME '.kilo/skills'            # skipped unless installed
+    'Claude Code'                 = @{ Dir = '.claude/skills';        Roots = '.claude' }
+    'Codex, Kimi, opencode, Kilo' = @{ Dir = '.agents/skills';        Roots = '.agents', '.codex', '.kimi-code', '.config/opencode', '.kilo' }
+    'Antigravity IDE, agy'        = @{ Dir = '.gemini/config/skills'; Roots = '.gemini/config', '.gemini/antigravity-cli' }
 }
+# Folders older -AllAgents runs wrote. Each CLI reads them on top of the shared folders
+# above, so a copy left there is a duplicate that goes stale. -AllAgents removes them.
+$RetiredSkillDirs = '.gemini/antigravity-cli/skills', '.config/opencode/skills', '.kilo/skills'
 
 $destinations = [ordered]@{}
 if ($AllAgents) {
@@ -195,13 +201,11 @@ if ($AllAgents) {
     if ($PSBoundParameters.ContainsKey('Destination')) {
         throw "-AllAgents picks its own destinations. Drop -Destination, or drop -AllAgents."
     }
-    foreach ($cli in $AgentSkillDirs.GetEnumerator()) {
-        # Test the CLI's root (~/.codex), not the skills folder — the folder may not
-        # exist yet, but creating one for a CLI you don't have is litter.
-        if (Test-Path (Split-Path -Parent $cli.Value)) {
-            $destinations[$cli.Key] = $cli.Value
+    foreach ($t in $AgentSkillDirs.GetEnumerator()) {
+        if ($t.Value.Roots | Where-Object { Test-Path (Join-Path $HOME $_) }) {
+            $destinations[$t.Key] = Join-Path $HOME $t.Value.Dir
         } else {
-            Write-Host ("Skipping {0} — {1} not found on this machine." -f $cli.Key, (Split-Path -Parent $cli.Value)) -ForegroundColor DarkGray
+            Write-Host ("Skipping {0} — none of {1} found on this machine." -f $t.Value.Dir, (($t.Value.Roots | ForEach-Object { "~/$_" }) -join ', ')) -ForegroundColor DarkGray
         }
     }
     if (-not $destinations.Count) { throw "None of the known agent CLI folders exist under $HOME. Nothing to install to." }
@@ -251,6 +255,20 @@ foreach ($dest in $destinations.GetEnumerator()) {
                 Write-Warning ("Overwrote {0} existing skill folder(s) at the destination: {1}. " -f
                     $hit.Count, ($hit.Skill -join ', '))
                 Write-Warning "If any of those were the repo's own skills rather than a previous install from here, restore them with git and rename the skill in this repo."
+            }
+        }
+    }
+}
+
+# Remove the duplicates older -AllAgents runs left in the retired folders. Only folders
+# named like a skill this run installed: anything else there is the user's own.
+if ($AllAgents) {
+    foreach ($dir in $RetiredSkillDirs) {
+        foreach ($leaf in $leaves) {
+            $old = Join-Path (Join-Path $HOME $dir) $leaf.Name
+            if ((Test-Path $old) -and $PSCmdlet.ShouldProcess($old, 'Remove copy from a folder -AllAgents no longer writes')) {
+                Remove-Item $old -Recurse -Force
+                Write-Host "Removed old copy $old" -ForegroundColor DarkYellow
             }
         }
     }
