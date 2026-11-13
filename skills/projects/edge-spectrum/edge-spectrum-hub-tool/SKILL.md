@@ -48,10 +48,10 @@ Then, **by `kind`** — each one obliges exactly one more thing:
 | `static` | `/slug/index.html` — **the explicit file** | drop the page under `site/public/slug/` | `<a>`, full page load |
 | `external` | the absolute URL | nothing | `<a target="_blank" rel="noopener noreferrer">` |
 
-A `route` page is listed in **four places**, and they must agree (the comment above `PAGE_META` in
+A `route` page is listed in **five places**, and they must agree (the comment above `PAGE_META` in
 `App.tsx` says so): the `<Route>` in `App.tsx`, the `rewrites` in `site/vercel.json`
-(`/:page(backtester|odds|parlay|setup)` and its trailing-slash twin), `CLIENT_ROUTES` in
-`site/server.ts`, and `site/public/sitemap.xml`. Miss `vercel.json` and the deep link 404s in
+(the `/:page(...)` alternation and its trailing-slash twin; `vercel.json` is owner-held), `CLIENT_ROUTES` in
+`site/server.ts`, `site/public/sitemap.xml`, and the list in `site/public/404.html`. Miss `vercel.json` and the deep link 404s in
 production while working in dev. The page itself is a `lazy()` import: `npm run check:bundle` fails
 CI if the home page passes 150 kB gzip.
 
@@ -87,8 +87,10 @@ The short version:
 - **Math goes in a pure module, never in the component.** `src/odds.ts` already holds American /
   decimal / fractional / implied conversion, three de-vig methods (multiplicative, power, Shin)
   and parlay joint-probability math, with **zero imports** so `scripts/check-odds.ts` can assert
-  against it. Reuse it. Re-deriving a conversion inside a page puts it outside the guard.
-- **Chrome goes in `components/CalcUi.tsx`** — `Panel`, `Select`, `Stat` are shared by both
+  against it. Reuse it. Re-deriving a conversion inside a page puts it outside the guard. Kelly
+  sizing (single, fractional, simultaneous, Thorp's drawdown odds) is `src/kelly.ts`, also pure and
+  held by the same script.
+- **Chrome goes in `components/CalcUi.tsx`** — `Panel`, `Select`, `Stat` are shared by the
   calculator pages.
 - **New non-trivial math earns a `check:*` script**, added to the `verify` script in `package.json` (CI runs `verify`).
   That is the house convention, not an optional extra: every other module of real logic has one.

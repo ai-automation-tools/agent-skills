@@ -30,6 +30,7 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 - `edge-spectrum-registry`: the Cronsole templates in `build-registry.mjs`, the command shape `validate()` allows, the line collector and digest they run, and what the daily registry-drift check means, with every file in it marked owner-held (edge-spectrum audit AI-09).
 
 **Changed**
+- `edge-spectrum-hub-tool`: a `route` page is listed in five places now, the 404 page included, and the skill no longer quotes the rewrite alternation, which changes with every page. It points at `src/kelly.ts` for Kelly sizing (edge-spectrum #105).
 - `edge-spectrum-dataset`: `gen:edges` writes five artifacts now, including the published `edges.csv` and its `datapackage.json` (edge-spectrum #104, audit INT-07, GOV-03); the skill says where the columns are defined and not to rename one. It no longer claims the record count is carried in three files.
 - `edge-spectrum-dataset`: every `math` and `published` row is now cited (edge-spectrum #103), so the skill says the uncited rows are all `estimate`, and citing one means finding a published figure and changing its `basis` to `published`.
 - Edge Spectrum skills point at `npm run verify`, the repo's one ordered list of checks, which CI now runs; a new check is wired by adding it there (edge-spectrum #101, audit DOC-16). The dataset skill says how a fund or index is cited (edge-spectrum #102).
