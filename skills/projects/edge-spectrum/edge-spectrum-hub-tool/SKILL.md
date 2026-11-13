@@ -114,7 +114,8 @@ the first place to look.
 1. **One entry in `TOOLS`** — `slug` unique, `blurb` factual, `tag` short.
 2. **Branch on `kind`** (§1). `route` → `lazy()` import + `<Route>`, and the path in `vercel.json`,
    `server.ts` `CLIENT_ROUTES` and `public/sitemap.xml`. `static` → `public/<slug>/` + an
-   `index.html` href. `external` → done.
+   `index.html` href, and copy the Spectrum page's last `<script>` (the consent banner plus
+   `/counting.js`, skipped under `?embed=1`) so the page is counted like the rest. `external` → done.
 3. **Accent exists as a literal** in `Home.tsx` (§2) — or reuse one of the seven.
 4. **Math in a pure module**, chrome from `CalcUi.tsx` (§3).
 5. **New logic gets a `check:*` script** wired into CI.
@@ -134,6 +135,9 @@ the first place to look.
 - **Trusting dev to prove the route.** Dev serves any path; Vercel serves only the paths in `vercel.json`.
 - **Shipping a half-finished tool by leaving it out of `TOOLS`.** Mark it `soon`.
 - **Running `npm` at the repo root.** The whole app is in `site/`.
+- **Analytics outside the consent gate.** Page counts load only through `site/public/counting.js`
+  (`AILConsent.whenGranted`, paths without query strings). Never a second analytics snippet, and never
+  state in a URL path: the Spectrum page keeps readers' numbers in the query string so they are cut.
 
 ---
 
