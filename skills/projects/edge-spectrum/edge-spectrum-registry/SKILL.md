@@ -66,7 +66,8 @@ Then:
 
 ```bash
 npm run build:registry            # writes site/public/registry/
-npm run build:registry -- --check # what CI runs: fails on stale output or a missing README link
+npm run build:registry -- --check # what CI runs: fails on stale output, a missing README link,
+                                  # or a changed commandTemplate whose version didn't move (OPS-12)
 ```
 
 ## 3. The scripts the templates run
@@ -125,7 +126,7 @@ Never "fix" drift by editing the committed catalog to match the host.
 
 ## 5. Checklist
 
-1. Edit `TEMPLATES` / `PACKS` only; quote path parameters; bump `version`.
+1. Edit `TEMPLATES` / `PACKS` only; quote path parameters; bump `version` (the build refuses a changed `commandTemplate` without one).
 2. README links every template id; the ESPN notice matches.
 3. `npm run build:registry`, then `npm run build:registry -- --check`.
 4. Script change → a case in `check:lines` that fails on the old code; `npm run check:lines`.
