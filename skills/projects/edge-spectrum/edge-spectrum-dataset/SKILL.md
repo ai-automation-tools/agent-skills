@@ -4,9 +4,10 @@ description: >-
   Change, audit or debug the Edge Spectrum dataset — the canonical edge records in
   site/src/data/edges.ts, the three artifacts `npm run gen:edges` writes from it (the inlined RAW
   block in public/spectrum/index.html, edges.json, data/edge_dataset.md),
-  and the guards that hold them: check:edges (count, categories, provenance ratchet) and
+  and the guards that hold them: check:edges (count, categories, basis, the per-category citation
+  ratchet and the dataset freeze) and
   check:spectrum (the three measures, read live out of the HTML). Use for "add/edit an edge record",
-  "add a category", "update a return figure", "cite a source", "gen:edges --check failed in CI",
+  "add a category", "update a return figure", "cite a source", "the dataset is frozen", "gen:edges --check failed in CI",
   "the artifact reverted my edit", "record count mismatch", "check:spectrum is failing", "ruin
   point", "return on capital vs expected turnover cost", "the chart is squashed flat", and any
   question about where this data actually lives.
@@ -51,7 +52,7 @@ Two variants, discriminated on `m`:
 | Carries | `a` — annual return, percent | `e` — edge per decision, percent (negative for every game here) |
 | | | `du` — decisions per day at typical play |
 | | | `ced` — capital exposed per decision, percent of bankroll |
-| Both | `n` (unique name), `cat` (must be in `EDGE_CATEGORIES`), `ly` (`'raw' \| 'fee' \| 'tax'`), optional `Provenance` | |
+| Both | `n` (unique name), `cat` (must be in `EDGE_CATEGORIES`), `ly` (`'raw' \| 'fee' \| 'tax'`), `basis`, optional citation | |
 
 **Keep one unit per column.** `e` on a game row is the house edge **per bet made**, not per roll — five multi-roll craps bets once carried per-roll figures, so Place 5/9 read better than Pass Line.
 
@@ -60,9 +61,22 @@ Two variants, discriminated on `m`:
 yourself adding a field that is derivable, derive it in `toSpectrumRow` instead, and only if the
 page reads it.
 
-Provenance (`source`, `asOf`, `window`, `methodology`) is optional and **ratcheted**: `check:edges`
-fails if the count of records carrying a `source` ever goes *down*. Adding citations is always safe;
-removing one requires `npm run check:edges -- --write-baseline` and an explanation.
+**`basis` is required:** `'math'` (follows from the rules and payouts: a −110 line, a roulette
+wheel, a fixed prize table), `'published'` (a rate, price, index or takeout someone publishes) or
+`'estimate'` (a typical outcome no one publishes as one figure: retail day trading, collectibles).
+
+The citation (`source`, `asOf`, `window`, `methodology`) is optional and **ratcheted per
+category**: `provenance-baseline.json` holds each category's `records` and `cited` counts, and
+`check:edges` fails if a category's cited count goes *down*. Adding citations is always safe.
+`--write-baseline` will not lower it; removing a citation means editing the baseline by hand and
+saying why in the PR.
+
+**The dataset freeze** (audit PROD-08): while any category cites a `source` for fewer than
+`MIN_CITED_SHARE` (in `edges.ts`) of its rows, `--write-baseline` refuses a new record in **any**
+category. `check:edges` ends by saying "growth frozen" or "growth open"; the coverage table in
+`data/edge_dataset.md` shows which categories are short. While frozen, cite existing rows instead
+(`math` rows first: they are the cheapest). Never edit the baseline to get a row past it. Removing
+a row that cannot be sourced is allowed.
 
 ## 3. What the guards actually assert
 
@@ -70,7 +84,7 @@ removing one requires `npm run check:edges -- --write-baseline` and an explanati
 |:---|:---|
 | `npm run gen:edges -- --check` | all three artifacts byte-match a fresh generation (LF-normalised, so CRLF working trees pass) |
 | `npm run check:market` | guards `dataGenerator.ts`'s simulated market hold — runs between `gen:edges --check` and `check:edges` in CI, but doesn't test the edge dataset itself |
-| `npm run check:edges` | record count matches `provenance-baseline.json`; every category has ≥1 record and no record has an unlisted one; names unique; `a > -100`; `du > 0`; `0 < ced ≤ 100`; the provenance ratchet |
+| `npm run check:edges` | record count matches `provenance-baseline.json`; every category has ≥1 record and no record has an unlisted one; names unique; `a > -100`; `du > 0`; `0 < ced ≤ 100`; a valid `basis`; per category, record count matches and cited count never falls; with `--write-baseline`, the freeze |
 | `npm run check:spectrum` | the three measures — see [`references/measures.md`](references/measures.md) |
 
 **The record count lives in one place:** `totalRecords` in `src/data/provenance-baseline.json`.
@@ -80,10 +94,11 @@ in a skill.
 
 ## 4. Changing the record count
 
-1. Edit `EDGES` in `site/src/data/edges.ts`.
+1. Edit `EDGES` in `site/src/data/edges.ts`. Adding a record only works while growth is open
+   (see the freeze above); removing an uncited one always works.
 2. `npm run gen:edges` — rewrites all three artifacts.
-3. `npm run check:edges -- --write-baseline` — records the new `totalRecords` / `withSource`,
-   which every check reads.
+3. `npm run check:edges -- --write-baseline` — records the new `totalRecords` and per-category
+   counts, which every check reads.
 4. Update the count wherever prose states it, if anywhere (`README.md`, `AGENTS.md`).
 5. `npm run check:edges && npm run check:spectrum` — then `npm run lint`.
 
