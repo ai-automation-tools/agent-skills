@@ -111,7 +111,7 @@ Never "fix" drift by editing the committed catalog to match the host.
 2. README links every template id; the ESPN notice matches.
 3. `npm run build:registry`, then `npm run build:registry -- --check`.
 4. Script change → a case in `check:lines` that fails on the old code; `npm run check:lines`.
-5. Every `npm run` step in `.github/workflows/ci.yml`, in order.
+5. `npm run verify`: every check CI runs, in order.
 6. PR body lists the hold paths touched. Do not merge.
 
 ## 6. Anti-patterns

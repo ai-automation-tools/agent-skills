@@ -81,7 +81,8 @@ saying why in the PR.
 `MIN_CITED_SHARE` (in `edges.ts`) of its rows, `--write-baseline` refuses a new record in **any**
 category. `check:edges` ends by saying "growth frozen" or "growth open"; the coverage table in
 `data/edge_dataset.md` shows which categories are short. While frozen, cite existing rows instead
-(every `math` row is cited, so `published` rows next). Never edit the baseline to get a row past it. Removing
+(the coverage table shows which categories are short; a fund or index cites its issuer's NAV total return
+since inception, with the window on the row). Never edit the baseline to get a row past it. Removing
 a row that cannot be sourced is allowed.
 
 ## 3. What the guards actually assert

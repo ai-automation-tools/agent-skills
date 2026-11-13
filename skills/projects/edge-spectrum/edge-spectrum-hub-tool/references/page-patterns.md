@@ -50,8 +50,8 @@ gets in.
    assertions that fail if the logic breaks. Mirror `check-odds.ts`; it is 91 lines and covers
    round-trips, invariants ("de-vig outputs sum to one") and each method's theoretical behaviour.
 3. Add `"check:<name>": "tsx scripts/check-<name>.ts"` to `package.json`.
-4. Add `- run: npm run check:<name>` to `.github/workflows/ci.yml`, in the existing block —
-   before `npm run build`.
+4. Add `npm run check:<name>` to the `verify` script in `package.json`, before `npm run build`.
+   CI runs `verify`, so that is the whole wiring.
 5. Note the module in `AGENTS.md`'s layout block, saying which script holds it.
 
 Step 4 is the one people skip. A guard nobody runs is a comment.
