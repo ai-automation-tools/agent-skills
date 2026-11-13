@@ -3,12 +3,13 @@ name: edge-spectrum-registry
 description: >-
   Add, change or debug Edge Spectrum's Cronsole templates and the line-archive scripts they run —
   the TEMPLATES and PACKS in site/scripts/build-registry.mjs, the generated catalog in
-  site/public/registry/, the ESPN line collector (capture-lines.ts) and the daily digest
-  (digest-lines.ts), and the daily registry-drift check. These files are held for the owner because
+  site/public/registry/, the ESPN line collector (capture-lines.ts), the daily digest
+  (digest-lines.ts), the Tiingo market-close collector (capture-closes.ts), and the daily
+  registry-drift check. These files are held for the owner because
   a merge turns them into commands on other people's machines. Use for "add or change a Cronsole
   template", "build:registry --check failed", "registry drift failed", "the gallery doesn't show
   our template", "check:lines failed", "a game has no closing line in the digest", and any edit to
-  build-registry.mjs, capture-lines.ts, digest-lines.ts, site/public/registry/ or
+  build-registry.mjs, capture-lines.ts, digest-lines.ts, capture-closes.ts, site/public/registry/ or
   .github/workflows/registry-drift.yml.
 ---
 
@@ -28,7 +29,8 @@ Treat a change to any of these as needing Mike's review. The org PR sweep holds 
 them, and `.github/CODEOWNERS` names him on the registry and its builder:
 
 - `site/scripts/build-registry.mjs` and everything under `site/public/registry/`
-- `site/scripts/capture-lines.ts` and `site/scripts/digest-lines.ts`, the scripts the templates run
+- `site/scripts/capture-lines.ts`, `site/scripts/digest-lines.ts` and `site/scripts/capture-closes.ts`, the
+  scripts the templates run
 - `.github/workflows/*`, including `registry-drift.yml`
 
 An unattended run may still edit them; it must say so under **Hold paths touched** in the PR body
@@ -86,11 +88,17 @@ sport, because that means the capture task did not run.
 `capture-lines.ts --provider odds-api` writes identical records through the same phase rule. Its terms
 allow storing the data for your own analysis, not redistributing it: nothing it captures is committed.
 
+**`capture-closes.ts`** (`npm run capture:closes`, roadmap 5.3, audit INT-08) appends end-of-day prices
+for named tickers from Tiingo to `<out>/<TICKER>.jsonl`, one line per trading day, written once. It needs
+the self-hoster's own free key (`TIINGO_API_KEY` in `site/.env`), sent in an `Authorization` header and
+never in a URL or a message, and rejects a ticker that is not a symbol before it reaches a request. Tiingo's
+free plan is for personal use: nothing it captures is committed or published.
+
 **`grade-lines.ts`** (`npm run grade:lines`, audit PROD-10) grades a CSV of the user's bets against
 their archive, using the same `close` capture as the digest: EV at the de-vigged close, points gained,
 results. A game with no close capture is never graded against a pre-game line. Local only.
 
-**`npm run check:lines`** runs all four against recorded shapes with no network. A behaviour
+**`npm run check:lines`** runs all five against recorded shapes with no network. A behaviour
 change gets a case there; it must fail on the old code.
 
 ESPN's endpoint is unofficial. Low volume, personal use, no republishing of captured lines by this
