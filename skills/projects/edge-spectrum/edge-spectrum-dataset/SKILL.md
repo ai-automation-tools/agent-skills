@@ -2,8 +2,9 @@
 name: edge-spectrum-dataset
 description: >-
   Change, audit or debug the Edge Spectrum dataset — the canonical edge records in
-  site/src/data/edges.ts, the three artifacts `npm run gen:edges` writes from it (the inlined RAW
-  block in public/spectrum/index.html, edges.json, data/edge_dataset.md),
+  site/src/data/edges.ts, the five artifacts `npm run gen:edges` writes from it (the inlined RAW
+  block in public/spectrum/index.html, edges.json, the published edges.csv and its datapackage.json,
+  data/edge_dataset.md),
   and the guards that hold them: check:edges (count, categories, basis, the per-category citation
   ratchet and the dataset freeze) and
   check:spectrum (the three measures, read live out of the HTML). Use for "add/edit an edge record",
@@ -33,12 +34,20 @@ All commands run from **`site/`**.
 site/src/data/edges.ts          ← the ONLY file you edit
         │  npm run gen:edges
         ├─→ site/public/spectrum/index.html   (the inlined `const RAW = [ … ]` block)
-        ├─→ site/public/spectrum/edges.json   (machine-readable, for the eventual React port)
+        ├─→ site/public/spectrum/edges.json   (the page's short keys, for the eventual React port)
+        ├─→ site/public/spectrum/edges.csv    (the published dataset, CC BY 4.0)
+        ├─→ site/public/spectrum/datapackage.json (its schema, version, sha256 and licence)
         └─→ data/edge_dataset.md              (the human-readable tables)
 ```
 
+`edges.csv` is the public, stable shape: its columns are listed in `COLUMNS` in
+`site/scripts/generate-edge-artifacts.ts`, and the data package's schema is built from the same
+list, so a new `EdgeRecord` field that should be published is one entry there. Renaming or
+dropping a column breaks people who download it; add, don't rename. Each `dataset-<version>`
+GitHub release attaches the three public files; the version is the newest `asOf`.
+
 `npm run gen:edges -- --check` is the CI form — it rewrites nothing and exits 1 listing every
-drifted file. **Edit `edges.ts`, run `gen:edges`, commit all four files together.**
+drifted file. **Edit `edges.ts`, run `gen:edges`, commit every changed file together.**
 
 `data/edge_analysis*.md` (and `data/Legacy/`) are **frozen archives, not inputs.** Their horizon columns were computed
 under the single-axis model retired on 2026-08-31 and nothing recomputes them. Do not sync them.
@@ -94,7 +103,7 @@ Citing one means finding a figure someone publishes for it, then changing its `b
 
 | Guard | Holds |
 |:---|:---|
-| `npm run gen:edges -- --check` | all three artifacts byte-match a fresh generation (LF-normalised, so CRLF working trees pass) |
+| `npm run gen:edges -- --check` | all five artifacts byte-match a fresh generation (LF-normalised, so CRLF working trees pass) |
 | `npm run check:market` | guards `dataGenerator.ts`'s simulated market hold — runs between `gen:edges --check` and `check:edges` in CI, but doesn't test the edge dataset itself |
 | `npm run check:edges` | record count matches `provenance-baseline.json`; every category has ≥1 record and no record has an unlisted one; names unique; `a > -100`; `du > 0`; `0 < ced ≤ 100`; a valid `basis`; a `source` and `methodology` on every `math` row; per category, record count matches and cited count never falls; with `--write-baseline`, the freeze |
 | `npm run check:spectrum` | the three measures — see [`references/measures.md`](references/measures.md) |
@@ -108,7 +117,7 @@ in a skill.
 
 1. Edit `EDGES` in `site/src/data/edges.ts`. Adding a record only works while growth is open
    (see the freeze above); removing an uncited one always works.
-2. `npm run gen:edges` — rewrites all three artifacts.
+2. `npm run gen:edges` — rewrites all five artifacts.
 3. `npm run check:edges -- --write-baseline` — records the new `totalRecords` and per-category
    counts, which every check reads.
 4. Update the count wherever prose states it, if anywhere (`README.md`, `AGENTS.md`).
@@ -154,10 +163,10 @@ the result. That creates a contract in an unusual place:
 
 ## 7. Anti-patterns
 
-- **Hand-editing `RAW`, `edges.json` or `data/edge_dataset.md`.** Reverted by the next
+- **Hand-editing `RAW`, `edges.json`, `edges.csv`, `datapackage.json` or `data/edge_dataset.md`.** Reverted by the next
   `gen:edges`; fails CI before that.
 - **Committing `edges.ts` without the regenerated artifacts.** The PR goes red on `--check`.
-- **Changing the record count in one place.** Three files and three prose mentions carry it.
+- **Writing the record count as a literal.** It lives in `provenance-baseline.json`; everything else reads it.
 - **Flooring `expectedTurnoverCost`,** or plotting it against `returnOnCapital` on one axis.
 - **Renaming a section banner in `index.html`** while "tidying up".
 - **Storing a derivable field on a record.** Derive it in `toSpectrumRow`.
