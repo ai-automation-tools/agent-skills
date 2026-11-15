@@ -1,7 +1,7 @@
 # Design system
 
 The values and components the house style is made of. Written from the live
-sites: the org landing page (`ai-automation-tools.dev`), Agent Chat's web UI,
+sites: the org landing page (`ai-automation-tools.dev`), Roundtable's web UI,
 Cronsole, Edge-Radar's public page, Edge Spectrum and Project Hub. Where they
 disagree, the landing page wins: it is the newest and the one the others were
 moved toward.
@@ -91,12 +91,12 @@ One hue per site, used for the page's own chrome. What the live sites use
 |:---|:---|:---|:---|
 | the org landing page | sky `#38bdf8` | `#0369a1` | blue `#60a5fa` |
 | Edge Spectrum | sky `#38bdf8` | `#0369a1` | sky `#38bdf8` |
-| My Prompt Library | sky `#38bdf8` | — | amber `#fbbf24` |
+| Promptbook | sky `#38bdf8` | — | amber `#fbbf24` |
 | Project Hub | sky `#38bdf8` (`--green` in its stylesheet) | its theme picker | green `#4ade80` |
 | Agent Skills | amber `#f2b34b` | `#8a5200` | amber `#f2b34b` |
 | Cronsole | violet `#a78bfa` (product site; the app's primary is `hsl(262 83% 58%)`) | `#6d28d9` | violet `#a78bfa` |
 | Edge-Radar | emerald `#34d399` | `#047857` | emerald `#34d399` |
-| Agent Chat | emerald `#10b981` | `#047857` | cyan `#22d3ee` |
+| Roundtable | emerald `#10b981` | `#047857` | cyan `#22d3ee` |
 
 Sky is shared by four pages, so the icon is what tells those tabs apart: an
 icon keeps its own colour where the page's accent would repeat another
@@ -292,7 +292,7 @@ closes it. A scroll-spy underline (2px, `--accent`) under the active nav link is
 
 ## 6. Sidebar (app shell)
 
-The pattern is Agent Chat's: a **fixed icon rail** that runs the full height under the
+The pattern is Roundtable's: a **fixed icon rail** that runs the full height under the
 source bar, brand at the top, destinations below, collapsing to icons.
 
 | Piece | Rule |

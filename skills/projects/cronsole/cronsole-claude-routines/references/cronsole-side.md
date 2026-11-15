@@ -80,7 +80,7 @@ key or session is scoped to one account and sees a flat list. There is nothing t
 
 | Reading | Means | Do |
 |:---|:---|:---|
-| **No Claude routines at all** | Almost always the source is not connected, or you are in declared mode with nothing declared. | `list_platforms`, then `connect_claude_routine`. Cronsole's troubleshooting log covers this case under *"can't list, pause or create Claude Code routines"*. |
+| **No Claude Code scheduled tasks at all** | Almost always the source is not connected, or you are in declared mode with nothing declared. | `list_platforms`, then `connect_claude_routine`. Cronsole's troubleshooting log covers this case under *"can't list, pause or create Claude Code routines"*. |
 | **Cannot pause / create / reschedule** | You are in **declared mode**. These are genuinely `unsupportedVerbs` there, not a bug. | Use the dashboard, or make a Claude Code session readable on the backend's host. |
 | **`declared` in the capability matrix** | The route would accept the verb; **nothing has been observed to work here**. `declared` is not `yes`. | Drive it once. `verified` is evidence, `declared` is a promise. |
 | **Health `UNKNOWN`** | The absence of a verdict. It ranks **above** healthy in any summary and is not a defect. | Nothing. Do not probe — see §2. |

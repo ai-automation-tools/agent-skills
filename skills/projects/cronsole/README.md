@@ -12,7 +12,7 @@
 
 ---
 
-**The repo:** Scheduled-task control plane across Windows Task Scheduler, Claude routines, Gemini Triggers and more.
+**The repo:** Scheduled-task control plane across Windows Task Scheduler, Claude Code scheduled tasks, Gemini Triggers and more.
 
 ## What lives here
 
