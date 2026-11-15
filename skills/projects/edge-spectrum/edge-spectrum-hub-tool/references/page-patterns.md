@@ -59,10 +59,10 @@ Step 4 is the one people skip. A guard nobody runs is a comment.
 
 ## 5. Styling
 
-Dark shell, set once in `App.tsx`: `bg-[#060606] text-zinc-100`. Pages do not re-declare a
-background. Borders are `border-zinc-800/60`, secondary text `text-zinc-400`, muted `text-zinc-600`.
+The page background and text colour come from theme tokens on `body` (`--bg`, `--fg` in
+`index.css`), with a Light | Dark switch; pages do not set a background. Borders are `border-zinc-800/60`, secondary text `text-zinc-400`, muted `text-zinc-600`.
 Accent colour comes from the tool's `accent` key — use that same colour family on the page so the
 tile and the page match.
 
-`HubNav` renders on every path except `/`, so a page must **not** add its own back-link or brand
-header. That was the point of the slim bar.
+`Topbar` (with the ⌘K palette) renders on every path, Home included, so a page must **not** add its
+own back-link or brand header.

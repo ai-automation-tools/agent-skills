@@ -3,12 +3,13 @@ name: edge-spectrum-registry
 description: >-
   Add, change or debug Edge Spectrum's Cronsole templates and the line-archive scripts they run —
   the TEMPLATES and PACKS in site/scripts/build-registry.mjs, the generated catalog in
-  site/public/registry/, the ESPN line collector (capture-lines.ts) and the daily digest
-  (digest-lines.ts), and the daily registry-drift check. These files are held for the owner because
+  site/public/registry/, the ESPN line collector (capture-lines.ts), the daily digest
+  (digest-lines.ts), the Tiingo market-close collector (capture-closes.ts), and the daily
+  registry-drift check. These files are held for the owner because
   a merge turns them into commands on other people's machines. Use for "add or change a Cronsole
   template", "build:registry --check failed", "registry drift failed", "the gallery doesn't show
   our template", "check:lines failed", "a game has no closing line in the digest", and any edit to
-  build-registry.mjs, capture-lines.ts, digest-lines.ts, site/public/registry/ or
+  build-registry.mjs, capture-lines.ts, digest-lines.ts, capture-closes.ts, site/public/registry/ or
   .github/workflows/registry-drift.yml.
 ---
 
@@ -28,7 +29,8 @@ Treat a change to any of these as needing Mike's review. The org PR sweep holds 
 them, and `.github/CODEOWNERS` names him on the registry and its builder:
 
 - `site/scripts/build-registry.mjs` and everything under `site/public/registry/`
-- `site/scripts/capture-lines.ts` and `site/scripts/digest-lines.ts`, the scripts the templates run
+- `site/scripts/capture-lines.ts`, `site/scripts/digest-lines.ts` and `site/scripts/capture-closes.ts`, the
+  scripts the templates run
 - `.github/workflows/*`, including `registry-drift.yml`
 
 An unattended run may still edit them; it must say so under **Hold paths touched** in the PR body
@@ -56,13 +58,16 @@ Rules it does **not** enforce, so you must:
 - **Bump `version`** on any change to `commandTemplate`, `parameters` or `trigger`. Nothing checks
   it yet (audit OPS-12); an importer can't tell a changed template from the old one without it.
 - **Keep `ESPN_NOTICE` and the README notice in step** (audit GOV-01). Change both or neither.
-- **No new network target, no secret parameter.** Both scripts need no key; keep it that way.
+- **No new network target, no secret parameter.** The templates run the collector's default, ESPN,
+  which needs no key; keep it that way. `--provider odds-api` (The Odds API, `ODDS_API_KEY` in
+  `site/.env`) is a manual opt-in for self-hosters and never goes into a template.
 
 Then:
 
 ```bash
 npm run build:registry            # writes site/public/registry/
-npm run build:registry -- --check # what CI runs: fails on stale output or a missing README link
+npm run build:registry -- --check # what CI runs: fails on stale output, a missing README link,
+                                  # or a changed commandTemplate whose version didn't move (OPS-12)
 ```
 
 ## 3. The scripts the templates run
@@ -80,7 +85,21 @@ follows a game into the neighbouring day files, reports a missing close as a gap
 showing the last pre-game line as a close, and exits 1 when the day has no capture file for any
 sport, because that means the capture task did not run.
 
-**`npm run check:lines`** runs both against a recorded ESPN shape with no network. A behaviour
+**`odds-api.ts`** (audit INT-06) shapes The Odds API's odds and scores like ESPN's parsed games, so
+`capture-lines.ts --provider odds-api` writes identical records through the same phase rule. Its terms
+allow storing the data for your own analysis, not redistributing it: nothing it captures is committed.
+
+**`capture-closes.ts`** (`npm run capture:closes`, roadmap 5.3, audit INT-08) appends end-of-day prices
+for named tickers from Tiingo to `<out>/<TICKER>.jsonl`, one line per trading day, written once. It needs
+the self-hoster's own free key (`TIINGO_API_KEY` in `site/.env`), sent in an `Authorization` header and
+never in a URL or a message, and rejects a ticker that is not a symbol before it reaches a request. Tiingo's
+free plan is for personal use: nothing it captures is committed or published.
+
+**`grade-lines.ts`** (`npm run grade:lines`, audit PROD-10) grades a CSV of the user's bets against
+their archive, using the same `close` capture as the digest: EV at the de-vigged close, points gained,
+results. A game with no close capture is never graded against a pre-game line. Local only.
+
+**`npm run check:lines`** runs all five against recorded shapes with no network. A behaviour
 change gets a case there; it must fail on the old code.
 
 ESPN's endpoint is unofficial. Low volume, personal use, no republishing of captured lines by this
@@ -107,7 +126,7 @@ Never "fix" drift by editing the committed catalog to match the host.
 
 ## 5. Checklist
 
-1. Edit `TEMPLATES` / `PACKS` only; quote path parameters; bump `version`.
+1. Edit `TEMPLATES` / `PACKS` only; quote path parameters; bump `version` (the build refuses a changed `commandTemplate` without one).
 2. README links every template id; the ESPN notice matches.
 3. `npm run build:registry`, then `npm run build:registry -- --check`.
 4. Script change → a case in `check:lines` that fails on the old code; `npm run check:lines`.
