@@ -28,7 +28,7 @@ schedule is a claim to verify, not evidence.
 - [ ] Are two jobs touching the same repo on the same topic? Merge them into one session and one PR
 - [ ] Does the merge gate spend its expensive model on PRs a path rule could decide?
 - [ ] Do daily jobs stay quiet on a skip?
-- [ ] Does a weekly report total the fleet's spend per job (from the log cost lines), with the change from last week?
+- [ ] Does a weekly report total the fleet's spend per job (from the log cost lines), with the change from last week? Does a script count each run once, at its last cost line? A session that resumes after background work prints a result line each time, each carrying the running total, so summing the lines counts one run several times
 
 ## 3. Throughput
 
