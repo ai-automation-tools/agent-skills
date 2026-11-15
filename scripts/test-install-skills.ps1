@@ -10,6 +10,9 @@
     2. Installs a bare run (Core only) and asserts no Domain or Projects skill leaks in.
     3. Copies skills/ and the installer into a scratch repo, duplicates one skill
        under a second category, and asserts the install throws on the collision.
+    4. Runs -AllAgents with HOME pointed at a fake home in the temp directory and
+       asserts it writes the three shared folders, skips absent CLIs, and removes old
+       copies from the folders it no longer writes without touching anything else.
 
     Touches nothing outside the temp directory, so it never writes to ~/.claude.
     Exits 1 on the first failed assertion. CI runs it in validate.yml.
@@ -83,6 +86,29 @@ try {
     try { & $scratchInstaller -Destination $collisionOut *> $null } catch { $threw = $_.Exception.Message }
     Assert ($threw -match 'Duplicate skill name') "a duplicated name ($($victim.Name)) throws"
     Assert (-not (Test-Path $collisionOut)) 'a collision installs nothing'
+
+    # 4. -AllAgents against a fake home: writes the three shared folders, skips absent CLIs,
+    #    removes old copies from the retired folders and leaves anything else there alone.
+    $fakeHome = Join-Path $Tmp 'home'
+    $one      = $coreExpected[0]
+    foreach ($d in '.claude', '.codex', '.gemini/antigravity-cli/skills', ".config/opencode/skills/$one", '.config/opencode/skills/my-own-skill') {
+        New-Item -ItemType Directory -Path (Join-Path $fakeHome $d) -Force | Out-Null
+    }
+    $pwsh = (Get-Process -Id $PID).Path
+    $saved = $env:HOME, $env:USERPROFILE
+    try {
+        $env:HOME = $fakeHome; $env:USERPROFILE = $fakeHome   # $HOME follows HOME on Linux, USERPROFILE on Windows
+        & $pwsh -NoProfile -File $Installer -AllAgents *> $null
+        Assert ($LASTEXITCODE -eq 0) '-AllAgents exits cleanly'
+    } finally { $env:HOME, $env:USERPROFILE = $saved }
+    foreach ($d in '.claude/skills', '.agents/skills', '.gemini/config/skills') {
+        $got = @(Get-ChildItem -Path (Join-Path $fakeHome $d) -Directory -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Name | Sort-Object)
+        Assert (-not (Compare-Object $coreExpected $got)) "-AllAgents installs the Core tier to ~/$d"
+    }
+    Assert (-not (Test-Path (Join-Path $fakeHome '.kilo'))) '-AllAgents creates nothing for a CLI that is absent'
+    Assert (-not (Get-ChildItem -Path (Join-Path $fakeHome '.gemini/antigravity-cli/skills'))) '-AllAgents no longer writes ~/.gemini/antigravity-cli/skills'
+    Assert (-not (Test-Path (Join-Path $fakeHome ".config/opencode/skills/$one"))) "-AllAgents removes an old copy ($one) from a retired folder"
+    Assert (Test-Path (Join-Path $fakeHome '.config/opencode/skills/my-own-skill')) '-AllAgents leaves a skill it did not install alone'
 
     Write-Host 'All installer checks passed.' -ForegroundColor Green
 }
