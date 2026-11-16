@@ -130,8 +130,13 @@ Every rule sits inside `@media (max-width: 600px)`, `(hover: none)` or
    token names and uses a `useTheme` hook with the same storage key and the same
    pre-paint script in `index.html`. Don't add Tailwind or a framework to a page
    that has none.
-5. **Do the phone pass** at 390px, then check 1400px is unchanged.
-6. **Verify** with the checklist below.
+5. **Build each primitive the modern way.** Before writing a dialog, popover,
+   drawer, theme switch, form or scroll effect, run the `modern-web-guidance`
+   skill (`search` that one primitive, then `retrieve`) and use the native
+   feature it points to. This skill fixes the look; that one fixes the build.
+   Skip it only if the skill isn't installed.
+6. **Do the phone pass** at 390px, then check 1400px is unchanged.
+7. **Verify** with the checklist below.
 
 ## Verify
 

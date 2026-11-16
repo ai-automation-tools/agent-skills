@@ -156,7 +156,7 @@ framework's `icon.svg`) and as its card's `icons/tools/<id>.svg`. Check it at
 | Sections | `padding-block: 64px; border-top: 1px solid var(--rule); scroll-margin-top: 72px` |
 | Ground | `background: var(--bg)` + `radial-gradient(var(--dots) 1.2px, transparent 0)` at `24px 24px`, `background-attachment: fixed` |
 | Hero glow | one absolutely-positioned `.glow` with a radial in `--glow`, masked to fade out downward. Nothing else glows at rest |
-| Scrollbar | 6px, thumb `--thumb`, radius 3px |
+| Scrollbar | `scrollbar-width: thin; scrollbar-color: var(--thumb) transparent` on `html`; `::-webkit-scrollbar` (6px, radius 3px) only inside `@supports not (scrollbar-color: auto)` |
 | Selection | accent at 30% |
 
 ## 3. Pre-paint script and theme switch
