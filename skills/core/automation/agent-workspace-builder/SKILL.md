@@ -83,7 +83,7 @@ the shared frame, never the work folders.
    of decision wait for an answer (money, credentials, going public, outward actions,
    widening permissions); everything else is a proposal with a default and a date seven
    days out, applied automatically unless the owner objects. Subjective gates ("the owner
-   says it's in daily use") become measured ones (`scripts/usage.py`). Details:
+   says it's in daily use") become checkable ones (three reviewed deliverables). Details:
    `references/automations.md`, *Autonomy*.
 10. **One setup, every CLI.** `.claude/` and `.mcp.json` are the source; Codex and
     Antigravity get theirs from `scripts/gen-vendor-configs.py`, never a hand-kept copy,
@@ -173,7 +173,7 @@ Copy all seven into the workspace's `scripts/`. Each is stdlib-only Python 3.11+
 | `scripts/gen-capabilities.py` | Writes `docs/reference/CAPABILITIES.md` from `.claude/` and `skills/`; `--check` fails CI when stale |
 | `scripts/check-links.py` | Every relative link in every Markdown file resolves |
 | `scripts/gen-vendor-configs.py` | Writes Codex and Antigravity config (`.agents/`, `.codex/`) and `docs/reference/OTHER-CLIS.md` from `.claude/` and `.mcp.json`; `--check` fails CI when stale |
-| `scripts/usage.py` | Not run in CI (needs local logs): counts sessions and active days in this clone from Claude Code's transcripts; `--check --min-days 10` is the measured "in daily use" gate |
+| `scripts/usage.py` | Not run in CI (needs local logs): counts sessions and active days in this clone from Claude Code's transcripts; information only, not a gate: no job can meet a session count (see *Checkable gates* in `references/automations.md`) |
 | `scripts/envfile.py` | Not a check: loads `.env` (`load_env()` for scripts; `envfile.py -- <cmd>` to launch an MCP server with it; `--names` lists names, never values) |
 
 ## Anti-patterns

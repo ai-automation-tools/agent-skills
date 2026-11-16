@@ -30,8 +30,9 @@ section; an untagged item is one per run. Keep a list of what you skipped and wh
 If the item needs a judgment call AGENTS.md's *Standing defaults* don't settle (which real
 target, which option), don't stop at a question: add a proposal with `- Default:` and
 `- Proceeds:` (seven days out) to `docs/operations/OPEN-QUESTIONS.md`, skip the item, and
-take the next. A gate measured by a script (`python scripts/usage.py --check`) is ticked when
-the script passes, with its output in the note.
+take the next. The *In real use* gate is ordinary work, one deliverable per run: build it, run
+the reviewer agent and checks the gate names, record the verdict, and leave a dated progress
+note (`1 of 3: <link>`) until all three are listed.
 
 ## 3. Claim, build, verify
 

@@ -101,9 +101,12 @@ Answer still empty, the job applies the default and moves the entry to `## Answe
 digest lists true questions and pending proposals separately, so the owner reads one email
 and acts only when they disagree.
 
-**Measured gates, not opinions.** "The owner says it's in daily use" becomes
-`python scripts/usage.py --check --min-days 10` (active days in the last 30, from local
-session logs; job worktrees don't count). "Both jobs ran and their PRs were read" ticks
+**Checkable gates, not opinions.** "The owner says it's in daily use" becomes **In real use:
+three deliverables**, each in the workspace's work folder and passed by its reviewer agent and
+checks, with the verdict recorded (name the folder, agent and checks in the gate). A job can
+produce it and a reviewer can check it. Don't gate on the owner's own session count
+(`scripts/usage.py --check`): no job can meet it, so the gate never ticks and the workspace
+never goes live. `usage.py` stays as information. "Both jobs ran and their PRs were read" ticks
 when the review sweep has merged one PR from each job.
 
 **Real targets.** A gate that needs real work (a study, an app, a brief) is workable when
