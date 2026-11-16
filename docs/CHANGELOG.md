@@ -24,6 +24,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-11-16
+
+**Changed**
+- `web-house-style`: new workflow step 5 runs Google's `modern-web-guidance` skill for each UI primitive (dialog, popover, drawer, theme switch, form) before it's built, so the house look sits on native platform features.
+
 ## 2026-11-13
 
 **Changed**
