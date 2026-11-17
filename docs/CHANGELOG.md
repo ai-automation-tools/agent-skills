@@ -24,6 +24,10 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-11-17
+
+- `validate-skills.py` now enforces the open spec's 64-character cap on `name` (agentskills.io/specification). Upstream check: every row read, nothing else changed.
+
 ## 2026-11-16
 
 **Changed**

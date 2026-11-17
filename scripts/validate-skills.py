@@ -7,7 +7,7 @@ Standard library only, so it runs the same on Windows and in CI:
 
 Checks, for every leaf skill (a folder that directly holds a SKILL.md):
   - the YAML frontmatter parses (hand-parsed: it's a small, known shape)
-  - `name` is kebab-case, equals its leaf folder, and is unique across all tiers
+  - `name` is kebab-case, at most 64 characters, equals its leaf folder, and is unique across all tiers
   - `description` exists and is 40-1,024 characters long
   - every skill-relative path the body names (scripts/..., references/...,
     prompts/..., evals/...) exists inside the skill
@@ -121,6 +121,8 @@ def main():
         else:
             if not KEBAB.match(name):
                 fail(rel, f"name {name!r} is not kebab-case")
+            if len(name) > 64:  # open spec: agentskills.io/specification
+                fail(rel, f"name is {len(name)} characters; the open spec caps it at 64")
             if name != folder:
                 fail(rel, f"name {name!r} does not match its folder {folder!r}")
             if name in seen:
