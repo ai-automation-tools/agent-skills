@@ -24,6 +24,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-11-17
+
+**Fixed**
+- `AGENTS.md` and `README.md` count six Org_Agents workspaces, not seven: `fullstack-agent` was archived on 2026-11-16 and no longer carries the `agent-workspace-builder` scripts.
+
 ## 2026-11-16
 
 **Changed**
