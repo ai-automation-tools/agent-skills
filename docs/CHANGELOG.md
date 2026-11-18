@@ -26,6 +26,9 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 
 ## 2026-11-17
 
+**Changed**
+- `validate-skills.py` now enforces the open spec's 64-character cap on `name` (agentskills.io/specification). Upstream check: every row read, nothing else changed.
+
 **Fixed**
 - `AGENTS.md` and `README.md` count six Org_Agents workspaces, not seven: `fullstack-agent` was archived on 2026-11-16 and no longer carries the `agent-workspace-builder` scripts.
 

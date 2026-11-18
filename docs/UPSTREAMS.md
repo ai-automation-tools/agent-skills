@@ -21,33 +21,33 @@ source. `—` means never checked.
 
 | Upstream | What the repo assumes | Code | Check at | Last checked |
 |:---|:---|:---|:---|:---|
-| **Agent Skills format (Claude Code)** | A skill is a folder with a `SKILL.md`: YAML frontmatter first, `name` (kebab-case, equal to its folder) and `description` (the validator enforces 40–1,024 characters, the open spec's cap; Claude Code itself allows 1,536 for `description` plus `when_to_use`), then Markdown instructions; optional `scripts/`, `references/` and other folders loaded on demand. Personal skills in `~/.claude/skills/<name>/`, project skills in `<repo>/.claude/skills/<name>/`; invoked as `/skill-name` | `scripts/validate-skills.py`, `docs/USING-SKILLS.md`, `AGENTS.md`, every `SKILL.md` | code.claude.com/docs/en/skills; docs.claude.com/en/docs/agents-and-tools/agent-skills; github.com/anthropics/claude-code/blob/main/CHANGELOG.md | 2026-10-06 |
-| **Open Agent Skills spec** | The same frontmatter is portable to other agents that read the open spec, so one leaf folder installs everywhere | `docs/USING-SKILLS.md`, `README.md` | agentskills.io; github.com/anthropics/skills | 2026-10-06 |
+| **Agent Skills format (Claude Code)** | A skill is a folder with a `SKILL.md`: YAML frontmatter first, `name` (kebab-case, equal to its folder) and `description` (the validator enforces 40–1,024 characters, the open spec's cap; Claude Code itself allows 1,536 for `description` plus `when_to_use`), then Markdown instructions; optional `scripts/`, `references/` and other folders loaded on demand. Personal skills in `~/.claude/skills/<name>/`, project skills in `<repo>/.claude/skills/<name>/`; invoked as `/skill-name` | `scripts/validate-skills.py`, `docs/USING-SKILLS.md`, `AGENTS.md`, every `SKILL.md` | code.claude.com/docs/en/skills; docs.claude.com/en/docs/agents-and-tools/agent-skills; github.com/anthropics/claude-code/blob/main/CHANGELOG.md | 2026-11-17 |
+| **Open Agent Skills spec** | The same frontmatter is portable to other agents that read the open spec, so one leaf folder installs everywhere | `docs/USING-SKILLS.md`, `README.md` | agentskills.io; github.com/anthropics/skills | 2026-11-17 |
 
 ## Install targets
 
 | Upstream | What the repo assumes | Code | Check at | Last checked |
 |:---|:---|:---|:---|:---|
-| **Codex + Kimi** | Global skills read from `~/.agents/skills` (shared); `~/.codex/skills` is Codex's legacy path | `scripts/install-skills.ps1` (`-AllAgents`), `docs/USING-SKILLS.md` | learn.chatgpt.com/docs/build-skills (was developers.openai.com/codex/skills); github.com/openai/codex/releases; Kimi CLI docs | 2026-10-06 |
-| **Antigravity CLI (agy) and IDE** | Both read `~/.gemini/config/skills`, the `-AllAgents` target; the CLI also reads `~/.gemini/antigravity-cli/skills`, a retired target `-AllAgents` cleans up | `scripts/install-skills.ps1`, `docs/USING-SKILLS.md` | antigravity.google/docs; github.com/google-gemini/gemini-cli/releases | 2026-10-06 |
-| **opencode** | Reads `~/.claude/skills` and `~/.agents/skills` besides its own `~/.config/opencode/skills` (a retired target `-AllAgents` cleans up) | `scripts/install-skills.ps1`, `docs/USING-SKILLS.md` | opencode.ai/docs; github.com/sst/opencode/releases | 2026-10-06 |
-| **Kilo** | Reads `~/.agents/skills` besides its own `~/.kilo/skills` (a retired target `-AllAgents` cleans up); `~/.kilo` counts as a CLI that reads `~/.agents/skills` | `scripts/install-skills.ps1` | kilo.ai/docs; github.com/Kilo-Org/kilocode/releases | 2026-10-06 |
+| **Codex + Kimi** | Global skills read from `~/.agents/skills` (shared); `~/.codex/skills` is Codex's legacy path | `scripts/install-skills.ps1` (`-AllAgents`), `docs/USING-SKILLS.md` | learn.chatgpt.com/docs/build-skills (was developers.openai.com/codex/skills); github.com/openai/codex/releases; Kimi CLI docs | 2026-11-17 |
+| **Antigravity CLI (agy) and IDE** | Both read `~/.gemini/config/skills`, the `-AllAgents` target; the CLI also reads `~/.gemini/antigravity-cli/skills`, a retired target `-AllAgents` cleans up | `scripts/install-skills.ps1`, `docs/USING-SKILLS.md` | antigravity.google/docs; github.com/google-gemini/gemini-cli/releases | 2026-11-17 |
+| **opencode** | Reads `~/.claude/skills` and `~/.agents/skills` besides its own `~/.config/opencode/skills` (a retired target `-AllAgents` cleans up) | `scripts/install-skills.ps1`, `docs/USING-SKILLS.md` | opencode.ai/docs; github.com/sst/opencode/releases | 2026-11-17 |
+| **Kilo** | Reads `~/.agents/skills` besides its own `~/.kilo/skills` (a retired target `-AllAgents` cleans up); `~/.kilo` counts as a CLI that reads `~/.agents/skills` | `scripts/install-skills.ps1` | kilo.ai/docs; github.com/Kilo-Org/kilocode/releases | 2026-11-17 |
 
 ## Tooling and CI
 
 | Upstream | What the repo assumes | Code | Check at | Last checked |
 |:---|:---|:---|:---|:---|
-| **Python** | `validate-skills.py` is stdlib-only (`re`, `sys`, `pathlib`); CI uses `python-version: '3.x'` | `scripts/validate-skills.py`, `.github/workflows/validate.yml` | python.org/downloads (status of each version); github.com/actions/setup-python/releases | 2026-10-06 |
-| **PowerShell 7** | `install-skills.ps1` runs under `pwsh` | `scripts/install-skills.ps1` | learn.microsoft.com/powershell/scripting/install/powershell-support-lifecycle | 2026-10-06 |
-| **GitHub Actions** | `actions/checkout@v7`, `actions/setup-python@v7`, `actions/upload-pages-artifact@v5`, `actions/deploy-pages@v5` (Node 20 actions stopped running on 2026-09-23, so every pin must declare `node24`) | `.github/workflows/*.yml` | each action's GitHub releases; github.blog/changelog (label: actions) | 2026-10-06 |
+| **Python** | `validate-skills.py` is stdlib-only (`re`, `sys`, `pathlib`); CI uses `python-version: '3.x'` | `scripts/validate-skills.py`, `.github/workflows/validate.yml` | python.org/downloads (status of each version); github.com/actions/setup-python/releases | 2026-11-17 |
+| **PowerShell 7** | `install-skills.ps1` runs under `pwsh` | `scripts/install-skills.ps1` | learn.microsoft.com/powershell/scripting/install/powershell-support-lifecycle | 2026-11-17 |
+| **GitHub Actions** | `actions/checkout@v7`, `actions/setup-python@v7`, `actions/upload-pages-artifact@v5`, `actions/deploy-pages@v5` (Node 20 actions stopped running on 2026-09-23, so every pin must declare `node24`) | `.github/workflows/*.yml` | each action's GitHub releases; github.blog/changelog (label: actions) | 2026-11-17 |
 
 ## Showcase site
 
 | Upstream | What the site assumes | Code | Check at | Last checked |
 |:---|:---|:---|:---|:---|
-| **GitHub Pages** | `site/` published by the Pages workflow, custom domain `agent-skills.ai-automation-tools.dev` in `site/CNAME`, HTTPS (the `.dev` TLD is HSTS-preloaded, so no certificate means no site) | `.github/workflows/pages.yml`, `site/CNAME` | docs.github.com/en/pages; github.blog/changelog (label: pages) | — |
-| **Google Fonts** | `fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&display=swap`, with preconnects | `site/index.html` | developers.google.com/fonts/docs/css2; fonts.google.com (Geist, Instrument Serif) | — |
-| **Org consent gate** | `<script src="https://ai-automation-tools.dev/consent.js" defer>`, served by the org landing page repo; it gates any future analytics | `site/index.html` | the landing repo's `consent.js` and `docs/UPSTREAMS.md` | — |
+| **GitHub Pages** | `site/` published by the Pages workflow, custom domain `agent-skills.ai-automation-tools.dev` in `site/CNAME`, HTTPS (the `.dev` TLD is HSTS-preloaded, so no certificate means no site) | `.github/workflows/pages.yml`, `site/CNAME` | docs.github.com/en/pages; github.blog/changelog (label: pages) | 2026-11-17 |
+| **Google Fonts** | `fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&display=swap`, with preconnects | `site/index.html` | developers.google.com/fonts/docs/css2; fonts.google.com (Geist, Instrument Serif) | 2026-11-17 |
+| **Org consent gate** | `<script src="https://ai-automation-tools.dev/consent.js" defer>`, served by the org landing page repo; it gates any future analytics | `site/index.html` | the landing repo's `consent.js` and `docs/UPSTREAMS.md` | 2026-11-17 |
 
 Flag breaking changes, removals, EOL runtimes and security advisories only. There's no package
 manifest, so nothing here is Dependabot's.
