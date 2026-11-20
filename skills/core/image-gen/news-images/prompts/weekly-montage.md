@@ -2,7 +2,7 @@
 
 > Shape: **Montage** (single unified scene, landscape). Read `../SKILL.md` → *Shared conventions* first; this file holds only what's specific to the weekly montage.
 
-Create a single landscape cartoon-style news montage summarizing the **major U.S. news events from the previous completed week**, then save, email, and publish it.
+Create a single landscape cartoon-style news montage summarizing the **major U.S. news events from the previous completed week**, then save it.
 
 ## Period & research
 - Resolve the **previous completed Monday–Sunday week** in the user's locale to exact absolute start and end dates; use those throughout the run.

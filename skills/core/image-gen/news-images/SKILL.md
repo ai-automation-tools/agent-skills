@@ -1,6 +1,6 @@
 ---
 name: news-images
-description: Generate cartoon-editorial news imagery — daily, weekly, monthly, and yearly news collages (6-panel grids) and news montages (single unified scenes). Use when asked to make, create, or generate a news collage or news montage for any cadence, or to build a daily/weekly/monthly/yearly news image. Handles story research, layout, and image generation.
+description: Generate cartoon-editorial news imagery — daily, weekly, monthly, and yearly news collages (6-panel grids) and news montages (single unified scenes). Use when asked to make, create, or generate a news collage or news montage for any cadence, to build a daily/weekly/monthly/yearly news image, or for an editorial cartoon, cartoon recap or illustrated roundup of the day's, week's, month's or year's headlines. Handles story research, layout, and image generation.
 ---
 
 # News Images
@@ -26,6 +26,8 @@ There are two shapes and four cadences → an 8-cell matrix. Pick the one the us
 | **Yearly** | previous calendar year | [`prompts/yearly-collage.md`](prompts/yearly-collage.md) | [`prompts/yearly-montage.md`](prompts/yearly-montage.md) |
 
 **Disambiguation:** if the user says "collage" → grid variant; "montage" → scene variant. If they say only "news image" for a cadence, ask which shape. Always confirm the **period** resolves to an absolute date range before generating.
+
+**Periods in progress:** "today's", "this week's", "this month's" or "this year's" still means the cadence's period in the table (the last *completed* one), because a period still under way has no settled news yet. Say the absolute range you resolved to. If the user clearly wants the period under way ("so far", "to date", or names it: "2026's" asked in November 2026), cover its first day through yesterday, mark it as partial in the image's stamp or title (`2026 so far`, `Nov 1–18, 2026`), and add `_to-date` before `.png` in the filename. If you can't tell which they mean, ask before researching.
 
 ## How to run a variant
 
@@ -70,4 +72,5 @@ Prefer the `nanobanana` MCP tool (Gemini image, 4K, subject consistency) or anot
 - Save the finished PNG to the location the user specifies. If none is given, save to the current working directory and report the full path.
 - Use the filename convention in each prompt's *Save* section (it encodes the variant and period, e.g. `Daily-News-Collage_7-6-26.png`).
 - **Optional:** if the user wants a companion metadata note, write a Markdown file with the same base name capturing the period covered, the timestamp/title shown in the image, the selected stories **with source URLs**, and the embedded captions/labels.
-- **Optional:** if the user asks to have it emailed, hand the PNG to whatever email skill or sender is available — each prompt lists a standardized subject/body to use.
+- **Optional:** if the user asks to have it emailed, hand the PNG to whatever email skill or sender is available — each prompt lists a standardized subject/body to use. If no sender is available, say so rather than claiming it was sent.
+- **Never** email, post, upload or publish the image unasked. Saving the PNG is the whole default job; this skill has no publish step.

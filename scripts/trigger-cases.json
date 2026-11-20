@@ -39,7 +39,8 @@
     "news-images": {
       "load": [
         "Make today's news collage.",
-        "Create a weekly news montage of this week's top stories."
+        "Create a weekly news montage of this week's top stories.",
+        "Draw me an editorial cartoon of this week's headlines."
       ],
       "skip": ["Summarize today's top headlines in five bullet points."]
     },
