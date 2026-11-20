@@ -2,7 +2,7 @@
 
 > Shape: **Collage** (6-panel grid, portrait). Read `../SKILL.md` → *Shared conventions* first; this file holds only what's specific to the monthly collage.
 
-Create a vertical cartoon-style news collage summarizing the **major U.S. news stories from the previous calendar month**, then save, email, and publish it.
+Create a vertical cartoon-style news collage summarizing the **major U.S. news stories from the previous calendar month**, then save it.
 
 ## Period & research
 - Resolve the **previous calendar month** in the user's locale; use that exact month and year throughout the run.

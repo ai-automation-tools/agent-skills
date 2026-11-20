@@ -34,7 +34,7 @@ Two things make this skill different from writing a business plan:
 - Pressure-testing an idea the user is already attached to. This is the case the skill is built for.
 - An existing plan needs the missing half — it has a market story but no unit economics, or a build estimate with no decision behind it.
 
-**Not for:** a quick opinion (just answer), a single competitor lookup (do the teardown pass alone), or writing marketing copy for an idea already decided on.
+**Not for:** a quick opinion in conversation (just answer, no repo), a single competitor lookup (do the teardown pass alone), or writing marketing copy for an idea already decided on. A quick read the user wants *written up* is not a quick opinion: that's screen mode (§1).
 
 ---
 
@@ -69,7 +69,7 @@ Before any research, pin down four things and write them into the root README as
 | **What's given vs. what you're supplying** | Split the input into claims the user asserted (tag `[assum]` unless they cite something) and gaps you'll have to fill. A finished 20-page proposal is still mostly `[assum]` until you check it. |
 | **Destination + slug** | Where the repo gets written, and the kebab-case slug for the folder. Default `./<idea-slug>/` in the working directory; confirm before creating anything. |
 
-Then set the depth. **Full run is the default** — all eight passes. Drop to a screen (passes 1–4 only, gate closes, no build layer) when the user asks for a quick read or when the idea is early enough that a build estimate would be theater. Say which mode you're in, out loud, in the root README.
+Then set the depth. **Full run is the default** — all eight passes. Drop to a screen (passes 1–4 only, gate closes, no build layer) when the user asks for a quick read written up, or when the idea is early enough that a build estimate would be theater. Say which mode you're in, out loud, in the root README.
 
 ---
 
@@ -185,7 +185,7 @@ Run this. Every failure here is one somebody else would have found.
 1. **No untagged figure anywhere.** Grep for digits in `analysis/` and `decisions/` and check each one carries `[fact]`, `[est]`, or `[assum]`.
 2. **Every `[fact]` has a URL and a retrieval date**, and that date is real.
 3. **Every figure in the memo traces to a file.** If it can't be walked back to `models/` or `analysis/`, it doesn't belong in the memo.
-4. **`research/` actually has files in it.** An `analysis/` folder citing an empty `research/` folder is the signature failure of this whole skill.
+4. **`research/` actually has files in it**, one for every source the analysis cites. An `analysis/` folder citing files that aren't in `research/` is the signature failure of this whole skill. The one exception is a run with no web access (§2, *Research reality check*): `research/` may be empty only if the root README's first paragraph says so, no claim is tagged `[fact]`, and the evidence badge reads `unsourced_·_hypothesis`.
 5. **The model was executed** and its real output is pasted into `models/README.md`.
 6. **The memo names one key assumption**, singular, and the sensitivity sweep supports the choice.
 7. **"What would change my mind" exists** and each entry has an observable, a threshold, and a date. A memo without it is a pitch.

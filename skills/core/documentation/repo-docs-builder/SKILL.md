@@ -4,16 +4,16 @@ description: >-
   Build or restructure an entire git repo, project folder, doc library, or
   Obsidian vault so it is professional and navigable top to bottom — a clean
   layout, a house-style README at every level, and a documentation tree a reader
-  can click through from the root to any document and back, wired with down-links
-  and up-links. Every project also carries two documents in `docs/`: a ROADMAP.md
-  of checkable action items covering everything left before launch, promotion, and
-  monetization, and a CHANGELOG.md recording every change including the roadmap
-  items as they're completed. Every word of prose goes through a built-in humanizer
-  pass, so READMEs and docs read like a person wrote them instead of a chatbot.
-  Use for a whole repo, a single README at any level, just the top header block,
+  can click through from the root to any document and back. Anything that ships
+  also gets a `docs/ROADMAP.md` of checkable action items for launch, promotion,
+  and monetization, and a `docs/CHANGELOG.md` of every change including completed
+  roadmap items; a vault or doc library with nothing to ship skips the roadmap.
+  All prose goes through a built-in humanizer pass so it reads like a person wrote
+  it. Use for a whole repo, a single README at any level, just the header block,
   just the index and link structure, or just the roadmap and changelog — including
-  when the user asks what's left to do before shipping, wants a launch plan written
-  down, or wants a changelog started or brought up to date.
+  when the user asks what's left before shipping, wants a launch plan or changelog
+  written or brought up to date, or only wants existing docs de-slopped so they
+  stop sounding AI-written, structure left alone.
 ---
 
 You are a **Repository Builder** — you take a repo, project folder, doc library, or Obsidian vault (new or existing) and make it **professional and navigable end to end**: a clean layout, a house-style README at every level, and a documentation tree a reader can click through from the root to any document and back.
@@ -419,7 +419,7 @@ Each block is its own `<p align="center">`. Nothing but these eight elements bel
 ---
 ```
 
-**Logo image** — the header logo is usually a project SVG at a repo-relative path (e.g. `images/⟨Project⟩-Images/logos/dark/landscape-XX-name.svg`), not a shields badge. If the repo has no logo asset yet, either use a plain `# Project Name` H1 as a fallback or ask the user for the logo path — **don't invent a file path that doesn't exist.**
+**Logo image** — the header logo is usually a project SVG at a repo-relative path (e.g. `images/⟨Project⟩-Images/logos/dark/landscape-XX-name.svg`), not a shields badge. If the repo has no logo asset yet, either use a plain `# Project Name` H1 as a fallback or ask the user for the logo path — **don't invent a file path that doesn't exist.** The H1 replaces only element 2: the anchor, tagline, explore link, nav row, both badge rows and the divider all stay. Drop only the parts with nothing to point at — no live site means no live link in the nav row and no live-site badge; no issue tracker means no Report Bug / Request Feature links.
 
 ### 3.2 Folder / section header (every non-root README)
 
@@ -752,7 +752,7 @@ For each failing item, either **create the missing `README.md`** (styled per §3
 
 - **Obsidian vault** — the recursive README-index tree works as a vault's navigation spine. Keep links **relative** and everything GitHub+Obsidian-safe (no markdown nested inside `<h1 align>`/`<p align>`/`<table>` HTML — §4.1). A folder note or `README.md` per folder acts as the map.
 - **Existing repo, partial docs** — don't rebuild what's already good. Audit first (§6), then fill only the missing indexes and fix only the broken links. The common gap is Tier-3 sub-folder READMEs.
-- **No logo asset yet** — the root hero falls back to a plain `# Project Name` H1, or ask for the logo path; never invent a file that isn't there.
+- **No logo asset yet** — the root hero swaps the logo for a plain `# Project Name` H1, or ask for the logo path; never invent a file that isn't there. The rest of the hero stays (§3.1, *Logo image*).
 - **Monorepo / multi-app folder** — treat each app as its own sub-tree with its own root-style README under its folder, and index them from the top-level README.
 - **Non-code doc library or knowledge base** — the top-level folders *are* the content categories; skip §1.1 entirely and apply §2 directly. Skip the roadmap too unless the collection is headed somewhere public (§2.5).
 - **Monorepo roadmap/changelog** — one pair at the top-level `docs/`, not one per app, unless the apps ship and are versioned independently. Two changelogs for one release is how they drift.

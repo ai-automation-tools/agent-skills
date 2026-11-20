@@ -2,7 +2,7 @@
 
 > Shape: **Montage** (single unified scene, landscape). Read `../SKILL.md` → *Shared conventions* first; this file holds only what's specific to the yearly montage.
 
-Create a single landscape cartoon-style news montage summarizing the **defining U.S. news events of the previous calendar year**, then save, email, and publish it.
+Create a single landscape cartoon-style news montage summarizing the **defining U.S. news events of the previous calendar year**, then save it.
 
 ## Period & research
 - Resolve the **previous full calendar year** (e.g. run in early 2027 → year **2026**); use that exact year throughout the run.

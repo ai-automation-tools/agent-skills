@@ -2,7 +2,7 @@
 
 > Shape: **Montage** (single unified scene, landscape). Read `../SKILL.md` → *Shared conventions* first; this file holds only what's specific to the monthly montage.
 
-Create a single landscape cartoon-style news montage summarizing the **major U.S. news events from the previous calendar month**, then save, email, and publish it.
+Create a single landscape cartoon-style news montage summarizing the **major U.S. news events from the previous calendar month**, then save it.
 
 ## Period & research
 - Resolve the **previous calendar month** in the user's locale; use that exact month and year throughout the run.

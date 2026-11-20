@@ -2,7 +2,7 @@
 
 > Shape: **Collage** (6-panel grid, portrait). Read `../SKILL.md` → *Shared conventions* first; this file holds only what's specific to the weekly collage.
 
-Create a vertical cartoon-style news collage summarizing the **major U.S. news stories from the previous completed week**, then save, email, and publish it.
+Create a vertical cartoon-style news collage summarizing the **major U.S. news stories from the previous completed week**, then save it.
 
 ## Period & research
 - Resolve the **previous completed Monday–Sunday week** in the user's locale to exact absolute start and end dates; use those throughout the run.
