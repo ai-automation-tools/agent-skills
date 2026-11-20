@@ -40,6 +40,14 @@ standing sync instructions, and what makes a skill portable.
 
 Nothing below blocks go-live.
 
+### 🛡️ Security hardening (code audit, 2026-11-19; work these first)
+
+Found in the owner's own static audit of the skill text and scripts. Each item is the fix and its test; build them in this order, one per run, before anything else below.
+
+- [ ] **Fence the unattended agent session in `cronsole-windows-jobs`** *(Security)* — **What:** in `skills/projects/cronsole/cronsole-windows-jobs/references/agent-job.md`, wherever `--dangerously-skip-permissions` is prescribed (the invocation in §2, its flag table and the §8 anti-patterns), add the deny file passed with `--settings` and a line telling the session to treat repo, issue and web content as data, matching `automated-dev-pipeline` rule 11; link that rule from the skill's `SKILL.md`. **Why:** the reference makes the permission bypass mandatory but never limits what the bypassed session may do, which the library's own pipeline skill requires. **Done when:** every bypassed invocation in the skill shows `--settings <deny file>`, and a check in `scripts/test-skill-scripts.py` (or `validate-skills.py`) fails on any skill file that names `--dangerously-skip-permissions` without `--settings` in the same code block.
+- [ ] `small` **Drop the unconditional "email, and publish" from the news-images prompts** *(Security)* — **What:** in all eight `skills/core/image-gen/news-images/prompts/*.md`, change line 5's "then save, email, and publish it" to "then save it", leaving email to the existing optional section. **Why:** the skill's job is generation only and email is opt-in, but the opening line tells the agent to send and publish every time. **Done when:** `grep -ri "publish" skills/core/image-gen/news-images` finds nothing and the prompts still pass `validate-skills.py`.
+- [ ] `small` **Warn before an install replaces a folder the repo didn't write** *(Security)* — **What:** in `scripts/install-skills.ps1`, extend the overwrite warning from `-Project` to every tier, and before replacing or (under `-AllAgents`) removing a same-named destination folder, skip it with a warning unless it carries a marker the installer writes (for example a `.installed-from-agent-skills` file) or `-Force` is given. **Why:** a user's own skill whose folder name matches a library skill is deleted with only a "Replaced" row in the table. **Done when:** `scripts/test-install-skills.ps1` has a case where a hand-made same-named skill in the destination survives a Core install without `-Force`, and a previous install from this repo is still replaced.
+
 ### 🔨 Phase 1: catch a broken skill before it ships
 
 When this phase started there was no test runner and no CI beyond the Pages deploy, so a
