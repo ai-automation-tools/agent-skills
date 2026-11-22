@@ -76,6 +76,7 @@ schedule is a claim to verify, not evidence.
 
 - [ ] Does every runner write a `start` and an `end` record to one run history that isn't pruned with the logs? List each `start` with no `end`: those are silent deaths
 - [ ] Is a non-zero session exit with no commits reported as `failed`? grep the logs for `API Error` beside a "quiet" outcome
+- [ ] Does a run cut off by the plan's usage limit get one rerun after the reset? grep the `failed` runs' logs for the limit message: each one without a later rerun is a lost week
 - [ ] Which tool errors recur across runs (quoting, `/tmp`, refused deletes, oversized reads)? Is each one in the shared traps file?
 - [ ] Do appending runs read the PR's comments first? Find a held PR and check whether the next run answered the hold
 - [ ] Do caps count from the ledger, not per run? Count the ledger's moves per week against each cap

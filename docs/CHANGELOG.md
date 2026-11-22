@@ -24,6 +24,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-11-22
+
+**Changed**
+- `automated-dev-pipeline`: a run cut off by the agent plan's usage limit is rerun once after the reset the log names (failure-modes table and audit checklist). The 5xx/429 retry never catches it, because the limit isn't an `API Error`.
+
 ## 2026-11-19
 
 **Changed**
