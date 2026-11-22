@@ -24,6 +24,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-11-19
+
+**Changed**
+- Closed the eval-pass gaps in `news-images`, `repo-docs-builder` and `business-plan-builder`. news-images saves and never sends or publishes unasked, resolves "this year's" to the last completed period unless asked for the one under way, and triggers on editorial-cartoon requests; repo-docs-builder keeps the rest of the hero when there's no logo and its description now matches the vault and prose-only cases; business-plan-builder separates a chat opinion from screen mode and lets a declared no-web run keep `research/` empty. *Phase 3*
+
 ## 2026-11-17
 
 **Changed**
