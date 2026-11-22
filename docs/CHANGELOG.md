@@ -29,6 +29,7 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 **Fixed**
 - `gen-vendor-configs.py` (agent-workspace-builder) works on its own repo by default instead of the cwd, refuses a folder without `AGENTS.md` and `.claude/` or the home folder, and deletes only files it wrote (its note, or a new manifest at `.agents/.gen-vendor-configs-manifest`). Run from `~` it used to delete `.codex/auth.json`, Codex sessions, Gemini OAuth files and other tools' `.agents/skills`. Its `--self-check` covers all three cases. Audit AS-04
 - `validate.yml` runs every shipped `--self-check` (found by grep, so new scripts are covered), and a `windows-latest` job reruns the PowerShell tests so `Register-ScheduledJob.ps1` and `run-hidden.vbs` are tested in CI. Audit AS-14
+- `edge-radar-strategy-profiles` puts an owner gate on the three steps that move real money: creating or funding a subaccount, any edit that sets `DRY_RUN=false`, and promotion to pilot or live. The agent prepares the command or diff and stops. Reinstall it into edge-radar with `install-skills.ps1 -Project edge-radar`. Audit AS-05
 
 **Added**
 - An "Audit follow-ups, 2026-11-22" section in the roadmap with all 29 audit items (`AS-01`…`AS-29`), ticked as they land

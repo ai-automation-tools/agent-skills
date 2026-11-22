@@ -56,7 +56,7 @@ From the full repo audit of 2026-11-22 (baseline `4d77026`). Ids are the audit's
 - [ ] **AS-02** Install Core from a reviewed SHA, tracked files only, with a version marker *(installer side)* — the AI Tools Sync side lives in claude-routines
 - [!] **AS-03** Hold PRs that change `skills/core/**`, `skills/**/scripts/**`, `scripts/install-skills.ps1`, `AGENTS.md` or `SECURITY.md` for a person — blocked: `holdPaths` in claude-routines' `org-pr-sweep/routine.json`
 - [x] **AS-04** `gen-vendor-configs.py` can't delete files outside its workspace
-- [ ] **AS-05** Owner gates on funding, `DRY_RUN=false` and promotion in `edge-radar-strategy-profiles`
+- [x] **AS-05** Owner gates on funding, `DRY_RUN=false` and promotion in `edge-radar-strategy-profiles` — done 2026-11-22: the three money steps (subaccount, `DRY_RUN=false`, promotion) carry `🔒 Needs owner` with "prepare, then stop" in `SKILL.md` and `references/launch-and-kill.md`
 - [ ] **AS-06** The installer replaces only what it wrote, skips links, and swaps atomically (security item 3 above)
 - [!] **AS-07** One install target list for `install-skills.ps1` and AI Tools Sync — blocked: Sync in claude-routines must read `scripts/install-targets.json`; the HUB-REFERENCE install claim is in the Agents hub
 - [ ] **AS-08** Fetched content is data: the rule in `automated-dev-pipeline`, both `agent-workspace-builder` prompt assets and `cronsole-windows-jobs` (security item 1 above); the live prompts are claude-routines' half
