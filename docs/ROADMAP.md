@@ -48,6 +48,40 @@ Found in the owner's own static audit of the skill text and scripts. Each item i
 - [ ] `small` **Drop the unconditional "email, and publish" from the news-images prompts** *(Security)* — **What:** in all eight `skills/core/image-gen/news-images/prompts/*.md`, change line 5's "then save, email, and publish it" to "then save it", leaving email to the existing optional section. **Why:** the skill's job is generation only and email is opt-in, but the opening line tells the agent to send and publish every time. **Done when:** `grep -ri "publish" skills/core/image-gen/news-images` finds nothing and the prompts still pass `validate-skills.py`.
 - [ ] `small` **Warn before an install replaces a folder the repo didn't write** *(Security)* — **What:** in `scripts/install-skills.ps1`, extend the overwrite warning from `-Project` to every tier, and before replacing or (under `-AllAgents`) removing a same-named destination folder, skip it with a warning unless it carries a marker the installer writes (for example a `.installed-from-agent-skills` file) or `-Force` is given. **Why:** a user's own skill whose folder name matches a library skill is deleted with only a "Replaced" row in the table. **Done when:** `scripts/test-install-skills.ps1` has a case where a hand-made same-named skill in the destination survives a Core install without `-Force`, and a previous install from this repo is still replaced.
 
+### 🧾 Audit follow-ups, 2026-11-22
+
+From the full repo audit of 2026-11-22 (baseline `4d77026`). Ids are the audit's `AS-xx`; each PR or commit that closes one says so in its title (`fix(AS-04): …`). Items marked `- [!]` live outside this repo (claude-routines, GitHub settings, the Agents hub): the reason is on the line, and the roadmap routine skips them.
+
+- [!] **AS-01** `validate` as a required status check on `main`, and `allowNoChecks: false` for this repo in the org PR sweep 🔒 Needs owner — blocked: a GitHub ruleset change (this repo only, or org-wide?) plus a claude-routines edit
+- [ ] **AS-02** Install Core from a reviewed SHA, tracked files only, with a version marker *(installer side)* — the AI Tools Sync side lives in claude-routines
+- [!] **AS-03** Hold PRs that change `skills/core/**`, `skills/**/scripts/**`, `scripts/install-skills.ps1`, `AGENTS.md` or `SECURITY.md` for a person — blocked: `holdPaths` in claude-routines' `org-pr-sweep/routine.json`
+- [x] **AS-04** `gen-vendor-configs.py` can't delete files outside its workspace
+- [ ] **AS-05** Owner gates on funding, `DRY_RUN=false` and promotion in `edge-radar-strategy-profiles`
+- [ ] **AS-06** The installer replaces only what it wrote, skips links, and swaps atomically (security item 3 above)
+- [!] **AS-07** One install target list for `install-skills.ps1` and AI Tools Sync — blocked: Sync in claude-routines must read `scripts/install-targets.json`; the HUB-REFERENCE install claim is in the Agents hub
+- [ ] **AS-08** Fetched content is data: the rule in `automated-dev-pipeline`, both `agent-workspace-builder` prompt assets and `cronsole-windows-jobs` (security item 1 above); the live prompts are claude-routines' half
+- [!] **AS-09** Private-data gate on the Skill Harvest; a person merges a harvest PR that adds a skill — blocked: the harvest runner is in claude-routines (it can call `scripts/lint-skill-safety.py`)
+- [ ] **AS-10** Settle who owns the engineering Domain skills (move to Core, or a "maintained here" status), then fix `HARVEST.md`, the counts and `AGENTS.md` 🔒 Needs owner
+- [ ] **AS-11** Drift check for every hand copy (`copies.json`, `check-copies.py`); `project-hub-client` copied to project-hub
+- [!] **AS-12** Decide how the 2026-11-24 Org Agents refresh merges (sweep exception for byte-identical script syncs, or one manual round) — blocked: claude-routines' sweep prompt
+- [ ] **AS-13** Tick the news-images item (#126) and fix its check; repoint the cronsole item at the new rule
+- [x] **AS-14** Every shipped `--self-check` in CI, plus a `windows-latest` job
+- [ ] **AS-15** One frontmatter parse rule (BOM, folded scalars) and one line-cap policy across the scripts
+- [ ] **AS-16** `cronsole-windows-jobs` helpers: a repeat duration Windows accepts, catch-up opt-in, launch errors logged, quoted arguments
+- [ ] **AS-17** `-All -AllAgents` rejected, `scaffold-hub.ps1` requires PowerShell 7, `envfile` strips a comment before unquoting
+- [ ] **AS-18** `check-triggers.py`: no MCP servers, failed or timed-out runs are inconclusive, not passes
+- [ ] **AS-19** SHA-pin the GitHub Actions; Dependabot keeps the pins current
+- [!] **AS-20** Delete merged branches automatically and prune the old ones 🔒 Needs owner — blocked: a repo setting
+- [ ] **AS-21** Doc drift: workspace count, "Mike" in public docs, media-agent naming *(this repo)*; the hub and automation prompts are outside it
+- [ ] **AS-22** Narrow `task-router` and `web-house-style` triggers and add cross-skill near-miss cases — needs `check-triggers.py` runs (local, spends tokens) to show 3 of 3
+- [ ] **AS-23** Licence credits for adapted content; confirm the origin of the private business-analysis template 🔒 Needs owner
+- [ ] **AS-24** Showcase: intrinsic image dimensions
+- [ ] **AS-25** No consent prompt on org sites with no analytics 🔒 Needs owner — org-wide house-style decision
+- [ ] **AS-26** Self-host the showcase fonts 🔒 Needs owner — org-wide house-style decision
+- [ ] **AS-27** Publish `catalog.json` from the showcase build
+- [ ] **AS-28** Skill safety lint (`scripts/lint-skill-safety.py`) in CI
+- [ ] **AS-29** Answer the Kimi skills-folder question in `OPEN-QUESTIONS.md` 🔒 Needs owner
+
 ### 🔨 Phase 1: catch a broken skill before it ships
 
 When this phase started there was no test runner and no CI beyond the Pages deploy, so a
