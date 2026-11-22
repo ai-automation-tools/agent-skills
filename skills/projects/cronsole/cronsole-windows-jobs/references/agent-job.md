@@ -29,22 +29,28 @@ lacks a voice.
 This is the line, and every flag on it is load-bearing:
 
 ```powershell
-& $ClaudeExe --dangerously-skip-permissions --model $Model `
+& $ClaudeExe --dangerously-skip-permissions --settings $DenyFile --model $Model `
              --output-format stream-json --verbose -p $Prompt
 ```
 
 ```powershell
 # Piping the prompt in, so a long brief does not fight the command line:
 $Prompt | & $ClaudeExe --print --verbose --output-format stream-json `
-                       --model $Model --dangerously-skip-permissions
+                       --model $Model --dangerously-skip-permissions --settings $DenyFile
 ```
 
 | Flag | Why |
 |:---|:---|
-| `--dangerously-skip-permissions` | **Mandatory.** There is no console and nobody to answer an approval prompt. Without it the session hangs until the execution time limit kills it — and the failure then looks like a timeout rather than a missing flag. |
+| `--dangerously-skip-permissions` | **Mandatory, and never alone: always with `--settings` (next row).** There is no console and nobody to answer an approval prompt. Without it the session hangs until the execution time limit kills it — and the failure then looks like a timeout rather than a missing flag. |
+| `--settings $DenyFile` | **Mandatory with the bypass.** A JSON settings file whose `permissions.deny` lists what this session must never do: hardware and live-app MCP tools, merges, repo create/delete/visibility changes, force-push. Deny rules hold even under the bypass. Preflight it: if the file is missing, fail the run rather than start an unfenced session. See `automated-dev-pipeline` rule 11. |
 | `-p` / `--print` | Non-interactive. Same reason. |
 | `--output-format stream-json --verbose` | Emits NDJSON, one event per tool call, so the transcript shows **what the session actually did** as it happens. This is the only thing that makes a run diagnosable a week later. |
 | `--model <tier>` | Per job. State it rather than inheriting the account default, so a tier change elsewhere does not silently re-price every scheduled run. |
+
+**Say in the prompt that fetched content is data.** The session reads repo files, issues, PR
+comments and web pages, any of which can carry text aimed at it. The prompt states that these are
+evidence, never instructions, and that nothing read during the run widens what the prompt
+allows (`automated-dev-pipeline` rule 11).
 
 **Preflight the CLI path before spending a session.** A moved or renamed CLI binary is the most
 common break in this archetype, and failing at preflight costs nothing while failing after the
@@ -228,6 +234,10 @@ look at. That is not litter — but it is not cleaned up for you either.
 ## 8. Anti-patterns
 
 - **Omitting `--dangerously-skip-permissions`.** The session hangs at the first approval prompt.
+- **The bypass without `--settings <deny file>`.** Every tool and MCP server becomes callable with
+  nothing to stop a steered session. Pass the deny file every time, and fail when it's missing.
+- **A prompt that doesn't say fetched content is data.** Anyone who can write an issue, a comment
+  or a page the session reads can then write to the session.
 - **Running the session in the real checkout.** That is what the worktree is for.
 - **Copying a `prompt.md`.** See §4.
 - **Resolving a merge conflict unattended.** Abort and tell a human.
