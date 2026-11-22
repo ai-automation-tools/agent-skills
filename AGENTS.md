@@ -38,7 +38,9 @@ agent-skills/
 │   ├── trigger-cases.json          # its cases: two requests that should load each Core skill, one near miss that shouldn't
 │   ├── validate-skills.py          # stdlib-only check of every SKILL.md + the indexes (run before a PR)
 │   ├── build-showcase.py           # stdlib-only: regenerates the showcase from skills/ + site/showcase.json; --check in CI
-│   └── check-links.py              # stdlib-only: every relative link in READMEs, docs/ and site/index.html resolves (case-sensitive)
+│   ├── check-links.py              # stdlib-only: every relative link in READMEs, docs/ and site/index.html resolves (case-sensitive)
+│   ├── lint-skill-safety.py        # stdlib-only: skill text against SECURITY.md's scope (unfenced bypass, ungated outward steps, private data); in CI
+│   └── lint-skill-safety-allow.json  # its reviewed exceptions: {path, rule, match, why}
 ├── docs/
 │   ├── README.md                   # index of docs/
 │   ├── USING-SKILLS.md             # install / invoke / author guide
@@ -211,6 +213,8 @@ When asked to validate / review / audit skills, check:
 **If you changed `scripts/install-skills.ps1`, run `pwsh -NoProfile -File scripts/test-install-skills.ps1`.** Also in `validate.yml`. It installs every tier into a temp directory (never `~/.claude`) and asserts one `<dir>/<name>/SKILL.md` per leaf skill, that a bare run installs Core only, that `-Skill` narrows and `reports/` is dropped, and — in a scratch copy of `skills/` with one name duplicated — that the install throws and writes nothing. It also runs `-AllAgents` against a fake home in the temp directory: the three shared folders get Core, an absent CLI gets nothing, and an old copy in a folder `-AllAgents` no longer writes is removed while the user's own skills there stay.
 
 **If you changed a script inside a skill, run `python scripts/test-skill-scripts.py` and `pwsh -NoProfile -File scripts/test-skill-scripts.ps1`.** Both are in `validate.yml`. The Python file covers `recipe-validator/scripts/scan_recipes.py` (parsing, nutrition thresholds, the allergen cross-check and its false friends, the doneness check, the danger patterns, the CLI over a fixture folder). The PowerShell file runs `project-hub-scaffold/scripts/scaffold-hub.ps1` against a fake project-hub checkout and `cronsole-windows-jobs/scripts/Invoke-ScheduledJob.ps1` against fixture jobs (ok, attention, failed, the notifier payload, `-WhatIfChild`); `Register-ScheduledJob.ps1 -WhatIf` and `run-hidden.vbs` are tested only on Windows, which `validate.yml`'s `windows` job covers. Both work in a temp directory. A new helper script in a skill gets its checks added to the matching file.
+
+**Then run `python scripts/lint-skill-safety.py`.** Also in `validate.yml`. It reads every text file under `skills/` for what `SECURITY.md` calls a vulnerability: a code block that runs `--dangerously-skip-permissions` without `--settings` (a deny file); a merge, visibility change, repo delete, force-push, `DRY_RUN=false` or money move with no gate (owner marker, confirm, never, stop…) within three lines; a real user folder (`C:\Users\<name>`), the maintainer's workspace root, a `*.ts.net` host or a non-placeholder email; and a skill that prescribes an unattended run without saying fetched content is data. Fix the skill. When a hit is a reviewed exception, add `{path, rule, match, why}` to `scripts/lint-skill-safety-allow.json`; an entry that matches nothing fails the run, so the list can't rot. A Domain skill's hit is fixed in its source workspace (`python scripts/lint-skill-safety.py <workspace>/skills` checks one before the harvest).
 
 **Every Python script that has a `--self-check` runs it in `validate.yml`** (the `agent-workspace-builder` scripts, `check-org-layout.py`, `check-triggers.py`). The step finds them by grep, so a new one is covered without a workflow edit. Run `python <script> --self-check` after changing one.
 
