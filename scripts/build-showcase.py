@@ -135,6 +135,10 @@ def img_tag(skill: str, src: str, alt: str) -> str:
     return f'            <img class="shot" data-name="{skill}" src="{src}" alt="{alt}"{dims} loading="lazy" decoding="async">'
 
 
+CAPS = (("scripts", "Ships runnable scripts"), ("references", "Ships reference docs it loads on demand"),
+        ("evals", "Ships eval cases"))
+
+
 def card(idx: int, category: str, skill: str, fm: dict[str, str], copy: dict) -> str:
     glyph = copy.get("glyph", "✦")
     alt = copy.get("alt") or html.escape(f"{skill} screenshot", quote=True)
@@ -171,6 +175,12 @@ def card(idx: int, category: str, skill: str, fm: dict[str, str], copy: dict) ->
         f'            <h3 class="card-title"><span class="glyph" aria-hidden="true">{glyph}</span><code>{skill}</code></h3>',
         f'            <p class="tagline">{tagline}</p>',
     ]
+    # Capability badges (audit AS-27): read from the skill folder, so they can't drift from it.
+    leaf = SKILLS / "core" / category / skill
+    caps = [(d, title) for d, title in CAPS if (leaf / d).is_dir()]
+    if caps:
+        lines.append('            <ul class="caps" aria-label="Ships with">'
+                     + "".join(f'<li class="tag" title="{t}">{d}</li>' for d, t in caps) + "</ul>")
     if feats:
         lines.append('            <ul class="feat">')
         lines += [f"              <li>{f}</li>" for f in feats]
