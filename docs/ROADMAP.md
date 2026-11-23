@@ -68,7 +68,7 @@ From the full repo audit of 2026-11-22 (baseline `4d77026`). Ids are the audit's
 - [x] **AS-14** Every shipped `--self-check` in CI, plus a `windows-latest` job
 - [ ] **AS-15** One frontmatter parse rule (BOM, folded scalars) and one line-cap policy across the scripts
 - [ ] **AS-16** `cronsole-windows-jobs` helpers: a repeat duration Windows accepts, catch-up opt-in, launch errors logged, quoted arguments
-- [ ] **AS-17** `-All -AllAgents` rejected, `scaffold-hub.ps1` requires PowerShell 7, `envfile` strips a comment before unquoting
+- [x] **AS-17** `-All -AllAgents` rejected, `scaffold-hub.ps1` requires PowerShell 7, `envfile` strips a comment before unquoting — done 2026-11-22: `-All -AllAgents` throws and `-All` is documented as test-only; `scaffold-hub.ps1` starts with `#requires -Version 7`, so Windows PowerShell 5.1 refuses before writing anything (project-hub travel copy updated in a paired PR); `envfile.parse` takes a quoted value up to its closing quote, so `TOKEN='abc' # x` is `abc`
 - [ ] **AS-18** `check-triggers.py`: no MCP servers, failed or timed-out runs are inconclusive, not passes
 - [ ] **AS-19** SHA-pin the GitHub Actions; Dependabot keeps the pins current
 - [!] **AS-20** Delete merged branches automatically and prune the old ones 🔒 Needs owner — blocked: a repo setting

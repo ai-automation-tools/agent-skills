@@ -39,8 +39,8 @@ def parse(text: str) -> dict[str, str]:
             continue
         key, _, value = line.removeprefix("export ").partition("=")
         key, value = key.strip(), value.strip()
-        if len(value) >= 2 and value[0] == value[-1] and value[0] in "'\"":
-            value = value[1:-1]
+        if value[:1] in ("'", '"') and value.find(value[0], 1) > 0:
+            value = value[1:value.find(value[0], 1)]  # quoted: '#' inside is data, a comment after is dropped
         elif " #" in value:
             value = value.split(" #", 1)[0].rstrip()
         if key.isidentifier():
@@ -67,9 +67,10 @@ def load_env(path: Path | None = None) -> list[str]:
 def self_check() -> int:
     env = parse(
         "# comment\nexport A=1\nB = two \nC='quoted # not a comment'\nD=x # trailing\n"
-        "EMPTY=\nnot a line\n1BAD=x\n"
+        "EMPTY=\nnot a line\n1BAD=x\nTOKEN='abc' # prod key\nQ=\"a b\"\n"
     )
-    assert env == {"A": "1", "B": "two", "C": "quoted # not a comment", "D": "x", "EMPTY": ""}, env
+    assert env == {"A": "1", "B": "two", "C": "quoted # not a comment", "D": "x", "EMPTY": "",
+                   "TOKEN": "abc", "Q": "a b"}, env
     with tempfile.TemporaryDirectory() as d:
         p = Path(d) / ".env"
         p.write_text("ENVFILE_SELFTEST_X=from-file\nENVFILE_SELFTEST_Y=from-file\n"
