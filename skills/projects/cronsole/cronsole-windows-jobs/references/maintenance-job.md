@@ -76,6 +76,8 @@ deliberate exception it is.
 | `taskPath` | Keep it inside whatever roots your audit sweeps, or the job is invisible to it. |
 | `logDir` + `logGlob` | When the script writes its own human-readable transcript, **that file is the report source** and stdout is only the fallback. Use it for anything producing a structured report. |
 | `schedule` | `{dayOfWeek, at}` · `{daily, at}` · `{everyMinutes}` · `{atLogon}`. |
+| `catchUp` | `false` by default: a run the machine slept through is skipped. `true` sets `StartWhenAvailable`, so it fires late at wake-up instead. Only for jobs where a late run is harmless. |
+| `notify.arguments` | An array, one element per argument, so an argument with a space survives. A string still works but is split on spaces. |
 
 ---
 

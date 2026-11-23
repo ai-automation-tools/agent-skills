@@ -164,6 +164,20 @@ try {
     $r = Invoke-Job 'no-such-job'
     Assert ($r.Code -ne 0 -and $r.Output -match 'No job.json') 'jobs: a missing job.json fails loudly'
 
+    $badPayload = New-Job 'badshell-job' 'exit 0' @{ shell = 'no-such-shell-agent-skills' }
+    $r = Invoke-Job 'badshell-job'
+    $p = if (Test-Path $badPayload) { Get-Content $badPayload -Raw | ConvertFrom-Json } else { $null }
+    $badLog = Get-ChildItem (Join-Path $jobsRoot 'badshell-job/logs') -Filter '*.log' -ErrorAction SilentlyContinue | Select-Object -First 1
+    Assert ($r.Code -ne 0 -and $p -and $p.status -eq 'failed') 'jobs: a shell that cannot start is a failed run with a payload, not a silent throw'
+    Assert ($badLog -and ((Get-Content $badLog.FullName -Raw) -match 'Could not start')) 'jobs: the launch error is in the transcript'
+
+    $spaceDir = Join-Path $Tmp 'pay load'
+    New-Item -ItemType Directory -Force -Path $spaceDir | Out-Null
+    $spacePayload = Join-Path $spaceDir 'payload.json'
+    $null = New-Job 'array-args-job' 'exit 0' @{ notify = @{ command = 'pwsh'; arguments = @('-NoProfile', '-File', $notifier, $spacePayload); notifyOn = @('ok') } }
+    $r = Invoke-Job 'array-args-job'
+    Assert ($r.Code -eq 0 -and (Test-Path -LiteralPath $spacePayload)) 'jobs: notify.arguments as an array keeps an argument with a space whole'
+
     # --- 3. Windows-only helpers -----------------------------------------------
     if ($IsWindows) {
         $register = Join-Path $JobsDir 'Register-ScheduledJob.ps1'
@@ -176,6 +190,7 @@ try {
         $out = & $register -Job 'reg-job' -JobsRoot $jobsRoot -WhatIf 6>&1 | Out-String
         Assert ($out -match 'Would register: \\SkillTests\\Test Job' -and $out -match 'Invoke-ScheduledJob\.ps1') 'register: -WhatIf names the task and points it at the runner'
         Assert ($out -match 'runLevel: Limited') 'register: runLevel defaults to Limited'
+        Assert ($out -match 'catchUp:\s+False') 'register: catch-up (StartWhenAvailable) is off by default'
         Assert ($null -eq (Get-ScheduledTask -TaskPath '\SkillTests\' -ErrorAction SilentlyContinue)) 'register: -WhatIf registers nothing'
 
         @{ taskName = 'Bad'; taskPath = '\Microsoft\Windows'; schedule = @{ daily = $true; at = '07:00' } } | ConvertTo-Json | Set-Content $regCfg
@@ -186,10 +201,33 @@ try {
         $err = Get-Thrown { & $register -Job 'reg-job' -JobsRoot $jobsRoot -WhatIf }
         Assert ($err -match 'schedule needs one of') 'register: refuses an unknown schedule shape'
 
+        @{ taskName = 'Catch Up'; taskPath = '\SkillTests'; catchUp = $true; schedule = @{ daily = $true; at = '07:00' } } | ConvertTo-Json | Set-Content $regCfg
+        $out = & $register -Job 'reg-job' -JobsRoot $jobsRoot -WhatIf 6>&1 | Out-String
+        Assert ($out -match 'catchUp:\s+True') 'register: "catchUp": true turns it on'
+
+        # A real registration, CI only: a repeating task must be accepted by Task Scheduler
+        # (a [TimeSpan]::MaxValue duration is rejected). Registered under \SkillTests\ and removed.
+        if ($env:CI) {
+            @{ taskName = 'Repeat'; taskPath = '\SkillTests'; schedule = @{ everyMinutes = 15 } } | ConvertTo-Json | Set-Content $regCfg
+            try {
+                & $register -Job 'reg-job' -JobsRoot $jobsRoot *> $null
+                $task = Get-ScheduledTask -TaskPath '\SkillTests\' -TaskName 'Repeat' -ErrorAction SilentlyContinue
+                Assert ($task -and $task.Triggers[0].Repetition.Interval -eq 'PT15M') 'register: a repeating task registers on this Windows'
+                Assert (-not $task.Settings.StartWhenAvailable) 'register: the registered task has catch-up off'
+            } finally {
+                Unregister-ScheduledTask -TaskPath '\SkillTests\' -TaskName 'Repeat' -Confirm:$false -ErrorAction SilentlyContinue
+            }
+        } else { Write-Host 'skip real task registration (CI only)' }
+
         $exit7 = Join-Path $Tmp 'exit7.ps1'
         New-File $exit7 'exit 7'
         & cscript.exe //nologo (Join-Path $JobsDir 'run-hidden.vbs') $exit7 | Out-Null
         Assert ($LASTEXITCODE -eq 7) 'run-hidden.vbs: the script exit code reaches the caller'
+        $echo = Join-Path $Tmp 'echo-args.ps1'
+        New-File $echo 'param($Out, $Val) Set-Content -LiteralPath $Out -Value "$($args.Count)|$Val"'
+        $echoOut = Join-Path $Tmp 'echo.txt'
+        & cscript.exe //nologo (Join-Path $JobsDir 'run-hidden.vbs') $echo $echoOut 'two words' | Out-Null
+        Assert ((Get-Content -LiteralPath $echoOut -Raw).Trim() -eq '0|two words') 'run-hidden.vbs: an argument with a space reaches the script whole'
     } else {
         Write-Host 'skip Register-ScheduledJob.ps1 and run-hidden.vbs (Windows only)'
     }

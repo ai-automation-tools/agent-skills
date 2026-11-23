@@ -112,17 +112,21 @@ else {
 # A repetition interval is set on the trigger, not expressed as a cron string. Cronsole
 # reads it back as */N -- but never re-create the task FROM that cron; the round trip is
 # lossy.
+# No -RepetitionDuration: left empty it means "indefinitely". [TimeSpan]::MaxValue serializes
+# to P99999999DT23H59M59S, which Task Scheduler rejects at registration on Windows 10 and 11.
 if ($s.everyMinutes) {
     $trigger.Repetition = (New-ScheduledTaskTrigger -Once -At (Get-Date) `
-        -RepetitionInterval (New-TimeSpan -Minutes ([int]$s.everyMinutes)) `
-        -RepetitionDuration ([TimeSpan]::MaxValue)).Repetition
+        -RepetitionInterval (New-TimeSpan -Minutes ([int]$s.everyMinutes))).Repetition
 }
 
 # --- Settings ---------------------------------------------------------------
 
+# Catch-up is opt-in ("catchUp": true). Off, a run the machine slept through is skipped, not
+# fired late at wake-up, which is the safer default for anything that writes or sends.
 $hours = if ($cfg.executionTimeLimitHours) { [int]$cfg.executionTimeLimitHours } else { 2 }
+$catchUp = [bool]$cfg.catchUp
 $settings = New-ScheduledTaskSettingsSet `
-    -StartWhenAvailable `
+    -StartWhenAvailable:$catchUp `
     -ExecutionTimeLimit (New-TimeSpan -Hours $hours) `
     -AllowStartIfOnBatteries `
     -DontStopIfGoingOnBatteries `
@@ -147,8 +151,10 @@ if ($PSCmdlet.ShouldProcess($target, 'Register scheduled task')) {
     Write-Host "Registered: $target"
     Write-Host "  runs:     $pwsh $actionArgs"
     Write-Host "  runLevel: $runLevel"
+    Write-Host "  catchUp:  $catchUp"
 } else {
     Write-Host "Would register: $target"
     Write-Host "  runs:     $pwsh $actionArgs"
     Write-Host "  runLevel: $runLevel"
+    Write-Host "  catchUp:  $catchUp"
 }

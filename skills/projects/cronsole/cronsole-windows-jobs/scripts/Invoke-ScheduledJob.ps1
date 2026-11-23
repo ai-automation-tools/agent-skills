@@ -113,12 +113,21 @@ $spArgs = @{
 }
 if ($cfg.workingDirectory) { $spArgs.WorkingDirectory = $cfg.workingDirectory }
 
-$proc     = Start-Process @spArgs
-$exitCode = $proc.ExitCode
+# A launch failure (a bad "shell", a missing working directory) is a failed run like any
+# other: it still gets a log and a notification, never a silent throw.
+$launchError = $null
+try {
+    $proc     = Start-Process @spArgs
+    $exitCode = $proc.ExitCode
+} catch {
+    $launchError = "Could not start '$shell': $($_.Exception.Message)"
+    $exitCode    = -1
+}
 $duration = (Get-Date) - $started
 
 $stdout = if (Test-Path $outFile) { Get-Content -LiteralPath $outFile -Raw } else { '' }
 $stderr = if (Test-Path $errFile) { Get-Content -LiteralPath $errFile -Raw } else { '' }
+if ($launchError) { $stderr = ($launchError + "`n" + $stderr).Trim() }
 Remove-Item -LiteralPath $outFile, $errFile -ErrorAction SilentlyContinue
 
 $transcript = ($stdout + "`n" + $stderr).Trim()
@@ -200,7 +209,9 @@ if ($cfg.notify -and $cfg.notify.command) {
 
         try {
             if ($cfg.notify.arguments) {
-                $payload | & $cfg.notify.command $cfg.notify.arguments.Split(' ')
+                # An array passes each argument whole; a string is split on spaces (older job.json).
+                $notifyArgs = if ($cfg.notify.arguments -is [string]) { $cfg.notify.arguments.Split(' ', [StringSplitOptions]::RemoveEmptyEntries) } else { @($cfg.notify.arguments) }
+                $payload | & $cfg.notify.command @notifyArgs
             } else {
                 $payload | & $cfg.notify.command
             }
