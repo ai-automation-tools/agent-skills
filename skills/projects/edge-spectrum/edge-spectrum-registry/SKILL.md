@@ -25,8 +25,8 @@ All commands run from **`site/`**.
 
 ## 1. Owner-held files
 
-Treat a change to any of these as needing Mike's review. The org PR sweep holds a PR that touches
-them, and `.github/CODEOWNERS` names him on the registry and its builder:
+Treat a change to any of these as needing the owner's review. The org PR sweep holds a PR that touches
+them, and `.github/CODEOWNERS` names the owner on the registry and its builder:
 
 - `site/scripts/build-registry.mjs` and everything under `site/public/registry/`
 - `site/scripts/capture-lines.ts`, `site/scripts/digest-lines.ts` and `site/scripts/capture-closes.ts`, the

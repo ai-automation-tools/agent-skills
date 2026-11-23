@@ -30,9 +30,9 @@ It never pushes to `main`. Each run's changes arrive as one `harvest/auto-<date>
 | debugging-methodology | fullstack-agent | mirrored | `skills/domain/engineering/debugging-methodology` | `5284708` | 2026-10-25 | moved from Core 2026-09-22 |
 | performance-optimization | fullstack-agent | mirrored | `skills/domain/engineering/performance-optimization` | `ed7496c` | 2026-11-08 | moved from Core 2026-09-22 |
 | testing-strategy | fullstack-agent | mirrored | `skills/domain/engineering/testing-strategy` | `6f8bc8d` | 2026-09-22 | moved from Core 2026-09-22 |
-| captions-and-accessibility | media-studio | mirrored | `skills/domain/media/captions-and-accessibility` | `5698b35` | 2026-09-27 | first harvest promotion, new Domain |
-| media-rights-and-licensing | media-studio | mirrored | `skills/domain/media/media-rights-and-licensing` | `5698b35` | 2026-10-04 | passes tier test — no workspace layout assumed |
-| post-publish-analytics | media-studio | mirrored | `skills/domain/media/post-publish-analytics` | `5698b35` | 2026-10-11 | passes tier test — no workspace layout assumed |
+| captions-and-accessibility | media-agent | mirrored | `skills/domain/media/captions-and-accessibility` | `5698b35` | 2026-09-27 | first harvest promotion, new Domain |
+| media-rights-and-licensing | media-agent | mirrored | `skills/domain/media/media-rights-and-licensing` | `5698b35` | 2026-10-04 | passes tier test — no workspace layout assumed |
+| post-publish-analytics | media-agent | mirrored | `skills/domain/media/post-publish-analytics` | `5698b35` | 2026-10-11 | passes tier test — no workspace layout assumed |
 | myth-and-motif-analysis | religion-agent | mirrored | `skills/domain/religion/myth-and-motif-analysis` | `9a4d799` | 2026-11-01 | passes tier test, new Domain |
 | religious-calendars | religion-agent | mirrored | `skills/domain/religion/religious-calendars` | `9a4d799` | 2026-11-01 | passes tier test, new Domain |
 | writing-about-religion | religion-agent | mirrored | `skills/domain/religion/writing-about-religion` | `9a4d799` | 2026-11-01 | passes tier test, new Domain |

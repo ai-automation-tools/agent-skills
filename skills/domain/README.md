@@ -29,7 +29,8 @@ where they come from and how they install:
 ## 🔁 These are mirrors
 
 Every skill here is a **byte-for-byte copy** of a skill in one of the agent workspaces:
-`api-agent`, `business-agent`, `security-agent`, `fullstack-agent`, `media-agent`, `science-agent` and `religion-agent`.
+`api-agent`, `business-agent`, `security-agent`, `media-agent`, `science-agent` and `religion-agent`. The
+`engineering` skills came from `fullstack-agent`, archived 2026-11-16, and are no longer re-synced.
 A weekly Skill Harvest job copies the ones that pass its checks and re-syncs them when the
 source changes. [`docs/HARVEST.md`](../../docs/HARVEST.md) lists every one with its source.
 

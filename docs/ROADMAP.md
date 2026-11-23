@@ -72,7 +72,7 @@ From the full repo audit of 2026-11-22 (baseline `4d77026`). Ids are the audit's
 - [x] **AS-18** `check-triggers.py`: no MCP servers, failed or timed-out runs are inconclusive, not passes — done 2026-11-22: sessions start with `--strict-mcp-config` and an empty `--mcp-config`; a failed, signed-out, timed-out or unstartable session is inconclusive (exit 2), never a pass; hitting `--max-turns` still counts; `--claude` and `--timeout` options. Checked with a bad binary (all inconclusive) and a live `news-images` run (4 of 4)
 - [ ] **AS-19** SHA-pin the GitHub Actions; Dependabot keeps the pins current
 - [!] **AS-20** Delete merged branches automatically and prune the old ones 🔒 Needs owner — blocked: a repo setting
-- [ ] **AS-21** Doc drift: workspace count, "Mike" in public docs, media-agent naming *(this repo)*; the hub and automation prompts are outside it
+- [x] **AS-21** Doc drift: workspace count, "Mike" in public docs, media-agent naming *(this repo)*; the hub and automation prompts are outside it — done 2026-11-22: six workspaces in `AGENTS.md` and `skills/domain/README.md` (with the engineering skills' status), `media-agent` in `HARVEST.md`, "the owner" in `edge-spectrum-registry`. The HUB-REFERENCE install claim and the claude-routines prompts (`Docs/`, `harvest.md`'s CLAUDE.md) are outside this repo
 - [ ] **AS-22** Narrow `task-router` and `web-house-style` triggers and add cross-skill near-miss cases — needs `check-triggers.py` runs (local, spends tokens) to show 3 of 3
 - [ ] **AS-23** Licence credits for adapted content; confirm the origin of the private business-analysis template 🔒 Needs owner
 - [ ] **AS-24** Showcase: intrinsic image dimensions

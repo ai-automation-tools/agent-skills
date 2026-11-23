@@ -64,7 +64,7 @@ agent-skills/
 │   │           ├── prompts/        # optional: prompt templates the skill follows
 │   │           ├── evals/          # optional: TRACKED test-case definitions
 │   │           └── reports/        # optional: gitignored RUN OUTPUT (never committed)
-│   ├── domain/                     # TIER 3 — portable FIELD skills mirrored from the seven org
+│   ├── domain/                     # TIER 3 — portable FIELD skills mirrored from the six org
 │   │   ├── README.md               #   agent workspaces by the weekly harvest. Opt-in install
 │   │   └── <domain>/<skill-name>/  #   (-Domain). Engineering · Security · Business · Media · API ·
 │   │                               #   Science · Religion
@@ -161,7 +161,7 @@ Before finishing an edit to any skill, check whether another skill *references* 
 **One real duplicate exists.** `project-hub-scaffold` sits here (Core) *and* in the `project-hub` repo, kept byte-identical. This repo is canonical: edit here, then copy the folder to `project-hub/skills/project-hub-scaffold/` in the same change. Since 2026-10-22 `project-hub`'s CI (`scaffold copy` job in `test.yml`) diffs its copy against this repo's `main` and fails on drift, so a feature PR there that updates only the travel copy goes red until this side matches. It is a one-off, not a pattern to copy.
 
 > [!IMPORTANT]
-> **Harvested skills are mirrors. Don't edit them here.** Since 2026-09-22 a weekly Skill Harvest job (Sun 08:00, `\AI-Automation-Tools-Org\Integrate-Projects\`) copies portable skills from the seven org agent workspaces (`api-agent`, `business-agent`, `security-agent`, `fullstack-agent`, `media-agent`, `science-agent`, `religion-agent`) into `skills/domain/<domain>/`, byte for byte, by `harvest/auto-<date>` PR. [`docs/HARVEST.md`](./docs/HARVEST.md) lists every one with its source. Edit the skill in its workspace repo and the next harvest re-syncs it. An edit made here gets flagged, not merged back. The roadmap routine follows the same rule.
+> **Harvested skills are mirrors. Don't edit them here.** Since 2026-09-22 a weekly Skill Harvest job (Sun 08:00, `\AI-Automation-Tools-Org\Integrate-Projects\`) copies portable skills from the six org agent workspaces (`api-agent`, `business-agent`, `security-agent`, `media-agent`, `science-agent`, `religion-agent`) into `skills/domain/<domain>/`, byte for byte, by `harvest/auto-<date>` PR. [`docs/HARVEST.md`](./docs/HARVEST.md) lists every one with its source. Edit the skill in its workspace repo and the next harvest re-syncs it. An edit made here gets flagged, not merged back. The roadmap routine follows the same rule. The `engineering` skills came from `fullstack-agent`, archived 2026-11-16, so the harvest no longer re-syncs them; who maintains them now is an open owner decision (roadmap, audit AS-10).
 
 > [!NOTE]
 > **Prefer one self-contained skill over a composite.** [`repo-docs-builder`](./skills/core/documentation/repo-docs-builder/SKILL.md) used to be an orchestrator that referenced three source skills (`readme-builder-mfs`, `readme-header-mfs`, `repo-docs-mfs`); on 2026-08-05 all four were merged into it and the three sources retired. The composite kept drifting out of sync with its sources, and the split forced a reader to load three files to build one README. If you're tempted to build a new "mega" skill that composes others, prefer folding the content into one skill with clear sections — and if you do build a composite, add a "keep synced" note here naming its sources.
