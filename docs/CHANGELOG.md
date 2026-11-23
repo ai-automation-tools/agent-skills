@@ -49,6 +49,7 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 
 **Changed**
 - Every GitHub Action in `validate.yml`, `pages.yml` and `copies.yml` is pinned to a full commit SHA (tag in a comment), so a moved tag can't change what CI runs; Dependabot's weekly grouped PR keeps the pins current. Audit AS-19
+- Credits: `repo-docs-builder` §0 now names its sources with links and licences (the MIT humanizer skill and Wikipedia's CC BY-SA *Signs of AI writing*), and `project-hub-scaffold` says it is Apache-2.0 here with a travel copy in project-hub, while the Project Hub code it installs is MIT. Copy the scaffold change to project-hub's travel copy. Audit AS-23 (the business-plan template's origin is the owner's to confirm)
 
 - Showcase: the cards load an 800 px `<skill>-card.webp` where the primary screenshot is wider (about 250 KB of card images instead of about 1 MB; the lightbox still shows the full images), and every card image carries `width` and `height`, read from its PNG or WebP header by `build-showcase.py`. Audit AS-24
 

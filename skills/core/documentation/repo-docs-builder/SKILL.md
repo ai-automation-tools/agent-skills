@@ -50,7 +50,7 @@ Scale to the unit of work. Whole repo → run the full end-to-end workflow (§5)
 
 A repo can have perfect structure and still read like it was generated. This section is not optional and it is not a final polish step you can skip when you're in a hurry. **Every sentence of prose this skill produces — taglines, folder descriptions, table cells, feature blurbs, quick-start comments, `alt` text, footers — is written under these rules and re-checked before you hand the file over.**
 
-Adapted from Wikipedia's *Signs of AI writing* (WikiProject AI Cleanup) and tuned for documentation.
+Adapted from the [humanizer](https://github.com/blader/humanizer) skill by Siqi Chen (MIT) and the pattern list it builds on, Wikipedia's [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) (WikiProject AI Cleanup, text under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)), condensed, paraphrased and tuned for documentation.
 
 ### 0.1 What is and isn't in scope
 
