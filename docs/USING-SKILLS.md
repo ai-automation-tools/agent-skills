@@ -120,6 +120,12 @@ What follows from the table:
   opencode and Kilo all read it. agy and the Antigravity IDE share `~/.gemini/config/skills`.
   So `-AllAgents` writes `~/.claude/skills`, `~/.agents/skills` and `~/.gemini/config/skills`,
   each only when a CLI that reads it is installed.
+- **Kimi reads only the first generic folder that exists.** It checks `~/.config/agents/skills`,
+  then `~/.agents/skills`, and stops at the first one present. If you create
+  `~/.config/agents/skills`, the `-AllAgents` copy in `~/.agents/skills` no longer reaches Kimi.
+  It also reads `~/.claude/skills`, so the skills still arrive from there. Source: the
+  [Kimi CLI skills docs](https://moonshotai.github.io/kimi-cli/en/customization/skills.html),
+  checked 2026-11-22.
 - **opencode still sees two copies**, from `~/.claude/skills` and `~/.agents/skills` (Kilo too,
   with Claude Code compatibility on). Claude Code reads only its own folder, so dropping either
   would cost a CLI its skills. The copies are byte-identical, so nothing conflicts.

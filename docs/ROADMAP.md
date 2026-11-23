@@ -80,7 +80,7 @@ From the full repo audit of 2026-11-22 (baseline `4d77026`). Ids are the audit's
 - [ ] **AS-26** Self-host the showcase fonts 🔒 Needs owner — org-wide house-style decision
 - [ ] **AS-27** Publish `catalog.json` from the showcase build, and capability badges on the Core cards — the catalog is done 2026-11-22: `build-showcase.py` writes `site/catalog.json` (every skill's name, tier, group, description, path and whether it ships scripts, evals or references) and `--check` fails when it's stale; Pages serves it at `https://agent-skills.ai-automation-tools.dev/catalog.json` once merged. The badges are still to do
 - [x] **AS-28** Skill safety lint (`scripts/lint-skill-safety.py`) in CI — done 2026-11-22: `scripts/lint-skill-safety.py` (four rules, an allow-list that fails on unused entries, a `--self-check` with one seeded bad fixture per rule) runs in `validate.yml`; the tree is clean with an empty allow-list. It flags the pre-fix edge-radar and cronsole text
-- [ ] **AS-29** Answer the Kimi skills-folder question in `OPEN-QUESTIONS.md` 🔒 Needs owner
+- [x] **AS-29** Answer the Kimi skills-folder question in `OPEN-QUESTIONS.md` 🔒 Needs owner — done 2026-11-22: answered from the Kimi CLI docs and the owner's machine (no `~/.config/agents/skills`, so the `-AllAgents` copy reaches Kimi); the caveat is in `docs/USING-SKILLS.md`
 
 ### 🔨 Phase 1: catch a broken skill before it ships
 
