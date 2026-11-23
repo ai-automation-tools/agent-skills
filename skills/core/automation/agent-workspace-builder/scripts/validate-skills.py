@@ -13,7 +13,7 @@ other agents install, so a broken one fails somewhere you will never see.
 Rules, from https://agentskills.io/specification.md :
   name         required, 1-64 chars, [a-z0-9-] only, must equal its directory name
   description  required, 1-1024 chars
-  SKILL.md     under 500 lines
+  SKILL.md     under 500 lines recommended (a note); over 1,000 is an error
 
 Commands and agents are checked too -- both need frontmatter with a description,
 and an agent's `name` (when present) must match its filename.
@@ -28,13 +28,18 @@ from pathlib import Path
 
 NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 FRONTMATTER_RE = re.compile(r"\A---\r?\n(.*?)\r?\n---\r?\n", re.DOTALL)
+BLOCK_SCALARS = (">", ">-", ">+", "|", "|-", "|+")
 
 MAX_NAME = 64
 MAX_DESC = 1024
-MAX_LINES = 500
+# One policy with agent-skills' own validator: the Agent Skills spec *recommends* under 500
+# lines, so past that is a note (never an error, even under --strict); past 1,000 is an error.
+SOFT_LINES = 500
+MAX_LINES = 1000
 
 errors: list[str] = []
 warnings: list[str] = []
+notes: list[str] = []  # printed, never fail a run (not even --strict)
 
 
 def err(path: Path, msg: str) -> None:
@@ -47,23 +52,31 @@ def warn(path: Path, msg: str) -> None:
 
 def frontmatter(text: str) -> dict[str, str] | None:
     """Return the top-level key/value pairs, or None when there is no frontmatter."""
-    m = FRONTMATTER_RE.match(text)
+    m = FRONTMATTER_RE.match(text.lstrip("\ufeff"))
     if not m:
         return None
     out: dict[str, str] = {}
     key = None
+    literal: set[str] = set()
     for line in m.group(1).splitlines():
         if not line.strip():
             continue
-        # a continuation line is indented; fold it into the previous key
+        # a continuation line is indented; fold it into the previous key ("|" keeps the line break)
         if line[:1] in " \t" and key:
-            out[key] += " " + line.strip()
+            sep = "\n" if key in literal else " "
+            out[key] = f"{out[key]}{sep}{line.strip()}" if out[key] else line.strip()
             continue
         if ":" not in line:
             continue
         key, _, value = line.partition(":")
-        key = key.strip()
-        out[key] = value.strip()
+        key, value = key.strip(), value.strip()
+        if value in BLOCK_SCALARS:  # `description: >-` etc.: the value is the indented lines below
+            if value.startswith("|"):
+                literal.add(key)
+            value = ""
+        elif len(value) >= 2 and value[0] == value[-1] and value[0] in "\"'":
+            value = value[1:-1]
+        out[key] = value
     return out
 
 
@@ -96,8 +109,8 @@ def check_skill(skill_md: Path) -> None:
     lines = text.count("\n") + 1
     if lines > MAX_LINES:
         err(skill_md, f"{lines} lines, limit {MAX_LINES}")
-    elif lines > MAX_LINES * 0.8:
-        warn(skill_md, f"{lines} lines, approaching the {MAX_LINES} limit")
+    elif lines > SOFT_LINES:
+        notes.append(f"{skill_md}: {lines} lines; the spec recommends under {SOFT_LINES} (move detail to references/)")
 
 
 def check_doc(path: Path, kind: str) -> None:
@@ -171,6 +184,8 @@ def main() -> int:
 
     n_err, n_warn = run(Path(__file__).resolve().parent.parent)
 
+    for n in notes:
+        print(f"  note  {n}")
     for w in warnings:
         print(f"  warn  {w}")
     for e in errors:

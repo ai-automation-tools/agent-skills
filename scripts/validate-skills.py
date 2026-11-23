@@ -94,7 +94,7 @@ def mentions(rows, token):
 def main():
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
-    failures = []
+    failures, notes = [], []
     fail = lambda where, msg: failures.append(f"{where}: {msg}")
 
     readme_rows = table_rows(ROOT / "README.md") or []
@@ -110,10 +110,19 @@ def main():
         tier, group, folder = parts
 
         try:
-            fields, body = parse_frontmatter((leaf / "SKILL.md").read_text(encoding="utf-8"))
+            text = (leaf / "SKILL.md").read_text(encoding="utf-8")
+            fields, body = parse_frontmatter(text)
         except (ValueError, UnicodeDecodeError) as e:
             fail(rel, f"frontmatter does not parse: {e}")
             continue
+
+        # One line policy with agent-workspace-builder's validator: the open spec recommends
+        # under 500 lines (a note, never a failure); past 1,000 fails.
+        n_lines = text.count("\n") + 1
+        if n_lines > 1000:
+            fail(rel, f"SKILL.md is {n_lines} lines; the limit is 1,000 (move detail to references/)")
+        elif n_lines > 500:
+            notes.append(f"{rel}: SKILL.md is {n_lines} lines; the spec recommends under 500")
 
         name = fields.get("name", "")
         if not name:
@@ -169,6 +178,8 @@ def main():
             if not (SKILLS.joinpath(*parts)).is_dir() or (len(parts) == 3 and not (SKILLS.joinpath(*parts) / "SKILL.md").is_file()):
                 fail(d.relative_to(ROOT).as_posix(), f"does not mirror a real path under skills/ (no skills/{'/'.join(parts)})")
 
+    for n in notes:
+        print(f"note  {n}")
     for f in failures:
         print(f"FAIL  {f}")
     print(f"\n{len(leaves)} skills checked, {len(failures)} failure(s).")

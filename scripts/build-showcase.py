@@ -42,7 +42,7 @@ MARKER = re.compile(r"(<!-- gen:([\w-]+) -->)(.*?)(<!-- /gen:\2 -->)", re.S)
 
 def frontmatter(path: Path) -> dict[str, str]:
     """`name` and `description` from a SKILL.md, including folded (`>-`) block scalars."""
-    lines = path.read_text(encoding="utf-8").replace("\r\n", "\n").split("\n")
+    lines = path.read_text(encoding="utf-8-sig").replace("\r\n", "\n").split("\n")
     if not lines or lines[0].strip() != "---":
         return {}
     end = next(i for i in range(1, len(lines)) if lines[i].strip() == "---")

@@ -153,6 +153,49 @@ with tempfile.TemporaryDirectory() as tmp:
     proc = subprocess.run([sys.executable, str(SCANNER), str(empty)], capture_output=True, text=True)
     check(proc.returncode == 1, "cli: an empty folder exits 1")
 
+# --- Frontmatter: every script that reads SKILL.md agrees (audit AS-15) -------------
+def load(path, name):
+    s = importlib.util.spec_from_file_location(name, REPO / path)
+    m = importlib.util.module_from_spec(s)
+    s.loader.exec_module(m)
+    return m
+
+
+WSB = "skills/core/automation/agent-workspace-builder/scripts/"
+repo_validator = load("scripts/validate-skills.py", "repo_validate_skills")
+showcase = load("scripts/build-showcase.py", "build_showcase")
+ws_validator = load(WSB + "validate-skills.py", "ws_validate_skills")
+capabilities = load(WSB + "gen-capabilities.py", "gen_capabilities")
+vendor = load(WSB + "gen-vendor-configs.py", "gen_vendor_configs")
+
+want = {"name": "demo-skill", "description": "Does a thing. Use when the user asks for the thing."}
+fixtures = {
+    "BOM + folded >-": "\ufeff---\nname: demo-skill\ndescription: >-\n  Does a thing.\n  Use when the user asks for the thing.\n---\nBody\n",
+    "plain": "---\nname: demo-skill\ndescription: Does a thing. Use when the user asks for the thing.\n---\nBody\n",
+    "quoted, CRLF": '---\r\nname: demo-skill\r\ndescription: "Does a thing. Use when the user asks for the thing."\r\n---\r\nBody\r\n',
+}
+with tempfile.TemporaryDirectory() as d:
+    for label, text in fixtures.items():
+        p = Path(d) / "SKILL.md"
+        p.write_bytes(text.encode("utf-8"))
+        got = {
+            "repo validator": repo_validator.parse_frontmatter(p.read_text(encoding="utf-8"))[0],
+            "build-showcase": showcase.frontmatter(p),
+            "workspace validator": ws_validator.frontmatter(p.read_text(encoding="utf-8")),
+            "gen-capabilities": capabilities.frontmatter(p.read_text(encoding="utf-8")),
+            "gen-vendor-configs": vendor.split_frontmatter(p.read_text(encoding="utf-8"))[0],
+        }
+        for who, fm in got.items():
+            fm = fm or {}
+            check({k: fm.get(k) for k in want} == want, f"frontmatter: {who} reads the {label} fixture")
+
+# No validator this repo ships fails on a skill this repo ships.
+ws_validator.errors.clear()
+for skill_md in sorted((REPO / "skills").rglob("SKILL.md")):
+    ws_validator.check_skill(skill_md)
+check(not ws_validator.errors, "frontmatter: agent-workspace-builder's validator passes every skill here"
+      + (f" ({ws_validator.errors[:3]})" if ws_validator.errors else ""))
+
 if failures:
     print(f"\n{len(failures)} check(s) failed.")
     sys.exit(1)
