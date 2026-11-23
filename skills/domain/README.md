@@ -1,13 +1,13 @@
 <h1 align="center">🧭 Domain skills</h1>
 
 <p align="center">
-  <em>Field-specific skills from the org's agent workspaces: engineering, security,<br>
+  <em>Field-specific skills from the org's agent workspaces: security,<br>
   business, media, API, science and religion work. They're portable, but you install them on purpose.</em>
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/tier-domain-F59E0B?style=for-the-badge" alt="Domain tier">
-  <img src="https://img.shields.io/badge/skills-24-0078D4?style=for-the-badge" alt="24 skills">
+  <img src="https://img.shields.io/badge/skills-20-0078D4?style=for-the-badge" alt="20 skills">
   <img src="https://img.shields.io/badge/scope-user,_opt--in-8B5CF6?style=for-the-badge" alt="User scope, opt-in">
   <a href="../core/README.md"><img src="https://img.shields.io/badge/↔-Core_skills-2ea44f?style=for-the-badge" alt="Core skills"></a>
   <a href="../../README.md"><img src="https://img.shields.io/badge/↩-repository_root-6B7280?style=for-the-badge" alt="Repository root"></a>
@@ -29,9 +29,8 @@ where they come from and how they install:
 ## 🔁 These are mirrors
 
 Every skill here is a **byte-for-byte copy** of a skill in one of the agent workspaces:
-`api-agent`, `business-agent`, `security-agent`, `media-agent`, `science-agent` and `religion-agent`. The
-`engineering` skills are the exception: `fullstack-agent` was archived 2026-11-16, so they are
-`maintained-here` in the ledger and edited in this repo by PR.
+`api-agent`, `business-agent`, `security-agent`, `media-agent`, `science-agent` and `religion-agent`.
+(The four `engineering` skills from the archived `fullstack-agent` moved to [Core](../core/README.md) on 2026-11-22.)
 A weekly Skill Harvest job copies the ones that pass its checks and re-syncs them when the
 source changes. [`docs/HARVEST.md`](../../docs/HARVEST.md) lists every one with its source.
 
@@ -43,10 +42,6 @@ source changes. [`docs/HARVEST.md`](../../docs/HARVEST.md) lists every one with 
 
 | Domain | Skill | Source | What it does |
 |:---|:---|:---|:---|
-| **Engineering** | [`debugging-methodology`](./engineering/debugging-methodology/SKILL.md) | fullstack-agent | Reproduce reliably, test one hypothesis at a time, bisect to localize, fix the root cause instead of the symptom. |
-| **Engineering** | [`performance-optimization`](./engineering/performance-optimization/SKILL.md) | fullstack-agent | Measure and profile before changing anything, then fix the biggest bottleneck first. |
-| **Engineering** | [`testing-strategy`](./engineering/testing-strategy/SKILL.md) | fullstack-agent | Decide what to test and at which level, test behavior rather than implementation, and know where coverage numbers mislead. |
-| **Engineering** | [`full-stack-feature`](./engineering/full-stack-feature/SKILL.md) | fullstack-agent (archived 2026-11-16; maintained here) | Deliver a feature that crosses layers as one verified vertical slice: plan every layer first, build through the existing patterns, prove the real flow with pasted output, review with five reviewer checklists, then a go/no-go with a rollback path. |
 | **API** | [`api-response-normalization`](./api/api-response-normalization/SKILL.md) | api-agent | Turn mixed API payloads into one envelope that carries its own provenance — source, request, timestamp, warnings, pointer to the raw response. |
 | **API** | [`api-client-resilience`](./api/api-client-resilience/SKILL.md) | api-agent | Write HTTP clients that fail predictably — timeouts, retries with jitter, circuit breaking, idempotency, terminating pagination. |
 | **API** | [`api-integration-testing`](./api/api-integration-testing/SKILL.md) | api-agent | Test API integrations without hammering live services — recorded fixtures, contract tests, an opt-in live smoke suite. |
@@ -68,4 +63,4 @@ source changes. [`docs/HARVEST.md`](../../docs/HARVEST.md) lists every one with 
 | **Religion** | [`religious-calendars`](./religion/religious-calendars/SKILL.md) | religion-agent | Convert and state religious dates correctly — calendar, convention and place, which dates are computed vs observed, era systems. |
 | **Religion** | [`writing-about-religion`](./religion/writing-about-religion/SKILL.md) | religion-agent | Write about religion fairly for a general audience — attributed faith claims, communities' own terms, sourced scripture quotes, topics needing care. |
 
-Domains so far: `Engineering`, `API`, `Business`, `Security`, `Media`, `Science`, `Religion`.
+Domains so far: `API`, `Business`, `Security`, `Media`, `Science`, `Religion`.

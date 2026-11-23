@@ -46,7 +46,7 @@ source. `—` means never checked.
 | Upstream | What the site assumes | Code | Check at | Last checked |
 |:---|:---|:---|:---|:---|
 | **GitHub Pages** | `site/` published by the Pages workflow, custom domain `agent-skills.ai-automation-tools.dev` in `site/CNAME`, HTTPS (the `.dev` TLD is HSTS-preloaded, so no certificate means no site) | `.github/workflows/pages.yml`, `site/CNAME` | docs.github.com/en/pages; github.blog/changelog (label: pages) | 2026-11-17 |
-| **Google Fonts** | `fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&display=swap`, with preconnects | `site/index.html` | developers.google.com/fonts/docs/css2; fonts.google.com (Geist, Instrument Serif) | 2026-11-17 |
+| **Inter, JetBrains Mono (self-hosted)** | Latin WOFF2 subsets from Google Fonts (Inter v20, JetBrains Mono v24) with their OFL licences, in `site/assets/fonts/` and `web-house-style/assets/fonts/`. Nothing is fetched at runtime; refresh by downloading the `latin` files from the css2 API again | `site/styles.css`, `site/assets/diagrams/task-router.html`, the `web-house-style` starters | developers.google.com/fonts/docs/css2; github.com/rsms/inter; github.com/JetBrains/JetBrainsMono | 2026-11-22 |
 | **Org consent gate** | `<script src="https://ai-automation-tools.dev/consent.js" defer>`, served by the org landing page repo; it gates any future analytics | `site/index.html` | the landing repo's `consent.js` and `docs/UPSTREAMS.md` | 2026-11-17 |
 
 Flag breaking changes, removals, EOL runtimes and security advisories only. There's no package
