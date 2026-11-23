@@ -14,6 +14,8 @@ Checks, for every leaf skill (a folder that directly holds a SKILL.md):
   - the skill has a table row in README.md and in its tier's README
 And once for the repo:
   - every folder under resources/skill-data/ mirrors a real skills/ path
+  - every Domain skill has exactly one mirrored or maintained-here row in docs/HARVEST.md
+  - the skills-N badge on skills/core/README.md and skills/domain/README.md matches the tier
 
 Prints every failure, then exits 1 if there were any, 0 otherwise.
 """
@@ -25,6 +27,8 @@ ROOT = Path(__file__).resolve().parent.parent
 SKILLS = ROOT / "skills"
 SKILL_DATA = ROOT / "resources" / "skill-data"
 TIERS = ("core", "domain", "projects")
+LEDGER_STATUSES = ("mirrored", "maintained-here", "declined")
+BADGE = re.compile(r"badge/skills-(\d+)-")
 
 KEBAB = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 TOP_KEY = re.compile(r"^([A-Za-z_][\w-]*):\s*(.*)$")
@@ -177,6 +181,34 @@ def main():
                 continue
             if not (SKILLS.joinpath(*parts)).is_dir() or (len(parts) == 3 and not (SKILLS.joinpath(*parts) / "SKILL.md").is_file()):
                 fail(d.relative_to(ROOT).as_posix(), f"does not mirror a real path under skills/ (no skills/{'/'.join(parts)})")
+
+    # docs/HARVEST.md: every Domain skill has exactly one row saying where it's edited, and every
+    # row with a path points at a real skill (audit AS-10).
+    ledger = ROOT / "docs" / "HARVEST.md"
+    by_path = {}
+    for row in table_rows(ledger) or []:
+        cells = [c.strip() for c in row.strip().strip("|").split("|")]
+        if len(cells) < 4 or cells[2] in ("status", ":---"):
+            continue
+        status, path = cells[2], cells[3].strip("`")
+        if status not in LEDGER_STATUSES:
+            fail("docs/HARVEST.md", f"row {cells[0]!r} has status {status!r}; use one of {', '.join(LEDGER_STATUSES)}")
+        elif status != "declined":
+            by_path.setdefault(path, []).append(cells[0])
+            if not (ROOT / path / "SKILL.md").is_file():
+                fail("docs/HARVEST.md", f"row {cells[0]!r} points at {path}, which has no SKILL.md")
+    for leaf in leaves:
+        rel = leaf.relative_to(ROOT).as_posix()
+        if rel.startswith("skills/domain/") and len(by_path.get(rel, [])) != 1:
+            fail(rel, f"needs exactly one mirrored or maintained-here row in docs/HARVEST.md (has {len(by_path.get(rel, []))})")
+
+    # The skills-N badge on a tier README counts that tier's skills.
+    for tier in ("core", "domain"):
+        readme = SKILLS / tier / "README.md"
+        m = BADGE.search(readme.read_text(encoding="utf-8")) if readme.is_file() else None
+        count = sum(1 for p in leaves if p.relative_to(SKILLS).parts[0] == tier)
+        if m and int(m.group(1)) != count:
+            fail(readme.relative_to(ROOT).as_posix(), f"badge says {m.group(1)} skills; the tier has {count}")
 
     for n in notes:
         print(f"note  {n}")

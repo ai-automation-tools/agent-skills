@@ -7,7 +7,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/tier-domain-F59E0B?style=for-the-badge" alt="Domain tier">
-  <img src="https://img.shields.io/badge/skills-23-0078D4?style=for-the-badge" alt="23 skills">
+  <img src="https://img.shields.io/badge/skills-24-0078D4?style=for-the-badge" alt="24 skills">
   <img src="https://img.shields.io/badge/scope-user,_opt--in-8B5CF6?style=for-the-badge" alt="User scope, opt-in">
   <a href="../core/README.md"><img src="https://img.shields.io/badge/↔-Core_skills-2ea44f?style=for-the-badge" alt="Core skills"></a>
   <a href="../../README.md"><img src="https://img.shields.io/badge/↩-repository_root-6B7280?style=for-the-badge" alt="Repository root"></a>
@@ -30,7 +30,8 @@ where they come from and how they install:
 
 Every skill here is a **byte-for-byte copy** of a skill in one of the agent workspaces:
 `api-agent`, `business-agent`, `security-agent`, `media-agent`, `science-agent` and `religion-agent`. The
-`engineering` skills came from `fullstack-agent`, archived 2026-11-16, and are no longer re-synced.
+`engineering` skills are the exception: `fullstack-agent` was archived 2026-11-16, so they are
+`maintained-here` in the ledger and edited in this repo by PR.
 A weekly Skill Harvest job copies the ones that pass its checks and re-syncs them when the
 source changes. [`docs/HARVEST.md`](../../docs/HARVEST.md) lists every one with its source.
 
