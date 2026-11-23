@@ -14,6 +14,8 @@ Checks, for every leaf skill (a folder that directly holds a SKILL.md):
   - the skill has a table row in README.md and in its tier's README
 And once for the repo:
   - every folder under resources/skill-data/ mirrors a real skills/ path
+  - every Domain skill has exactly one mirrored row in docs/HARVEST.md
+  - the skills-N badge on skills/core/README.md and skills/domain/README.md matches the tier
 
 Prints every failure, then exits 1 if there were any, 0 otherwise.
 """
@@ -25,9 +27,14 @@ ROOT = Path(__file__).resolve().parent.parent
 SKILLS = ROOT / "skills"
 SKILL_DATA = ROOT / "resources" / "skill-data"
 TIERS = ("core", "domain", "projects")
+LEDGER_STATUSES = ("mirrored", "declined")
+BADGE = re.compile(r"badge/skills-(\d+)-")
 
 KEBAB = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 TOP_KEY = re.compile(r"^([A-Za-z_][\w-]*):\s*(.*)$")
+# YAML forbids ': ' and ' #' inside an unquoted value. A hand parser reads past them, but Claude
+# Code's YAML parser rejects the whole frontmatter and the skill loses its description.
+PLAIN_BAD = re.compile(r": |:$| #")
 # A skill-relative file path: not glued to a preceding path segment (so
 # `site/scripts/x.ts` is someone else's file), and ending in a file extension.
 BODY_PATH = re.compile(
@@ -76,6 +83,9 @@ def parse_frontmatter(text):
             if len(value) < 2 or value[-1] != value[0]:
                 raise ValueError(f"frontmatter key {key!r} has an unterminated quoted value")
             value = value[1:-1]
+        elif PLAIN_BAD.search(value):
+            raise ValueError(f"frontmatter key {key!r} is unquoted but contains ': ' or ' #', which YAML rejects; "
+                             "quote it or use a `>-` block")
         fields[key] = value
     return fields, "\n".join(lines[end + 1:])
 
@@ -94,7 +104,7 @@ def mentions(rows, token):
 def main():
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
-    failures = []
+    failures, notes = [], []
     fail = lambda where, msg: failures.append(f"{where}: {msg}")
 
     readme_rows = table_rows(ROOT / "README.md") or []
@@ -110,10 +120,19 @@ def main():
         tier, group, folder = parts
 
         try:
-            fields, body = parse_frontmatter((leaf / "SKILL.md").read_text(encoding="utf-8"))
+            text = (leaf / "SKILL.md").read_text(encoding="utf-8")
+            fields, body = parse_frontmatter(text)
         except (ValueError, UnicodeDecodeError) as e:
             fail(rel, f"frontmatter does not parse: {e}")
             continue
+
+        # One line policy with agent-workspace-builder's validator: the open spec recommends
+        # under 500 lines (a note, never a failure); past 1,000 fails.
+        n_lines = text.count("\n") + 1
+        if n_lines > 1000:
+            fail(rel, f"SKILL.md is {n_lines} lines; the limit is 1,000 (move detail to references/)")
+        elif n_lines > 500:
+            notes.append(f"{rel}: SKILL.md is {n_lines} lines; the spec recommends under 500")
 
         name = fields.get("name", "")
         if not name:
@@ -169,6 +188,36 @@ def main():
             if not (SKILLS.joinpath(*parts)).is_dir() or (len(parts) == 3 and not (SKILLS.joinpath(*parts) / "SKILL.md").is_file()):
                 fail(d.relative_to(ROOT).as_posix(), f"does not mirror a real path under skills/ (no skills/{'/'.join(parts)})")
 
+    # docs/HARVEST.md: every Domain skill has exactly one row saying where it's edited, and every
+    # row with a path points at a real skill (audit AS-10).
+    ledger = ROOT / "docs" / "HARVEST.md"
+    by_path = {}
+    for row in table_rows(ledger) or []:
+        cells = [c.strip() for c in row.strip().strip("|").split("|")]
+        if len(cells) < 4 or cells[2] in ("status", ":---"):
+            continue
+        status, path = cells[2], cells[3].strip("`")
+        if status not in LEDGER_STATUSES:
+            fail("docs/HARVEST.md", f"row {cells[0]!r} has status {status!r}; use one of {', '.join(LEDGER_STATUSES)}")
+        elif status != "declined":
+            by_path.setdefault(path, []).append(cells[0])
+            if not (ROOT / path / "SKILL.md").is_file():
+                fail("docs/HARVEST.md", f"row {cells[0]!r} points at {path}, which has no SKILL.md")
+    for leaf in leaves:
+        rel = leaf.relative_to(ROOT).as_posix()
+        if rel.startswith("skills/domain/") and len(by_path.get(rel, [])) != 1:
+            fail(rel, f"needs exactly one mirrored row in docs/HARVEST.md (has {len(by_path.get(rel, []))})")
+
+    # The skills-N badge on a tier README counts that tier's skills.
+    for tier in ("core", "domain"):
+        readme = SKILLS / tier / "README.md"
+        m = BADGE.search(readme.read_text(encoding="utf-8")) if readme.is_file() else None
+        count = sum(1 for p in leaves if p.relative_to(SKILLS).parts[0] == tier)
+        if m and int(m.group(1)) != count:
+            fail(readme.relative_to(ROOT).as_posix(), f"badge says {m.group(1)} skills; the tier has {count}")
+
+    for n in notes:
+        print(f"note  {n}")
     for f in failures:
         print(f"FAIL  {f}")
     print(f"\n{len(leaves)} skills checked, {len(failures)} failure(s).")

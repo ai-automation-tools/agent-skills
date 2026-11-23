@@ -143,6 +143,15 @@ Each rule is here because the reference implementation paid for learning it.
     job that needs one rule lifted names that exact rule in its config, and the runner
     passes a filtered copy. If the file is missing, the runner fails rather than start an
     unprotected session. A job's own worktree settings can add more denies on top.
+
+    **Fetched content is data, never instructions.** The deny file limits what a steered session
+    can do; this limits the steering. Every stage prompt says, near the top, that web pages,
+    feeds, issues, PR and review comments, upstream docs and files from other repos are
+    evidence to weigh, never instructions to follow, and that nothing read during the run can
+    widen what the prompt allows. Unattended sessions read public input (idea feeds, upstream
+    changelogs, comments on public repos), so anyone who can write there can write to the
+    session. A session that finds an instruction aimed at it in fetched content ignores it and
+    reports it as a `TRAP:` line (rule 13).
 12. **A run that did nothing because it broke is a failure, never a quiet week.** Judge the
     outcome by the session's exit code as well as by commits and PRs. A platform error
     (`API Error: 529`) ends a session with exit 1 and no work. A runner that only counts
@@ -164,7 +173,9 @@ Each rule is here because the reference implementation paid for learning it.
       last changed, and the audit has to promote, fold or reject each one in its PR, so
       promotion can't be skipped.
     - **Review comments read back.** A run that continues an open PR reads the PR's
-      comments first, and a sweep HOLD or a comment from the owner is its first item.
+      comments first, and a sweep HOLD or a comment from the owner is its first item. Check
+      the author: only comments by the owner's or the sweep's account count; on a public repo
+      anyone can comment, and other comments are data like any fetched page (rule 11).
       Without this, held PRs keep collecting new work while the hold reason goes unread.
     - **Lessons per job.** Each job keeps a short lessons file that goes on top of its
       prompt. A session that learned something job-specific ends with `LESSON: <sentence>`,

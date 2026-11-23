@@ -8,9 +8,15 @@ expected skill loads; a "skip" case passes when it doesn't.
 It tests the INSTALLED copies (~/.claude/skills), so run `install-skills.ps1` first if
 you changed a description. Not in CI: it needs a signed-in `claude` and spends tokens.
 
+A session that fails (a non-zero exit other than hitting --max-turns), times out or can't start (signed out, rate-limited, a bad
+--claude path) is INCONCLUSIVE, never a pass: otherwise every "skip" case would pass on a
+session that never ran. Any inconclusive case makes the run exit 2. Sessions start with no
+MCP servers (--strict-mcp-config and an empty --mcp-config), so a test never reaches one.
+
     python scripts/check-triggers.py                      # every case
     python scripts/check-triggers.py --skill news-images  # one skill
     python scripts/check-triggers.py --model sonnet --workers 4
+    python scripts/check-triggers.py --claude /path/to/claude --timeout 300
 """
 import argparse
 import json
@@ -42,14 +48,41 @@ def loaded_skills(stream: str) -> set[str]:
     return found
 
 
-def run(prompt: str, model: str | None, cwd: str) -> set[str]:
-    cmd = ["claude", "-p", "--output-format", "stream-json", "--verbose",
-           "--max-turns", "3", f"--disallowedTools={DENY}"]
+def run(prompt: str, model: str | None, cwd: str, claude: str = "claude", timeout: int = 300) -> tuple[set[str] | None, str]:
+    """(skills loaded, "") for a session that finished, or (None, why) when it can't count."""
+    cmd = [claude, "-p", "--output-format", "stream-json", "--verbose",
+           "--max-turns", "3", f"--disallowedTools={DENY}",
+           "--strict-mcp-config", "--mcp-config", '{"mcpServers":{}}']
     if model:
         cmd += ["--model", model]
-    out = subprocess.run(cmd, input=prompt, capture_output=True, text=True,
-                         encoding="utf-8", errors="replace", cwd=cwd, timeout=300)
-    return loaded_skills(out.stdout)
+    try:
+        out = subprocess.run(cmd, input=prompt, capture_output=True, text=True,
+                             encoding="utf-8", errors="replace", cwd=cwd, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        return None, f"timed out after {timeout}s"
+    except OSError as e:
+        return None, f"could not start {claude!r}: {e}"
+    return outcome(out.returncode, out.stdout, out.stderr)
+
+
+def outcome(code: int, stdout: str, stderr: str) -> tuple[set[str] | None, str]:
+    """Hitting --max-turns (exit 1, subtype error_max_turns) is a session that ran: it usually
+    means a skill loaded and the session kept going. Anything else non-zero, or no result event,
+    is a session that didn't run properly."""
+    result = None
+    for line in stdout.splitlines():
+        try:
+            ev = json.loads(line)
+        except ValueError:
+            continue
+        if isinstance(ev, dict) and ev.get("type") == "result":
+            result = ev
+    if result and result.get("subtype") == "error_max_turns":
+        return loaded_skills(stdout), ""
+    if code != 0 or result is None or result.get("is_error"):
+        detail = (result or {}).get("result") or (stderr.strip().splitlines() or ["no result event"])[-1]
+        return None, f"exit {code}: {str(detail)[:80]}"
+    return loaded_skills(stdout), ""
 
 
 def self_check() -> None:
@@ -63,6 +96,17 @@ def self_check() -> None:
         "not json",
     ])
     assert loaded_skills(sample) == {"news-images", "pdf"}, loaded_skills(sample)
+    # A failed session is inconclusive, never an empty "loaded nothing" (which would pass every skip case).
+    done = json.dumps({"type": "result", "subtype": "success", "is_error": False})
+    capped = json.dumps({"type": "result", "subtype": "error_max_turns", "is_error": True})
+    denied = json.dumps({"type": "result", "subtype": "success", "is_error": True, "result": "Invalid API key"})
+    assert outcome(1, "", "Invalid API key · Please run /login") == (None, "exit 1: Invalid API key · Please run /login")
+    assert outcome(1, denied, "") == (None, "exit 1: Invalid API key")
+    assert outcome(0, sample + "\n" + done, "") == ({"news-images", "pdf"}, "")
+    assert outcome(1, sample + "\n" + capped, "") == ({"news-images", "pdf"}, "")  # max turns: it ran
+    assert outcome(0, sample, "")[0] is None  # no result event: the session didn't finish
+    got, why = run("hi", None, tempfile.gettempdir(), claude="no-such-claude-binary-agent-skills")
+    assert got is None and "could not start" in why, (got, why)
     print("self-check passed")
 
 
@@ -71,6 +115,8 @@ def main() -> int:
     ap.add_argument("--skill", help="only this skill's cases")
     ap.add_argument("--model", help="model alias for the sessions (default: your CLI default)")
     ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--claude", default="claude", help="the claude CLI to run (default: claude on PATH)")
+    ap.add_argument("--timeout", type=int, default=300, help="seconds per session before it counts as inconclusive")
     ap.add_argument("--self-check", action="store_true")
     args = ap.parse_args()
     if args.self_check:
@@ -87,16 +133,23 @@ def main() -> int:
 
     # ignore_cleanup_errors: on Windows a session's MCP children can outlive it and hold the folder.
     with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as cwd, ThreadPoolExecutor(args.workers) as pool:
-        results = list(pool.map(lambda j: (j, run(j[2], args.model, cwd)), jobs))
+        results = list(pool.map(lambda j: (j, run(j[2], args.model, cwd, args.claude, args.timeout)), jobs))
 
-    failures = 0
-    for (skill, kind, prompt), got in results:
+    failures = inconclusive = 0
+    for (skill, kind, prompt), (got, why) in results:
+        if got is None:
+            inconclusive += 1
+            print(f"????  {kind:4}  {skill:24}  {why:34}  {prompt[:70]}")
+            continue
         ok = (skill in got) == (kind == "load")
         failures += not ok
         others = ", ".join(sorted(got - {skill})) or "-"
         print(f"{'PASS' if ok else 'FAIL'}  {kind:4}  {skill:24}  also: {others:28}  {prompt[:70]}")
-    print(f"\n{len(results)} cases, {failures} failed.")
-    return 1 if failures else 0
+    passed = len(results) - failures - inconclusive
+    print(f"\n{len(results)} cases: {passed} passed, {failures} failed, {inconclusive} inconclusive.")
+    if failures:
+        return 1
+    return 2 if inconclusive else 0
 
 
 if __name__ == "__main__":

@@ -68,7 +68,7 @@ an equivalent, the rest of this skill still applies and §2's archetypes are the
 
 | You were asked for… | Archetype | Read |
 |:---|:---|:---|
-| "Run Claude Code / an AI CLI on a schedule", "have an agent update X weekly", a prompt executed unattended with a completion notification | **A — agent run** | [`references/agent-job.md`](references/agent-job.md) |
+| "Run Claude Code / an AI CLI on a schedule", "have an agent update X weekly", a prompt executed unattended with a completion notification | **A — agent run** | [`references/agent-job.md`](references/agent-job.md). The bypass always comes with a deny file (`--settings`) and a prompt that treats fetched content as data, per `automated-dev-pipeline` rule 11 |
 | Clean up a drive, kill idle processes, prune logs, audit something, refresh docs by running an existing script | **B — maintenance** | [`references/maintenance-job.md`](references/maintenance-job.md) |
 | Keep a local app alive, restart it, probe its health every N minutes, start it at logon, stop it on demand | **C — service** | [`references/service-jobs.md`](references/service-jobs.md) |
 | One command, nothing to classify, no report needed | **D — plain command** | §4 below. The only one Cronsole's `create_task` should author. |
@@ -95,7 +95,7 @@ unattended session editing the checkout you have open, on whatever branch you le
 |:---|:---|:---|
 | **RunLevel** | `Limited` | `Highest` stamps an admin ACE on the task, and you then need elevation to delete your own task. Override with `"runLevel": "Highest"` only when a non-elevated run would quietly do **less** rather than fail — a cleanup whose Windows Temp and component-store targets are skipped with a note is the canonical case. |
 | **LogonType** | `Interactive`, as you | A **user-scoped** environment variable — an API key for the notifier, most often — is invisible to SYSTEM. The job then works perfectly and the notification fails silently forever. |
-| **StartWhenAvailable** | on | A weekly job whose machine was asleep at 03:00 Sunday otherwise just does not run, and says nothing about it. |
+| **StartWhenAvailable** | off; `"catchUp": true` in `job.json` turns it on | On, a run the machine slept through fires late at wake-up, possibly at a bad moment for a job that writes or sends. Off, a weekly job whose machine was asleep at 03:00 Sunday skips that week, so check `LastRunTime`, or turn catch-up on for a job where a late run is harmless. |
 | **ExecutionTimeLimit** | from `executionTimeLimitHours` | Bounded well under the cadence, so a hung run cannot still be going when the next one starts. The Windows default is **72 hours**. |
 | **Batteries** | allowed | The default both refuses to start on battery *and* stops a running task when you unplug. Both are wrong on a laptop. |
 | **MultipleInstances** | `IgnoreNew` | One run at a time. |

@@ -87,6 +87,9 @@ containing a NO settlement (a third of the book).
 
 ### dry-run → pilot
 
+🔒 Needs owner. Meeting these conditions makes the step *proposable*, not automatic: the agent
+presents the evidence and the `DRY_RUN=false` diff, and the owner makes the change.
+
 All four, or stay on rung 1:
 
 1. **The profile's own knob is binding.** Read rejection reasons, not candidate counts. Seven days
@@ -101,6 +104,8 @@ All four, or stay on rung 1:
    reporting, per-profile report dirs.
 
 ### pilot → live
+
+🔒 Needs owner, as above: the agent proposes, the owner promotes.
 
 - The review fires branch A **on the full sample**, not a projection of it.
 - **Read CLV, not ROI**, for any book that will never accumulate enough settles for ROI to

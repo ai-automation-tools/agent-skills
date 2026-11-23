@@ -1,12 +1,13 @@
 {
-  "_comment": "Auto-invocation cases for scripts/check-triggers.py. Per Core skill: requests that should load it unprompted (load) and a near miss that should not (skip). Plain user wording, no skill names.",
+  "_comment": "Auto-invocation cases for scripts/check-triggers.py. Per Core skill: requests that should load it unprompted (load) and a near miss that should not (skip). Plain user wording, no skill names. Since 2026-11-22 (audit AS-22) some skips are aimed at a neighbouring user-scope skill: a GitHub README makeover, a page with its own invented look, an ordinary review or coding task.",
   "cases": {
     "repo-docs-builder": {
       "load": [
         "This repo's docs are a pile of loose markdown files with no index. Restructure them so a reader can click from the root README down to every doc and back.",
         "Write a ROADMAP.md of everything left before we launch this project, and start a CHANGELOG.md for it."
       ],
-      "skip": ["Fix the typo 'recieve' on line 12 of README.md."]
+      "skip": ["Fix the typo 'recieve' on line 12 of README.md.",
+               "Make my project's GitHub README eye-catching: shields.io badges, a centered logo banner and a demo GIF at the top."]
     },
     "recipe-validator": {
       "load": [
@@ -34,7 +35,9 @@
         "How should we approach this: review the whole open PR for bugs, performance and security. One agent or several?",
         "Which model should handle migrating 40 files from moment.js to date-fns?"
       ],
-      "skip": ["Rename the variable cnt to count in utils.py."]
+      "skip": ["Rename the variable cnt to count in utils.py.",
+               "Review the diff on my current branch for bugs.",
+               "Write a function that parses ISO-8601 dates and add a unit test for it."]
     },
     "news-images": {
       "load": [
@@ -56,7 +59,8 @@
         "Build a landing page for our new tool that matches the look of our other ai-automation-tools sites.",
         "Add a Light | Dark switch and a phone layout to this dashboard page, like our other apps."
       ],
-      "skip": ["Explain the difference between CSS grid and flexbox."]
+      "skip": ["Explain the difference between CSS grid and flexbox.",
+               "Design a bold, playful landing page for a neighborhood bakery. Pick whatever visual style you think fits it."]
     },
     "automated-dev-pipeline": {
       "load": [

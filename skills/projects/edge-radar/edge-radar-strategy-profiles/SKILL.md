@@ -23,7 +23,14 @@ and never an edit to the live `.env`.**
 > checkout) turns "which strategy is better" into an unanswerable question.
 
 This skill covers **deciding what the strategy is** and **getting it from idea to live money
-safely**. The repo's own `/edge-radar` skill covers running a scan once you know what you want;
+safely**.
+
+> **🔒 Needs owner: money moves only on the owner's word.** Three steps here touch real money:
+> **creating or funding a subaccount**, **any edit that sets `DRY_RUN=false`**, and **promoting a
+> profile to pilot or live**. An agent never does them on its own, unattended or not. Prepare the
+> exact command, `.env.<name>` diff or task change, show it with the evidence that the entry
+> condition is met, then **stop** and wait for the owner to run or approve it. A scheduled job that
+> reaches one of these steps reports it and ends. The repo's own `/edge-radar` skill covers running a scan once you know what you want;
 `edge-radar-strategy-evidence` covers proving it works.
 
 ---
@@ -124,13 +131,14 @@ is reachable — the discipline in full, with a worked pre-declared rule, in
 | Rung | Posture | Leaves when |
 |:---|:---|:---|
 | **1 — dry-run** | `DRY_RUN=true`. Rows log identically to live, so they stay valid evidence. | The profile's own knob is demonstrably **binding**. If every rejection is on *edge*, the profile setting is changing nothing, and going live changes nothing except downside. |
-| **2 — pilot** | `DRY_RUN=false` **plus** a capped edge floor (≈2–3x global) and a `MAX_SEGMENT_EXPOSURE_PCT` that actually binds the segment. | The pre-declared review fires on real settled rows. |
-| **3 — live** | Normal floors. | — |
+| **2 — pilot** 🔒 Needs owner | `DRY_RUN=false` **plus** a capped edge floor (≈2–3x global) and a `MAX_SEGMENT_EXPOSURE_PCT` that actually binds the segment. | The pre-declared review fires on real settled rows. |
+| **3 — live** 🔒 Needs owner | Normal floors. | — |
 
 The pilot cap **is** the response to uncertainty. When a review's bootstrap CI straddles zero — and
 at n≈25 it will — the answer is a capped floor, not a coin flip between frozen and unfrozen.
 
-**Before flipping `DRY_RUN=false` on any profile, clear the soft-spot list.** Three surfaces are
+**Flipping `DRY_RUN=false` is the owner's call (🔒 Needs owner): prepare the diff and stop.
+Before proposing it on any profile, clear the soft-spot list.** Three surfaces are
 safe today only *because* the second book never fills:
 
 - **Reporting is pooled.** `daily_summary.py`, `risk_check.py` and `betting_analysis.py` read the
@@ -181,7 +189,8 @@ after the merge, and the second book's banner reported the first book's P&L and 
 
 1. **Confirm it is a profile** (§1), not a model change wearing a profile's clothes.
 2. **Name the price band** the strategy is about, then pick the knob that binds there (§2).
-3. **Create and fund the subaccount.** Record which number, and when.
+3. **Create and fund the subaccount.** 🔒 Needs owner: prepare the steps and the amount, then
+   stop; the owner creates and funds it. Record which number, and when.
 4. **Write `.env.<name>`** — deltas only, `KALSHI_SUBACCOUNT` set, `DRY_RUN=true`, every value
    carrying its evidence in a comment.
 5. **Write the exit rule now**, while nothing is at stake → [`references/launch-and-kill.md`](references/launch-and-kill.md).
@@ -190,6 +199,8 @@ after the merge, and the second book's banner reported the first book's P&L and 
    profile's knob is binding.
 8. **Prove it** → the `edge-radar-strategy-evidence` skill.
 9. **Promote to pilot** only when the pre-declared rule fires, and fix the §5 soft spots first.
+   🔒 Needs owner: present the evidence and the `DRY_RUN=false` diff, then stop. Pilot → live is
+   the same: the owner promotes.
 10. **Document it** in `docs/<name>/README.md` on the four-layer shape — selection, settings, money,
     data — plus what is deliberately shared and what is still pooled.
 

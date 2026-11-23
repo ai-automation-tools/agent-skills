@@ -33,8 +33,9 @@ End If
 cmd = """" & exe & """ -NoProfile -ExecutionPolicy Bypass -File """ & _
       WScript.Arguments(0) & """"
 
+' Quote each extra argument, so one containing a space reaches the script whole.
 For i = 1 To WScript.Arguments.Count - 1
-    cmd = cmd & " " & WScript.Arguments(i)
+    cmd = cmd & " """ & Replace(WScript.Arguments(i), """", "\""") & """"
 Next
 
 WScript.Quit shell.Run(cmd, 0, True)

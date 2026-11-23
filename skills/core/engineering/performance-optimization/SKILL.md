@@ -1,6 +1,12 @@
 ---
 name: performance-optimization
-description: Make a slow app faster without guessing where the time goes — measure and profile before changing anything, fix the biggest bottleneck first, and cover the usual suspects: N+1 queries and missing indexes, oversized payloads, blocking work on the request path, and frontend bundle and render cost. Use when something is slow, a page or endpoint misses a latency target, a database is under load, or someone proposes an optimization before profiling.
+description: >-
+  Make a slow app faster without guessing where the time goes — measure and profile
+  before changing anything, fix the biggest bottleneck first, and cover the usual
+  suspects: N+1 queries and missing indexes, oversized payloads, blocking work on the
+  request path, and frontend bundle and render cost. Use when something is slow, a page
+  or endpoint misses a latency target, a database is under load, or someone proposes an
+  optimization before profiling.
 ---
 
 # Performance Optimization

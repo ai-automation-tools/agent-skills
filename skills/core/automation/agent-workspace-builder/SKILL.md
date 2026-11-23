@@ -172,7 +172,7 @@ Copy all seven into the workspace's `scripts/`. Each is stdlib-only Python 3.11+
 | `scripts/validate-skills.py` | Every `.claude/skills/` and `skills/` SKILL.md against the Agent Skills spec; command and agent frontmatter |
 | `scripts/gen-capabilities.py` | Writes `docs/reference/CAPABILITIES.md` from `.claude/` and `skills/`; `--check` fails CI when stale |
 | `scripts/check-links.py` | Every relative link in every Markdown file resolves |
-| `scripts/gen-vendor-configs.py` | Writes Codex and Antigravity config (`.agents/`, `.codex/`) and `docs/reference/OTHER-CLIS.md` from `.claude/` and `.mcp.json`; `--check` fails CI when stale |
+| `scripts/gen-vendor-configs.py` | Writes Codex and Antigravity config (`.agents/`, `.codex/`) and `docs/reference/OTHER-CLIS.md` from `.claude/` and `.mcp.json`; `--check` fails CI when stale. Works on its own repo by default (not the cwd), refuses a folder without `AGENTS.md` and `.claude/` or the home folder, and deletes only files it wrote (its note or its manifest), so another tool's `.codex/` or `.agents/skills/` files survive |
 | `scripts/usage.py` | Not run in CI (needs local logs): counts sessions and active days in this clone from Claude Code's transcripts; information only, not a gate: no job can meet a session count (see *Checkable gates* in `references/automations.md`) |
 | `scripts/envfile.py` | Not a check: loads `.env` (`load_env()` for scripts; `envfile.py -- <cmd>` to launch an MCP server with it; `--names` lists names, never values) |
 

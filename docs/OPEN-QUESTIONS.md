@@ -2,12 +2,14 @@
 
 ## Open
 
+_None._
+
+## Answered
+
 ### Does Kimi CLI still read ~/.agents/skills when ~/.config/agents/skills exists?
 - Asked: 2026-11-17 by agent-skills-upstream
 - Context: Kimi's docs (moonshotai.github.io/kimi-cli/en/customization/skills.html) say it uses only the first existing directory of `~/.config/agents/skills` then `~/.agents/skills`, so `-AllAgents` installs to `~/.agents/skills` are ignored if the former exists. It also reads `~/.claude/skills`, so Core still reaches it. Separately, OpenAI's Codex docs (learn.chatgpt.com/docs/build-skills) no longer mention `~/.codex/skills`. No change made to the installer or `docs/USING-SKILLS.md`; recommend adding a one-line Kimi caveat if you use that folder.
-- Answer:
-
-## Answered
+- Answer: No (verified 2026-11-22, audit AS-29; a fact, not a preference). Kimi's docs split user folders into a brand group (`~/.kimi/skills`, `~/.claude/skills`, `~/.codex/skills`, all merged by default) and a generic group (`~/.config/agents/skills`, then `~/.agents/skills`, first existing only). On the owner's machine `~/.config/agents/skills` doesn't exist, so the `-AllAgents` copy still reaches Kimi, and `~/.claude/skills` reaches it either way. The caveat is now in `docs/USING-SKILLS.md`. The Codex point needs no change: the table already calls `~/.codex/skills` legacy.
 
 ### Turn on GitHub private vulnerability reporting for agent-skills?
 - Asked: 2026-10-29 by agent-skills-roadmap

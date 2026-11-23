@@ -144,7 +144,7 @@ framework's `icon.svg`) and as its card's `icons/tools/<id>.svg`. Check it at
 
 | | Value |
 |:---|:---|
-| Fonts | `Inter:wght@400;500;600;700` + `JetBrains+Mono:wght@400;500`, `display=swap`, with `preconnect` to both Google hosts |
+| Fonts | Inter (400–700) + JetBrains Mono (400–500), self-hosted from the skill's `assets/fonts/`: `@font-face` with `font-display: swap` and the Latin `unicode-range`, plus a `preload` for Inter. No Google Fonts request |
 | Body | 15px / 1.6, `--fg`, `-webkit-font-smoothing: antialiased` |
 | h1 | `clamp(34px, 4.6vw, 52px)`, line-height 1.04, letter-spacing −.035em, 700, `text-wrap: balance`. One `<em>` word may carry the accent gradient |
 | h2 | 26px, −.025em, 650 |

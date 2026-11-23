@@ -35,6 +35,7 @@
 - **A missing image is not an error.** The card falls back to a placeholder, so a half-finished set still looks deliberate.
 - **Four images is the cap.** The extras are listed in the card's `data-shots` and only loaded when the lightbox opens. Nothing is guessed at, so the console stays free of 404s.
 - **Size:** 1600 × 1000 or larger. Light-on-dark captures read best against the card background.
+- **A primary wider than 800 px gets a `<skill>-card.webp` beside it:** the same image at 800 px wide (WebP, quality 70–80; a tall one cropped to the top 16:10 the card shows). The card loads that and the lightbox loads the full image, so the page's first load stays small. `build-showcase.py` uses the `-card` file when it exists and writes each card image's `width` and `height` from its header.
 
 ## 📦 Current state
 

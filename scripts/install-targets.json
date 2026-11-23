@@ -1,0 +1,9 @@
+{
+  "_comment": "Where -AllAgents installs Core (and Domain) skills, for install-skills.ps1 and anything else that syncs these skills (AI Tools Sync). A shared folder is written when any of its roots exists under the home folder. Retired folders were written before 2026-11-12; -AllAgents removes previous installs from them. Paths checked 2026-11-11 against each CLI's docs (docs/USING-SKILLS.md). ~/.codex/skills is Codex's legacy path and is never a target.",
+  "shared": [
+    { "label": "Claude Code",                 "dir": ".claude/skills",        "roots": [".claude"] },
+    { "label": "Codex, Kimi, opencode, Kilo", "dir": ".agents/skills",        "roots": [".agents", ".codex", ".kimi-code", ".config/opencode", ".kilo"] },
+    { "label": "Antigravity IDE, agy",        "dir": ".gemini/config/skills", "roots": [".gemini/config", ".gemini/antigravity-cli"] }
+  ],
+  "retired": [".gemini/antigravity-cli/skills", ".config/opencode/skills", ".kilo/skills"]
+}
