@@ -68,12 +68,23 @@ Skills are picked up from an agent's skills directory. Three options:
    pwsh scripts/install-skills.ps1 -AllAgents
    pwsh scripts/install-skills.ps1 -AllAgents -Skill automated-dev-pipeline   # just one, everywhere
 
+   # what main holds, not your working tree: tracked files at one commit (for scheduled syncs)
+   git fetch origin; pwsh scripts/install-skills.ps1 -AllAgents -Ref origin/main
+
    # project tier goes into the repo it belongs to, never user scope
    pwsh scripts/install-skills.ps1 -Project cronsole -Destination D:/repos/cronsole/.claude/skills
    ```
 
    A bare run installs **Core only**, so a project skill cannot leak into user scope by accident.
    Re-run it after editing any skill. Restart the Claude Code session to reload the catalog.
+
+   Each installed folder carries a `.installed-from-agent-skills` marker (source, ref, commit, time).
+   The installer replaces a same-named folder only when it's a previous install (the marker, or a
+   `SKILL.md` this repo has shipped); your own skill with the same name is skipped with a warning
+   unless you pass `-Force`. It never replaces or deletes through a link. Each skill is built
+   beside the destination and swapped in with renames, so a locked file leaves the old copy whole;
+   the other skills still install and the run exits 1. `reports/`, `__pycache__/`, `.venv/` and
+   `*.pyc` never ship. `-AllAgents`' target folders are in `scripts/install-targets.json`.
 2. **Point at this repo** — configure your agent's skills path to include this repo's `skills/core/` folder.
 3. **Copy an individual skill** — copy a single `<skill-name>/` folder (the leaf folder, not its tier or category) into your agent's skills directory.
 
@@ -143,7 +154,7 @@ What follows from the table:
 
 - Run `python scripts/validate-skills.py` from the repo root. It checks the frontmatter, the name, the description length, the paths the body cites, the README rows and the `resources/skill-data/` mirror for every skill, and lists every failure it finds. Standard library only, so nothing to install. CI runs the same check on every pull request (`.github/workflows/validate.yml`).
 - Run `python scripts/check-links.py` too. It fails on any relative link in a README, `docs/` or the showcase page that points at a path that doesn't exist (case-sensitive), which is what a rename or a move leaves behind. CI runs it in the same workflow.
-- If you changed the installer, run `pwsh -NoProfile -File scripts/test-install-skills.ps1`. It installs into a temp directory, never your real skills folder, and fails if the layout isn't flat or a duplicated name doesn't throw. CI runs it too.
+- If you changed the installer, run `pwsh -NoProfile -File scripts/test-install-skills.ps1`. It installs into a temp directory, never your real skills folder, and fails if the layout isn't flat, a duplicated name doesn't throw, a user's own same-named skill is overwritten, a linked folder is deleted through, a locked file breaks the old copy, or `-Ref` ships an untracked file. CI runs it on Linux and Windows.
 - If you changed a script inside a skill, run `python scripts/test-skill-scripts.py` and `pwsh -NoProfile -File scripts/test-skill-scripts.ps1`. They run the helpers that ship in skills against fixture inputs in a temp directory. Adding a helper script? Add its checks to the matching file. CI runs both.
 - Invoke it explicitly (`/<skill-name>`) on a real task and confirm the output follows the skill's rules.
 - Check auto-invocation. For each Core skill, [`scripts/trigger-cases.json`](../scripts/trigger-cases.json) holds two requests that should load it, in plain user wording with no skill name, and one near miss that shouldn't. `python scripts/check-triggers.py` sends each one to a fresh headless `claude -p` session in an empty folder, so no repo context helps, and reads which skill the session loaded. A request that should load the skill and doesn't means the `description` needs the user's words; a near miss that loads it means the description is too broad. Loading is not fully deterministic, so re-run a failed case before you edit anything: one miss in three runs is noise, a miss every time is a gap. Then tighten the description, reinstall, and re-run that skill (`--skill <name>`). It tests the installed copy and spends tokens, so it isn't in CI.

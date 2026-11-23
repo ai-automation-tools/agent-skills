@@ -11,9 +11,19 @@
     The leaf folder is the portable unit (per AGENTS.md); bulky demo assets live
     separately under resources/skill-data/ and are intentionally NOT installed.
 
-    Each install is a clean mirror: the target <name>/ folder is removed and
-    recopied, so files you deleted in the repo disappear from the install too.
-    Per-skill reports/ output (gitignored local run output) is never copied.
+    Each install is a clean mirror: the new copy is built beside the destination and
+    swapped in with renames, so files you deleted in the repo disappear from the
+    install too, and a failure (a locked file, say) leaves the previous copy whole.
+    Local run output and build litter (reports/, __pycache__/, .venv/, node_modules/,
+    *.pyc) is never copied.
+
+    Every installed folder gets a .installed-from-agent-skills marker naming the
+    source (working tree or -Ref), the commit and the install time. A same-named
+    folder at the destination is replaced only when it is a previous install: it
+    carries the marker, or its SKILL.md matches a version this repo has shipped.
+    Anything else is the user's own skill and is skipped with a warning unless -Force
+    is given. A folder that is a link (junction or symlink) is never replaced or
+    removed: the installer won't delete through a link.
 
     Skills come in two tiers and they do NOT install to the same place:
 
@@ -33,14 +43,17 @@
       ~/.agents/skills         Codex, Kimi, opencode, Kilo (shared; ~/.codex/skills is legacy)
       ~/.gemini/config/skills  Antigravity IDE and agy (the Antigravity CLI)
 
+    The list lives in scripts/install-targets.json, so anything else that installs
+    these skills (a scheduled sync, say) can read the same targets.
+
     A folder whose CLIs are all absent is skipped rather than created, so the switch
     never litters ~ with directories for tools you don't have.
 
     Until 2026-11-12 -AllAgents also wrote ~/.gemini/antigravity-cli/skills,
     ~/.config/opencode/skills and ~/.kilo/skills, which those CLIs read on top of the
     shared folders, so they listed every skill twice or three times. An -AllAgents
-    run now removes the copies it left there: only folders named like a skill being
-    installed, nothing else in those directories.
+    run now removes the copies it left there: only previous installs named like a
+    skill being installed, never through a link, nothing else in those directories.
 
 .PARAMETER Destination
     Where to install. Defaults to "$HOME/.claude/skills".
@@ -50,8 +63,8 @@
     present on this machine (Claude Code, Codex, Kimi, agy, Antigravity IDE,
     opencode, Kilo) instead of a single -Destination, and remove the copies older
     runs left in the folders it no longer writes.
-    Core tier only - project skills are per-repo by definition, so -Project is
-    rejected here.
+    Core and Domain tiers only: -Project and -All are rejected here, since project
+    skills belong in one repo.
 
 .PARAMETER Core
     Install the Core tier (skills/core/**). This is the default when neither -Core
@@ -66,9 +79,24 @@
     Point -Destination at that repo's .claude/skills — several org repos track
     that folder in git, so the install lands in a commit other contributors get.
 
+.PARAMETER All
+    Every tier at once. For tests (scripts/test-install-skills.ps1) and -List only:
+    it puts project skills next to Core, so it needs an explicit -Destination and
+    is rejected with -AllAgents.
+
 .PARAMETER Skill
     Install only the named skill(s) (match the leaf folder / frontmatter name).
     Narrows whichever tier was selected.
+
+.PARAMETER Ref
+    Install the skills as committed at this git ref (for example origin/main) instead
+    of the working tree: tracked files only, so local edits, unpushed commits on
+    another branch and untracked files never ship. Fetch first; the installer
+    doesn't. The marker records the resolved commit.
+
+.PARAMETER Force
+    Replace a same-named destination folder even when it isn't a previous install
+    from this repo. Links are still never replaced.
 
 .PARAMETER List
     List the skills that would be installed and exit (no copying).
@@ -84,6 +112,10 @@
 .EXAMPLE
     pwsh scripts/install-skills.ps1 -AllAgents
     Install every Core skill into every agent CLI's global skills directory found here.
+
+.EXAMPLE
+    git fetch origin; pwsh scripts/install-skills.ps1 -AllAgents -Ref origin/main
+    Install what main holds, whatever is checked out or edited locally. For scheduled syncs.
 
 .EXAMPLE
     pwsh scripts/install-skills.ps1 -AllAgents -Skill repo-docs-builder
@@ -109,7 +141,9 @@ param(
     [Parameter(ParameterSetName = 'Project')] [string] $Project,
     [Parameter(ParameterSetName = 'All')]     [switch] $All,
     [string[]] $Skill,
+    [string]   $Ref,
     [switch]   $AllAgents,
+    [switch]   $Force,
     [switch]   $List
 )
 
@@ -118,160 +152,313 @@ $ErrorActionPreference = 'Stop'
 # Repo root = parent of this scripts/ folder, no matter where it's invoked from.
 $RepoRoot   = Split-Path -Parent $PSScriptRoot
 $SkillsRoot = Join-Path $RepoRoot 'skills'
+$MarkerName = '.installed-from-agent-skills'
+# Never installed: local run output and build litter that may sit in a working tree.
+$SkipDirs   = 'reports', '__pycache__', '.venv', 'venv', 'node_modules', '.pytest_cache', '.mypy_cache', '.ruff_cache'
+$SkipFiles  = '*.pyc', '*.pyo', '.DS_Store', 'Thumbs.db'
 
 if (-not (Test-Path $SkillsRoot)) {
     throw "skills/ folder not found at '$SkillsRoot'. Run this from within the repo."
 }
 
-# Which tier are we installing? -List with no tier means "show everything".
-$SearchRoot = switch ($PSCmdlet.ParameterSetName) {
-    'Project' {
-        $p = Join-Path $SkillsRoot "projects/$Project"
-        if (-not (Test-Path $p)) {
-            $known = (Get-ChildItem (Join-Path $SkillsRoot 'projects') -Directory |
-                      Select-Object -ExpandProperty Name) -join ', '
-            throw "No project '$Project' under skills/projects. Known projects: $known"
+if ($AllAgents -and $PSCmdlet.ParameterSetName -eq 'Project') {
+    throw "-AllAgents installs to user scope, and project skills belong in one repo's .claude/skills. Use -Project with -Destination instead."
+}
+if ($AllAgents -and $PSCmdlet.ParameterSetName -eq 'All') {
+    throw "-All includes every project skill, which never belongs in user scope. Use -AllAgents with -Core or -Domain."
+}
+if ($AllAgents -and $PSBoundParameters.ContainsKey('Destination')) {
+    throw "-AllAgents picks its own destinations. Drop -Destination, or drop -AllAgents."
+}
+
+function Invoke-Git {
+    $out = & git -C $RepoRoot @args 2>$null
+    if ($LASTEXITCODE -ne 0) { return $null }
+    $out
+}
+$HaveGit = [bool](Get-Command git -ErrorAction SilentlyContinue) -and [bool](Invoke-Git rev-parse --git-dir)
+
+# Where the skills come from: the working tree, or the tracked files of one commit.
+$SourceLabel = 'working tree'
+$Commit      = if ($HaveGit) { Invoke-Git rev-parse HEAD } else { $null }
+$Export      = $null
+$StageRoots  = [Collections.Generic.HashSet[string]]::new()
+$failures    = 0
+
+try {
+    if ($Ref) {
+        if (-not $HaveGit) { throw "-Ref needs git and a clone of this repo; '$RepoRoot' isn't one." }
+        $Commit = Invoke-Git rev-parse --verify --quiet "$Ref^{commit}"
+        if (-not $Commit) { throw "No commit '$Ref' in $RepoRoot. Fetch it first (git fetch origin)." }
+        $Export = Join-Path ([IO.Path]::GetTempPath()) "agent-skills-$($Commit.Substring(0, 12))-$([guid]::NewGuid().ToString('N').Substring(0, 8))"
+        New-Item -ItemType Directory -Path $Export | Out-Null
+        # zip + Expand-Archive, not tar: which tar is on PATH varies (GNU tar reads C: as a host).
+        $zipFile = "$Export.zip"
+        & git -C $RepoRoot archive --format=zip -o $zipFile $Commit -- skills
+        if ($LASTEXITCODE -ne 0) { throw "git archive $Ref failed." }
+        Expand-Archive -LiteralPath $zipFile -DestinationPath $Export
+        Remove-Item $zipFile -Force
+        $SkillsRoot  = Join-Path $Export 'skills'
+        $SourceLabel = $Ref
+    }
+
+    # Which tier are we installing? -List with no tier means "show everything".
+    $SearchRoot = switch ($PSCmdlet.ParameterSetName) {
+        'Project' {
+            $p = Join-Path $SkillsRoot "projects/$Project"
+            if (-not (Test-Path $p)) {
+                $known = (Get-ChildItem (Join-Path $SkillsRoot 'projects') -Directory |
+                          Select-Object -ExpandProperty Name) -join ', '
+                throw "No project '$Project' under skills/projects. Known projects: $known"
+            }
+            $p
         }
-        $p
+        'Domain'  { Join-Path $SkillsRoot 'domain' }
+        'All'     { $SkillsRoot }
+        default   { if ($List) { $SkillsRoot } else { Join-Path $SkillsRoot 'core' } }
     }
-    'Domain'  { Join-Path $SkillsRoot 'domain' }
-    'All'     { $SkillsRoot }
-    default   { if ($List) { $SkillsRoot } else { Join-Path $SkillsRoot 'core' } }
-}
 
-# A leaf skill = any folder directly containing a SKILL.md.
-$leaves = Get-ChildItem -Path $SearchRoot -Recurse -File -Filter 'SKILL.md' |
-    ForEach-Object { $_.Directory } |
-    Sort-Object FullName
+    # A leaf skill = any folder directly containing a SKILL.md.
+    $leaves = Get-ChildItem -Path $SearchRoot -Recurse -File -Filter 'SKILL.md' |
+        ForEach-Object { $_.Directory } |
+        Sort-Object FullName
 
-# Names install flat, so a collision silently overwrites. Catch it here instead.
-$dupes = $leaves | Group-Object Name | Where-Object Count -gt 1
-if ($dupes) {
-    $detail = $dupes | ForEach-Object {
-        "  {0}: {1}" -f $_.Name, (($_.Group.FullName |
-            ForEach-Object { $_.Substring($RepoRoot.Length).TrimStart('\','/') }) -join ' , ')
-    }
-    throw "Duplicate skill name(s) — they would overwrite each other on install:`n$($detail -join "`n")"
-}
-
-if ($Skill) {
-    $leaves = $leaves | Where-Object { $_.Name -in $Skill }
-    $missing = $Skill | Where-Object { $_ -notin ($leaves.Name) }
-    if ($missing) { Write-Warning "No skill folder matched: $($missing -join ', ')" }
-}
-
-if (-not $leaves) { Write-Warning 'No skills found to install.'; return }
-
-if ($List) {
-    $leaves | ForEach-Object {
-        $rel   = $_.FullName.Substring($SkillsRoot.Length).TrimStart('\','/') -replace '\\','/'
-        $parts = $rel -split '/'
-        [pscustomobject]@{
-            Skill = $_.Name
-            Tier  = $parts[0]
-            Group = if ($parts.Count -ge 3) { $parts[1] } else { '-' }
-            Path  = "skills/$rel"
+    # Names install flat, so a collision silently overwrites. Catch it here instead.
+    $dupes = $leaves | Group-Object Name | Where-Object Count -gt 1
+    if ($dupes) {
+        $detail = $dupes | ForEach-Object {
+            "  {0}: {1}" -f $_.Name, (($_.Group.FullName |
+                ForEach-Object { $_.Substring($SkillsRoot.Length).TrimStart('\','/') }) -join ' , ')
         }
-    } | Format-Table -AutoSize
-    return
-}
-
-# Where this lands: one -Destination, or the shared folders every installed CLI reads.
-# The CLIs overlap: opencode also reads ~/.claude/skills and ~/.agents/skills, Kilo
-# reads ~/.agents/skills, agy reads ~/.gemini/config/skills. So three folders reach
-# all of them, and writing each CLI's own folder too only listed skills twice.
-# Paths re-checked 2026-11-11 against each CLI's own docs (table in docs/USING-SKILLS.md).
-# ~/.codex/skills is Codex's LEGACY path: a copy there shows up twice, so it is never a target.
-# Each folder is written when any CLI that reads it is present (its root folder exists);
-# creating a folder for CLIs you don't have is litter.
-$AgentSkillDirs = [ordered]@{
-    'Claude Code'                 = @{ Dir = '.claude/skills';        Roots = '.claude' }
-    'Codex, Kimi, opencode, Kilo' = @{ Dir = '.agents/skills';        Roots = '.agents', '.codex', '.kimi-code', '.config/opencode', '.kilo' }
-    'Antigravity IDE, agy'        = @{ Dir = '.gemini/config/skills'; Roots = '.gemini/config', '.gemini/antigravity-cli' }
-}
-# Folders older -AllAgents runs wrote. Each CLI reads them on top of the shared folders
-# above, so a copy left there is a duplicate that goes stale. -AllAgents removes them.
-$RetiredSkillDirs = '.gemini/antigravity-cli/skills', '.config/opencode/skills', '.kilo/skills'
-
-$destinations = [ordered]@{}
-if ($AllAgents) {
-    if ($PSCmdlet.ParameterSetName -eq 'Project') {
-        throw "-AllAgents installs to user scope, and project skills belong in one repo's .claude/skills. Use -Project with -Destination instead."
+        throw "Duplicate skill name(s) — they would overwrite each other on install:`n$($detail -join "`n")"
     }
-    if ($PSBoundParameters.ContainsKey('Destination')) {
-        throw "-AllAgents picks its own destinations. Drop -Destination, or drop -AllAgents."
+
+    if ($Skill) {
+        $leaves = $leaves | Where-Object { $_.Name -in $Skill }
+        $missing = $Skill | Where-Object { $_ -notin ($leaves.Name) }
+        if ($missing) { Write-Warning "No skill folder matched: $($missing -join ', ')" }
     }
-    foreach ($t in $AgentSkillDirs.GetEnumerator()) {
-        if ($t.Value.Roots | Where-Object { Test-Path (Join-Path $HOME $_) }) {
-            $destinations[$t.Key] = Join-Path $HOME $t.Value.Dir
-        } else {
-            Write-Host ("Skipping {0} — none of {1} found on this machine." -f $t.Value.Dir, (($t.Value.Roots | ForEach-Object { "~/$_" }) -join ', ')) -ForegroundColor DarkGray
+
+    if (-not $leaves) { Write-Warning 'No skills found to install.'; return }
+
+    if ($List) {
+        $leaves | ForEach-Object {
+            $rel   = $_.FullName.Substring($SkillsRoot.Length).TrimStart('\','/') -replace '\\','/'
+            $parts = $rel -split '/'
+            [pscustomobject]@{
+                Skill = $_.Name
+                Tier  = $parts[0]
+                Group = if ($parts.Count -ge 3) { $parts[1] } else { '-' }
+                Path  = "skills/$rel"
+            }
+        } | Format-Table -AutoSize
+        return
+    }
+
+    # ---------------------------------------------------------------- helpers
+
+    function Get-RepoPath([IO.DirectoryInfo] $Leaf) {
+        'skills/' + ($Leaf.FullName.Substring($SkillsRoot.Length).TrimStart('\','/') -replace '\\','/')
+    }
+
+    function Test-IsLink([string] $Path) {
+        $item = Get-Item -LiteralPath $Path -Force -ErrorAction SilentlyContinue
+        [bool]($item -and ($item.Attributes -band [IO.FileAttributes]::ReparsePoint))
+    }
+
+    # True when $Path or any folder between it and $Stop is a link: deleting there could
+    # reach a folder this run just wrote (a junctioned retired folder, say).
+    function Test-UnderLink([string] $Path, [string] $Stop) {
+        $stopFull = [IO.Path]::GetFullPath($Stop).TrimEnd('\','/')
+        $p = [IO.Path]::GetFullPath($Path).TrimEnd('\','/')
+        while ($p -and $p.Length -gt $stopFull.Length) {
+            if (Test-IsLink $p) { return $true }
+            $p = Split-Path $p -Parent
         }
+        $false
     }
-    if (-not $destinations.Count) { throw "None of the known agent CLI folders exist under $HOME. Nothing to install to." }
-} else {
-    $destinations[''] = $Destination
-}
 
-foreach ($dest in $destinations.GetEnumerator()) {
-    $DestPath = $dest.Value
-    $label    = if ($dest.Key) { "$($dest.Key)  " } else { '' }
-
-    if (-not (Test-Path $DestPath)) {
-        if ($PSCmdlet.ShouldProcess($DestPath, 'Create skills directory')) {
-            New-Item -ItemType Directory -Path $DestPath -Force | Out-Null
+    # Every SKILL.md blob this repo has ever shipped for a skill of this name, so a copy
+    # installed before the marker existed (or by another tool from this repo) is still
+    # recognised as a previous install rather than the user's own skill.
+    $shippedCache = @{}
+    function Get-ShippedBlobs([string] $Name) {
+        if (-not $HaveGit) { return @() }
+        if (-not $shippedCache.ContainsKey($Name)) {
+            $raw = Invoke-Git log --all --format= --raw --no-abbrev -- "skills/*/$Name/SKILL.md"
+            $shippedCache[$Name] = @($raw | ForEach-Object { ($_ -split '\s+')[2..3] } |
+                Where-Object { $_ -match '^[0-9a-f]{40}$' -and $_ -notmatch '^0+$' } | Sort-Object -Unique)
         }
+        $shippedCache[$Name]
     }
 
-    Write-Host "Installing $($leaves.Count) skill(s) -> $label$DestPath" -ForegroundColor Cyan
-    $results = foreach ($leaf in $leaves) {
-        $name   = $leaf.Name
-        $target = Join-Path $DestPath $name
+    # 'ours' = a previous install from this repo; 'link'; 'foreign' = someone else's folder.
+    function Get-Ownership([string] $Folder, [string] $Name, [string] $RepoPath) {
+        if (Test-IsLink $Folder) { return 'link' }
+        if (Test-Path -LiteralPath (Join-Path $Folder $MarkerName)) { return 'ours' }
+        $skillMd = Join-Path $Folder 'SKILL.md'
+        if ((Test-Path -LiteralPath $skillMd) -and $HaveGit) {
+            $blob = Invoke-Git hash-object "--path=$RepoPath/SKILL.md" -- $skillMd
+            if ($blob -and ($blob -in (Get-ShippedBlobs $Name))) { return 'ours' }
+        }
+        'foreign'
+    }
 
-        # Project skills install as an OVERLAY on repos that already own skills, and installs are
-        # flat — so say whether this landed on empty space or on top of something.
-        $state = if (Test-Path $target) { 'Replaced' } else { 'New' }
-
-        if ($PSCmdlet.ShouldProcess($target, "Mirror skill '$name'")) {
-            if (Test-Path $target) { Remove-Item $target -Recurse -Force }
-            Copy-Item -Path $leaf.FullName -Destination $DestPath -Recurse -Force
-
-            # Never ship local run output.
-            Get-ChildItem -Path $target -Recurse -Directory -Filter 'reports' -ErrorAction SilentlyContinue |
-                Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
-
-            $fileCount = (Get-ChildItem -Path $target -Recurse -File).Count
-            [pscustomobject]@{ Skill = $name; State = $state; Files = $fileCount; Target = $target }
+    function Copy-SkillTree([string] $From, [string] $To) {
+        New-Item -ItemType Directory -Path $To -Force | Out-Null
+        foreach ($f in Get-ChildItem -LiteralPath $From -Recurse -File -Force) {
+            $rel = [IO.Path]::GetRelativePath($From, $f.FullName)
+            $parts = $rel -split '[\\/]'
+            if ($parts.Count -gt 1 -and ($parts[0..($parts.Count - 2)] | Where-Object { $_ -in $SkipDirs })) { continue }
+            if ($SkipFiles | Where-Object { $f.Name -like $_ }) { continue }
+            $dest = Join-Path $To $rel
+            $dir = Split-Path $dest -Parent
+            if (-not (Test-Path -LiteralPath $dir)) { New-Item -ItemType Directory -Path $dir -Force | Out-Null }
+            Copy-Item -LiteralPath $f.FullName -Destination $dest -Force
         }
     }
 
-    if ($results) {
-        $results | Format-Table -AutoSize
+    # Build the new copy in a staging folder beside the destination (never inside it, where
+    # a CLI would read a half-built skill), then swap with renames. Renaming a folder that
+    # holds an open file fails on Windows, so a locked install stays as it was.
+    function Install-Leaf([IO.DirectoryInfo] $Leaf, [string] $DestPath, [string] $Target) {
+        $stageRoot = Join-Path (Split-Path ([IO.Path]::GetFullPath($DestPath)) -Parent) '.agent-skills-staging'
+        [void]$StageRoots.Add($stageRoot)
+        $id    = [guid]::NewGuid().ToString('N').Substring(0, 8)
+        $stage = Join-Path $stageRoot "$($Leaf.Name).new-$id"
+        $old   = Join-Path $stageRoot "$($Leaf.Name).old-$id"
+        try {
+            Copy-SkillTree $Leaf.FullName $stage
+            @(
+                'source: ai-automation-tools/agent-skills'
+                "path: $(Get-RepoPath $Leaf)"
+                "ref: $SourceLabel"
+                "commit: $(if ($Commit) { $Commit } else { 'unknown (not a git clone)' })"
+                "installed: $([DateTime]::UtcNow.ToString('yyyy-MM-ddTHH:mm:ssZ'))"
+            ) | Set-Content -LiteralPath (Join-Path $stage $MarkerName) -Encoding utf8NoBOM
+            if (Test-Path -LiteralPath $Target) { Move-Item -LiteralPath $Target -Destination $old }
+            try {
+                Move-Item -LiteralPath $stage -Destination $Target
+            } catch {
+                if (Test-Path -LiteralPath $old) { Move-Item -LiteralPath $old -Destination $Target }
+                throw
+            }
+        } finally {
+            foreach ($p in $stage, $old) {
+                if (Test-Path -LiteralPath $p) { Remove-Item -LiteralPath $p -Recurse -Force -ErrorAction SilentlyContinue }
+            }
+        }
+        (Get-ChildItem -LiteralPath $Target -Recurse -File -Force | Where-Object Name -ne $MarkerName).Count
+    }
 
-        # A first-ever 'Replaced' on a project install means we landed on a skill the repo owned.
-        if ($PSCmdlet.ParameterSetName -eq 'Project') {
-            $hit = $results | Where-Object State -eq 'Replaced'
-            if ($hit) {
-                Write-Warning ("Overwrote {0} existing skill folder(s) at the destination: {1}. " -f
-                    $hit.Count, ($hit.Skill -join ', '))
-                Write-Warning "If any of those were the repo's own skills rather than a previous install from here, restore them with git and rename the skill in this repo."
+    # ---------------------------------------------------------------- destinations
+
+    # Where this lands: one -Destination, or the shared folders every installed CLI reads.
+    # The CLIs overlap: opencode also reads ~/.claude/skills and ~/.agents/skills, Kilo
+    # reads ~/.agents/skills, agy reads ~/.gemini/config/skills. So three folders reach
+    # all of them, and writing each CLI's own folder too only listed skills twice.
+    # Paths re-checked 2026-11-11 against each CLI's own docs (table in docs/USING-SKILLS.md).
+    # One list, in install-targets.json, so a scheduled sync can read the same targets.
+    $targets = Get-Content -Raw (Join-Path $PSScriptRoot 'install-targets.json') | ConvertFrom-Json
+
+    $destinations = [ordered]@{}
+    if ($AllAgents) {
+        foreach ($t in $targets.shared) {
+            if ($t.roots | Where-Object { Test-Path (Join-Path $HOME $_) }) {
+                $destinations[$t.label] = Join-Path $HOME $t.dir
+            } else {
+                Write-Host ("Skipping {0} — none of {1} found on this machine." -f $t.dir, (($t.roots | ForEach-Object { "~/$_" }) -join ', ')) -ForegroundColor DarkGray
+            }
+        }
+        if (-not $destinations.Count) { throw "None of the known agent CLI folders exist under $HOME. Nothing to install to." }
+    } else {
+        $destinations[''] = $Destination
+    }
+
+    Write-Host "Source: $SourceLabel$(if ($Commit) { " at $($Commit.Substring(0, 12))" })" -ForegroundColor Cyan
+
+    foreach ($dest in $destinations.GetEnumerator()) {
+        $DestPath = $dest.Value
+        $label    = if ($dest.Key) { "$($dest.Key)  " } else { '' }
+
+        if (-not (Test-Path $DestPath)) {
+            if ($PSCmdlet.ShouldProcess($DestPath, 'Create skills directory')) {
+                New-Item -ItemType Directory -Path $DestPath -Force | Out-Null
+            }
+        }
+
+        Write-Host "Installing $($leaves.Count) skill(s) -> $label$DestPath" -ForegroundColor Cyan
+        $results = foreach ($leaf in $leaves) {
+            $name   = $leaf.Name
+            $target = Join-Path $DestPath $name
+            $state  = 'New'
+            if (Test-Path -LiteralPath $target) {
+                $owner = Get-Ownership $target $name (Get-RepoPath $leaf)
+                if ($owner -eq 'link') {
+                    Write-Warning "Skipped $target`: it is a link, and the installer never replaces or deletes through one. Remove the link yourself to install here."
+                    [pscustomobject]@{ Skill = $name; State = 'Skipped (link)'; Files = 0; Target = $target }
+                    continue
+                }
+                if ($owner -eq 'foreign' -and -not $Force) {
+                    Write-Warning "Skipped $target`: a folder with this name exists and isn't a previous install from this repo (no $MarkerName marker, SKILL.md matches no shipped version). Rename one of them, or pass -Force to replace it."
+                    [pscustomobject]@{ Skill = $name; State = 'Skipped (not ours)'; Files = 0; Target = $target }
+                    continue
+                }
+                $state = if ($owner -eq 'ours') { 'Replaced' } else { 'Replaced (-Force)' }
+            }
+
+            if ($PSCmdlet.ShouldProcess($target, "Mirror skill '$name'")) {
+                try {
+                    $files = Install-Leaf $leaf $DestPath $target
+                    [pscustomobject]@{ Skill = $name; State = $state; Files = $files; Target = $target }
+                } catch {
+                    $failures++
+                    Write-Warning "Failed to install $name to $target (the previous copy, if any, is unchanged): $($_.Exception.Message)"
+                    [pscustomobject]@{ Skill = $name; State = 'Failed'; Files = 0; Target = $target }
+                }
+            }
+        }
+
+        if ($results) { $results | Format-Table -AutoSize }
+    }
+
+    # Remove the duplicates older -AllAgents runs left in the retired folders: only previous
+    # installs from this repo named like a skill this run installed, never through a link.
+    if ($AllAgents) {
+        foreach ($dir in $targets.retired) {
+            foreach ($leaf in $leaves) {
+                $old = Join-Path (Join-Path $HOME $dir) $leaf.Name
+                if (-not (Test-Path -LiteralPath $old)) { continue }
+                if (Test-UnderLink $old $HOME) {
+                    Write-Warning "Left $old alone: it is, or sits under, a link, so removing it could delete a live install."
+                    continue
+                }
+                if ((Get-Ownership $old $leaf.Name (Get-RepoPath $leaf)) -ne 'ours') {
+                    Write-Warning "Left $old alone: it isn't a previous install from this repo."
+                    continue
+                }
+                if ($PSCmdlet.ShouldProcess($old, 'Remove copy from a folder -AllAgents no longer writes')) {
+                    try {
+                        Remove-Item -LiteralPath $old -Recurse -Force
+                        Write-Host "Removed old copy $old" -ForegroundColor DarkYellow
+                    } catch {
+                        $failures++
+                        Write-Warning "Couldn't remove old copy $old`: $($_.Exception.Message)"
+                    }
+                }
             }
         }
     }
 }
-
-# Remove the duplicates older -AllAgents runs left in the retired folders. Only folders
-# named like a skill this run installed: anything else there is the user's own.
-if ($AllAgents) {
-    foreach ($dir in $RetiredSkillDirs) {
-        foreach ($leaf in $leaves) {
-            $old = Join-Path (Join-Path $HOME $dir) $leaf.Name
-            if ((Test-Path $old) -and $PSCmdlet.ShouldProcess($old, 'Remove copy from a folder -AllAgents no longer writes')) {
-                Remove-Item $old -Recurse -Force
-                Write-Host "Removed old copy $old" -ForegroundColor DarkYellow
-            }
-        }
+finally {
+    if ($Export -and (Test-Path $Export)) { Remove-Item $Export -Recurse -Force -ErrorAction SilentlyContinue }
+    foreach ($s in $StageRoots) {
+        if ((Test-Path $s) -and -not (Get-ChildItem -LiteralPath $s -Force)) { Remove-Item -LiteralPath $s -Force -ErrorAction SilentlyContinue }
     }
 }
 
+if ($failures) {
+    Write-Host "$failures step(s) failed; see the warnings above. Everything else installed." -ForegroundColor Red
+    exit 1
+}
 Write-Host "Done. Restart any open agent session to reload the skill catalog." -ForegroundColor Green
