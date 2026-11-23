@@ -24,6 +24,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-11-23
+
+**Fixed**
+- Three Roundtable project skills named code that moved: `agent-chat-delivery` (one `SCHEMA` in `src/schema.py`, not four copies; `deliver_later()` for callers on an event loop and `deliver()` only when `complete_conversation()` returned True), `agent-chat-conv-types/references/add-a-type.md` and `agent-chat-run-triage/references/sql-probes.md` (`src/schema.py`, not `src/agent_chat_mcp.py`). Reinstall them into roundtable with `install-skills.ps1 -Project roundtable`. Roundtable audit RT-24
+
 ## 2026-11-22
 
 **Fixed**
