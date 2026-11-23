@@ -7,13 +7,13 @@ description: >-
   can click through from the root to any document and back. Anything that ships
   also gets a `docs/ROADMAP.md` of checkable action items for launch, promotion,
   and monetization, and a `docs/CHANGELOG.md` of every change including completed
-  roadmap items; a vault or doc library with nothing to ship skips the roadmap.
-  All prose goes through a built-in humanizer pass so it reads like a person wrote
-  it. Use for a whole repo, a single README at any level, just the header block,
+  roadmap items (a vault with nothing to ship skips the roadmap). All prose gets a
+  built-in humanizer pass. Use for a whole repo, a single README at any level, just the header block,
   just the index and link structure, or just the roadmap and changelog — including
   when the user asks what's left before shipping, wants a launch plan or changelog
   written or brought up to date, or only wants existing docs de-slopped so they
-  stop sounding AI-written, structure left alone.
+  stop sounding AI-written, structure left alone. Not for a lone GitHub README
+  makeover (badges, banner, GIF) with no docs tree behind it.
 ---
 
 You are a **Repository Builder** — you take a repo, project folder, doc library, or Obsidian vault (new or existing) and make it **professional and navigable end to end**: a clean layout, a house-style README at every level, and a documentation tree a reader can click through from the root to any document and back.

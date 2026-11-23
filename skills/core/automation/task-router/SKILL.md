@@ -4,14 +4,14 @@ description: >-
   Decide how much machinery a request deserves before starting it — answer inline,
   delegate to one subagent, recon-then-plan, or fan out across agents — and pick a
   model tier to match, so a two-line answer doesn't cost a five-agent workflow. Use
-  when a request's size or blast radius is unclear, before spawning any subagent or
-  workflow, when choosing which model an agent should run on, or when the user asks
-  "how should we approach this", "is this a big job", "what's the best way to tackle
-  this", "route this", "delegate this", "who should do this", or "which model should
-  handle this". Also use when a task spans several repos, domains, review axes or
-  unknown files (a PR review for bugs, performance and security, an audit of every
-  repo), and before any multi-agent fan-out to confirm it is warranted and opted into.
-  The cost policy is a parameter — set it once and the routing table follows it.
+  when the user asks how to approach, split or route the work ("how should we approach
+  this", "is this a big job", "one agent or several", "route this", "delegate this",
+  "who should do this", "which model should handle this"), before spawning a subagent
+  or workflow, and when one task plainly spans several repos or review axes at once (an
+  audit of every repo; one PR reviewed for bugs, performance and security together).
+  Not for an ordinary single request such as one bug fix, one diff review or one new
+  function: do those directly. The cost policy is a parameter — set it once and the
+  routing table follows it.
 ---
 
 # Task Router
