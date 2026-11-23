@@ -39,7 +39,7 @@ agent-skills/
 │   ├── check-triggers.py           # live auto-invocation test: does each Core skill load unprompted? (not CI: needs `claude`)
 │   ├── trigger-cases.json          # its cases: two requests that should load each Core skill, one near miss that shouldn't
 │   ├── validate-skills.py          # stdlib-only check of every SKILL.md + the indexes (run before a PR)
-│   ├── build-showcase.py           # stdlib-only: regenerates the showcase from skills/ + site/showcase.json; --check in CI
+│   ├── build-showcase.py           # stdlib-only: regenerates the showcase and site/catalog.json from skills/ + site/showcase.json; --check in CI
 │   ├── check-links.py              # stdlib-only: every relative link in READMEs, docs/ and site/index.html resolves (case-sensitive)
 │   ├── check-copies.py             # stdlib-only: hand-kept copies in other repos (copies.json) vs the source here; weekly in copies.yml
 │   ├── copies.json                 # those copies: source, repo, path, ref

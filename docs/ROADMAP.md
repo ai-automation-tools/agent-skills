@@ -75,10 +75,10 @@ From the full repo audit of 2026-11-22 (baseline `4d77026`). Ids are the audit's
 - [x] **AS-21** Doc drift: workspace count, "Mike" in public docs, media-agent naming *(this repo)*; the hub and automation prompts are outside it — done 2026-11-22: six workspaces in `AGENTS.md` and `skills/domain/README.md` (with the engineering skills' status), `media-agent` in `HARVEST.md`, "the owner" in `edge-spectrum-registry`. The HUB-REFERENCE install claim and the claude-routines prompts (`Docs/`, `harvest.md`'s CLAUDE.md) are outside this repo
 - [ ] **AS-22** Narrow `task-router` and `web-house-style` triggers and add cross-skill near-miss cases — needs `check-triggers.py` runs (local, spends tokens) to show 3 of 3
 - [ ] **AS-23** Licence credits for adapted content; confirm the origin of the private business-analysis template 🔒 Needs owner
-- [ ] **AS-24** Showcase: intrinsic image dimensions
+- [x] **AS-24** Showcase: intrinsic image dimensions — done 2026-11-22: six `<skill>-card.webp` copies at 800 px (news-images 357 KB to 94 KB, recipe-validator 296 KB to 53 KB); the cards load about 250 KB of images instead of about 1 MB, the lightbox still opens the full images, and every card `<img>` carries `width` and `height` read from its header
 - [ ] **AS-25** No consent prompt on org sites with no analytics 🔒 Needs owner — org-wide house-style decision
 - [ ] **AS-26** Self-host the showcase fonts 🔒 Needs owner — org-wide house-style decision
-- [ ] **AS-27** Publish `catalog.json` from the showcase build
+- [ ] **AS-27** Publish `catalog.json` from the showcase build, and capability badges on the Core cards — the catalog is done 2026-11-22: `build-showcase.py` writes `site/catalog.json` (every skill's name, tier, group, description, path and whether it ships scripts, evals or references) and `--check` fails when it's stale; Pages serves it at `https://agent-skills.ai-automation-tools.dev/catalog.json` once merged. The badges are still to do
 - [x] **AS-28** Skill safety lint (`scripts/lint-skill-safety.py`) in CI — done 2026-11-22: `scripts/lint-skill-safety.py` (four rules, an allow-list that fails on unused entries, a `--self-check` with one seeded bad fixture per rule) runs in `validate.yml`; the tree is clean with an empty allow-list. It flags the pre-fix edge-radar and cronsole text
 - [ ] **AS-29** Answer the Kimi skills-folder question in `OPEN-QUESTIONS.md` 🔒 Needs owner
 
