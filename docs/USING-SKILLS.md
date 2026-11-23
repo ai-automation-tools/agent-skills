@@ -32,7 +32,7 @@ despite being named for an org product, because you run it from whatever repo is
 Categories inside `core/` just group related skills. Add one when a skill fits none of them.
 
 [`Domain`](../skills/domain/README.md) is the third tier, and you don't author into it. A weekly
-harvest mirrors field skills (engineering, security, business, media, API) from the org's agent
+harvest mirrors field skills (security, business, media, API, science, religion) from the org's agent
 workspaces into it, which keeps Core a short list. Install them with
 `pwsh scripts/install-skills.ps1 -Domain`, and edit them in their workspace repo.
 

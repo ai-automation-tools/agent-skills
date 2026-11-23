@@ -14,7 +14,7 @@ Checks, for every leaf skill (a folder that directly holds a SKILL.md):
   - the skill has a table row in README.md and in its tier's README
 And once for the repo:
   - every folder under resources/skill-data/ mirrors a real skills/ path
-  - every Domain skill has exactly one mirrored or maintained-here row in docs/HARVEST.md
+  - every Domain skill has exactly one mirrored row in docs/HARVEST.md
   - the skills-N badge on skills/core/README.md and skills/domain/README.md matches the tier
 
 Prints every failure, then exits 1 if there were any, 0 otherwise.
@@ -27,7 +27,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SKILLS = ROOT / "skills"
 SKILL_DATA = ROOT / "resources" / "skill-data"
 TIERS = ("core", "domain", "projects")
-LEDGER_STATUSES = ("mirrored", "maintained-here", "declined")
+LEDGER_STATUSES = ("mirrored", "declined")
 BADGE = re.compile(r"badge/skills-(\d+)-")
 
 KEBAB = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
@@ -200,7 +200,7 @@ def main():
     for leaf in leaves:
         rel = leaf.relative_to(ROOT).as_posix()
         if rel.startswith("skills/domain/") and len(by_path.get(rel, [])) != 1:
-            fail(rel, f"needs exactly one mirrored or maintained-here row in docs/HARVEST.md (has {len(by_path.get(rel, []))})")
+            fail(rel, f"needs exactly one mirrored row in docs/HARVEST.md (has {len(by_path.get(rel, []))})")
 
     # The skills-N badge on a tier README counts that tier's skills.
     for tier in ("core", "domain"):

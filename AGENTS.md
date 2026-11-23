@@ -66,7 +66,7 @@ agent-skills/
 │   │           └── reports/        # optional: gitignored RUN OUTPUT (never committed)
 │   ├── domain/                     # TIER 3 — portable FIELD skills mirrored from the six org
 │   │   ├── README.md               #   agent workspaces by the weekly harvest. Opt-in install
-│   │   └── <domain>/<skill-name>/  #   (-Domain). Engineering · Security · Business · Media · API ·
+│   │   └── <domain>/<skill-name>/  #   (-Domain). Security · Business · Media · API ·
 │   │                               #   Science · Religion
 │   └── projects/                   # TIER 2 — ADDITIONAL skills for one org repo, installed
 │       │                           #   into that repo on top of the skills it already owns
@@ -96,7 +96,7 @@ was written for?**
 
 **Domain is the harvest's tier, not an authoring choice.** A new skill you write here is Core or
 Projects. Domain holds only what the weekly Skill Harvest mirrors from the workspaces, grouped by
-field (`engineering`, `security`, `business`, `media`, `api`, `science`, `religion`), so Core stays short and highlighted.
+field (`security`, `business`, `media`, `api`, `science`, `religion`), so Core stays short and highlighted.
 
 The test is **where you invoke it**, not what it is about. `project-hub-scaffold` is Core despite
 being named for an org product, because you run it from whatever repo is *getting* a hub.
@@ -161,7 +161,7 @@ Before finishing an edit to any skill, check whether another skill *references* 
 **One real duplicate exists.** `project-hub-scaffold` sits here (Core) *and* in the `project-hub` repo, kept byte-identical. This repo is canonical: edit here, then copy the folder to `project-hub/skills/project-hub-scaffold/` in the same change. Since 2026-10-22 `project-hub`'s CI (`scaffold copy` job in `test.yml`) diffs its copy against this repo's `main` and fails on drift, so a feature PR there that updates only the travel copy goes red until this side matches. It is a one-off, not a pattern to copy.
 
 > [!IMPORTANT]
-> **Harvested skills are mirrors. Don't edit them here.** Since 2026-09-22 a weekly Skill Harvest job (Sun 08:00, `\AI-Automation-Tools-Org\Integrate-Projects\`) copies portable skills from the six org agent workspaces (`api-agent`, `business-agent`, `security-agent`, `media-agent`, `science-agent`, `religion-agent`) into `skills/domain/<domain>/`, byte for byte, by `harvest/auto-<date>` PR. [`docs/HARVEST.md`](./docs/HARVEST.md) lists every one with its source. Edit the skill in its workspace repo and the next harvest re-syncs it. An edit made here gets flagged, not merged back. The roadmap routine follows the same rule. **Exception: `skills/domain/engineering/`.** Its source, `fullstack-agent`, was archived 2026-11-16, so those four skills are `maintained-here` in the ledger: edit them here by PR, like Core, and the harvest leaves them alone. `validate-skills.py` fails a Domain skill with no ledger row, so a skill written here needs a `maintained-here` row in the same PR.
+> **Harvested skills are mirrors. Don't edit them here.** Since 2026-09-22 a weekly Skill Harvest job (Sun 08:00, `\AI-Automation-Tools-Org\Integrate-Projects\`) copies portable skills from the six org agent workspaces (`api-agent`, `business-agent`, `security-agent`, `media-agent`, `science-agent`, `religion-agent`) into `skills/domain/<domain>/`, byte for byte, by `harvest/auto-<date>` PR. [`docs/HARVEST.md`](./docs/HARVEST.md) lists every one with its source. Edit the skill in its workspace repo and the next harvest re-syncs it. An edit made here gets flagged, not merged back. The roadmap routine follows the same rule. The four `engineering` skills came from `fullstack-agent`, archived 2026-11-16; since 2026-11-22 they are Core (`skills/core/engineering/`), edited here by PR. `validate-skills.py` fails a Domain skill with no `mirrored` ledger row.
 
 > [!NOTE]
 > **Prefer one self-contained skill over a composite.** [`repo-docs-builder`](./skills/core/documentation/repo-docs-builder/SKILL.md) used to be an orchestrator that referenced three source skills (`readme-builder-mfs`, `readme-header-mfs`, `repo-docs-mfs`); on 2026-08-05 all four were merged into it and the three sources retired. The composite kept drifting out of sync with its sources, and the split forced a reader to load three files to build one README. If you're tempted to build a new "mega" skill that composes others, prefer folding the content into one skill with clear sections — and if you do build a composite, add a "keep synced" note here naming its sources.

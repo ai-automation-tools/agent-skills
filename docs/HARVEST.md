@@ -13,12 +13,10 @@ its ledger: one row per workspace skill it has decided on.
 - **`mirrored`:** copied into `skills/domain/` at the source SHA shown.
 - **`declined`:** judged at that SHA and not promoted, for the reason in the note. It's
   judged again if the source changes.
-- **`maintained-here`:** its source workspace is gone, so this repo is now the source. Edit it
-  here by PR, like a Core skill. The harvest never touches it. The `engineering` skills have
-  this status since `fullstack-agent` was archived on 2026-11-16 (audit AS-10).
-
-`scripts/validate-skills.py` fails CI when a `skills/domain/` skill has no `mirrored` or
-`maintained-here` row here, or has more than one.
+`scripts/validate-skills.py` fails CI when a `skills/domain/` skill has no `mirrored` row here,
+or has more than one. The four `fullstack-agent` skills (`debugging-methodology`,
+`full-stack-feature`, `performance-optimization`, `testing-strategy`) left this ledger on
+2026-11-22: their workspace was archived, so they moved to Core and are edited here.
 
 The job runs Sundays at 08:00 as `\AI-Automation-Tools-Org\Integrate-Projects\Skill Harvest - Org Agents to agent-skills`.
 It never pushes to `main`. Each run's changes arrive as one `harvest/auto-<date>` PR.
@@ -33,10 +31,6 @@ It never pushes to `main`. Each run's changes arrive as one `harvest/auto-<date>
 | customer-discovery | business-agent | mirrored | `skills/domain/business/customer-discovery` | `d0a3ca3` | 2026-09-27 | first harvest promotion, new Domain |
 | go-to-market | business-agent | mirrored | `skills/domain/business/go-to-market` | `99b6686` | 2026-11-01 | passes tier test — no workspace layout assumed |
 | pricing-strategy | business-agent | mirrored | `skills/domain/business/pricing-strategy` | `2a71fbd` | 2026-11-08 | passes tier test — no workspace layout assumed |
-| debugging-methodology | fullstack-agent | maintained-here | `skills/domain/engineering/debugging-methodology` | `5284708` | 2026-11-22 | moved from Core 2026-09-22; source archived 2026-11-16, last synced at this SHA 2026-10-25 |
-| full-stack-feature | fullstack-agent | maintained-here | `skills/domain/engineering/full-stack-feature` | `cea1f30` | 2026-11-22 | written here 2026-11-16 from fullstack-agent's feature loop when it was archived; the SHA is this repo's |
-| performance-optimization | fullstack-agent | maintained-here | `skills/domain/engineering/performance-optimization` | `ed7496c` | 2026-11-22 | moved from Core 2026-09-22; source archived 2026-11-16, last synced at this SHA 2026-11-08 |
-| testing-strategy | fullstack-agent | maintained-here | `skills/domain/engineering/testing-strategy` | `6f8bc8d` | 2026-11-22 | moved from Core 2026-09-22; source archived 2026-11-16, last synced at this SHA 2026-09-22 |
 | captions-and-accessibility | media-agent | mirrored | `skills/domain/media/captions-and-accessibility` | `5698b35` | 2026-09-27 | first harvest promotion, new Domain |
 | media-rights-and-licensing | media-agent | mirrored | `skills/domain/media/media-rights-and-licensing` | `5698b35` | 2026-10-04 | passes tier test — no workspace layout assumed |
 | post-publish-analytics | media-agent | mirrored | `skills/domain/media/post-publish-analytics` | `5698b35` | 2026-10-11 | passes tier test — no workspace layout assumed |

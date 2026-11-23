@@ -2,6 +2,54 @@
   "_comment": "Hand-written showcase copy. scripts/build-showcase.py merges it with the skills/ tree and rewrites the generated regions of site/index.html. The tree decides WHICH skills, categories, groups and counts appear; this file only supplies the words and glyphs. A Core skill with no entry here still gets a card, built from its SKILL.md frontmatter.",
   "core": [
     {
+      "name": "debugging-methodology",
+      "glyph": "🐞",
+      "tagline": "Find the cause, not a fix that happens to make the symptom go away.",
+      "features": [
+        "Reproduce it reliably before touching code",
+        "One hypothesis at a time, each with a test",
+        "Bisect to localize: commits, inputs, layers",
+        "Read the actual error and stack, top to bottom",
+        "Prove the fix addresses the root cause"
+      ]
+    },
+    {
+      "name": "full-stack-feature",
+      "glyph": "🧱",
+      "tagline": "One feature, every layer, proven end to end before anyone calls it done.",
+      "features": [
+        "Plan every layer before building one",
+        "Build through the patterns already in the repo",
+        "Prove the real flow with pasted output",
+        "Five reviewer checklists before the go/no-go",
+        "A rollback path ships with it"
+      ]
+    },
+    {
+      "name": "performance-optimization",
+      "glyph": "⚡",
+      "tagline": "Measure first. Then fix the one thing that's actually slow.",
+      "features": [
+        "Profile before changing anything",
+        "Fix the biggest bottleneck first",
+        "N+1 queries, missing indexes, bundle size",
+        "Caching with a clear invalidation story",
+        "Before/after numbers, not impressions"
+      ]
+    },
+    {
+      "name": "testing-strategy",
+      "glyph": "🧪",
+      "tagline": "A suite that catches real regressions without becoming slow and brittle.",
+      "features": [
+        "Which level each test belongs at",
+        "Test behavior, not implementation",
+        "Mostly unit, fewer integration, few end-to-end",
+        "Where coverage numbers mislead",
+        "Flaky tests are bugs, not noise"
+      ]
+    },
+    {
       "name": "repo-docs-builder",
       "glyph": "🏗️",
       "alt": "A README built by repo-docs-builder",

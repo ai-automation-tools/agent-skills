@@ -40,6 +40,7 @@
   /* category colours: one hue per category, the card's --c */
   --c-automation: #4ade80;  --c-business: #f2b34b;  --c-cooking: #fb923c;
   --c-documentation: #a78bfa;  --c-image-gen: #f472b6;  --c-web: #2dd4bf;
+  --c-engineering: #60a5fa;
   /* state */
   --ok: #34d399;
   /* accent-tinted text: mix toward white in dark, toward black in light */
@@ -78,6 +79,7 @@ html.light {
   --syn-k: #0369a1;  --syn-s: #15803d;
   --c-automation: #15803d;  --c-business: #8a5200;  --c-cooking: #c2410c;
   --c-documentation: #6d28d9;  --c-image-gen: #be185d;  --c-web: #0f766e;
+  --c-engineering: #1d4ed8;
   --ok: #047857;
   --mix-ink: #000;  --tint-k: 55%;
 }
@@ -218,6 +220,7 @@ h2 { margin: 10px 0 0; font-size: 26px; letter-spacing: -.025em; font-weight: 65
 .card[data-category="business"]      { --c: var(--c-business); }
 .card[data-category="cooking"]       { --c: var(--c-cooking); }
 .card[data-category="documentation"] { --c: var(--c-documentation); }
+.card[data-category="engineering"]   { --c: var(--c-engineering); }
 .card[data-category="image-gen"]     { --c: var(--c-image-gen); }
 .card[data-category="web"]           { --c: var(--c-web); }
 

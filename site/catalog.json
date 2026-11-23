@@ -4,8 +4,8 @@
   "url": "https://agent-skills.ai-automation-tools.dev/catalog.json",
   "install": "pwsh scripts/install-skills.ps1 [-Core | -Domain | -Project <repo>] [-Skill <name>]",
   "counts": {
-    "core": 10,
-    "domain": 24,
+    "core": 14,
+    "domain": 20,
     "projects": 14
   },
   "skills": [
@@ -78,6 +78,46 @@
       "has_scripts": true,
       "has_evals": true,
       "has_references": true
+    },
+    {
+      "name": "debugging-methodology",
+      "tier": "core",
+      "group": "engineering",
+      "description": "Debug systematically instead of by guessing — reproduce reliably first, form and test one hypothesis at a time, bisect to localize, read the actual error and stack, and confirm the fix addresses the root cause rather than the symptom. Covers reading a stack trace, git bisect, binary search in code and data, and the traps of changing several things at once. Use when a bug is hard to pin down, an error is misunderstood, a fix did not hold, or debugging has turned into random edits.",
+      "path": "skills/core/engineering/debugging-methodology",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "full-stack-feature",
+      "tier": "core",
+      "group": "engineering",
+      "description": "Use when delivering a feature that crosses layers — a form that saves to the database and shows back, an endpoint the UI actually calls, a webhook that updates a record a page renders — because the default failure is declaring \"done\" with a layer stubbed, the UI and API never wired together, and nothing run. Triggered by \"build a feature\", \"add X end to end\", \"wire up\", \"full stack\", \"vertical slice\", \"UI to API to database\", \"implement this feature\", \"make it save\", \"hook the frontend to the backend\", \"plan this feature\", \"is this ready to ship\".",
+      "path": "skills/core/engineering/full-stack-feature",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": true
+    },
+    {
+      "name": "performance-optimization",
+      "tier": "core",
+      "group": "engineering",
+      "description": "Make a slow app faster without guessing where the time goes — measure and profile before changing anything, fix the biggest bottleneck first, and cover the usual suspects: N+1 queries and missing indexes, oversized payloads, blocking work on the request path, and frontend bundle and render cost. Use when something is slow, a page or endpoint misses a latency target, a database is under load, or someone proposes an optimization before profiling.",
+      "path": "skills/core/engineering/performance-optimization",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "testing-strategy",
+      "tier": "core",
+      "group": "engineering",
+      "description": "Decide what to test and at which level so the suite catches real regressions without becoming slow and brittle — the test shape (heavily unit, fewer integration, few end-to-end), testing behavior rather than implementation, writing a failing test before a bug fix, and knowing where coverage numbers mislead. Use when a project has no tests and needs a strategy, when a suite is slow or flaky, when deciding how to test a specific feature, or when a bug keeps coming back.",
+      "path": "skills/core/engineering/testing-strategy",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
     },
     {
       "name": "news-images",
@@ -185,46 +225,6 @@
       "group": "business",
       "description": "Set or change a price with an argument behind it — choosing the value metric, structuring tiers and packaging, estimating willingness to pay from evidence rather than from competitors' pages, modeling the revenue effect of a change, and running a price increase on existing customers. Use when pricing a new product, restructuring plans, deciding what to meter, questioning whether a price is too low, or planning a migration to new pricing.",
       "path": "skills/domain/business/pricing-strategy",
-      "has_scripts": false,
-      "has_evals": false,
-      "has_references": false
-    },
-    {
-      "name": "debugging-methodology",
-      "tier": "domain",
-      "group": "engineering",
-      "description": "Debug systematically instead of by guessing — reproduce reliably first, form and test one hypothesis at a time, bisect to localize, read the actual error and stack, and confirm the fix addresses the root cause rather than the symptom. Covers reading a stack trace, git bisect, binary search in code and data, and the traps of changing several things at once. Use when a bug is hard to pin down, an error is misunderstood, a fix did not hold, or debugging has turned into random edits.",
-      "path": "skills/domain/engineering/debugging-methodology",
-      "has_scripts": false,
-      "has_evals": false,
-      "has_references": false
-    },
-    {
-      "name": "full-stack-feature",
-      "tier": "domain",
-      "group": "engineering",
-      "description": "Use when delivering a feature that crosses layers — a form that saves to the database and shows back, an endpoint the UI actually calls, a webhook that updates a record a page renders — because the default failure is declaring \"done\" with a layer stubbed, the UI and API never wired together, and nothing run. Triggered by \"build a feature\", \"add X end to end\", \"wire up\", \"full stack\", \"vertical slice\", \"UI to API to database\", \"implement this feature\", \"make it save\", \"hook the frontend to the backend\", \"plan this feature\", \"is this ready to ship\".",
-      "path": "skills/domain/engineering/full-stack-feature",
-      "has_scripts": false,
-      "has_evals": false,
-      "has_references": true
-    },
-    {
-      "name": "performance-optimization",
-      "tier": "domain",
-      "group": "engineering",
-      "description": "Make a slow app faster without guessing where the time goes — measure and profile before changing anything, fix the biggest bottleneck first, and cover the usual suspects: N+1 queries and missing indexes, oversized payloads, blocking work on the request path, and frontend bundle and render cost. Use when something is slow, a page or endpoint misses a latency target, a database is under load, or someone proposes an optimization before profiling.",
-      "path": "skills/domain/engineering/performance-optimization",
-      "has_scripts": false,
-      "has_evals": false,
-      "has_references": false
-    },
-    {
-      "name": "testing-strategy",
-      "tier": "domain",
-      "group": "engineering",
-      "description": "Decide what to test and at which level so the suite catches real regressions without becoming slow and brittle — the test shape (heavily unit, fewer integration, few end-to-end), testing behavior rather than implementation, writing a failing test before a bug fix, and knowing where coverage numbers mislead. Use when a project has no tests and needs a strategy, when a suite is slow or flaky, when deciding how to test a specific feature, or when a bug keeps coming back.",
-      "path": "skills/domain/engineering/testing-strategy",
       "has_scripts": false,
       "has_evals": false,
       "has_references": false
