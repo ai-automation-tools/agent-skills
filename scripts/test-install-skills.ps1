@@ -141,7 +141,7 @@ try {
     Assert (-not (Test-Path (Join-Path $mine 'stale.md'))) 'a marked previous install is replaced silently, as a clean mirror'
     $inGit = [bool](Get-Command git -ErrorAction SilentlyContinue) -and [bool](git -C $RepoRoot rev-parse --git-dir 2>$null)
     if ($inGit) {
-        Remove-Item (Join-Path $mine $Marker)
+        Remove-Item (Join-Path $mine $Marker) -Force   # dot-files are hidden on Linux
         Set-Content (Join-Path $mine 'stale.md') 'from a pre-marker install'
         & $pwsh -NoProfile -File $Installer -Skill $one -Destination $own *> $null
         Assert (-not (Test-Path (Join-Path $mine 'stale.md'))) 'an unmarked copy of a shipped SKILL.md counts as a previous install'
