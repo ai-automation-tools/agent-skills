@@ -32,6 +32,9 @@ BADGE = re.compile(r"badge/skills-(\d+)-")
 
 KEBAB = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 TOP_KEY = re.compile(r"^([A-Za-z_][\w-]*):\s*(.*)$")
+# YAML forbids ': ' and ' #' inside an unquoted value. A hand parser reads past them, but Claude
+# Code's YAML parser rejects the whole frontmatter and the skill loses its description.
+PLAIN_BAD = re.compile(r": |:$| #")
 # A skill-relative file path: not glued to a preceding path segment (so
 # `site/scripts/x.ts` is someone else's file), and ending in a file extension.
 BODY_PATH = re.compile(
@@ -80,6 +83,9 @@ def parse_frontmatter(text):
             if len(value) < 2 or value[-1] != value[0]:
                 raise ValueError(f"frontmatter key {key!r} has an unterminated quoted value")
             value = value[1:-1]
+        elif PLAIN_BAD.search(value):
+            raise ValueError(f"frontmatter key {key!r} is unquoted but contains ': ' or ' #', which YAML rejects; "
+                             "quote it or use a `>-` block")
         fields[key] = value
     return fields, "\n".join(lines[end + 1:])
 
