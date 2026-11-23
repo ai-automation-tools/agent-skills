@@ -76,7 +76,7 @@ A page is not in the house style until every one of these holds.
    system, set `--accent`, and derive every tint with `color-mix()` from it. In
    light mode use the 700 shade of the same hue so it passes contrast on
    `#fafafa`.
-7. **Inter + JetBrains Mono** from Google Fonts — the only external stylesheet.
+7. **Inter + JetBrains Mono, self-hosted.** Copy `assets/fonts/` (two Latin WOFF2 files, about 80 KB, plus their OFL licences) into the site and declare them with `@font-face`, as the starters do. Never load Google Fonts: it's a third-party request before any consent choice.
    Mono is for eyebrows, tags, domains, code, kbd and status text; never for
    body copy.
 8. **One easing:** `--ease: cubic-bezier(.2,.7,.2,1)`. One glow behind the hero
