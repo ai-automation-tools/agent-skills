@@ -80,12 +80,38 @@ def frontmatter(text: str) -> dict[str, str] | None:
     return out
 
 
+# YAML forbids ': ' and ' #' inside an unquoted value. This reader reads past them, but Claude
+# Code's YAML parser rejects the whole frontmatter and the skill loses its description.
+PLAIN_BAD = re.compile(r": |:$| #")
+
+
+def plain_yaml_problems(text: str) -> list[str]:
+    """Keys whose unquoted value (or a continuation line of it) YAML would reject."""
+    m = FRONTMATTER_RE.match(text.lstrip("\ufeff"))
+    bad, key, plain = [], None, False
+    for line in (m.group(1).splitlines() if m else []):
+        if not line.strip():
+            continue
+        if line[:1] in " \t":
+            if key and plain and PLAIN_BAD.search(line.strip()) and key not in bad:
+                bad.append(key)
+            continue
+        key, _, value = line.partition(":")
+        key, value = key.strip(), value.strip()
+        plain = bool(value) and value not in BLOCK_SCALARS and value[0] not in "\"'"
+        if plain and PLAIN_BAD.search(value):
+            bad.append(key)
+    return bad
+
+
 def check_skill(skill_md: Path) -> None:
     text = skill_md.read_text(encoding="utf-8", errors="replace")
     fm = frontmatter(text)
     if fm is None:
         err(skill_md, "no YAML frontmatter")
         return
+    for key in plain_yaml_problems(text):
+        err(skill_md, f"'{key}' is unquoted but contains ': ' or ' #', which YAML rejects; quote it or use a '>-' block")
 
     name = fm.get("name")
     if not name:
@@ -169,6 +195,12 @@ def self_check() -> int:
     assert frontmatter("---\r\nname: a\r\n---\r\n") == {"name": "a"}
     assert NAME_RE.match("api-engineer") and not NAME_RE.match("Api_Engineer")
     assert not NAME_RE.match("trailing-")
+    # an unquoted ': ' breaks real YAML parsers (performance-optimization, 2026-11-22)
+    assert plain_yaml_problems("---\nname: a\ndescription: fix the suspects: N+1 queries\n---\n") == ["description"]
+    assert plain_yaml_problems("---\nname: a\ndescription: one\n  two: three\n---\n") == ["description"]
+    assert plain_yaml_problems("---\nname: a\ndescription: \"quoted: fine\"\n---\n") == []
+    assert plain_yaml_problems("---\nname: a\ndescription: >-\n  folded: fine\n---\n") == []
+    assert plain_yaml_problems("---\nname: a\ndescription: see https://x.dev/a#b\n---\n") == []
     print("self-check ok")
     return 0
 
