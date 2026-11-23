@@ -42,7 +42,7 @@ MARKER = re.compile(r"(<!-- gen:([\w-]+) -->)(.*?)(<!-- /gen:\2 -->)", re.S)
 
 def frontmatter(path: Path) -> dict[str, str]:
     """`name` and `description` from a SKILL.md, including folded (`>-`) block scalars."""
-    lines = path.read_text(encoding="utf-8").replace("\r\n", "\n").split("\n")
+    lines = path.read_text(encoding="utf-8-sig").replace("\r\n", "\n").split("\n")
     if not lines or lines[0].strip() != "---":
         return {}
     end = next(i for i in range(1, len(lines)) if lines[i].strip() == "---")
@@ -104,6 +104,37 @@ def shots(skill: str) -> list[str]:
     return found
 
 
+def image_size(path: Path) -> tuple[int, int] | None:
+    """(width, height) from a PNG or WebP header, stdlib only; None for anything else."""
+    b = path.read_bytes()[:40]
+    if b[:8] == b"\x89PNG\r\n\x1a\n":
+        return int.from_bytes(b[16:20], "big"), int.from_bytes(b[20:24], "big")
+    if b[:4] == b"RIFF" and b[8:12] == b"WEBP":
+        kind = b[12:16]
+        if kind == b"VP8 ":
+            return int.from_bytes(b[26:28], "little") & 0x3FFF, int.from_bytes(b[28:30], "little") & 0x3FFF
+        if kind == b"VP8L":
+            bits = int.from_bytes(b[21:25], "little")
+            return (bits & 0x3FFF) + 1, ((bits >> 14) & 0x3FFF) + 1
+        if kind == b"VP8X":
+            return int.from_bytes(b[24:27], "little") + 1, int.from_bytes(b[27:30], "little") + 1
+    return None
+
+
+def card_image(primary: str) -> str:
+    """The card shows `<skill>-card.webp` when there is one: a small copy of the primary at the
+    card's size, so the page doesn't download full screenshots. The lightbox keeps the full ones."""
+    stem = Path(primary).stem
+    small = IMG / f"{stem}-card.webp"
+    return f"assets/img/{small.name}" if small.is_file() else primary
+
+
+def img_tag(skill: str, src: str, alt: str) -> str:
+    size = image_size(ROOT / "site" / src)
+    dims = f' width="{size[0]}" height="{size[1]}"' if size else ""
+    return f'            <img class="shot" data-name="{skill}" src="{src}" alt="{alt}"{dims} loading="lazy" decoding="async">'
+
+
 def card(idx: int, category: str, skill: str, fm: dict[str, str], copy: dict) -> str:
     glyph = copy.get("glyph", "✦")
     alt = copy.get("alt") or html.escape(f"{skill} screenshot", quote=True)
@@ -121,7 +152,7 @@ def card(idx: int, category: str, skill: str, fm: dict[str, str], copy: dict) ->
             f'          <div class="card-media has-shot" data-shots="{" ".join(imgs)}"'
             + (f' data-alts="{html.escape(json.dumps(copy["alts"], ensure_ascii=False), quote=True)}"' if copy.get("alts") else "")
             + ">",
-            f'            <img class="shot" data-name="{skill}" src="{imgs[0]}" alt="{alt}" loading="lazy" decoding="async">',
+            img_tag(skill, card_image(imgs[0]), alt),
         ]
     else:
         lines += [
@@ -230,8 +261,50 @@ def render(page: str, values: dict[str, str]) -> tuple[str, list[str]]:
     return MARKER.sub(sub, page), unknown
 
 
+CATALOG = ROOT / "site" / "catalog.json"
+CATALOG_URL = "https://agent-skills.ai-automation-tools.dev/catalog.json"
+
+
+def catalog() -> str:
+    """site/catalog.json: every skill, so the landing page, Promptbook and registries read one
+    file instead of scraping this page or the tree. No commit SHA: it would change on every
+    commit and make --check fail on unrelated PRs; the deploy's own commit is the version."""
+    skills = []
+    for tier in ("core", "domain", "projects"):
+        for group, items in tree(tier).items():
+            for skill, fm in items:
+                leaf = SKILLS / tier / group / skill
+                skills.append({
+                    "name": fm.get("name", skill),
+                    "tier": tier,
+                    "group": group,
+                    "description": fm.get("description", ""),
+                    "path": f"skills/{tier}/{group}/{skill}",
+                    "has_scripts": (leaf / "scripts").is_dir(),
+                    "has_evals": (leaf / "evals").is_dir(),
+                    "has_references": (leaf / "references").is_dir(),
+                })
+    doc = {
+        "schema": 1,
+        "source": "https://github.com/ai-automation-tools/agent-skills",
+        "url": CATALOG_URL,
+        "install": "pwsh scripts/install-skills.ps1 [-Core | -Domain | -Project <repo>] [-Skill <name>]",
+        "counts": {t: sum(1 for s in skills if s["tier"] == t) for t in ("core", "domain", "projects")},
+        "skills": skills,
+    }
+    return json.dumps(doc, indent=2, ensure_ascii=False) + "\n"
+
+
 def main() -> int:
     check = "--check" in sys.argv[1:]
+    cat_new = catalog()
+    cat_old = CATALOG.read_text(encoding="utf-8").replace("\r\n", "\n") if CATALOG.is_file() else ""
+    if cat_new != cat_old:
+        if check:
+            print("site/catalog.json is out of date. Run `python scripts/build-showcase.py` and commit the result.")
+            return 1
+        CATALOG.write_text(cat_new, encoding="utf-8", newline="\n")
+        print("site/catalog.json updated.")
     raw = INDEX.read_bytes().decode("utf-8")
     crlf = "\r\n" in raw
     page = raw.replace("\r\n", "\n")

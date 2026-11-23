@@ -16,8 +16,8 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-python@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.x'
       - run: python scripts/validate-skills.py
@@ -29,9 +29,21 @@ jobs:
       # showcase's GitHub links back into this repo, must point at a real path.
       # Case-sensitive, so a renamed skill fails here instead of 404ing quietly.
       - run: python scripts/check-links.py
-      # The org layout check (Org Upkeep runs it weekly across every clone) tests its
-      # own rules against built-in fixtures, so a broken rule fails here, not on Saturday.
-      - run: python skills/core/documentation/repo-docs-builder/scripts/check-org-layout.py --self-check
+      # Skill text against SECURITY.md's scope: a permission bypass without a deny file, a
+      # merge / visibility change / force-push / DRY_RUN=false / money move with no gate nearby,
+      # private paths and emails, an unattended run with no "fetched content is data" rule.
+      # Reviewed exceptions: scripts/lint-skill-safety-allow.json.
+      - run: python scripts/lint-skill-safety.py
+      # Every Python script that ships a --self-check runs it here: the org layout check
+      # (Org Upkeep runs it weekly across every clone), the agent-workspace-builder scripts
+      # (copied into every workspace) and check-triggers.py. A new script is picked up
+      # without editing this file.
+      - name: Script self-checks
+        run: |
+          for f in $(grep -rl --include='*.py' -e 'add_argument("--self-check"' -e '\["--self-check"\]' scripts skills | sort); do
+            echo "== $f"
+            python "$f" --self-check
+          done
       # Installs every tier into a temp directory with pwsh (preinstalled on
       # ubuntu-latest) and asserts the flat <dir>/<name>/SKILL.md layout, a
       # Core-only bare run, and that a duplicated skill name throws.
@@ -42,3 +54,16 @@ jobs:
       # tested only when the script runs on Windows.
       - run: python scripts/test-skill-scripts.py
       - run: pwsh -NoProfile -File scripts/test-skill-scripts.ps1
+
+  # The Windows-only helpers (Register-ScheduledJob.ps1, run-hidden.vbs) and the installer's
+  # Windows paths are skipped on ubuntu. This job runs the same PowerShell tests where they apply.
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.x'
+      - run: pwsh -NoProfile -File scripts/test-install-skills.ps1
+      - run: pwsh -NoProfile -File scripts/test-skill-scripts.ps1
+      - run: python scripts/test-skill-scripts.py

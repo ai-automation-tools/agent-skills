@@ -1,0 +1,9 @@
+{
+  "_comment": "Hand-kept copies of this repo's files in other public repos. This repo is canonical for every entry; scripts/check-copies.py compares each copy with the committed source and reports drift, it never edits. The Org_Agents workspaces' scripts/ are private and are kept in step by the Org Agents refresh job instead. Extraction-type sources (web-house-style's design system, project-hub-scaffold's references) aren't byte copies and aren't listed.",
+  "copies": [
+    { "source": "skills/core/web/project-hub-scaffold",                    "repo": "ai-automation-tools/project-hub", "path": "skills/project-hub-scaffold",      "ref": "main" },
+    { "source": "skills/projects/project-hub/project-hub-client",          "repo": "ai-automation-tools/project-hub", "path": ".claude/skills/project-hub-client", "ref": "main" },
+    { "source": "skills/projects/project-hub/project-hub-scan",            "repo": "ai-automation-tools/project-hub", "path": ".claude/skills/project-hub-scan",   "ref": "main" },
+    { "source": "skills/projects/project-hub/project-hub-demo",            "repo": "ai-automation-tools/project-hub", "path": ".claude/skills/project-hub-demo",   "ref": "main" }
+  ]
+}

@@ -13,9 +13,19 @@
     4. Runs -AllAgents with HOME pointed at a fake home in the temp directory and
        asserts it writes the three shared folders, skips absent CLIs, and removes old
        copies from the folders it no longer writes without touching anything else.
+    5. Ownership: a hand-made same-named skill survives without -Force and is replaced
+       with it; a previous install (marked, or an unmarked copy of a shipped SKILL.md)
+       is replaced silently.
+    6. A retired folder that is a link to ~/.claude/skills: -AllAgents must not delete
+       the copy it just installed through it.
+    7. Windows only: a locked file leaves the old copy whole, the other skill still
+       installs, and the run exits non-zero.
+    8. -Ref in a scratch git repo: untracked files never ship, build litter never
+       ships even from the working tree, and the marker names the commit.
+    9. -All with -AllAgents is rejected.
 
     Touches nothing outside the temp directory, so it never writes to ~/.claude.
-    Exits 1 on the first failed assertion. CI runs it in validate.yml.
+    Exits 1 on the first failed assertion. CI runs it in validate.yml, on Linux and Windows.
 
 .EXAMPLE
     pwsh -NoProfile -File scripts/test-install-skills.ps1
@@ -24,8 +34,10 @@ $ErrorActionPreference = 'Stop'
 
 $RepoRoot   = Split-Path -Parent $PSScriptRoot
 $Installer  = Join-Path $PSScriptRoot 'install-skills.ps1'
+$Targets    = Join-Path $PSScriptRoot 'install-targets.json'
 $SkillsRoot = Join-Path $RepoRoot 'skills'
 $Tmp        = Join-Path ([IO.Path]::GetTempPath()) "install-skills-test-$([guid]::NewGuid().ToString('N'))"
+$Marker     = '.installed-from-agent-skills'
 
 function Assert([bool] $Condition, [string] $Message) {
     if (-not $Condition) { throw "FAIL: $Message" }
@@ -39,6 +51,7 @@ function Get-LeafNames([string] $Root) {
 
 try {
     New-Item -ItemType Directory -Path $Tmp | Out-Null
+    $pwsh = (Get-Process -Id $PID).Path
 
     # 1. Every tier, flat layout.
     $all = Join-Path $Tmp 'all'
@@ -60,12 +73,14 @@ try {
     $coreExpected  = @(Get-LeafNames (Join-Path $SkillsRoot 'core'))
     $coreInstalled = @(Get-ChildItem -Path $core -Directory | Select-Object -ExpandProperty Name | Sort-Object)
     Assert (-not (Compare-Object $coreExpected $coreInstalled)) "a bare run installs exactly the Core tier ($($coreExpected.Count))"
+    $one = $coreExpected[0]
+    Assert (Test-Path (Join-Path $core "$one/$Marker")) "an install writes the $Marker marker"
 
     # 3. Scratch repo with a duplicated name: install must throw, and reports/ never ships.
     $scratch = Join-Path $Tmp 'repo'
     New-Item -ItemType Directory -Path (Join-Path $scratch 'scripts') | Out-Null
     Copy-Item -Path $SkillsRoot -Destination $scratch -Recurse
-    Copy-Item -Path $Installer -Destination (Join-Path $scratch 'scripts')
+    Copy-Item -Path $Installer, $Targets -Destination (Join-Path $scratch 'scripts')
     $scratchInstaller = Join-Path $scratch 'scripts/install-skills.ps1'
 
     $victim = Get-ChildItem -Path (Join-Path $scratch 'skills/core') -Recurse -File -Filter 'SKILL.md' |
@@ -90,11 +105,11 @@ try {
     # 4. -AllAgents against a fake home: writes the three shared folders, skips absent CLIs,
     #    removes old copies from the retired folders and leaves anything else there alone.
     $fakeHome = Join-Path $Tmp 'home'
-    $one      = $coreExpected[0]
-    foreach ($d in '.claude', '.codex', '.gemini/antigravity-cli/skills', ".config/opencode/skills/$one", '.config/opencode/skills/my-own-skill') {
+    foreach ($d in '.claude', '.codex', '.gemini/antigravity-cli/skills', '.config/opencode/skills/my-own-skill') {
         New-Item -ItemType Directory -Path (Join-Path $fakeHome $d) -Force | Out-Null
     }
-    $pwsh = (Get-Process -Id $PID).Path
+    # The copy an earlier -AllAgents run left in a retired folder: a real, marked install.
+    & $Installer -Skill $one -Destination (Join-Path $fakeHome '.config/opencode/skills') *> $null
     $saved = $env:HOME, $env:USERPROFILE
     try {
         $env:HOME = $fakeHome; $env:USERPROFILE = $fakeHome   # $HOME follows HOME on Linux, USERPROFILE on Windows
@@ -109,6 +124,99 @@ try {
     Assert (-not (Get-ChildItem -Path (Join-Path $fakeHome '.gemini/antigravity-cli/skills'))) '-AllAgents no longer writes ~/.gemini/antigravity-cli/skills'
     Assert (-not (Test-Path (Join-Path $fakeHome ".config/opencode/skills/$one"))) "-AllAgents removes an old copy ($one) from a retired folder"
     Assert (Test-Path (Join-Path $fakeHome '.config/opencode/skills/my-own-skill')) '-AllAgents leaves a skill it did not install alone'
+    Assert (-not (Get-ChildItem -Path $fakeHome -Recurse -Directory -Force -Filter '.agent-skills-staging')) 'no staging folder is left behind'
+
+    # 5. Ownership. A hand-made folder with a library skill's name is the user's own.
+    $own  = Join-Path $Tmp 'own'
+    $mine = Join-Path $own $one
+    New-Item -ItemType Directory -Path $mine -Force | Out-Null
+    Set-Content (Join-Path $mine 'SKILL.md') "---`nname: $one`ndescription: my own version`n---`n"
+    Set-Content (Join-Path $mine 'my-notes.md') 'keep me'
+    & $pwsh -NoProfile -File $Installer -Skill $one -Destination $own *> $null
+    Assert ($LASTEXITCODE -eq 0 -and (Test-Path (Join-Path $mine 'my-notes.md'))) 'a hand-made same-named skill survives an install without -Force'
+    & $pwsh -NoProfile -File $Installer -Skill $one -Destination $own -Force *> $null
+    Assert (-not (Test-Path (Join-Path $mine 'my-notes.md')) -and (Test-Path (Join-Path $mine $Marker))) '-Force replaces it'
+    Set-Content (Join-Path $mine 'stale.md') 'from an older install'
+    & $pwsh -NoProfile -File $Installer -Skill $one -Destination $own *> $null
+    Assert (-not (Test-Path (Join-Path $mine 'stale.md'))) 'a marked previous install is replaced silently, as a clean mirror'
+    $inGit = [bool](Get-Command git -ErrorAction SilentlyContinue) -and [bool](git -C $RepoRoot rev-parse --git-dir 2>$null)
+    if ($inGit) {
+        Remove-Item (Join-Path $mine $Marker) -Force   # dot-files are hidden on Linux
+        Set-Content (Join-Path $mine 'stale.md') 'from a pre-marker install'
+        & $pwsh -NoProfile -File $Installer -Skill $one -Destination $own *> $null
+        Assert (-not (Test-Path (Join-Path $mine 'stale.md'))) 'an unmarked copy of a shipped SKILL.md counts as a previous install'
+    } else { Write-Host 'skip unmarked-previous-install case (not a git clone)' }
+
+    # 6. A retired folder linked to a live destination. Deleting through it would empty ~/.claude/skills.
+    $linkHome = Join-Path $Tmp 'linkhome'
+    New-Item -ItemType Directory -Path (Join-Path $linkHome '.claude/skills'), (Join-Path $linkHome '.config/opencode') -Force | Out-Null
+    $linkType = if ($IsWindows) { 'Junction' } else { 'SymbolicLink' }
+    $link = Join-Path $linkHome '.config/opencode/skills'
+    New-Item -ItemType $linkType -Path $link -Target (Join-Path $linkHome '.claude/skills') | Out-Null
+    try {
+        $env:HOME = $linkHome; $env:USERPROFILE = $linkHome
+        & $pwsh -NoProfile -File $Installer -AllAgents -Skill $one *> $null
+    } finally { $env:HOME, $env:USERPROFILE = $saved }
+    Assert (Test-Path (Join-Path $linkHome ".claude/skills/$one/SKILL.md")) '-AllAgents never deletes through a linked retired folder'
+    (Get-Item $link -Force).Delete()   # the link only, never its target
+
+    # 7. Windows: a file held open in the installed copy. The swap must fail cleanly.
+    if ($IsWindows) {
+        $lockDest = Join-Path $Tmp 'locked'
+        $multi = (Get-ChildItem -Path (Join-Path $SkillsRoot 'core') -Recurse -File -Filter 'SKILL.md' |
+            Where-Object { (Get-ChildItem $_.Directory.FullName -Recurse -File).Count -gt 1 } |
+            Select-Object -First 1).Directory.Name
+        $other = $coreExpected | Where-Object { $_ -ne $multi } | Select-Object -First 1
+        & $Installer -Skill $multi -Destination $lockDest *> $null
+        $before = (Get-ChildItem (Join-Path $lockDest $multi) -Recurse -File -Force).Count
+        $held = Get-ChildItem (Join-Path $lockDest $multi) -Recurse -File | Where-Object Name -ne 'SKILL.md' | Select-Object -First 1
+        $fs = [IO.File]::Open($held.FullName, 'Open', 'Read', 'Read')
+        try {
+            # -Command, not -File: -File passes "a,b" as one string, so -Skill would get one name.
+            & $pwsh -NoProfile -Command "& '$Installer' -Skill '$multi','$other' -Destination '$lockDest'; exit `$LASTEXITCODE" *> $null
+            $code = $LASTEXITCODE
+        } finally { $fs.Dispose() }
+        Assert ($code -ne 0) 'a failed skill makes the run exit non-zero'
+        Assert ((Get-ChildItem (Join-Path $lockDest $multi) -Recurse -File -Force).Count -eq $before) "a locked file leaves the old copy of $multi whole"
+        Assert (Test-Path (Join-Path $lockDest "$other/SKILL.md")) "the other skill ($other) still installs"
+        Assert (-not (Get-ChildItem $lockDest -Force | Where-Object Name -like '.*')) 'nothing half-built is left inside the destination'
+    } else { Write-Host 'skip locked-file case (Windows only)' }
+
+    # 8. -Ref in a scratch git repo: only what the commit tracks ships.
+    if (Get-Command git -ErrorAction SilentlyContinue) {
+        $gitRepo = Join-Path $Tmp 'gitrepo'
+        New-Item -ItemType Directory -Path (Join-Path $gitRepo 'scripts'), (Join-Path $gitRepo 'skills') -Force | Out-Null
+        Copy-Item -Path (Join-Path $SkillsRoot 'core') -Destination (Join-Path $gitRepo 'skills') -Recurse
+        Copy-Item -Path $Installer, $Targets -Destination (Join-Path $gitRepo 'scripts')
+        git -C $gitRepo init -q 2>$null
+        git -C $gitRepo add -A 2>$null
+        git -C $gitRepo -c user.name=test -c user.email=test@example.com commit -q -m init 2>$null
+        $sha = (git -C $gitRepo rev-parse HEAD).Trim()
+        $leafDir = (Get-ChildItem (Join-Path $gitRepo 'skills/core') -Recurse -File -Filter 'SKILL.md' |
+            Where-Object { $_.Directory.Name -eq $one }).Directory.FullName
+        Set-Content (Join-Path $leafDir 'canary.txt') 'untracked'
+        New-Item -ItemType Directory -Path (Join-Path $leafDir '__pycache__') -Force | Out-Null
+        Set-Content (Join-Path $leafDir '__pycache__/x.cpython-312.pyc') 'litter'
+        $gi = Join-Path $gitRepo 'scripts/install-skills.ps1'
+        $refOut = Join-Path $Tmp 'ref'
+        & $pwsh -NoProfile -File $gi -Skill $one -Ref HEAD -Destination $refOut *> $null
+        Assert ($LASTEXITCODE -eq 0 -and (Test-Path (Join-Path $refOut "$one/SKILL.md"))) '-Ref HEAD installs from the commit'
+        Assert (-not (Test-Path (Join-Path $refOut "$one/canary.txt"))) '-Ref never ships an untracked file'
+        $markerText = Get-Content -Raw (Join-Path $refOut "$one/$Marker")
+        Assert ($markerText -match "commit: $sha" -and $markerText -match 'ref: HEAD') 'the marker names the ref and the commit'
+        $wtOut = Join-Path $Tmp 'worktree'
+        & $pwsh -NoProfile -File $gi -Skill $one -Destination $wtOut *> $null
+        Assert (Test-Path (Join-Path $wtOut "$one/canary.txt")) 'a working-tree install ships local files (why a sync should pass -Ref)'
+        Assert (-not (Get-ChildItem (Join-Path $wtOut $one) -Recurse -Force | Where-Object { $_.Name -eq '__pycache__' -or $_.Extension -eq '.pyc' })) 'build litter (__pycache__, *.pyc) never ships'
+        $noRef = Join-Path $Tmp 'noref'
+        & $pwsh -NoProfile -File $gi -Skill $one -Ref no-such-ref -Destination $noRef *> $null
+        Assert ($LASTEXITCODE -ne 0 -and -not (Test-Path (Join-Path $noRef $one))) 'an unknown -Ref fails and installs nothing'
+    } else { Write-Host 'skip -Ref case (no git)' }
+
+    # 9. -All would put project skills in user scope.
+    $threw = $null
+    try { & $Installer -All -AllAgents *> $null } catch { $threw = $_.Exception.Message }
+    Assert ($threw -match 'never belongs in user scope') '-All with -AllAgents is rejected'
 
     Write-Host 'All installer checks passed.' -ForegroundColor Green
 }

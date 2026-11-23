@@ -123,8 +123,9 @@ Deleting a Windows task needs a human in the UI, or your own removal path.
 
 Roughly in order of likelihood:
 
-1. **Did it fire at all?** `Get-ScheduledTaskInfo` → `LastRunTime`. A `StartWhenAvailable` job on a
-   machine that was asleep runs **late**, not never.
+1. **Did it fire at all?** `Get-ScheduledTaskInfo` → `LastRunTime`. A job registered without
+   `catchUp` skips a run the machine slept through; with `catchUp: true` (`StartWhenAvailable`) it
+   runs **late**, not never.
 2. **Did the *notification* fail rather than the job?** Check that a user-scoped key is visible and
    that the task runs as you, Interactive. A SYSTEM run works perfectly and tells nobody.
 3. **Is the status filtered out?** If `notifyOn` lists statuses this job cannot produce, you have

@@ -22,7 +22,8 @@ agent-skills/
 ├── .gitignore
 ├── .github/workflows/
 │   ├── pages.yml                   # publishes site/ to agent-skills.ai-automation-tools.dev
-│   └── validate.yml                # runs validate-skills.py, build-showcase.py --check, check-links.py, test-install-skills.ps1 and test-skill-scripts.py/.ps1 on every push to main and every PR
+│   ├── copies.yml                  # weekly: scripts/check-copies.py, fails when a copy in another repo drifted
+│   └── validate.yml                # runs validate-skills.py, build-showcase.py --check, check-links.py, every shipped --self-check, test-install-skills.ps1 and test-skill-scripts.py/.ps1 on every push to main and every PR; a windows-latest job reruns the PowerShell tests
 ├── site/                           # the showcase page — vanilla HTML/CSS/JS, no build step
 │   ├── index.html · styles.css · script.js   # cards, chips, lists and counts are GENERATED (see below)
 │   ├── showcase.json               # hand-written card copy keyed by skill name
@@ -30,15 +31,20 @@ agent-skills/
 │   ├── favicon.svg                 # the shared Agent Skills icon (house style: web-house-style skill)
 │   └── assets/img/ · assets/diagrams/
 ├── scripts/
-│   ├── install-skills.ps1          # mirror leaf skills into a skills dir (repo tooling, not a skill)
+│   ├── install-skills.ps1          # mirror leaf skills into a skills dir (repo tooling, not a skill); -Ref installs a commit
+│   ├── install-targets.json        # the folders -AllAgents writes and the retired ones it cleans; one list for every installer
 │   ├── test-install-skills.ps1     # smoke test: installs into a temp dir, asserts the flat layout and that a name collision throws
 │   ├── test-skill-scripts.py       # stdlib-only tests for recipe-validator's scanner, on fixture recipes
 │   ├── test-skill-scripts.ps1      # tests for the project-hub-scaffold and cronsole-windows-jobs helpers, on fixtures in a temp dir
 │   ├── check-triggers.py           # live auto-invocation test: does each Core skill load unprompted? (not CI: needs `claude`)
 │   ├── trigger-cases.json          # its cases: two requests that should load each Core skill, one near miss that shouldn't
 │   ├── validate-skills.py          # stdlib-only check of every SKILL.md + the indexes (run before a PR)
-│   ├── build-showcase.py           # stdlib-only: regenerates the showcase from skills/ + site/showcase.json; --check in CI
-│   └── check-links.py              # stdlib-only: every relative link in READMEs, docs/ and site/index.html resolves (case-sensitive)
+│   ├── build-showcase.py           # stdlib-only: regenerates the showcase and site/catalog.json from skills/ + site/showcase.json; --check in CI
+│   ├── check-links.py              # stdlib-only: every relative link in READMEs, docs/ and site/index.html resolves (case-sensitive)
+│   ├── check-copies.py             # stdlib-only: hand-kept copies in other repos (copies.json) vs the source here; weekly in copies.yml
+│   ├── copies.json                 # those copies: source, repo, path, ref
+│   ├── lint-skill-safety.py        # stdlib-only: skill text against SECURITY.md's scope (unfenced bypass, ungated outward steps, private data); in CI
+│   └── lint-skill-safety-allow.json  # its reviewed exceptions: {path, rule, match, why}
 ├── docs/
 │   ├── README.md                   # index of docs/
 │   ├── USING-SKILLS.md             # install / invoke / author guide
@@ -58,7 +64,7 @@ agent-skills/
 │   │           ├── prompts/        # optional: prompt templates the skill follows
 │   │           ├── evals/          # optional: TRACKED test-case definitions
 │   │           └── reports/        # optional: gitignored RUN OUTPUT (never committed)
-│   ├── domain/                     # TIER 3 — portable FIELD skills mirrored from the seven org
+│   ├── domain/                     # TIER 3 — portable FIELD skills mirrored from the six org
 │   │   ├── README.md               #   agent workspaces by the weekly harvest. Opt-in install
 │   │   └── <domain>/<skill-name>/  #   (-Domain). Engineering · Security · Business · Media · API ·
 │   │                               #   Science · Religion
@@ -155,7 +161,7 @@ Before finishing an edit to any skill, check whether another skill *references* 
 **One real duplicate exists.** `project-hub-scaffold` sits here (Core) *and* in the `project-hub` repo, kept byte-identical. This repo is canonical: edit here, then copy the folder to `project-hub/skills/project-hub-scaffold/` in the same change. Since 2026-10-22 `project-hub`'s CI (`scaffold copy` job in `test.yml`) diffs its copy against this repo's `main` and fails on drift, so a feature PR there that updates only the travel copy goes red until this side matches. It is a one-off, not a pattern to copy.
 
 > [!IMPORTANT]
-> **Harvested skills are mirrors. Don't edit them here.** Since 2026-09-22 a weekly Skill Harvest job (Sun 08:00, `\AI-Automation-Tools-Org\Integrate-Projects\`) copies portable skills from the seven org agent workspaces (`api-agent`, `business-agent`, `security-agent`, `fullstack-agent`, `media-agent`, `science-agent`, `religion-agent`) into `skills/domain/<domain>/`, byte for byte, by `harvest/auto-<date>` PR. [`docs/HARVEST.md`](./docs/HARVEST.md) lists every one with its source. Edit the skill in its workspace repo and the next harvest re-syncs it. An edit made here gets flagged, not merged back. The roadmap routine follows the same rule.
+> **Harvested skills are mirrors. Don't edit them here.** Since 2026-09-22 a weekly Skill Harvest job (Sun 08:00, `\AI-Automation-Tools-Org\Integrate-Projects\`) copies portable skills from the six org agent workspaces (`api-agent`, `business-agent`, `security-agent`, `media-agent`, `science-agent`, `religion-agent`) into `skills/domain/<domain>/`, byte for byte, by `harvest/auto-<date>` PR. [`docs/HARVEST.md`](./docs/HARVEST.md) lists every one with its source. Edit the skill in its workspace repo and the next harvest re-syncs it. An edit made here gets flagged, not merged back. The roadmap routine follows the same rule. **Exception: `skills/domain/engineering/`.** Its source, `fullstack-agent`, was archived 2026-11-16, so those four skills are `maintained-here` in the ledger: edit them here by PR, like Core, and the harvest leaves them alone. `validate-skills.py` fails a Domain skill with no ledger row, so a skill written here needs a `maintained-here` row in the same PR.
 
 > [!NOTE]
 > **Prefer one self-contained skill over a composite.** [`repo-docs-builder`](./skills/core/documentation/repo-docs-builder/SKILL.md) used to be an orchestrator that referenced three source skills (`readme-builder-mfs`, `readme-header-mfs`, `repo-docs-mfs`); on 2026-08-05 all four were merged into it and the three sources retired. The composite kept drifting out of sync with its sources, and the split forced a reader to load three files to build one README. If you're tempted to build a new "mega" skill that composes others, prefer folding the content into one skill with clear sections — and if you do build a composite, add a "keep synced" note here naming its sources.
@@ -208,9 +214,13 @@ When asked to validate / review / audit skills, check:
 
 **Then run `python scripts/check-links.py`.** Also stdlib-only, and also in `validate.yml`. It checks every relative link in every `README.md`, every `docs/*.md` and `site/index.html` — Markdown links, `href`/`src` attributes, and the showcase's `github.com/ai-automation-tools/agent-skills/blob|tree/main/…` links back into this repo — and fails on any that don't resolve. It matches case exactly, as git and Linux CI do, so a `Docs/` link to `docs/` fails on Windows too. Web links and `#anchors` are skipped.
 
-**If you changed `scripts/install-skills.ps1`, run `pwsh -NoProfile -File scripts/test-install-skills.ps1`.** Also in `validate.yml`. It installs every tier into a temp directory (never `~/.claude`) and asserts one `<dir>/<name>/SKILL.md` per leaf skill, that a bare run installs Core only, that `-Skill` narrows and `reports/` is dropped, and — in a scratch copy of `skills/` with one name duplicated — that the install throws and writes nothing. It also runs `-AllAgents` against a fake home in the temp directory: the three shared folders get Core, an absent CLI gets nothing, and an old copy in a folder `-AllAgents` no longer writes is removed while the user's own skills there stay.
+**If you changed `scripts/install-skills.ps1`, run `pwsh -NoProfile -File scripts/test-install-skills.ps1`.** Also in `validate.yml`. It installs every tier into a temp directory (never `~/.claude`) and asserts one `<dir>/<name>/SKILL.md` per leaf skill, that a bare run installs Core only, that `-Skill` narrows and `reports/` is dropped, and — in a scratch copy of `skills/` with one name duplicated — that the install throws and writes nothing. It also runs `-AllAgents` against a fake home in the temp directory: the three shared folders get Core, an absent CLI gets nothing, and an old copy in a folder `-AllAgents` no longer writes is removed while the user's own skills there stay. Then the safety cases: a hand-made same-named skill survives without `-Force`, a previous install (marked, or an unmarked copy of a shipped `SKILL.md`) is replaced, a retired folder linked to `~/.claude/skills` isn't deleted through, a locked file (Windows) leaves the old copy whole while the other skill installs and the run exits 1, and `-Ref` in a scratch git repo ships no untracked file and records the commit in the marker.
 
-**If you changed a script inside a skill, run `python scripts/test-skill-scripts.py` and `pwsh -NoProfile -File scripts/test-skill-scripts.ps1`.** Both are in `validate.yml`. The Python file covers `recipe-validator/scripts/scan_recipes.py` (parsing, nutrition thresholds, the allergen cross-check and its false friends, the doneness check, the danger patterns, the CLI over a fixture folder). The PowerShell file runs `project-hub-scaffold/scripts/scaffold-hub.ps1` against a fake project-hub checkout and `cronsole-windows-jobs/scripts/Invoke-ScheduledJob.ps1` against fixture jobs (ok, attention, failed, the notifier payload, `-WhatIfChild`); `Register-ScheduledJob.ps1 -WhatIf` and `run-hidden.vbs` are tested only on Windows, so CI skips them. Both work in a temp directory. A new helper script in a skill gets its checks added to the matching file.
+**If you changed a script inside a skill, run `python scripts/test-skill-scripts.py` and `pwsh -NoProfile -File scripts/test-skill-scripts.ps1`.** Both are in `validate.yml`. The Python file covers `recipe-validator/scripts/scan_recipes.py` (parsing, nutrition thresholds, the allergen cross-check and its false friends, the doneness check, the danger patterns, the CLI over a fixture folder). The PowerShell file runs `project-hub-scaffold/scripts/scaffold-hub.ps1` against a fake project-hub checkout and `cronsole-windows-jobs/scripts/Invoke-ScheduledJob.ps1` against fixture jobs (ok, attention, failed, the notifier payload, `-WhatIfChild`); `Register-ScheduledJob.ps1 -WhatIf` and `run-hidden.vbs` are tested only on Windows, which `validate.yml`'s `windows` job covers. Both work in a temp directory. A new helper script in a skill gets its checks added to the matching file.
+
+**Then run `python scripts/lint-skill-safety.py`.** Also in `validate.yml`. It reads every text file under `skills/` for what `SECURITY.md` calls a vulnerability: a code block that runs `--dangerously-skip-permissions` without `--settings` (a deny file); a merge, visibility change, repo delete, force-push, `DRY_RUN=false` or money move with no gate (owner marker, confirm, never, stop…) within three lines; a real user folder (`C:\Users\<name>`), the maintainer's workspace root, a `*.ts.net` host or a non-placeholder email; and a skill that prescribes an unattended run without saying fetched content is data. Fix the skill. When a hit is a reviewed exception, add `{path, rule, match, why}` to `scripts/lint-skill-safety-allow.json`; an entry that matches nothing fails the run, so the list can't rot. A Domain skill's hit is fixed in its source workspace (`python scripts/lint-skill-safety.py <workspace>/skills` checks one before the harvest).
+
+**Every Python script that has a `--self-check` runs it in `validate.yml`** (the `agent-workspace-builder` scripts, `check-org-layout.py`, `check-triggers.py`). The step finds them by grep, so a new one is covered without a workflow edit. Run `python <script> --self-check` after changing one.
 
 **If you changed a Core skill's `description`, reinstall it and run `python scripts/check-triggers.py --skill <name>`.** It sends each request in `scripts/trigger-cases.json` to a fresh headless `claude -p` session in an empty folder and checks which skill loads. It tests the installed copy and spends tokens, so it's a local check, not CI. A new Core skill gets its cases added to the JSON.
 
@@ -236,7 +246,8 @@ Claude Code reads this file directly, so the repo has no `CLAUDE.md`. Keep every
   then phrase a request that should match its `description` and check that Claude loads it unprompted.
 - **`/skill-writer`** is the canonical authoring guide for structure and frontmatter questions, where it's installed.
 - **User scope is `~/.claude/skills`.** `install-skills.ps1 -Core` writes there; never edit an installed
-  copy, because the next install wipes it. Edit the skill here and reinstall.
+  copy, because the next install wipes it. Edit the skill here and reinstall. A scheduled sync should
+  pass `-Ref origin/main` (after a fetch), so only reviewed, merged text reaches every session.
 
 ---
 

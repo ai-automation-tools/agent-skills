@@ -37,6 +37,11 @@ Skills under `skills/domain/` are mirrored byte for byte from the org's agent wo
 ([`docs/HARVEST.md`](./docs/HARVEST.md) lists each one's source). Report them here all the
 same; the fix lands in the source workspace and the next harvest carries it over.
 
+`scripts/lint-skill-safety.py` checks the tree for the first and fourth kinds on every PR (a
+permission bypass without a deny file, an ungated merge, visibility change, force-push,
+`DRY_RUN=false` or money move, private paths and emails); a report is still welcome for
+anything it misses.
+
 Out of scope: what an agent does once you've told it to ignore a skill, and problems in the
 agent CLIs themselves, which go to their vendors.
 

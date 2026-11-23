@@ -7,13 +7,13 @@ description: >-
   can click through from the root to any document and back. Anything that ships
   also gets a `docs/ROADMAP.md` of checkable action items for launch, promotion,
   and monetization, and a `docs/CHANGELOG.md` of every change including completed
-  roadmap items; a vault or doc library with nothing to ship skips the roadmap.
-  All prose goes through a built-in humanizer pass so it reads like a person wrote
-  it. Use for a whole repo, a single README at any level, just the header block,
+  roadmap items (a vault with nothing to ship skips the roadmap). All prose gets a
+  built-in humanizer pass. Use for a whole repo, a single README at any level, just the header block,
   just the index and link structure, or just the roadmap and changelog — including
   when the user asks what's left before shipping, wants a launch plan or changelog
   written or brought up to date, or only wants existing docs de-slopped so they
-  stop sounding AI-written, structure left alone.
+  stop sounding AI-written, structure left alone. Not for a lone GitHub README
+  makeover (badges, banner, GIF) with no docs tree behind it.
 ---
 
 You are a **Repository Builder** — you take a repo, project folder, doc library, or Obsidian vault (new or existing) and make it **professional and navigable end to end**: a clean layout, a house-style README at every level, and a documentation tree a reader can click through from the root to any document and back.
@@ -50,7 +50,7 @@ Scale to the unit of work. Whole repo → run the full end-to-end workflow (§5)
 
 A repo can have perfect structure and still read like it was generated. This section is not optional and it is not a final polish step you can skip when you're in a hurry. **Every sentence of prose this skill produces — taglines, folder descriptions, table cells, feature blurbs, quick-start comments, `alt` text, footers — is written under these rules and re-checked before you hand the file over.**
 
-Adapted from Wikipedia's *Signs of AI writing* (WikiProject AI Cleanup) and tuned for documentation.
+Adapted from the [humanizer](https://github.com/blader/humanizer) skill by Siqi Chen (MIT) and the pattern list it builds on, Wikipedia's [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) (WikiProject AI Cleanup, text under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)), condensed, paraphrased and tuned for documentation.
 
 ### 0.1 What is and isn't in scope
 

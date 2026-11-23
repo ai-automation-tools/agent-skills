@@ -1,0 +1,493 @@
+{
+  "schema": 1,
+  "source": "https://github.com/ai-automation-tools/agent-skills",
+  "url": "https://agent-skills.ai-automation-tools.dev/catalog.json",
+  "install": "pwsh scripts/install-skills.ps1 [-Core | -Domain | -Project <repo>] [-Skill <name>]",
+  "counts": {
+    "core": 10,
+    "domain": 24,
+    "projects": 14
+  },
+  "skills": [
+    {
+      "name": "agent-workspace-builder",
+      "tier": "core",
+      "group": "automation",
+      "description": "Create, adopt, or audit a specialized agent workspace repo, a GitHub repo that gives an AI or CLI agent one field's skills, agents, commands, rules, hooks and docs (security, business, full-stack dev, media, API research, science), and set up the weekly roadmap and upkeep jobs that keep it alive. Lays down the standard layout (AGENTS.md canonical, CLAUDE.md importing it, only README, ROADMAP and CHANGELOG at the docs root, a generated capability reference, a curated RESOURCES.md, portable skills apart from the wired .claude/ ones), CI checks, and generated config for Codex and Antigravity. Use whenever the user wants a new agent workspace or agent repo, wants one brought up to the standard or several standardized, wants a roadmap or upkeep routine for one, wants one taken public by a gated release job, wants it to work under other agent CLIs, or asks why its docs, skills or resources went stale.",
+      "path": "skills/core/automation/agent-workspace-builder",
+      "has_scripts": true,
+      "has_evals": false,
+      "has_references": true
+    },
+    {
+      "name": "automated-dev-pipeline",
+      "tier": "core",
+      "group": "automation",
+      "description": "Design, stand up, audit, or operate scheduled AI agents that do development work unattended. They turn ideas into plans, build them one roadmap item at a time through PRs that a single sweep reviews and merges, publish only through scripted gates plus a human approval, and keep every repo current. Covers both repo-per-project pipelines and the single-repo variant, where stages are folders and a merge that deploys a site is the publish step. Use whenever the user wants to automate building, publishing or maintaining repos; add or change a scheduled coding routine or pipeline stage; set up where ideas come from; keep repos from going stale; audit scheduled Claude jobs for cost, overlap or safety; decide what to script versus leave to a model; or put an approval step in front of anything irreversible. Also use when they mention incubate or graduate, PIPELINE.md, release gates, a roadmap routine, a PR sweep, or ask \"why didn't the pipeline do X\".",
+      "path": "skills/core/automation/automated-dev-pipeline",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": true
+    },
+    {
+      "name": "html-email-templates",
+      "tier": "core",
+      "group": "automation",
+      "description": "Three reusable HTML email templates for automated systems, built to survive the email clients that strip your CSS — a plain inline-styled notification/alert, a dark banner report wrapper, and an inline light-card digest — plus the subject-line, label and shared-footer conventions that keep a fleet of automated emails consistent and filterable. Transport-agnostic: the templates emit HTML and plain text, so any transactional email API (Resend, Postmark, SendGrid, SES) or SMTP relay can send them. Use whenever building or sending an automated email, alert, notification, digest, status report, or a generated report that gets emailed or attached.",
+      "path": "skills/core/automation/html-email-templates",
+      "has_scripts": false,
+      "has_evals": true,
+      "has_references": false
+    },
+    {
+      "name": "task-router",
+      "tier": "core",
+      "group": "automation",
+      "description": "Decide how much machinery a request deserves before starting it — answer inline, delegate to one subagent, recon-then-plan, or fan out across agents — and pick a model tier to match, so a two-line answer doesn't cost a five-agent workflow. Use when the user asks how to approach, split or route the work (\"how should we approach this\", \"is this a big job\", \"one agent or several\", \"route this\", \"delegate this\", \"who should do this\", \"which model should handle this\"), before spawning a subagent or workflow, and when one task plainly spans several repos or review axes at once (an audit of every repo; one PR reviewed for bugs, performance and security together). Not for an ordinary single request such as one bug fix, one diff review or one new function: do those directly. The cost policy is a parameter — set it once and the routing table follows it.",
+      "path": "skills/core/automation/task-router",
+      "has_scripts": false,
+      "has_evals": true,
+      "has_references": false
+    },
+    {
+      "name": "business-plan-builder",
+      "tier": "core",
+      "group": "business",
+      "description": "Take a business idea — a one-line hunch, a napkin pitch, or a finished proposal — and run the whole business-analysis pipeline over it, writing the result out as a navigable folder of linked markdown. Eight passes in order: market sizing (TAM/SAM/SOM, JTBD, Five Forces), competitive intelligence with graded evidence, an ROI model with a sensitivity sweep, and a decision memo that makes the call — then, only if the memo greenlights it, a product spec, a costed architecture, a ranged build estimate, and a sliced build plan. Every number traces to a source or is tagged as an assumption. Use whenever the user hands over a business idea, startup idea, product idea, app idea, side hustle, or venture and wants it evaluated, researched, sized, modeled, pressure-tested, planned, written up, or turned into documentation — phrases like \"here's my business idea\", \"is this worth building\", \"evaluate this idea\", \"write up a business plan\", \"should I build this\", \"do the full analysis on this\", \"turn this into a plan\".",
+      "path": "skills/core/business/business-plan-builder",
+      "has_scripts": false,
+      "has_evals": true,
+      "has_references": true
+    },
+    {
+      "name": "recipe-validator",
+      "tier": "core",
+      "group": "cooking",
+      "description": "Validate food recipes for quality and safety. Checks safe cooking temperatures and dangerous ingredients/techniques (food safety), per-serving sodium / saturated fat / added sugar against health standards, ingredient quantities and ratios versus comparable recipes, allergen labeling completeness, and recipe coherence — then reports findings ranked by severity with concrete fixes. Use this whenever the user wants to check, validate, review, audit, quality-check, or \"sanity-check\" one recipe or a whole folder of recipes, asks whether a recipe is safe, healthy, balanced, or well-made, or mentions reviewing recipe nutrition, salt/fat/sugar content, or food-safety issues — even if they don't use the word \"validate.\" The recipe location is a parameter, so it works on a single file, a folder, or an entire recipe collection in any layout.",
+      "path": "skills/core/cooking/recipe-validator",
+      "has_scripts": true,
+      "has_evals": true,
+      "has_references": true
+    },
+    {
+      "name": "repo-docs-builder",
+      "tier": "core",
+      "group": "documentation",
+      "description": "Build or restructure an entire git repo, project folder, doc library, or Obsidian vault so it is professional and navigable top to bottom — a clean layout, a house-style README at every level, and a documentation tree a reader can click through from the root to any document and back. Anything that ships also gets a `docs/ROADMAP.md` of checkable action items for launch, promotion, and monetization, and a `docs/CHANGELOG.md` of every change including completed roadmap items (a vault with nothing to ship skips the roadmap). All prose gets a built-in humanizer pass. Use for a whole repo, a single README at any level, just the header block, just the index and link structure, or just the roadmap and changelog — including when the user asks what's left before shipping, wants a launch plan or changelog written or brought up to date, or only wants existing docs de-slopped so they stop sounding AI-written, structure left alone. Not for a lone GitHub README makeover (badges, banner, GIF) with no docs tree behind it.",
+      "path": "skills/core/documentation/repo-docs-builder",
+      "has_scripts": true,
+      "has_evals": true,
+      "has_references": true
+    },
+    {
+      "name": "news-images",
+      "tier": "core",
+      "group": "image-gen",
+      "description": "Generate cartoon-editorial news imagery — daily, weekly, monthly, and yearly news collages (6-panel grids) and news montages (single unified scenes). Use when asked to make, create, or generate a news collage or news montage for any cadence, to build a daily/weekly/monthly/yearly news image, or for an editorial cartoon, cartoon recap or illustrated roundup of the day's, week's, month's or year's headlines. Handles story research, layout, and image generation.",
+      "path": "skills/core/image-gen/news-images",
+      "has_scripts": false,
+      "has_evals": true,
+      "has_references": false
+    },
+    {
+      "name": "project-hub-scaffold",
+      "tier": "core",
+      "group": "web",
+      "description": "Stand up a browsable HTML console over a folder of project documents — Project Hub is a zero-dependency Node server plus a static explorer that turns any workspace into a clickable document tree in the browser, with no build step and no install. Use when asked to add a workspace to an existing Project Hub, scaffold a fresh portable installation of the server and explorer, build a document browser or docs console for a project, or match an existing Hub page's theme, sidebar tree and navigation. Source: github.com/ai-automation-tools/project-hub (MIT).",
+      "path": "skills/core/web/project-hub-scaffold",
+      "has_scripts": true,
+      "has_evals": true,
+      "has_references": true
+    },
+    {
+      "name": "web-house-style",
+      "tier": "core",
+      "group": "web",
+      "description": "For ai-automation-tools org pages, or pages meant to match them: give a new or existing web page the org sites' shared look, feel and navigation: the near-black #060606 ground with a dot grid and zinc surfaces, one accent per site, Inter + JetBrains Mono, a Light | Dark switch in the top-right corner that defaults to dark and never flashes, a sticky blurred top bar or a fixed icon sidebar, the \"View source\" bar across the very top, the shared dark-tile favicon, and a phone pass (16px fields, 36px+ tap targets, dvh heights, drawer or icon-rail nav). Use when building a landing page, project page, demo, dashboard or app shell that should match the org's other sites, when adding a light/dark theme switch, a sidebar or a mobile layout to one, when restyling a page \"like our other apps\", or when auditing a page for drift from the house style. Works for single-file static HTML, server-rendered pages and React/Vite apps. Not for a page with its own brand or a freshly invented look.",
+      "path": "skills/core/web/web-house-style",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": true
+    },
+    {
+      "name": "api-client-resilience",
+      "tier": "domain",
+      "group": "api",
+      "description": "Write HTTP clients for third-party APIs that fail predictably instead of hanging — timeouts on every call, retries with exponential backoff and jitter, circuit breaking, idempotency keys, pagination that terminates, and caching that respects the provider's terms. Use when integrating any external API, debugging a client that hangs or retries a storm, or reviewing integration code before it reaches production.",
+      "path": "skills/domain/api/api-client-resilience",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "api-integration-testing",
+      "tier": "domain",
+      "group": "api",
+      "description": "Test code that calls third-party APIs without hammering live services or writing tests that pass against a fantasy — recorded fixtures, contract tests that pin the shape you depend on, a separate opt-in live smoke suite, and error-path coverage for timeouts, rate limits and malformed payloads. Use when adding an API integration, when a test suite needs network isolation, or when an upstream change broke production without any test noticing.",
+      "path": "skills/domain/api/api-integration-testing",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "api-response-normalization",
+      "tier": "domain",
+      "group": "api",
+      "description": "Turn heterogeneous API payloads into one consistent envelope that carries its own provenance — source, request, retrieval timestamp, records, warnings, and a pointer to the raw response — so downstream code and generated citations can always trace a value back to where it came from. Use when integrating multiple data sources, designing a result schema, building a research or aggregation pipeline, or fixing output where nobody can tell which API produced which number.",
+      "path": "skills/domain/api/api-response-normalization",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "public-api-evaluation",
+      "tier": "domain",
+      "group": "api",
+      "description": "Vet a third-party or public API before writing code against it — auth model, rate limits, licensing and commercial-use terms, data freshness, response stability, and the attribution the terms of service require. Use when choosing between candidate APIs, adding a new data source to a project, reviewing whether an existing dependency is still safe to rely on, or answering \"can we actually use this one in production\".",
+      "path": "skills/domain/api/public-api-evaluation",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "rate-limit-and-quota-management",
+      "tier": "domain",
+      "group": "api",
+      "description": "Stay inside a third-party API's rate limits and quotas on purpose rather than by accident — reading the limit headers, client-side throttling with a token bucket, budgeting a finite daily or monthly allowance across callers, handling 429 and Retry-After correctly, and detecting silent throttling. Use when an integration is getting rate-limited or blocked, when planning call volume against a paid quota, or when several jobs share one API key.",
+      "path": "skills/domain/api/rate-limit-and-quota-management",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "customer-discovery",
+      "tier": "domain",
+      "group": "business",
+      "description": "Design and run customer interviews that produce evidence instead of encouragement — asking about past behavior rather than future intent, avoiding leading and pitch-shaped questions, sampling for disconfirmation, and synthesizing a set of conversations into findings graded by how much weight they can carry. Use before sizing a market or writing a spec, when validating a problem or a willingness to pay, or when interview notes need turning into something a decision can rest on.",
+      "path": "skills/domain/business/customer-discovery",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "go-to-market",
+      "tier": "domain",
+      "group": "business",
+      "description": "Plan how a product actually reaches buyers — segment and beachhead selection, positioning against the alternative the buyer would otherwise pick, choosing channels that fit the price point and sales motion, sequencing a launch, and setting the CAC and payback math that says whether the plan can work. Use when planning a launch, deciding where to spend acquisition effort, writing positioning, or diagnosing why a product with real users is not growing.",
+      "path": "skills/domain/business/go-to-market",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "pricing-strategy",
+      "tier": "domain",
+      "group": "business",
+      "description": "Set or change a price with an argument behind it — choosing the value metric, structuring tiers and packaging, estimating willingness to pay from evidence rather than from competitors' pages, modeling the revenue effect of a change, and running a price increase on existing customers. Use when pricing a new product, restructuring plans, deciding what to meter, questioning whether a price is too low, or planning a migration to new pricing.",
+      "path": "skills/domain/business/pricing-strategy",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "debugging-methodology",
+      "tier": "domain",
+      "group": "engineering",
+      "description": "Debug systematically instead of by guessing — reproduce reliably first, form and test one hypothesis at a time, bisect to localize, read the actual error and stack, and confirm the fix addresses the root cause rather than the symptom. Covers reading a stack trace, git bisect, binary search in code and data, and the traps of changing several things at once. Use when a bug is hard to pin down, an error is misunderstood, a fix did not hold, or debugging has turned into random edits.",
+      "path": "skills/domain/engineering/debugging-methodology",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "full-stack-feature",
+      "tier": "domain",
+      "group": "engineering",
+      "description": "Use when delivering a feature that crosses layers — a form that saves to the database and shows back, an endpoint the UI actually calls, a webhook that updates a record a page renders — because the default failure is declaring \"done\" with a layer stubbed, the UI and API never wired together, and nothing run. Triggered by \"build a feature\", \"add X end to end\", \"wire up\", \"full stack\", \"vertical slice\", \"UI to API to database\", \"implement this feature\", \"make it save\", \"hook the frontend to the backend\", \"plan this feature\", \"is this ready to ship\".",
+      "path": "skills/domain/engineering/full-stack-feature",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": true
+    },
+    {
+      "name": "performance-optimization",
+      "tier": "domain",
+      "group": "engineering",
+      "description": "Make a slow app faster without guessing where the time goes — measure and profile before changing anything, fix the biggest bottleneck first, and cover the usual suspects: N+1 queries and missing indexes, oversized payloads, blocking work on the request path, and frontend bundle and render cost. Use when something is slow, a page or endpoint misses a latency target, a database is under load, or someone proposes an optimization before profiling.",
+      "path": "skills/domain/engineering/performance-optimization",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "testing-strategy",
+      "tier": "domain",
+      "group": "engineering",
+      "description": "Decide what to test and at which level so the suite catches real regressions without becoming slow and brittle — the test shape (heavily unit, fewer integration, few end-to-end), testing behavior rather than implementation, writing a failing test before a bug fix, and knowing where coverage numbers mislead. Use when a project has no tests and needs a strategy, when a suite is slow or flaky, when deciding how to test a specific feature, or when a bug keeps coming back.",
+      "path": "skills/domain/engineering/testing-strategy",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "captions-and-accessibility",
+      "tier": "domain",
+      "group": "media",
+      "description": "Make media usable by everyone and verify it, rather than assuming it — accurate captions and transcripts, alt text and image descriptions that convey the content, sufficient contrast on text and lower-thirds, safe-area and readability on mobile, and audio described where the visuals carry meaning. Use when finishing any video, image, podcast, or social asset for publish, when captions are auto-generated and need checking, or when an accessibility pass is part of the definition of done.",
+      "path": "skills/domain/media/captions-and-accessibility",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "media-rights-and-licensing",
+      "tier": "domain",
+      "group": "media",
+      "description": "Establish that every element in a piece of media is actually cleared to use, and record it, instead of assuming — music and sound, stock footage and images, fonts, AI-generated content and its training-data questions, a person's voice or likeness, and the attribution a license requires. Use before publishing anything with third-party or generated elements, when sourcing an asset, or when a rights question needs a defensible answer rather than a guess.",
+      "path": "skills/domain/media/media-rights-and-licensing",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "post-publish-analytics",
+      "tier": "domain",
+      "group": "media",
+      "description": "Read what happened after a piece of media published and turn it into the next decision, instead of vanity-metric theater — reading retention and drop-off curves, distinguishing reach from engagement from conversion, running a fair A/B test on thumbnails and titles, and knowing which numbers are noise. Use when reviewing a video's or post's performance, deciding what to make next, diagnosing an underperforming piece, or setting up a test.",
+      "path": "skills/domain/media/post-publish-analytics",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "myth-and-motif-analysis",
+      "tier": "domain",
+      "group": "religion",
+      "description": "Use when analyzing myths, sacred stories, legends or folktales across cultures, such as finding parallels, tracing a motif, classifying a tale type, asking whether two stories are related, or explaining a comparative theory (Frazer, Eliade, Campbell, Lévi-Strauss, Dumézil, Witzel). Covers motif and tale-type indexes, how to tell inheritance, diffusion and independent invention apart, and the known failures of comparative mythology, so parallels are argued from sources rather than asserted. Triggered by \"parallels between\", \"motif\", \"archetype\", \"hero's journey\", \"flood myths\", \"dying and rising god\", \"comparative mythology\", \"tale type\".",
+      "path": "skills/domain/religion/myth-and-motif-analysis",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "religious-calendars",
+      "tier": "domain",
+      "group": "religion",
+      "description": "Use when converting dates between religious calendars and the Gregorian calendar, or when giving the date of a religious holiday, such as Easter (Western and Orthodox), Passover, Rosh Hashanah, Ramadan, Eid, Diwali, Vesak, Lunar New Year, Naw-Rúz or a saint's day. Explains how each calendar works (lunar, lunisolar, solar), why dates differ by community and country, era systems (AM, AH, BE, Vikram Samvat, Shaka), and which dates can't be computed ahead of time, so dates are given with their convention rather than one confident wrong day. Triggered by \"when is\", \"what date\", \"convert to Hijri/Hebrew\", \"this year's Ramadan\", \"Orthodox Easter\", \"what year is it in the … calendar\".",
+      "path": "skills/domain/religion/religious-calendars",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "writing-about-religion",
+      "tier": "domain",
+      "group": "religion",
+      "description": "Use when writing anything for a general audience that touches religion, such as an article, explainer, lesson, report, product copy, game or story setting, or a summary of a religious topic. Covers attribution of faith claims, neutral terminology and self-designations, dating conventions, transliteration, capitalization, naming deity and figures, quoting scripture with its source, and topics that need extra care, so readers of every tradition and none can trust the piece. Triggered by \"write about\", \"explain [a religion] to\", \"article on\", \"is it OK to say\", \"what's the right term for\".",
+      "path": "skills/domain/religion/writing-about-religion",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "critical-appraisal",
+      "tier": "domain",
+      "group": "science",
+      "description": "Appraise a single scientific paper or claim, asking what question it answers, whether the design can answer it, how much bias could explain the result, whether the statistics hold up, and how far the conclusion generalizes. Uses PICO framing, the hierarchy of evidence, named risk-of-bias tools (RoB 2, ROBINS-I, QUADAS-3), GRADE for bodies of evidence, and a checklist of red flags (p-hacking, spin, outcome switching, small-n surprises). Use when asked \"is this study any good\", \"can I trust this paper\", \"critique this\", \"journal club\", \"what are the limitations\", or when a news story cites a study.",
+      "path": "skills/domain/science/critical-appraisal",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "research-data-management",
+      "tier": "domain",
+      "group": "science",
+      "description": "Plan and run the life of research data so it stays findable, understandable and reusable, applying the FAIR principles, folder and file naming, README and data dictionaries, metadata standards, formats that outlive their software, licences (CC0, CC BY), versioning, backups (3-2-1), sensitive and human-subjects data, data management plans, and depositing in a repository (Zenodo, Dryad, OSF, or domain repositories such as GEO, SRA, PRIDE, PDB) with a DOI. Use when asked to organize data, write a data management plan, share or publish a dataset, choose a repository or licence, or meet a funder or journal data-sharing requirement.",
+      "path": "skills/domain/science/research-data-management",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "scientific-figures",
+      "tier": "domain",
+      "group": "science",
+      "description": "Make scientific figures that show the data honestly and read clearly in print and on screen, by choosing the plot for the comparison, showing individual points when n is small, labelling error bars (SD, SEM or CI) and preferring confidence intervals, using colorblind-safe palettes, sizing text for the final column width, and exporting vector formats from a script. Covers matplotlib and seaborn patterns, multi-panel layouts, and the common ways charts mislead (truncated axes, dynamite plots, dual axes, rainbow colormaps). Use when making, fixing or reviewing a plot, chart, figure or graph for a paper, poster, slide or report.",
+      "path": "skills/domain/science/scientific-figures",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "security-metrics-and-posture",
+      "tier": "domain",
+      "group": "security",
+      "description": "Measure a security program over time instead of one point in it — choosing metrics that drive a decision rather than decorate a dashboard, tracking remediation SLAs and mean-time-to-remediate, keeping a risk register that reflects reality, and reporting a trend to leadership honestly. Use when building a security dashboard, setting remediation SLAs, preparing a posture report for leadership or a board, or turning a pile of findings into a program you can steer.",
+      "path": "skills/domain/security/security-metrics-and-posture",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "security-report-writing",
+      "tier": "domain",
+      "group": "security",
+      "description": "Turn verified findings into a client-ready security report that gets read and acted on — an executive summary a non-technical decision-maker can act from, findings structured so each carries impact, evidence, and a verifiable fix, correct severity communication, and redaction that keeps secrets and raw exploit detail out of a document that will be forwarded. Use when writing up an assessment, drafting the executive summary, structuring findings, or reviewing a report before it leaves.",
+      "path": "skills/domain/security/security-report-writing",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "vulnerability-disclosure",
+      "tier": "domain",
+      "group": "security",
+      "description": "Run a coordinated vulnerability disclosure the right way — reporting a flaw you found to the party that owns it, negotiating a fair remediation timeline and embargo, requesting a CVE, and deciding what to publish and when. Also for the receiving side: standing up a disclosure process, a security.txt, and a triage workflow so inbound reports are handled well. Use when you found a bug in someone else's product, when a researcher reports one to you, or when setting up a disclosure or bug-bounty program.",
+      "path": "skills/domain/security/vulnerability-disclosure",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "cronsole-claude-routines",
+      "tier": "projects",
+      "group": "cronsole",
+      "description": "Design, create and track a Claude Code cloud routine (now called a scheduled task) — a scheduled agent run on Anthropic's infrastructure that opens a pull request — and connect it to Cronsole's CLAUDE_CODE source. Use whenever the user wants a recurring cloud agent, a scheduled Claude routine, a weekly drift check, or a docs/catalog refresh that runs by itself; whenever they want to list, pause, edit, retire or debug an existing routine; whenever a routine \"ran\" but opened nothing, or Cronsole shows no Claude routines, cannot pause one, or reports them all UNKNOWN. Also use to decide whether a scheduled agent job belongs in the cloud or on a local machine before building it.",
+      "path": "skills/projects/cronsole/cronsole-claude-routines",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": true
+    },
+    {
+      "name": "cronsole-windows-jobs",
+      "tier": "projects",
+      "group": "cronsole",
+      "description": "Design, register and verify a Windows Task Scheduler job by picking one of four proven archetypes — an unattended AI-agent CLI run, a wrapped maintenance script, a service watchdog or lifecycle task, or a plain command — then tracking it in Cronsole. Ships a runnable wrapper and registrar. Use whenever the user wants a new scheduled job, cron job, recurring task, nightly or weekly automation, watchdog, healthcheck, drive cleanup, doc refresh, or \"run Claude Code on a schedule\" on Windows; whenever an existing scheduled task needs re-scheduling, parking or debugging; and whenever a scheduled task reports success while doing nothing, stops notifying, or \"ran\" with no effect.",
+      "path": "skills/projects/cronsole/cronsole-windows-jobs",
+      "has_scripts": true,
+      "has_evals": false,
+      "has_references": true
+    },
+    {
+      "name": "edge-radar-strategy-evidence",
+      "tier": "projects",
+      "group": "edge-radar",
+      "description": "Decide whether an Edge-Radar betting strategy, sport, parameter or claimed edge is actually supported by outcomes — pick the right tool in scripts/backtest/ for the question, report the model-vs-market Brier pair rather than a bare \"Brier\", collect zero-risk shadow rows when a freeze or gate blocks its own evidence, and say what the sample can and cannot carry. Use for \"is this strategy working\", \"should we unfreeze X\", \"is the edge real\", \"what does the settled book say about Y\", \"fit this parameter\", \"before/after a risk-gate change\", \"how many bets until we know\", any claim about ROI, win rate, calibration, CLV or correlation, and any proposal to raise sizing or loosen a gate.",
+      "path": "skills/projects/edge-radar/edge-radar-strategy-evidence",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": true
+    },
+    {
+      "name": "edge-radar-strategy-profiles",
+      "tier": "projects",
+      "group": "edge-radar",
+      "description": "Design, launch, compare and retire an Edge-Radar betting strategy as a `.env.<name>` profile overlay rather than a fork — pick the knob that actually moves the price band you mean, isolate the bankroll with a Kalshi subaccount, and run the dry-run → pilot → live ladder with the exit rule written before any money is at stake. Use whenever the user wants a new betting strategy, a second book, a longshot/favourites/spread-only/underdog angle, \"a separate account to try X\", different sizing or a different price floor for one slice of markets; whenever an existing profile needs comparing, promoting to live, or killing; and whenever someone proposes cloning the repo, adding a second API key, or hand-editing `.env` to test an idea.",
+      "path": "skills/projects/edge-radar/edge-radar-strategy-profiles",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": true
+    },
+    {
+      "name": "edge-spectrum-dataset",
+      "tier": "projects",
+      "group": "edge-spectrum",
+      "description": "Change, audit or debug the Edge Spectrum dataset — the canonical edge records in site/src/data/edges.ts, the five artifacts `npm run gen:edges` writes from it (the inlined RAW block in public/spectrum/index.html, edges.json, the published edges.csv and its datapackage.json, data/edge_dataset.md), and the guards that hold them: check:edges (count, categories, basis, the per-category citation ratchet and the dataset freeze) and check:spectrum (the three measures, read live out of the HTML). Use for \"add/edit an edge record\", \"add a category\", \"update a return figure\", \"cite a source\", \"the dataset is frozen\", \"gen:edges --check failed in CI\", \"the artifact reverted my edit\", \"record count mismatch\", \"check:spectrum is failing\", \"ruin point\", \"return on capital vs expected turnover cost\", \"the chart is squashed flat\", and any question about where this data actually lives.",
+      "path": "skills/projects/edge-spectrum/edge-spectrum-dataset",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": true
+    },
+    {
+      "name": "edge-spectrum-endpoint",
+      "tier": "projects",
+      "group": "edge-spectrum",
+      "description": "Add, change or debug an Edge Spectrum API endpoint across its two entry points — the local Express server (site/server.ts) and the Vercel serverless functions (site/api/*) — which must both be thin adapters over shared logic in site/src/server/. Covers Zod validation at the trust boundary, the strategySchema / strategyBounds split that keeps Zod out of the client bundle, and the demo-mode + passcode gate that makes the Gemini advisor fail closed. Use for \"add an API route\", \"the endpoint works locally but 404s/500s on Vercel\", \"validate this request body\", \"the advisor returns 503 / 403 / 401\", \"ADVISOR_PASSCODE\", \"EDGE_SPECTRUM_MODE\", \"demo mode\", \"check:deployment failed\", and any work under site/api/, site/server.ts or site/src/server/.",
+      "path": "skills/projects/edge-spectrum/edge-spectrum-endpoint",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": true
+    },
+    {
+      "name": "edge-spectrum-hub-tool",
+      "tier": "projects",
+      "group": "edge-spectrum",
+      "description": "Add, change, retire or debug a tool on the Edge Spectrum hub — the `TOOLS` registry in site/src/tools.ts, the three `kind` branches (route / static / external) and what each one obliges you to wire, the accent colour tokens a tile and page share, and the calculator page pattern built on src/odds.ts and components/CalcUi.tsx. Use for \"add a tool to the hub\", \"new calculator page\", \"new tile\", \"the tile links nowhere\", \"the accent colour renders unstyled\", \"the static page 404s in dev but works on Vercel\", \"deep link reloads to the home page\", \"mark a tool as WIP / soon\", \"remove a tool\", and any work on Home.tsx, App.tsx, the hub nav, or a page under site/src/pages/.",
+      "path": "skills/projects/edge-spectrum/edge-spectrum-hub-tool",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": true
+    },
+    {
+      "name": "edge-spectrum-registry",
+      "tier": "projects",
+      "group": "edge-spectrum",
+      "description": "Add, change or debug Edge Spectrum's Cronsole templates and the line-archive scripts they run — the TEMPLATES and PACKS in site/scripts/build-registry.mjs, the generated catalog in site/public/registry/, the ESPN line collector (capture-lines.ts), the daily digest (digest-lines.ts), the Tiingo market-close collector (capture-closes.ts), and the daily registry-drift check. These files are held for the owner because a merge turns them into commands on other people's machines. Use for \"add or change a Cronsole template\", \"build:registry --check failed\", \"registry drift failed\", \"the gallery doesn't show our template\", \"check:lines failed\", \"a game has no closing line in the digest\", and any edit to build-registry.mjs, capture-lines.ts, digest-lines.ts, capture-closes.ts, site/public/registry/ or .github/workflows/registry-drift.yml.",
+      "path": "skills/projects/edge-spectrum/edge-spectrum-registry",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": false
+    },
+    {
+      "name": "project-hub-client",
+      "tier": "projects",
+      "group": "project-hub",
+      "description": "Work on Project Hub's interface — the single-file client in `hub/index.html`: the `renderPage()` kind→view dispatch, the nine `data-theme` blocks and the CSS-variable contract every surface colour comes from, the `S` state object and `reindex()`, hash routes via `navigation.mjs`, the localStorage keys, and the `%TITLE%`/`%FAVICON%`/ `%PORT%`/`%NONCE%` placeholders the server fills per request. Use for \"add a view / a page / a panel\", \"add a colour scheme or theme\", \"restyle the explorer\", \"the page is blank / stuck on scanning\", \"deep links or the back button are broken\", \"bookmarks and recents\", \"the activity bar, Settings, Favorites or hub tabs\", \"the reader, outline or view-source toggle\", \"a button does nothing after a rescan\", \"CSP blocked my script\", and any edit to index.html, navigation.mjs or favorites.mjs.",
+      "path": "skills/projects/project-hub/project-hub-client",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": true
+    },
+    {
+      "name": "project-hub-demo",
+      "tier": "projects",
+      "group": "project-hub",
+      "description": "Work on Project Hub's hosted demo at project-hub-demo.ai-automation-tools.dev — the capture build in `demo/build-demo.mjs` that stands the real hub up against the `demo/Workspace` fixture, crawls every response and writes flat files into `demo/site`, plus the `demo/static/demo.js` fetch shim, the `sub()` literal assertions against `hub/index.html`, and the Pages workflow. Use for \"the demo build failed with expected 1x … found 0\", \"add a workspace / repo / document to the fixture\", \"the demo shows a stale tree\", \"an image or PDF 404s on the demo but works locally\", \"slug collision\", \"the demo deploy / CNAME / GitHub Pages\", \"captured N API responses is too low in CI\", and any edit to demo/ or .github/workflows/demo.yml.",
+      "path": "skills/projects/project-hub/project-hub-demo",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": true
+    },
+    {
+      "name": "project-hub-scan",
+      "tier": "projects",
+      "group": "project-hub",
+      "description": "Change what Project Hub's scanner walks, indexes or serves — the filter chain in `hub/scan.mjs` (SKIP_DIRS / DOT_OK / DOC_FILE / SECRET_DIRS), the node `kind` vocabulary, the `BUCKETS` and `USER_RUNTIMES` tables behind the CLI pages, and the second deny gate in `resolveId()` that every `/api/*` path check goes through. Use for \"a folder is missing from the tree\", \"my new agent runtime doesn't show up\", \"add a file type to the scan\", \"add a node kind\", \"the scan is slow / the payload is huge\", \"the page won't refresh after I edit a file\", \"repoScope / hub.config.json\", \"a repo is missing from the overview table\", and anything touching scanTree, scan(), the watcher, /api/scan, /api/file, /api/stat or /api/health.",
+      "path": "skills/projects/project-hub/project-hub-scan",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": true
+    },
+    {
+      "name": "agent-chat-conv-types",
+      "tier": "projects",
+      "group": "roundtable",
+      "description": "Add or change a conversation format in the Roundtable repo — a new conv_type (debate / podcast / collaborate / yours), a sub-type preset, a seat role, an extra role like the skeptic, or a type that produces a deliverable. Decides first whether the thing asked for is a TYPE or merely a PRESET, then walks the full multi-file ritual: CONV_TYPES, _ROLE_BRIEFS, the runtime skill, the guide, the tests. Use for \"add a new conversation type\", \"add an interview/standup/retro mode\", \"add a preset\", \"add a role to a conversation\", \"make this type produce an artifact\", \"the lead is getting its own seat and shouldn't\", \"change who speaks first\", \"seat counts are wrong\", \"signal='result' never lands\", or any edit to src/orchestrator/conv_types.py or src/presets.py.",
+      "path": "skills/projects/roundtable/agent-chat-conv-types",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": true
+    },
+    {
+      "name": "agent-chat-delivery",
+      "tier": "projects",
+      "group": "roundtable",
+      "description": "Work on Roundtable's push half — delivery sinks (folder / webhook / command), the Notifications settings tab, the opt-in list, and the stall watchdog. Covers config/delivery.json's shape, the four events (started / result / complete / stalled), the scope + opt-in rule, the four call sites that end a conversation, and why a sink may never raise. Use for \"set up notifications\", \"get a push when a debate finishes\", \"ntfy / Discord / Slack / Gotify webhook\", \"deliver the transcript to a folder\", \"run a command after a conversation\", \"add a delivery event\", \"the watchdog isn't firing\", \"delivered folder doesn't match the zip\", \"my hand-written sink got overwritten\", or any edit to src/orchestrator/delivery.py, watchdog.py, or src/web/api/notifications.py / delivery_settings.py.",
+      "path": "skills/projects/roundtable/agent-chat-delivery",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": true
+    },
+    {
+      "name": "agent-chat-run-triage",
+      "tier": "projects",
+      "group": "roundtable",
+      "description": "Diagnose a live Roundtable conversation that is stuck, silent, ending early, or behaving wrong — a run that will not advance, a seat that is never handed a turn, \"not your turn\" rejections, a room that closed before the deliverable landed, an agent window that never joined, a database that is locked, or a conversation missing from the web UI or the hosted mirror. Works from the DB outward: read the row, read the rotation, then look at a CLI window. Use for \"the debate is stuck\", \"conversation 57 isn't moving\", \"the agent isn't taking its turn\", \"why did this end at max_turns\", \"it says it's not my turn\", \"nothing shows in the UI\", \"database is locked\", \"the watchdog fired\", or any Roundtable run that is not doing what it should.",
+      "path": "skills/projects/roundtable/agent-chat-run-triage",
+      "has_scripts": false,
+      "has_evals": false,
+      "has_references": true
+    }
+  ]
+}
