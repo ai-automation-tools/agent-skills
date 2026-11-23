@@ -1,6 +1,8 @@
 # GitHub Actions updates. Minor and patch bumps arrive as one grouped PR a week; major
 # versions are ignored, and Dependabot security alerts still fire for any version.
 # Actions is the only ecosystem here: the repo has no package manifest.
+# Workflows pin each action to a full commit SHA with the tag in a comment; Dependabot
+# updates the SHA and the comment together.
 version: 2
 updates:
   - package-ecosystem: github-actions

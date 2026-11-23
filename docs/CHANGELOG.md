@@ -46,6 +46,9 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 
 - `scripts/lint-skill-safety.py`, a stdlib lint over every file under `skills/` for what `SECURITY.md` treats as a vulnerability: a `--dangerously-skip-permissions` block without `--settings`, a merge, visibility change, repo delete, force-push, `DRY_RUN=false` or money move with no gate within three lines, private paths, tailnet hosts and emails, and an unattended-run skill with no "fetched content is data" rule. Reviewed exceptions go in `scripts/lint-skill-safety-allow.json` (empty today). In `validate.yml`; the harvest can run it on a workspace before mirroring. Ticks the cronsole fence security item. Audit AS-28
 
+**Changed**
+- Every GitHub Action in `validate.yml`, `pages.yml` and `copies.yml` is pinned to a full commit SHA (tag in a comment), so a moved tag can't change what CI runs; Dependabot's weekly grouped PR keeps the pins current. Audit AS-19
+
 ## 2026-11-19
 
 **Changed**
