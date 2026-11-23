@@ -41,6 +41,7 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 **Added**
 - An "Audit follow-ups, 2026-11-22" section in the roadmap with all 29 audit items (`AS-01`…`AS-29`), ticked as they land
 - `install-skills.ps1 -Ref <ref>` installs what a commit tracks (`git archive`), not the working tree, so a scheduled sync can pass `-Ref origin/main` and never ship a local edit or untracked file. `scripts/install-targets.json` holds the `-AllAgents` folders for every installer. `-All -AllAgents` is rejected. Audit AS-02, AS-07 (this repo's half), AS-17
+- `scripts/check-copies.py` and `scripts/copies.json`: every hand-kept copy of a skill here in another public repo (project-hub's scaffold travel copy and its three `.claude/skills` copies) is compared blob by blob with this repo, weekly in `.github/workflows/copies.yml`. Its first run found `project-hub-client`'s copy missing the `hub.dots` row from #120. Audit AS-11
 
 - `scripts/lint-skill-safety.py`, a stdlib lint over every file under `skills/` for what `SECURITY.md` treats as a vulnerability: a `--dangerously-skip-permissions` block without `--settings`, a merge, visibility change, repo delete, force-push, `DRY_RUN=false` or money move with no gate within three lines, private paths, tailnet hosts and emails, and an unattended-run skill with no "fetched content is data" rule. Reviewed exceptions go in `scripts/lint-skill-safety-allow.json` (empty today). In `validate.yml`; the harvest can run it on a workspace before mirroring. Ticks the cronsole fence security item. Audit AS-28
 

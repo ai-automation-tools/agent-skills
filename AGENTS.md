@@ -22,6 +22,7 @@ agent-skills/
 ├── .gitignore
 ├── .github/workflows/
 │   ├── pages.yml                   # publishes site/ to agent-skills.ai-automation-tools.dev
+│   ├── copies.yml                  # weekly: scripts/check-copies.py, fails when a copy in another repo drifted
 │   └── validate.yml                # runs validate-skills.py, build-showcase.py --check, check-links.py, every shipped --self-check, test-install-skills.ps1 and test-skill-scripts.py/.ps1 on every push to main and every PR; a windows-latest job reruns the PowerShell tests
 ├── site/                           # the showcase page — vanilla HTML/CSS/JS, no build step
 │   ├── index.html · styles.css · script.js   # cards, chips, lists and counts are GENERATED (see below)
@@ -40,6 +41,8 @@ agent-skills/
 │   ├── validate-skills.py          # stdlib-only check of every SKILL.md + the indexes (run before a PR)
 │   ├── build-showcase.py           # stdlib-only: regenerates the showcase from skills/ + site/showcase.json; --check in CI
 │   ├── check-links.py              # stdlib-only: every relative link in READMEs, docs/ and site/index.html resolves (case-sensitive)
+│   ├── check-copies.py             # stdlib-only: hand-kept copies in other repos (copies.json) vs the source here; weekly in copies.yml
+│   ├── copies.json                 # those copies: source, repo, path, ref
 │   ├── lint-skill-safety.py        # stdlib-only: skill text against SECURITY.md's scope (unfenced bypass, ungated outward steps, private data); in CI
 │   └── lint-skill-safety-allow.json  # its reviewed exceptions: {path, rule, match, why}
 ├── docs/
