@@ -71,6 +71,9 @@ belongs here too; `npx skills` already installs it from its repo.
 | [**🌐 project-hub-scaffold**](https://github.com/ai-automation-tools/project-hub/tree/main/skills/project-hub-scaffold) | `project-hub` | Builds a local web interface for browsing project documents. |
 | [**🗓️ cronsole-windows-jobs**](https://github.com/ai-automation-tools/cronsole/tree/main/skills/cronsole-windows-jobs) | `cronsole` | Designs, registers and verifies a Windows Task Scheduler job from one of four proven archetypes. |
 | [**☁️ cronsole-claude-routines**](https://github.com/ai-automation-tools/cronsole/tree/main/skills/cronsole-claude-routines) | `cronsole` | Designs, creates and tracks a Claude Code scheduled task. |
+| [**🕵️ cloakscan**](https://github.com/ai-automation-tools/cloakscan/tree/main/skills/cloakscan) | `cloakscan` | Checks a web page for text a person can't see but an AI agent reading the page can. |
+| [**🔪 diff-carve**](https://github.com/ai-automation-tools/diff-carve/tree/main/skills/diff-carve) | `diff-carve` | Runs DiffCarve to cut an oversized pull request into reviewable slices. |
+| [**👻 ghost-grant**](https://github.com/ai-automation-tools/ghost-grant/tree/main/skills/ghost-grant) | `ghost-grant` | Checks that the credentials a retired AI agent held have actually stopped working. |
 
 ## 🧭 Domain skills
 

@@ -37,7 +37,7 @@ agent-skills/
 │   ├── test-install-skills.ps1     # smoke test: installs into a temp dir, asserts the flat layout and that a name collision throws
 │   ├── test-skill-scripts.py       # stdlib-only tests for recipe-validator's scanner, on fixture recipes
 │   ├── check-triggers.py           # live auto-invocation test: does each Core skill load unprompted? (not CI: needs `claude`)
-│   ├── trigger-cases.json          # its cases: two requests that should load each Core skill, one near miss that shouldn't
+│   ├── trigger-cases.json          # its cases: two requests that should load each Core skill, one near miss that shouldn't (all 13)
 │   ├── validate-skills.py          # stdlib-only check of every SKILL.md + the indexes (run before a PR)
 │   ├── build-showcase.py           # stdlib-only: regenerates the showcase and site/catalog.json from skills/ + site/showcase.json; --check in CI
 │   ├── check-links.py              # stdlib-only: every relative link in READMEs, docs/ and site/index.html resolves (case-sensitive)
