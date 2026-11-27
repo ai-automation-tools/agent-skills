@@ -92,8 +92,7 @@
     { name: "task-router",          line: ["Size the job first,", "then pick the model."] },
     { name: "business-plan-builder",line: ["Eight passes, one gate,", "and every number sourced."] },
     { name: "news-images",          line: ["Cartoon-editorial news,", "eight ways."] },
-    { name: "html-email-templates", line: ["Emails that survive the", "clients that strip CSS."] },
-    { name: "project-hub-scaffold", line: ["A clickable document tree,", "no build step required."] }
+    { name: "html-email-templates", line: ["Emails that survive the", "clients that strip CSS."] }
   ];
 
   function tokensFor(entry) {

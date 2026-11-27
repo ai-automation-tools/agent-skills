@@ -84,20 +84,6 @@
       ]
     },
     {
-      "name": "project-hub-scaffold",
-      "glyph": "🌐",
-      "alt": "The Project Hub explorer: a sidebar document tree beside a dashboard of workspace repos",
-      "alts": ["The Project Hub demo: the explorer tree beside a rendered workspace README, with bookmark, copy-link and open-in-VS-Code buttons"],
-      "tagline": "A clickable document tree over any folder — no build, no install.",
-      "features": [
-        "A zero-dependency Node server plus a static explorer",
-        "Mode A — add a workspace to an existing Hub",
-        "Mode B — a portable installation that carries its own engine",
-        "Mode C — match an existing Hub page's theme and tree",
-        "Source: github.com/ai-automation-tools/project-hub (MIT)"
-      ]
-    },
-    {
       "name": "web-house-style",
       "glyph": "🎨",
       "alt": "The web-house-style document starter: the source bar, a top bar with the Light / Dark switch, a hero and a card grid",

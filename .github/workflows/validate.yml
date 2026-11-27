@@ -48,10 +48,9 @@ jobs:
       # ubuntu-latest) and asserts the flat <dir>/<name>/SKILL.md layout, a
       # Core-only bare run, and that a duplicated skill name throws.
       - run: pwsh -NoProfile -File scripts/test-install-skills.ps1
-      # The deterministic helpers that ship inside skills (recipe-validator's scanner,
-      # project-hub-scaffold's scaffolder) run against fixture inputs in a temp directory.
+      # The deterministic helper that ships inside a skill (recipe-validator's scanner)
+      # runs against fixture recipes in a temp directory.
       - run: python scripts/test-skill-scripts.py
-      - run: pwsh -NoProfile -File scripts/test-skill-scripts.ps1
 
   # The installer's Windows paths (the locked-file case) are skipped on ubuntu. This job runs the
   # same PowerShell tests where they apply.

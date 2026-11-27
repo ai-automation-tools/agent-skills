@@ -47,13 +47,6 @@
       ],
       "skip": ["Summarize today's top headlines in five bullet points."]
     },
-    "project-hub-scaffold": {
-      "load": [
-        "Add my ~/work/acme folder as a workspace in our Project Hub.",
-        "Build me a browsable HTML explorer over this project's docs folder, with no build step."
-      ],
-      "skip": ["Set up a Docusaurus site for our API docs."]
-    },
     "web-house-style": {
       "load": [
         "Build a landing page for our new tool that matches the look of our other ai-automation-tools sites.",

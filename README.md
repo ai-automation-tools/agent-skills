@@ -21,7 +21,7 @@
 
 <p align="center">
   <a href="https://agent-skills.ai-automation-tools.dev"><img src="https://img.shields.io/badge/live-agent--skills.ai--automation--tools.dev-F2B34B?style=for-the-badge" alt="Live at agent-skills.ai-automation-tools.dev"></a>
-  <img src="https://img.shields.io/badge/skills-14-2ea44f?style=for-the-badge" alt="14 skills">
+  <img src="https://img.shields.io/badge/skills-13-2ea44f?style=for-the-badge" alt="13 skills">
   <img src="https://img.shields.io/badge/format-SKILL.md-8B5CF6?style=for-the-badge" alt="SKILL.md format">
   <img src="https://img.shields.io/badge/agent-Claude%20Code-D97757?style=for-the-badge" alt="Built for Claude Code">
   <a href="https://github.com/ai-automation-tools"><img src="https://img.shields.io/badge/org-ai--automation--tools-0078D4?style=for-the-badge&logo=github&logoColor=white" alt="ai-automation-tools"></a>
@@ -58,8 +58,19 @@ A collection of reusable skills for Claude Code and compatible AI agents. Each s
 | [**⚡ performance-optimization**](./skills/core/engineering/performance-optimization/SKILL.md) | Engineering | Profiles first, then fixes the biggest bottleneck. |
 | [**🧪 testing-strategy**](./skills/core/engineering/testing-strategy/SKILL.md) | Engineering | Decides what to test and at which level. |
 | [**🖼️ news-images**](./resources/skill-data/core/image-gen/news-images/README.md) | Image-Gen | Generates illustrated news collages and montages. |
-| [**🌐 project-hub-scaffold**](./resources/skill-data/core/web/project-hub-scaffold/README.md) | Web | Builds a local web interface for browsing project documents. |
 | [**🎨 web-house-style**](./resources/skill-data/core/web/web-house-style/README.md) | Web | Gives a page the org sites' shared look: dark-first tokens, a Light / Dark switch top right, the source bar, a top bar or icon sidebar, and the phone pass. |
+
+## 🧰 Tool skills
+
+Skills for *using* an org tool from any repo live in that tool's repo and install with Core, straight
+from its `main` ([`scripts/tool-skills.json`](./scripts/tool-skills.json) lists them). `bot-arena`
+belongs here too; `npx skills` already installs it from its repo.
+
+| Skill | Lives in | What it does |
+|:---|:---|:---|
+| [**🌐 project-hub-scaffold**](https://github.com/ai-automation-tools/project-hub/tree/main/skills/project-hub-scaffold) | `project-hub` | Builds a local web interface for browsing project documents. |
+| [**🗓️ cronsole-windows-jobs**](https://github.com/ai-automation-tools/cronsole/tree/main/skills/cronsole-windows-jobs) | `cronsole` | Designs, registers and verifies a Windows Task Scheduler job from one of four proven archetypes. |
+| [**☁️ cronsole-claude-routines**](https://github.com/ai-automation-tools/cronsole/tree/main/skills/cronsole-claude-routines) | `cronsole` | Designs, creates and tracks a Claude Code scheduled task. |
 
 ## 🧭 Domain skills
 

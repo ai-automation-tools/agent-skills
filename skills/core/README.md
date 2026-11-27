@@ -7,7 +7,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/tier-core-2ea44f?style=for-the-badge" alt="Core tier">
-  <img src="https://img.shields.io/badge/skills-14-0078D4?style=for-the-badge" alt="14 skills">
+  <img src="https://img.shields.io/badge/skills-13-0078D4?style=for-the-badge" alt="13 skills">
   <img src="https://img.shields.io/badge/scope-user-8B5CF6?style=for-the-badge" alt="User scope">
   <a href="../../docs/CATALOG.md"><img src="https://img.shields.io/badge/↔-Org_catalog-6B7280?style=for-the-badge" alt="Org catalog"></a>
 </p>
@@ -45,7 +45,6 @@ workspaces and installed only on request, so this catalog stays short.
 | **Engineering** | [`performance-optimization`](./engineering/performance-optimization/SKILL.md) | Measure and profile before changing anything, then fix the biggest bottleneck first. |
 | **Engineering** | [`testing-strategy`](./engineering/testing-strategy/SKILL.md) | Decide what to test and at which level, test behavior rather than implementation, and know where coverage numbers mislead. |
 | **Image-Gen** | [`news-images`](../../resources/skill-data/core/image-gen/news-images/README.md) | Cartoon-editorial news collages and montages across daily/weekly/monthly/yearly cadences. |
-| **Web** | [`project-hub-scaffold`](../../resources/skill-data/core/web/project-hub-scaffold/README.md) | Stands up a browsable HTML console over a folder of documents. **Core, not a project skill** — you invoke it from the repo that is *getting* a hub. |
 | **Web** | [`web-house-style`](../../resources/skill-data/core/web/web-house-style/README.md) | The shared look, feel and navigation of the org's sites: dark-first tokens with a light theme, the Light / Dark switch in the top-right corner, the source bar, a sticky top bar or a collapsible icon sidebar, and the phone pass. Two starter pages implement all of it. |
 
 Each skill name opens its overview page, with any diagram, screenshots and examples, which links on to the skill's `SKILL.md`, references and scripts. The overviews live under [Resources](../../resources/README.md).

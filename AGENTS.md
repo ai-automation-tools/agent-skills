@@ -33,9 +33,9 @@ agent-skills/
 ├── scripts/
 │   ├── install-skills.ps1          # mirror leaf skills into a skills dir (repo tooling, not a skill); -Ref installs a commit
 │   ├── install-targets.json        # the folders -AllAgents writes and the retired ones it cleans; one list for every installer
+│   ├── tool-skills.json            # tool skills installed with Core from their tool's repo (project-hub-scaffold, the cronsole job skills)
 │   ├── test-install-skills.ps1     # smoke test: installs into a temp dir, asserts the flat layout and that a name collision throws
 │   ├── test-skill-scripts.py       # stdlib-only tests for recipe-validator's scanner, on fixture recipes
-│   ├── test-skill-scripts.ps1      # tests for the project-hub-scaffold helper, on fixtures in a temp dir
 │   ├── check-triggers.py           # live auto-invocation test: does each Core skill load unprompted? (not CI: needs `claude`)
 │   ├── trigger-cases.json          # its cases: two requests that should load each Core skill, one near miss that shouldn't
 │   ├── validate-skills.py          # stdlib-only check of every SKILL.md + the indexes (run before a PR)
@@ -99,8 +99,11 @@ every skill in every public org repo.
 **Domain is the harvest's tier, not an authoring choice.** A new skill you write here is Core. Domain holds only what the weekly Skill Harvest mirrors from the workspaces, grouped by
 field (`security`, `business`, `media`, `api`, `science`, `religion`), so Core stays short and highlighted.
 
-The test is **where you invoke it**, not what it is about. `project-hub-scaffold` is Core despite
-being named for an org product, because you run it from whatever repo is *getting* a hub.
+The test is **where you invoke it**, not what it is about. `project-hub-scaffold` is named for an
+org product but you run it from whatever repo is *getting* a hub, so it installs at user scope. It is
+a **tool skill**, though: a skill for using an org tool lives in that tool's repo (decision D2), and
+`scripts/tool-skills.json` makes the installer fetch it from there with Core. Add a row there, not a
+folder here, for the next one.
 
 Skills install **flat** as `<skills-dir>/<name>/`, so the nesting vanishes at install time. That
 has two consequences: names must be unique **across the whole repo** (the install script throws on
@@ -155,7 +158,7 @@ The public **`README.md`** and **`docs/`** are the source of truth for *what ski
 
 Before finishing an edit to any skill, check whether another skill *references* it (grep the `skills/` tree for the skill's `name`), and update those dependents in the same commit. Also refresh the skill's Skill-Data folder under `resources/skill-data/<tier>/…/<skill-name>/` when its examples or target output change.
 
-**One real duplicate exists.** `project-hub-scaffold` sits here (Core) *and* in the `project-hub` repo, kept byte-identical. This repo is canonical: edit here, then copy the folder to `project-hub/skills/project-hub-scaffold/` in the same change. Since 2026-10-22 `project-hub`'s CI (`scaffold copy` job in `test.yml`) diffs its copy against this repo's `main` and fails on drift, so a feature PR there that updates only the travel copy goes red until this side matches. It is a one-off, not a pattern to copy.
+**One hand-kept copy exists.** `recipe-validator` ships in `ai-automation-recipes` too (`.claude/skills/recipe-validator/`), so the recipe repo works without this library installed. This repo is canonical: copy the folder there in the same change. `scripts/check-copies.py` (weekly, `copies.yml`) fails on drift. Until 2026-11-27 `project-hub-scaffold` was the other copy; it lives in `project-hub` now.
 
 > [!IMPORTANT]
 > **Harvested skills are mirrors. Don't edit them here.** Since 2026-09-22 a weekly Skill Harvest job (Sun 08:00, `\AI-Automation-Tools-Org\Integrate-Projects\`) copies portable skills from the six org agent workspaces (`api-agent`, `business-agent`, `security-agent`, `media-agent`, `science-agent`, `religion-agent`) into `skills/domain/<domain>/`, byte for byte, by `harvest/auto-<date>` PR. [`docs/HARVEST.md`](./docs/HARVEST.md) lists every one with its source. Edit the skill in its workspace repo and the next harvest re-syncs it. An edit made here gets flagged, not merged back. The roadmap routine follows the same rule. The four `engineering` skills came from `fullstack-agent`, archived 2026-11-16; since 2026-11-22 they are Core (`skills/core/engineering/`), edited here by PR. `validate-skills.py` fails a Domain skill with no `mirrored` ledger row.
@@ -165,9 +168,6 @@ Before finishing an edit to any skill, check whether another skill *references* 
 
 > [!NOTE]
 > **Keep synced — `business-plan-builder`.** Added 2026-08-17. Its eight analysis passes are condensed from the eight skills in a private Claude Code project template (its `.claude/skills/` folder, kept outside this repo): `business-analysis`, `competitive-intel`, `roi-modeling`, `decision-memos`, `product-spec`, `technical-architecture`, `build-estimation`, `shipping-discipline`. Per the note above this is a **fold-in, not a composite** — the content lives in `references/analysis-passes.md` so the skill is portable and doesn't need those eight files present. It also carries a travel copy of the `repo-docs-builder` header/tree/voice rules in `references/output-templates.md`, for the same reason; if `repo-docs-builder` is installed the skill defers to it. When either upstream changes, fold the relevant parts in by hand. There is no automatic sync.
-
-> [!NOTE]
-> **Keep synced — `project-hub-scaffold`.** Added 2026-09-03. Its `references/design-system.md` and `references/config-schema.md` are extracted from the live `hub/hub.mjs` + `hub/index.html` at the [`project-hub`](https://github.com/ai-automation-tools/project-hub) repo (local clone: `Repos/AI-Automation-Tools/Tools/HTML-Project-Design`) — the single shared server mounting workspace configs from `projects/<Name>/hub.config.json`. No automatic sync: if that source's theme tokens, config schema, or endpoints change, fold the change into this skill's `references/` by hand. The `scripts/scaffold-hub.ps1` helper reads/writes `hub.config.json` directly against that live folder, so if its schema changes the script needs the matching update too.
 
 > [!NOTE]
 > **Keep synced — `web-house-style`.** Added 2026-10-13. Its tokens, components and phone rules were extracted from the org's live front ends: `index.html` and `docs/MAINTAINING.md` in `ai-automation-tools.github.io` (the reference, and the source-bar rule in its README), `src/web/assets.py` in `roundtable` (the icon sidebar), `hub/index.html` in `project-hub` (the drawer variant), and the 2026-10-13 mobile-polish commits in Agent-Chat, Cronsole, Edge-Radar, Edge Spectrum and Project Hub. No automatic sync: when the landing page's tokens, the accent list or the source-bar convention change, fold the change into `references/design-system.md` and both `assets/` starters by hand.
@@ -213,7 +213,7 @@ When asked to validate / review / audit skills, check:
 
 **If you changed `scripts/install-skills.ps1`, run `pwsh -NoProfile -File scripts/test-install-skills.ps1`.** Also in `validate.yml`. It installs every tier into a temp directory (never `~/.claude`) and asserts one `<dir>/<name>/SKILL.md` per leaf skill, that a bare run installs Core only, that `-Skill` narrows and `reports/` is dropped, and — in a scratch copy of `skills/` with one name duplicated — that the install throws and writes nothing. It also runs `-AllAgents` against a fake home in the temp directory: the three shared folders get Core, an absent CLI gets nothing, and an old copy in a folder `-AllAgents` no longer writes is removed while the user's own skills there stay. Then the safety cases: a hand-made same-named skill survives without `-Force`, a previous install (marked, or an unmarked copy of a shipped `SKILL.md`) is replaced, a retired folder linked to `~/.claude/skills` isn't deleted through, a locked file (Windows) leaves the old copy whole while the other skill installs and the run exits 1, and `-Ref` in a scratch git repo ships no untracked file and records the commit in the marker.
 
-**If you changed a script inside a skill, run `python scripts/test-skill-scripts.py` and `pwsh -NoProfile -File scripts/test-skill-scripts.ps1`.** Both are in `validate.yml`. The Python file covers `recipe-validator/scripts/scan_recipes.py` (parsing, nutrition thresholds, the allergen cross-check and its false friends, the doneness check, the danger patterns, the CLI over a fixture folder). The PowerShell file runs `project-hub-scaffold/scripts/scaffold-hub.ps1` against a fake project-hub checkout (the `cronsole-windows-jobs` helper tests moved to the cronsole repo with the skill on 2026-11-27). Both work in a temp directory. A new helper script in a skill gets its checks added to the matching file.
+**If you changed a script inside a skill, run `python scripts/test-skill-scripts.py`.** It is in `validate.yml`. The Python file covers `recipe-validator/scripts/scan_recipes.py` (parsing, nutrition thresholds, the allergen cross-check and its false friends, the doneness check, the danger patterns, the CLI over a fixture folder). It works in a temp directory. The PowerShell helper tests moved with their skills on 2026-11-27 (`project-hub-scaffold` to project-hub, `cronsole-windows-jobs` to cronsole). A new helper script in a skill gets its checks added here, or a `.ps1` sibling for PowerShell.
 
 **Then run `python scripts/lint-skill-safety.py`.** Also in `validate.yml`. It reads every text file under `skills/` for what `SECURITY.md` calls a vulnerability: a code block that runs `--dangerously-skip-permissions` without `--settings` (a deny file); a merge, visibility change, repo delete, force-push, `DRY_RUN=false` or money move with no gate (owner marker, confirm, never, stop…) within three lines; a real user folder (`C:\Users\<name>`), the maintainer's workspace root, a `*.ts.net` host or a non-placeholder email; a well-known credential shape (GitHub, Anthropic, OpenAI, AWS, Slack, Google, Resend keys, PEM private keys), printed redacted; and a skill that prescribes an unattended run without saying fetched content is data. Fix the skill. When a hit is a reviewed exception, add `{path, rule, match, why}` to `scripts/lint-skill-safety-allow.json`; an entry that matches nothing fails the run, so the list can't rot. A Domain skill's hit is fixed in its source workspace (`python scripts/lint-skill-safety.py <workspace>/skills` checks one before the harvest).
 
@@ -221,7 +221,7 @@ When asked to validate / review / audit skills, check:
 
 **If you changed a Core skill's `description`, reinstall it and run `python scripts/check-triggers.py --skill <name>`.** It sends each request in `scripts/trigger-cases.json` to a fresh headless `claude -p` session in an empty folder and checks which skill loads. It tests the installed copy and spends tokens, so it's a local check, not CI. A new Core skill gets its cases added to the JSON.
 
-Beyond that there is no test runner. Skill-specific `evals/` (e.g. `recipe-validator/evals/evals.json`) define that skill's test cases — use them when validating that skill. Seven Core skills ship them: `recipe-validator`, `task-router`, `html-email-templates`, `repo-docs-builder`, `business-plan-builder`, `project-hub-scaffold` and `news-images`.
+Beyond that there is no test runner. Skill-specific `evals/` (e.g. `recipe-validator/evals/evals.json`) define that skill's test cases — use them when validating that skill. Six Core skills ship them: `recipe-validator`, `task-router`, `html-email-templates`, `repo-docs-builder`, `business-plan-builder` and `news-images` (`project-hub-scaffold`'s went to project-hub with it).
 
 ---
 

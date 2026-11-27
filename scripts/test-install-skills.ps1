@@ -23,6 +23,14 @@
     8. -Ref in a scratch git repo: untracked files never ship, build litter never
        ships even from the working tree, and the marker names the commit.
     9. -All with -AllAgents is rejected.
+   10. Tool skills: one fetched from a local git repo named in a -ToolList installs
+       with a bare run and its marker names that repo and commit; one that can't be
+       fetched makes the run exit non-zero without stopping the others.
+   11. -Status: current, differs (an edited install), missing, and orphan (a marked
+       folder the repo no longer ships), and it changes nothing.
+
+    Every run that isn't about tool skills passes an empty -ToolList, so the test never
+    reaches the network.
 
     Touches nothing outside the temp directory, so it never writes to ~/.claude.
     Exits 1 on the first failed assertion. CI runs it in validate.yml, on Linux and Windows.
@@ -52,10 +60,12 @@ function Get-LeafNames([string] $Root) {
 try {
     New-Item -ItemType Directory -Path $Tmp | Out-Null
     $pwsh = (Get-Process -Id $PID).Path
+    $NoTools = Join-Path $Tmp 'no-tools.json'
+    Set-Content -LiteralPath $NoTools -Value '{ "skills": [] }'
 
     # 1. Every tier, flat layout.
     $all = Join-Path $Tmp 'all'
-    & $Installer -All -Destination $all *> $null
+    & $Installer -All -Destination $all -ToolList $NoTools *> $null
     $expected  = @(Get-LeafNames $SkillsRoot)
     $installed = @(Get-ChildItem -Path $all -Directory | Select-Object -ExpandProperty Name | Sort-Object)
     Assert ($expected.Count -gt 0) "repo has skills to install ($($expected.Count))"
@@ -69,7 +79,7 @@ try {
 
     # 2. A bare run installs Core only.
     $core = Join-Path $Tmp 'core'
-    & $Installer -Destination $core *> $null
+    & $Installer -Destination $core -ToolList $NoTools *> $null
     $coreExpected  = @(Get-LeafNames (Join-Path $SkillsRoot 'core'))
     $coreInstalled = @(Get-ChildItem -Path $core -Directory | Select-Object -ExpandProperty Name | Sort-Object)
     Assert (-not (Compare-Object $coreExpected $coreInstalled)) "a bare run installs exactly the Core tier ($($coreExpected.Count))"
@@ -113,7 +123,7 @@ try {
     $saved = $env:HOME, $env:USERPROFILE
     try {
         $env:HOME = $fakeHome; $env:USERPROFILE = $fakeHome   # $HOME follows HOME on Linux, USERPROFILE on Windows
-        & $pwsh -NoProfile -File $Installer -AllAgents *> $null
+        & $pwsh -NoProfile -File $Installer -AllAgents -ToolList $NoTools *> $null
         Assert ($LASTEXITCODE -eq 0) '-AllAgents exits cleanly'
     } finally { $env:HOME, $env:USERPROFILE = $saved }
     foreach ($d in '.claude/skills', '.agents/skills', '.gemini/config/skills') {
@@ -217,6 +227,52 @@ try {
     $threw = $null
     try { & $Installer -All -AllAgents *> $null } catch { $threw = $_.Exception.Message }
     Assert ($threw -match 'never belongs in user scope') '-All with -AllAgents is rejected'
+
+    # 10. Tool skills from a repo named in the tool list (a local repo here, so no network).
+    if (Get-Command git -ErrorAction SilentlyContinue) {
+        $toolRepo = Join-Path $Tmp 'tool-repo'
+        New-Item -ItemType Directory -Path (Join-Path $toolRepo 'skills/demo-tool/references'), (Join-Path $toolRepo 'src') -Force | Out-Null
+        Set-Content (Join-Path $toolRepo 'skills/demo-tool/SKILL.md') "---`nname: demo-tool`ndescription: Use when testing tool skills.`n---`n"
+        Set-Content (Join-Path $toolRepo 'skills/demo-tool/references/notes.md') 'notes'
+        Set-Content (Join-Path $toolRepo 'src/app.txt') 'not part of the skill'
+        git -C $toolRepo init -q -b main 2>$null
+        git -C $toolRepo add -A 2>$null
+        git -C $toolRepo -c user.name=test -c user.email=test@example.com commit -q -m init 2>$null
+        $toolSha = (git -C $toolRepo rev-parse HEAD).Trim()
+        $toolUrl = ([Uri](Resolve-Path $toolRepo).Path).AbsoluteUri
+        $toolList = Join-Path $Tmp 'tools.json'
+        @{ skills = @(
+            @{ name = 'demo-tool'; repo = 'example/demo-tool'; path = 'skills/demo-tool'; ref = 'main'; url = $toolUrl }
+            @{ name = 'gone-tool'; repo = 'example/gone'; path = 'skills/gone-tool'; ref = 'main'; url = "$toolUrl-missing" }
+        ) } | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath $toolList
+        $toolOut = Join-Path $Tmp 'tools'
+        & $pwsh -NoProfile -Command "& '$Installer' -Skill '$one','demo-tool','gone-tool' -Destination '$toolOut' -ToolList '$toolList'; exit `$LASTEXITCODE" *> $null
+        $code = $LASTEXITCODE
+        Assert (Test-Path (Join-Path $toolOut 'demo-tool/references/notes.md')) 'a tool skill installs from its repo, whole folder'
+        Assert (-not (Test-Path (Join-Path $toolOut 'demo-tool/src'))) 'only the skill folder ships, not the rest of the tool repo'
+        $toolMarker = Get-Content -Raw (Join-Path $toolOut "demo-tool/$Marker")
+        Assert ($toolMarker -match 'source: example/demo-tool' -and $toolMarker -match "commit: $toolSha") "a tool skill's marker names its repo and commit"
+        Assert ((Test-Path (Join-Path $toolOut "$one/SKILL.md")) -and $code -ne 0) 'a tool skill that cannot be fetched fails the run but not the other installs'
+        $dupList = Join-Path $Tmp 'dup-tools.json'
+        @{ skills = @(@{ name = $one; repo = 'example/x'; path = "skills/$one"; ref = 'main' }) } | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath $dupList
+        $threw = $null
+        try { & $Installer -List -ToolList $dupList *> $null } catch { $threw = $_.Exception.Message }
+        Assert ($threw -match 'Duplicate skill name') 'a tool skill named like a repo skill throws'
+    } else { Write-Host 'skip tool-skill case (no git)' }
+
+    # 11. -Status against the Core install from step 2. It must report, never change.
+    $other2 = $coreExpected | Where-Object { $_ -ne $one } | Select-Object -First 1
+    Add-Content (Join-Path $core "$one/SKILL.md") 'edited in place'
+    Remove-Item (Join-Path $core $other2) -Recurse -Force
+    New-Item -ItemType Directory -Path (Join-Path $core 'retired-skill') | Out-Null
+    Set-Content (Join-Path $core "retired-skill/$Marker") 'source: ai-automation-tools/agent-skills'
+    $third = $coreExpected | Where-Object { $_ -notin $one, $other2 } | Select-Object -First 1
+    $statusText = & $Installer -Status -Destination $core -ToolList $NoTools *>&1 | Out-String -Width 400
+    Assert ($statusText -match "$third\s+current") '-Status reports an untouched install as current'
+    Assert ($statusText -match "$one\s+differs") '-Status reports an edited install as differs'
+    Assert ($statusText -match "$other2\s+missing") '-Status reports a missing install'
+    Assert ($statusText -match 'retired-skill\s+orphan') '-Status reports a marked folder the repo no longer ships as an orphan'
+    Assert (-not (Test-Path (Join-Path $core $other2)) -and (Get-Content -Raw (Join-Path $core "$one/SKILL.md")) -match 'edited in place') '-Status changes nothing'
 
     Write-Host 'All installer checks passed.' -ForegroundColor Green
 }
