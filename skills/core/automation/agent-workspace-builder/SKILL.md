@@ -1,6 +1,6 @@
 ---
 name: agent-workspace-builder
-description: Create, adopt, or audit a specialized agent workspace repo, a GitHub repo that gives an AI or CLI agent one field's skills, agents, commands, rules, hooks and docs (security, business, full-stack dev, media, API research, science), and set up the weekly roadmap and upkeep jobs that keep it alive. Lays down the standard layout (AGENTS.md canonical, CLAUDE.md importing it, only README, ROADMAP and CHANGELOG at the docs root, a generated capability reference, a curated RESOURCES.md, portable skills apart from the wired .claude/ ones), CI checks, and generated config for Codex and Antigravity. Use whenever the user wants a new agent workspace or agent repo, wants one brought up to the standard or several standardized, wants a roadmap or upkeep routine for one, wants one taken public by a gated release job, wants it to work under other agent CLIs, or asks why its docs, skills or resources went stale.
+description: Create, adopt, or audit a specialized agent workspace repo, a GitHub repo that gives an AI or CLI agent one field's skills, agents, commands, rules, hooks and docs (security, business, full-stack dev, media, API research, science), and set up the weekly roadmap and upkeep jobs that keep it alive. Lays down the standard layout (AGENTS.md the one agent doc every CLI reads, no CLAUDE.md, only README, ROADMAP and CHANGELOG at the docs root, a generated capability reference, a curated RESOURCES.md, portable skills apart from the wired .claude/ ones), CI checks, and generated config for Codex and Antigravity. Use whenever the user wants a new agent workspace or agent repo, wants one brought up to the standard or several standardized, wants a roadmap or upkeep routine for one, wants one taken public by a gated release job, wants it to work under other agent CLIs, or asks why its docs, skills or resources went stale.
 ---
 
 # Agent workspace builder
@@ -24,7 +24,7 @@ Read this file first, then the reference for the job:
 |:---|:---|
 | What the standard requires, file by file | `references/workspace-standard.md` |
 | The roadmap and upkeep jobs: scope, schedule, hold paths, prompts; the optional release job | `references/automations.md` |
-| Starting files to copy and fill | `assets/`: `AGENTS.md`, `CLAUDE.md`, `SECURITY.md`, `docs-README.md`, `RESOURCES.md`, `env.example`, `ci.yml`, `roadmap-prompt.md`, `upkeep-prompt.md` |
+| Starting files to copy and fill | `assets/`: `AGENTS.md`, `SECURITY.md`, `docs-README.md`, `RESOURCES.md`, `env.example`, `ci.yml`, `roadmap-prompt.md`, `upkeep-prompt.md` |
 | The checks CI runs | `scripts/` (below) |
 
 ## The standard in one screen
@@ -32,8 +32,7 @@ Read this file first, then the reference for the job:
 ```text
 <workspace>/
 ├── README.md              house-style root README (repo-docs-builder)
-├── AGENTS.md              THE doctrine, vendor-neutral; every client reads it
-├── CLAUDE.md              `@AGENTS.md` import + Claude-only notes, nothing copied
+├── AGENTS.md              THE doctrine, vendor-neutral; every client reads it (no CLAUDE.md)
 ├── SECURITY.md            how to report a problem; what the guardrails are
 ├── .env.example           secret NAMES, committed; real values in .env (gitignored)
 ├── .claude/               wired config: skills/ agents/ commands/ rules/ hooks/ settings.json + settings.md
@@ -56,8 +55,9 @@ the shared frame, never the work folders.
 
 ## Principles
 
-1. **One fact, one home.** AGENTS.md is the doctrine; CLAUDE.md imports it with a bare
-   `@AGENTS.md` line (prose like "see AGENTS.md" loads only that sentence). Counts live in
+1. **One fact, one home.** AGENTS.md is the doctrine, and the only agent doc: Claude Code,
+   Codex and Antigravity all read it, so there is no CLAUDE.md to drift from it. Notes that
+   apply to Claude Code alone go in its closing *Claude Code only* section. Counts live in
    the generated `docs/reference/CAPABILITIES.md`, never hand-typed into a README.
 2. **Scripts decide, prompts judge.** Layout rules are an exit code
    (`scripts/check-structure.py`), not a paragraph. Writing, reviewing and choosing
@@ -102,7 +102,7 @@ the shared frame, never the work folders.
 2. **Create the repo** through whatever wrapper the owner uses to create repos and verify
    security settings. A plain `gh repo create` leaves secret scanning and push protection
    to chance. Commit with a noreply identity if it could ever go public.
-3. **Lay down the frame** from `assets/`: `AGENTS.md`, `CLAUDE.md`, `SECURITY.md`,
+3. **Lay down the frame** from `assets/`: `AGENTS.md`, `SECURITY.md`,
    `docs/README.md`, `docs/reference/RESOURCES.md`, `.env.example` (from `env.example`),
    `.github/workflows/ci.yml`, and copy all seven `scripts/` from this skill. Fill every `⟨placeholder⟩`; a left-over one fails review.
 4. **Build the wired config.** Start with 3–6 `.claude/skills/` for the field's core
@@ -137,9 +137,10 @@ the shared frame, never the work folders.
    (`CAPABILITIES.md` → `docs/reference/`, reference docs → `docs/reference/`, guides and
    methodology → their own folder). On Windows a case-only rename (`Docs/` → `docs/`)
    needs two steps: `git mv Docs docs-tmp`, then `git mv docs-tmp docs`.
-4. **Make AGENTS.md canonical.** Move the doctrine out of CLAUDE.md into AGENTS.md
-   verbatim, then reduce CLAUDE.md to the import line plus genuinely Claude-only notes.
-   Don't rewrite the doctrine while moving it; content edits are a separate change.
+4. **Make AGENTS.md the only agent doc.** Move the doctrine out of CLAUDE.md into AGENTS.md
+   verbatim, put genuinely Claude-only notes in AGENTS.md's closing *Claude Code only*
+   section, then delete CLAUDE.md. Don't rewrite the doctrine while moving it; content edits
+   are a separate change.
 5. **Replace the shared scripts** with this skill's copies, point CI at all four checks
    and `gen-vendor-configs.py --check`, and run the generator. A
    workspace with its own capability generator (an API registry, say) keeps it and just
@@ -155,8 +156,8 @@ the shared frame, never the work folders.
 
 ## Procedure: audit
 
-Run the four scripts, then read for what they can't see: doctrine in CLAUDE.md that never
-moved, a RESOURCES.md full of links nobody opened, intel older than a month, a wired skill
+Run the four scripts, then read for what they can't see: Claude-only notes buried in the
+doctrine instead of its closing section, a RESOURCES.md full of links nobody opened, intel older than a month, a wired skill
 whose tool flags have changed, an automation whose prompt names a path that moved, PRs
 from either job sitting unmerged. Report findings ranked by what an agent in the workspace
 would get wrong because of each one.
@@ -168,7 +169,7 @@ Copy all seven into the workspace's `scripts/`. Each is stdlib-only Python 3.11+
 
 | Script | Checks |
 |:---|:---|
-| `scripts/check-structure.py` | Required files, docs-root rule, `@AGENTS.md` import, lowercase `docs/`, RESOURCES.md has a date (warns when stale), and the env rule: `.env` gitignored, `.env.example` tracked with no secret values, every `${VAR}` in `.mcp.json` named in it |
+| `scripts/check-structure.py` | Required files, docs-root rule, no `CLAUDE.md` beside `AGENTS.md`, lowercase `docs/`, RESOURCES.md has a date (warns when stale), and the env rule: `.env` gitignored, `.env.example` tracked with no secret values, every `${VAR}` in `.mcp.json` named in it |
 | `scripts/validate-skills.py` | Every `.claude/skills/` and `skills/` SKILL.md against the Agent Skills spec; command and agent frontmatter |
 | `scripts/gen-capabilities.py` | Writes `docs/reference/CAPABILITIES.md` from `.claude/` and `skills/`; `--check` fails CI when stale |
 | `scripts/check-links.py` | Every relative link in every Markdown file resolves |
@@ -178,8 +179,8 @@ Copy all seven into the workspace's `scripts/`. Each is stdlib-only Python 3.11+
 
 ## Anti-patterns
 
-- **Copying AGENTS.md into CLAUDE.md** "so Claude sees it". The import does that, and the
-  copy drifts by the next week.
+- **Adding a CLAUDE.md** "so Claude sees it". Claude Code reads AGENTS.md directly; a second
+  file, even a one-line import, is one more place for the rules to drift.
 - **A docs root that grows.** Every new doc at `docs/` makes the index longer and the
   three files that matter harder to find. Subfolder it.
 - **RESOURCES.md from memory.** A list of links nobody opened is where dead URLs and

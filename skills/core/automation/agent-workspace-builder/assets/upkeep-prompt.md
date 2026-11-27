@@ -23,7 +23,7 @@ You may write: the intel files and `docs/intel/README.md` + `archive/`; `skills/
 `.claude/skills/`, `agents/`, `commands/`, `rules/`; `docs/reference/RESOURCES.md`;
 `docs/reference/CAPABILITIES.md` (regenerate only); new `- [ ]` items under `### 🔭 Later` in
 `docs/ROADMAP.md`; one `docs/CHANGELOG.md` entry; broken relative links anywhere.
-Never touch AGENTS.md, CLAUDE.md, README.md, code, scripts, tests, `.github/`, existing
+Never touch AGENTS.md, README.md, code, scripts, tests, `.github/`, existing
 roadmap items, or the work folders. Commit each part separately; write messages to a file.
 
 ## 1. Intel

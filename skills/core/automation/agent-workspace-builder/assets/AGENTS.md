@@ -3,7 +3,7 @@
 ⟨One paragraph: what this workspace is for, what it delivers, and what it never does.⟩
 
 Ships from [`⟨owner/repo⟩`](https://github.com/⟨owner/repo⟩). This file is the doctrine for
-every agent CLI; `CLAUDE.md` imports it. Inside a target repo with its own agent docs, that
+every agent CLI, Claude Code included (there is no `CLAUDE.md`). Inside a target repo with its own agent docs, that
 repo's docs win on anything repo-specific.
 
 ## Branch workflow
@@ -95,3 +95,9 @@ with a `Proceeds` date seven days out; ⟨owner⟩ can veto before then):
 **Only these wait for ⟨owner⟩'s answer:** spending money; accounts, keys or credentials;
 making anything public; real-world or outward actions ⟨field-specific: posting, emailing,
 scanning systems⟩; widening what an agent may do.
+
+## Claude Code only
+
+⟨Optional; delete the section if empty. What applies to Claude Code alone: the hooks
+`.claude/settings.json` registers and what they need (PowerShell 7 on PATH, say), and why
+each permission is what it is: [`.claude/settings.md`](.claude/settings.md).⟩

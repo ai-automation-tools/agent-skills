@@ -8,8 +8,8 @@ review. A rule nobody checks is a suggestion, so the checked ones are the ones t
 | File | Contract |
 |:---|:---|
 | `README.md` **[checked]** | House-style root README (the `repo-docs-builder` skill): hero header, what the workspace is for, the failure mode it targets, quick start, a table linking `docs/README.md`, `docs/reference/CAPABILITIES.md`, `docs/reference/RESOURCES.md`, `skills/README.md`, AGENTS.md. No hand-typed counts: link CAPABILITIES instead |
-| `AGENTS.md` **[checked]** | The doctrine. Vendor-neutral: Codex, opencode, Antigravity and others read this file by name. Sections below |
-| `CLAUDE.md` **[checked]** | A bare `@AGENTS.md` line, plus only what applies to Claude Code alone (a note on `.claude/` hooks, say). Over 60 lines warns |
+| `AGENTS.md` **[checked]** | The doctrine, and the only agent doc. Vendor-neutral: Claude Code, Codex, opencode, Antigravity and others read this file by name. Sections below |
+| `CLAUDE.md` **[checked]** | Must not exist. Claude Code reads AGENTS.md directly, so a CLAUDE.md (even a bare `@AGENTS.md` import) is a second copy to drift; its presence fails the check |
 | `SECURITY.md` **[checked]** | Short: how to report a problem privately, what the workspace's guardrails are (deny rules, hooks, scope gates), and that secrets never go in the repo. From `assets/SECURITY.md` |
 | `LICENSE` | When the repo is or may become public. Private workspaces can skip it |
 | `.env.example` **[checked]** | Every secret or setting the workspace reads, one `NAME=` per line with a comment saying what it's for and where to get it. Names only: a `*KEY*`, `*TOKEN*`, `*SECRET*` or `*PASSWORD*` name with a value fails the check, and so does a `${VAR}` in `.mcp.json` that isn't listed. From `assets/env.example` |
@@ -38,15 +38,10 @@ review. A rule nobody checks is a suggestion, so the checked ones are the ones t
     nobody asks again (visibility, what a job may pick as a real target, how third-party
     tools get adopted), plus the five things that always wait for the owner. See
     `automations.md`, *Autonomy*.
-
-### CLAUDE.md shape
-
-```markdown
-<!-- AGENTS.md is the single source of truth. Keep the line below as a bare import:
-     prose like "see AGENTS.md" loads only that sentence. Claude-only notes go under it. -->
-
-@AGENTS.md
-```
+11. **Claude Code only** (optional, last): what applies to Claude Code alone, such as the
+    hooks `.claude/settings.json` registers and what they need (`pwsh` on PATH, say), and a
+    pointer to `.claude/settings.md`. Other CLIs skip it by its heading. Nothing here may
+    restate the doctrine.
 
 ## `.claude/` (wired config)
 
