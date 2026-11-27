@@ -24,6 +24,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## Unreleased
+
+**Added**
+- Roadmap item *(Phase 3)*: install Core as a Claude Code plugin from a `.claude-plugin/marketplace.json` in this repo. Claude Code's marketplace docs cover a skills-only repo (an entry with `"strict": false` and its own `skills` list) and `claude plugin validate`, so Core can reach Mac and Linux users who can't run `install-skills.ps1` (monthly roadmap refresh, 2026-11-27)
+
 ## 2026-11-27
 
 **Moved**
