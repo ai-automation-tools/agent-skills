@@ -246,9 +246,9 @@ try {
             @{ name = 'gone-tool'; repo = 'example/gone'; path = 'skills/gone-tool'; ref = 'main'; url = "$toolUrl-missing" }
         ) } | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath $toolList
         $toolOut = Join-Path $Tmp 'tools'
-        & $pwsh -NoProfile -Command "& '$Installer' -Skill '$one','demo-tool','gone-tool' -Destination '$toolOut' -ToolList '$toolList'; exit `$LASTEXITCODE" *> $null
+        $toolLog = & $pwsh -NoProfile -Command "& '$Installer' -Skill '$one','demo-tool','gone-tool' -Destination '$toolOut' -ToolList '$toolList'; exit `$LASTEXITCODE" *>&1 | Out-String
         $code = $LASTEXITCODE
-        Assert (Test-Path (Join-Path $toolOut 'demo-tool/references/notes.md')) 'a tool skill installs from its repo, whole folder'
+        Assert (Test-Path (Join-Path $toolOut 'demo-tool/references/notes.md')) "a tool skill installs from its repo, whole folder$(if (-not (Test-Path (Join-Path $toolOut 'demo-tool'))) { " (url $toolUrl; installer said:`n$toolLog)" })"
         Assert (-not (Test-Path (Join-Path $toolOut 'demo-tool/src'))) 'only the skill folder ships, not the rest of the tool repo'
         $toolMarker = Get-Content -Raw (Join-Path $toolOut "demo-tool/$Marker")
         Assert ($toolMarker -match 'source: example/demo-tool' -and $toolMarker -match "commit: $toolSha") "a tool skill's marker names its repo and commit"

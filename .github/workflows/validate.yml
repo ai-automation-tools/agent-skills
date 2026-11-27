@@ -62,5 +62,4 @@ jobs:
         with:
           python-version: '3.x'
       - run: pwsh -NoProfile -File scripts/test-install-skills.ps1
-      - run: pwsh -NoProfile -File scripts/test-skill-scripts.ps1
       - run: python scripts/test-skill-scripts.py
