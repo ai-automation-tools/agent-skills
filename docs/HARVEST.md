@@ -33,9 +33,9 @@ It never pushes to `main`. Each run's changes arrive as one `harvest/auto-<date>
 | customer-discovery | business-agent | mirrored | `skills/domain/business/customer-discovery` | `d0a3ca3` | 2026-09-27 | first harvest promotion, new Domain |
 | go-to-market | business-agent | mirrored | `skills/domain/business/go-to-market` | `99b6686` | 2026-11-01 | passes tier test — no workspace layout assumed |
 | pricing-strategy | business-agent | mirrored | `skills/domain/business/pricing-strategy` | `2a71fbd` | 2026-11-08 | passes tier test — no workspace layout assumed |
-| captions-and-accessibility | media-agent | mirrored | `skills/domain/media/captions-and-accessibility` | `5698b35` | 2026-09-27 | first harvest promotion, new Domain |
-| media-rights-and-licensing | media-agent | mirrored | `skills/domain/media/media-rights-and-licensing` | `5698b35` | 2026-10-04 | passes tier test — no workspace layout assumed |
-| post-publish-analytics | media-agent | mirrored | `skills/domain/media/post-publish-analytics` | `5698b35` | 2026-10-11 | passes tier test — no workspace layout assumed |
+| captions-and-accessibility | media-agent | mirrored | `skills/domain/media/captions-and-accessibility` | `7f2448d` | 2026-11-27 | first harvest promotion, new Domain; SHA moved from `5698b35` (media-agent's pre-rewrite history), content unchanged |
+| media-rights-and-licensing | media-agent | mirrored | `skills/domain/media/media-rights-and-licensing` | `db9349e` | 2026-11-27 | passes tier test — no workspace layout assumed; re-synced by hand 2026-11-27 (source +4 lines on watermarks vs licences; mirror matched the old source, not hand-edited) |
+| post-publish-analytics | media-agent | mirrored | `skills/domain/media/post-publish-analytics` | `7f2448d` | 2026-11-27 | passes tier test — no workspace layout assumed; SHA moved from `5698b35` (pre-rewrite history), content unchanged |
 | myth-and-motif-analysis | religion-agent | mirrored | `skills/domain/religion/myth-and-motif-analysis` | `9a4d799` | 2026-11-01 | passes tier test, new Domain |
 | religious-calendars | religion-agent | mirrored | `skills/domain/religion/religious-calendars` | `9a4d799` | 2026-11-01 | passes tier test, new Domain |
 | writing-about-religion | religion-agent | mirrored | `skills/domain/religion/writing-about-religion` | `9a4d799` | 2026-11-01 | passes tier test, new Domain |

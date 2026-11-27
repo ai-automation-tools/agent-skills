@@ -83,6 +83,10 @@ and can do anything with it."
   copyrighted work or a recognizable style, and the tool's terms typically do not
   indemnify you for that. Treat outputs that closely resemble an existing work or a
   named artist's style as a rights flag.
+- **A watermark or content credential shows origin, not a license.** A detector such
+  as ElevenLabs' Content Provenance API can tell you a file came from a given tool;
+  C2PA metadata on generated video makes YouTube label it permanently. Neither says
+  you may publish it. Rights still come from the tool's terms for your plan.
 - **Generated voices and faces** raise the likeness questions below, not just the
   copyright ones.
 
