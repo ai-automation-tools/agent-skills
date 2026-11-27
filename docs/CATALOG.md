@@ -4,7 +4,7 @@ Every `SKILL.md` in every public, non-archived repo of [`ai-automation-tools`](h
 
 **Kinds:** `Core` / `Domain` are this repo's tiers. `portable` = a repo's `skills/` (travels; installable elsewhere). `wired` = `.claude/skills/` (loads only inside that repo; `+ .agents` = also mirrored for Codex and Antigravity). `bundled` = shipped inside app source. **Copies:** `=` the other repo's folder is byte-identical, `≠` it has drifted, `≈` a third-party skill each repo vendors on its own (not drift).
 
-**84 skills** (86 folders) in **9 of 20 repos**. Drifted copies: **0**.
+**86 skills** (88 folders) in **12 of 20 repos**. Drifted copies: **0**.
 
 ## agent-skills (public)
 
@@ -67,16 +67,22 @@ Every `SKILL.md` in every public, non-archived repo of [`ai-automation-tools`](h
 
 | Skill | Kind | Copies | What it does |
 |:---|:---|:---|:---|
-| [**cedar-policy**](https://github.com/ai-automation-tools/ai-security-command-center/tree/main/.claude/skills/cedar-policy) | wired | — | Add, change or debug a Cedar policy in ASCC, together with the schema, registry and fixtures it depends on. |
-| [**fail-closed-review**](https://github.com/ai-automation-tools/ai-security-command-center/tree/main/.claude/skills/fail-closed-review) | wired | — | Check a change in ASCC against its security invariants (default deny, fail closed, no secret at rest, zero network, the audit chain, the kill switch,… |
-| [**hook-feature**](https://github.com/ai-automation-tools/ai-security-command-center/tree/main/.claude/skills/hook-feature) | wired | — | Add or change a parsed command feature in ASCC's Claude Code hook (the context attributes path_in_repo, network, touches_secret_path,… |
-| [**threat-trace**](https://github.com/ai-automation-tools/ai-security-command-center/tree/main/.claude/skills/threat-trace) | wired | — | Tie a change in ASCC to the threat it mitigates, the requirement and ADR behind it and the test that proves it, and record a changed architecture… |
+| [**ascc-cedar-policy**](https://github.com/ai-automation-tools/ai-security-command-center/tree/main/.claude/skills/ascc-cedar-policy) | wired | — | Add, change or debug a Cedar policy in ASCC, together with the schema, registry and fixtures it depends on. |
+| [**ascc-fail-closed-review**](https://github.com/ai-automation-tools/ai-security-command-center/tree/main/.claude/skills/ascc-fail-closed-review) | wired | — | Check a change in ASCC against its security invariants (default deny, fail closed, no secret at rest, zero network, the audit chain, the kill switch,… |
+| [**ascc-hook-feature**](https://github.com/ai-automation-tools/ai-security-command-center/tree/main/.claude/skills/ascc-hook-feature) | wired | — | Add or change a parsed command feature in ASCC's Claude Code hook (the context attributes path_in_repo, network, touches_secret_path,… |
+| [**ascc-threat-trace**](https://github.com/ai-automation-tools/ai-security-command-center/tree/main/.claude/skills/ascc-threat-trace) | wired | — | Tie a change in ASCC to the threat it mitigates, the requirement and ADR behind it and the test that proves it, and record a changed architecture… |
 
 ## bot-arena (public)
 
 | Skill | Kind | Copies | What it does |
 |:---|:---|:---|:---|
 | [**bot-arena**](https://github.com/ai-automation-tools/bot-arena/tree/main/skills/bot-arena) | portable | — | Play chess, Connect Four or tic-tac-toe in a local Bot Arena through its MCP tools (create_match, wait_for_turn, make_move, resign, list_matches,… |
+
+## cloakscan (public)
+
+| Skill | Kind | Copies | What it does |
+|:---|:---|:---|:---|
+| [**cloakscan**](https://github.com/ai-automation-tools/cloakscan/tree/main/skills/cloakscan) | portable | — | Check a web page for text a human can't see but an AI agent reading the page can |
 
 ## cronsole (public)
 
@@ -86,9 +92,14 @@ Every `SKILL.md` in every public, non-archived repo of [`ai-automation-tools`](h
 | [**cronsole-claude-routines**](https://github.com/ai-automation-tools/cronsole/tree/main/skills/cronsole-claude-routines) | portable | — | Design, create and track a Claude Code scheduled task (formerly a cloud routine) |
 | [**cronsole-windows-jobs**](https://github.com/ai-automation-tools/cronsole/tree/main/skills/cronsole-windows-jobs) | portable | — | Design, register and verify a Windows Task Scheduler job by picking one of four proven archetypes |
 | [**source-doctor**](https://github.com/ai-automation-tools/cronsole/tree/main/skills/source-doctor) | portable | — | Run a full test-and-fix session across every Cronsole source (Windows, Cronsole-native, Claude Code, Gemini Triggers, n8n, GitHub Actions, Vercel… |
-| [**api-architect**](https://github.com/ai-automation-tools/cronsole/tree/main/.claude/skills/api-architect) | wired | — | Design RESTful and GraphQL APIs with proper resource modeling, versioning, pagination, error handling, and OpenAPI documentation. |
 | [**release-engineering**](https://github.com/ai-automation-tools/cronsole/tree/main/.claude/skills/release-engineering) | wired | — | Cut a Cronsole release — semantic versioning across four independently-versioned components on three release trains, prefixed tags, the agent wire… |
 | [**connect-pack**](https://github.com/ai-automation-tools/cronsole/tree/main/backend/src/tools/connect-pack) | bundled | — | Create, run, and manage scheduled tasks through a running Cronsole instance |
+
+## diff-carve (public)
+
+| Skill | Kind | Copies | What it does |
+|:---|:---|:---|:---|
+| [**diff-carve**](https://github.com/ai-automation-tools/diff-carve/tree/main/skills/diff-carve) | portable | — | Run DiffCarve, a CLI and GitHub Action that cuts an oversized pull request into a dependency-ordered stack of smaller layers using a static… |
 
 ## edge-radar (public)
 
@@ -108,6 +119,12 @@ Every `SKILL.md` in every public, non-archived repo of [`ai-automation-tools`](h
 | [**edge-spectrum-endpoint**](https://github.com/ai-automation-tools/edge-spectrum/tree/main/skills/edge-spectrum-endpoint) | portable | — | Add, change or debug an Edge Spectrum API endpoint across its two entry points |
 | [**edge-spectrum-hub-tool**](https://github.com/ai-automation-tools/edge-spectrum/tree/main/skills/edge-spectrum-hub-tool) | portable | — | Add, change, retire or debug a tool on the Edge Spectrum hub |
 | [**edge-spectrum-registry**](https://github.com/ai-automation-tools/edge-spectrum/tree/main/skills/edge-spectrum-registry) | portable | — | Add, change or debug Edge Spectrum's Cronsole templates and the line-archive scripts they run |
+
+## ghost-grant (public)
+
+| Skill | Kind | Copies | What it does |
+|:---|:---|:---|:---|
+| [**ghost-grant**](https://github.com/ai-automation-tools/ghost-grant/tree/main/skills/ghost-grant) | portable | — | Verify that the credentials a retired AI agent held have actually stopped working, and keep verifying. |
 
 ## project-hub (public)
 
@@ -129,11 +146,11 @@ Every `SKILL.md` in every public, non-archived repo of [`ai-automation-tools`](h
 | [**humanizer**](https://github.com/ai-automation-tools/roundtable/tree/main/skills/humanizer) | portable | ≈ `ai-automation-recipes` | Remove signs of AI-generated writing from text. |
 | [**podcast-mode**](https://github.com/ai-automation-tools/roundtable/tree/main/skills/podcast-mode) | portable | — | Use when joining a conversation whose kickoff reports conversation_type "podcast" |
 | [**start-debate**](https://github.com/ai-automation-tools/roundtable/tree/main/skills/start-debate) | portable | — | Use when the operator asks you to KICK OFF / launch / start / run a new multi-agent debate (as opposed to participating in one). |
-| [**agent-chat-add-cli**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/agent-chat-add-cli) | wired | — | Add support for a new CLI agent (Claude Code / Codex / OpenCode style) to Roundtable from a pasted repo URL. |
-| [**agent-chat-conv-types**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/agent-chat-conv-types) | wired | — | Add or change a conversation format in the Roundtable repo |
-| [**agent-chat-delivery**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/agent-chat-delivery) | wired | — | Work on Roundtable's push half |
-| [**agent-chat-export-contract**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/agent-chat-export-contract) | wired | — | Use before changing anything about the Roundtable export bundle |
-| [**agent-chat-run-triage**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/agent-chat-run-triage) | wired | — | Diagnose a live Roundtable conversation that is stuck, silent, ending early, or behaving wrong |
-| [**agent-chat-schema**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/agent-chat-schema) | wired | — | Use when changing the Roundtable SQLite schema |
-| [**agent-chat-web-ui**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/agent-chat-web-ui) | wired | — | Use when editing the Roundtable web UI |
+| [**roundtable-add-cli**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/roundtable-add-cli) | wired | — | Add support for a new CLI agent (Claude Code / Codex / OpenCode style) to Roundtable from a pasted repo URL. |
+| [**roundtable-conv-types**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/roundtable-conv-types) | wired | — | Add or change a conversation format in the Roundtable repo |
+| [**roundtable-delivery**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/roundtable-delivery) | wired | — | Work on Roundtable's push half |
+| [**roundtable-export-contract**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/roundtable-export-contract) | wired | — | Use before changing anything about the Roundtable export bundle |
+| [**roundtable-run-triage**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/roundtable-run-triage) | wired | — | Diagnose a live Roundtable conversation that is stuck, silent, ending early, or behaving wrong |
+| [**roundtable-schema**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/roundtable-schema) | wired | — | Use when changing the Roundtable SQLite schema |
+| [**roundtable-web-ui**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/roundtable-web-ui) | wired | — | Use when editing the Roundtable web UI |
 
