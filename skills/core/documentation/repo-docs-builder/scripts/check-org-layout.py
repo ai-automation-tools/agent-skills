@@ -33,7 +33,6 @@ REQUIRED = ("README.md", "AGENTS.md", "docs/README.md", "docs/ROADMAP.md", "docs
 NEVER_AT_ROOT = {"artifacts", "logs", "temp", "output", "dist", "_site", ".next", "versions", "zip", ".archive"}
 NEVER_ANYWHERE = {".venv", "venv"}
 MCP_HINT = re.compile(r"(^|/)mcp-server/|(^|/)mcp/server\.[jt]s$|_mcp\.py$|(^|/)main/mcp\.js$")
-IMPORT_RE = re.compile(r"^@AGENTS\.md\s*$", re.MULTILINE)
 ASSIGN_RE = re.compile(r"^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=", re.MULTILINE)
 
 
@@ -59,8 +58,8 @@ def check_files(name: str, files: list[str], read=lambda rel: "") -> list[str]:
     for rel in REQUIRED:
         if rel not in present:
             issues.append(f"missing {rel}")
-    if "AGENTS.md" in present and "CLAUDE.md" in present and not IMPORT_RE.search(read("CLAUDE.md")):
-        issues.append("CLAUDE.md does not import AGENTS.md (a bare `@AGENTS.md` line)")
+    if "CLAUDE.md" in present:
+        issues.append("CLAUDE.md present: Claude Code reads AGENTS.md; fold Claude-only notes into AGENTS.md and delete it")
 
     dirs: set[str] = set()
     for f in files:
@@ -127,7 +126,7 @@ def find_repos(root: Path) -> list[Path]:
 
 
 def self_check() -> int:
-    good = ["README.md", "AGENTS.md", "CLAUDE.md", "docs/README.md", "docs/ROADMAP.md",
+    good = ["README.md", "AGENTS.md", "docs/README.md", "docs/ROADMAP.md",
             "docs/CHANGELOG.md", "docs/diagrams/a.svg", "src/app.py", "tests/test_app.py",
             ".env.example", ".github/workflows/ci.yml", "src/server/__tests__/x.test.ts"]
     assert check_files("app", good, lambda rel: "@AGENTS.md\n") == [], check_files("app", good, lambda r: "@AGENTS.md\n")
@@ -142,8 +141,7 @@ def self_check() -> int:
                  "not lowercase-kebab: docs/Guides/", "`test/` should be `tests/`", "tracked env file: .env",
                  "should be ignored: artifacts/", "tracked virtualenv: venv/", "docs/prompts/", "docs/mcp-server.md"):
         assert want in found, f"self-check expected {want!r} in:\n{found}"
-    assert check_files("app", ["README.md", "AGENTS.md", "CLAUDE.md"], lambda r: "copied text")[-1].startswith("CLAUDE.md does not import")
-    assert check_files("app", [f for f in good if f != "CLAUDE.md"]) == []  # CLAUDE.md is optional
+    assert any(x.startswith("CLAUDE.md present") for x in check_files("app", good + ["CLAUDE.md"], lambda r: "@AGENTS.md\n"))
     mcp = good + ["docs/mcp-server.md"]
     assert check_files("app", mcp, lambda r: "@AGENTS.md\n")[-1] == "root README.md does not link docs/mcp-server.md"
     assert check_files("app", mcp, lambda r: "@AGENTS.md\n[MCP setup](docs/mcp-server.md)") == []

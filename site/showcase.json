@@ -117,7 +117,7 @@
       "alt": "An agent workspace repo laid out to the standard",
       "tagline": "A repo an agent opens to do one field's work, and two weekly jobs that keep it current.",
       "features": [
-        "<code>AGENTS.md</code> is the doctrine; <code>CLAUDE.md</code> imports it",
+        "<code>AGENTS.md</code> is the only agent doc; no <code>CLAUDE.md</code>",
         "Only README, ROADMAP and CHANGELOG at the <code>docs/</code> root",
         "A generated capability reference and a verified, dated resources list",
         "Four stdlib checks that turn the layout into a CI exit code",

@@ -2,7 +2,7 @@
 """Check an agent workspace repo against the workspace standard.
 
 The standard is a handful of yes/no facts: these files exist, docs/ holds only its
-three root documents, CLAUDE.md imports AGENTS.md instead of copying it. A prompt
+three root documents, AGENTS.md is the one agent doc (no CLAUDE.md). A prompt
 that says "keep the layout" is a request; this is the exit code that enforces it.
 
     python scripts/check-structure.py              # check the repo this script sits in
@@ -22,7 +22,6 @@ from pathlib import Path
 REQUIRED_FILES = (
     "README.md",
     "AGENTS.md",
-    "CLAUDE.md",
     "SECURITY.md",
     "docs/README.md",
     "docs/ROADMAP.md",
@@ -41,7 +40,6 @@ REQUIRED_FILES = (
 )
 # The only files allowed directly in docs/. Everything else lives in a subfolder.
 DOCS_ROOT_FILES = {"README.md", "ROADMAP.md", "CHANGELOG.md"}
-IMPORT_RE = re.compile(r"^@AGENTS\.md\s*$", re.MULTILINE)
 UPDATED_RE = re.compile(r"Last updated:\s*(\d{4}-\d{2}-\d{2})")
 STALE_DAYS = 21
 MCP_VAR_RE = re.compile(r"\$\{([A-Za-z_][A-Za-z0-9_]*)\}")
@@ -73,16 +71,13 @@ def check(root: Path, today: date | None = None) -> tuple[list[str], list[str]]:
                     "CHANGELOG belong there; move it into a docs/ subfolder"
                 )
 
-    claude = root / "CLAUDE.md"
-    if claude.is_file():
-        text = claude.read_text(encoding="utf-8", errors="replace")
-        if not IMPORT_RE.search(text):
-            errors.append("CLAUDE.md has no bare '@AGENTS.md' import line")
-        if len(text.splitlines()) > 60:
-            warnings.append(
-                "CLAUDE.md is over 60 lines -- doctrine belongs in AGENTS.md, "
-                "CLAUDE.md holds the import plus Claude-only notes"
-            )
+    # Claude Code, Codex and Antigravity all read AGENTS.md, so a CLAUDE.md is a second
+    # copy waiting to drift. Claude-only notes go in AGENTS.md's "Claude Code only" section.
+    if (root / "CLAUDE.md").is_file():
+        errors.append(
+            "CLAUDE.md exists -- Claude Code reads AGENTS.md directly; move any Claude-only "
+            "notes into AGENTS.md's 'Claude Code only' section and delete CLAUDE.md"
+        )
 
     resources = root / "docs/reference/RESOURCES.md"
     if resources.is_file():
@@ -139,7 +134,6 @@ def self_check() -> int:
         for rel in REQUIRED_FILES:
             (root / rel).parent.mkdir(parents=True, exist_ok=True)
             (root / rel).write_text("x\n", encoding="utf-8")
-        (root / "CLAUDE.md").write_text("<!-- note -->\n\n@AGENTS.md\n", encoding="utf-8")
         (root / ".gitignore").write_text(".env\n.env.*\n!.env.example\n", encoding="utf-8")
         (root / ".env.example").write_text(
             "# names only\nNCBI_API_KEY=\nCONTACT_EMAIL=me@example.org\n", encoding="utf-8"
@@ -157,13 +151,13 @@ def self_check() -> int:
         e, w = check(root, today=date(2026, 12, 1))
         assert e == [] and len(w) == 1, (e, w)
 
-        # a stray doc at the docs root, prose instead of an import, a missing file
+        # a stray doc at the docs root, a CLAUDE.md beside AGENTS.md, a missing file
         (root / "docs/CAPABILITIES.md").write_text("x\n", encoding="utf-8")
-        (root / "CLAUDE.md").write_text("Read AGENTS.md first.\n", encoding="utf-8")
+        (root / "CLAUDE.md").write_text("@AGENTS.md\n", encoding="utf-8")
         (root / "SECURITY.md").unlink()
         e, _ = check(root, today=date(2026, 10, 10))
         assert any("docs/CAPABILITIES.md" in x for x in e), e
-        assert any("@AGENTS.md" in x for x in e), e
+        assert any("CLAUDE.md exists" in x for x in e), e
         assert "missing SECURITY.md" in e, e
         assert len(e) == 3, e
 

@@ -26,6 +26,9 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 
 ## Unreleased
 
+**Changed**
+- `agent-workspace-builder` and `repo-docs-builder`: the standard drops `CLAUDE.md`. Claude Code reads `AGENTS.md` directly, so a workspace keeps one agent doc and puts Claude-only notes in a closing *Claude Code only* section. `check-structure.py` now fails on a `CLAUDE.md` (it used to require one), `check-org-layout.py` flags one, `assets/CLAUDE.md` is gone, and the SKILL, standard reference, AGENTS.md template, upkeep prompt and showcase say so. The six org agent workspaces carry the new script in the same change.
+
 **Added**
 - Roadmap item *(Phase 3)*: install Core as a Claude Code plugin from a `.claude-plugin/marketplace.json` in this repo. Claude Code's marketplace docs cover a skills-only repo (an entry with `"strict": false` and its own `skills` list) and `claude plugin validate`, so Core can reach Mac and Linux users who can't run `install-skills.ps1` (monthly roadmap refresh, 2026-11-27)
 

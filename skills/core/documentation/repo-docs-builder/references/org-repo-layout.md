@@ -12,7 +12,7 @@ and the per-repo migration list: `Custom-Domains/Public-ai-automation-tools.dev/
   GitHub when the folder is committed as `Docs/`. Rename with two moves
   (`git mv Docs docs-tmp && git mv docs-tmp docs`), never one.
 - Exempt: names a tool requires (`.github/`, `.claude/`, `.vscode/`, `__tests__/`, `node_modules/`).
-- Root and `docs/` control files are UPPERCASE: `README.md`, `AGENTS.md`, `CLAUDE.md`, `LICENSE`,
+- Root and `docs/` control files are UPPERCASE: `README.md`, `AGENTS.md`, `LICENSE`,
   `SECURITY.md`, `CONTRIBUTING.md`, `docs/ROADMAP.md`, `docs/CHANGELOG.md`, `docs/UPSTREAMS.md`.
   Every other doc is `lowercase-kebab.md`.
 
@@ -20,7 +20,7 @@ and the per-repo migration list: `Custom-Domains/Public-ai-automation-tools.dev/
 
 | Content | Path | Rule |
 |:---|:---|:---|
-| Agent instructions | `AGENTS.md` (+ optional `CLAUDE.md`) | `AGENTS.md` is canonical (Claude Code, Codex, opencode, Antigravity read it). A `CLAUDE.md` is optional; if a repo keeps one, it is a bare `@AGENTS.md` plus Claude-only notes |
+| Agent instructions | `AGENTS.md` | The only agent doc: Claude Code, Codex, opencode and Antigravity all read it. No `CLAUDE.md`; notes that apply to Claude Code alone go in a closing *Claude Code only* section |
 | Docs | `docs/` | `README.md` hub, `ROADMAP.md`, `CHANGELOG.md`; `UPSTREAMS.md` once live. Subfolders from this list before inventing one: `setup/`, `guides/`, `architecture/`, `decisions/` (ADRs), `product/`, `diagrams/`, `reports/`, `testing/` |
 | Diagrams | `docs/diagrams/` | Source (`.mmd`, `.json`, `.dot`) next to its render (`.svg`, `.png`, `.html`). A script that builds them lives in `scripts/` |
 | App / library code | `src/` | A split stack uses `backend/src/` + `frontend/src/` instead |
@@ -60,7 +60,7 @@ python scripts/check-org-layout.py --repo <one repo>
 ```
 
 It checks: the required files (`README.md`, `AGENTS.md`, `docs/README.md`,
-`docs/ROADMAP.md`, `docs/CHANGELOG.md`), that a `CLAUDE.md`, where one exists, imports `AGENTS.md`, lowercase-kebab
+`docs/ROADMAP.md`, `docs/CHANGELOG.md`), that no `CLAUDE.md` sits beside `AGENTS.md`, lowercase-kebab
 spelling for root folders and everything under `docs/`, `test/`, the never-committed folders, tracked
 `.env*` files, `docs/prompts/` and `docs/images/`, and `docs/mcp-server.md` wherever an MCP server is
 found, linked from the root `README.md`. Publish-target repos only need `README.md`. A `.env*.example` file, and a Vite mode file whose
