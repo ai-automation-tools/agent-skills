@@ -2,9 +2,9 @@
 
 Every `SKILL.md` in every public, non-archived repo of [`ai-automation-tools`](https://github.com/ai-automation-tools), generated 2026-11-27 by [`scripts/scan-org-skills.py`](../scripts/scan-org-skills.py). Don't edit by hand: rerun it.
 
-**Kinds:** `Core` / `Domain` are this repo's tiers. `portable` = a repo's `skills/` (travels; installable elsewhere). `wired` = `.claude/skills/` (loads only inside that repo; `+ .agents` = also mirrored for Codex and Antigravity). `bundled` = shipped inside app source. **Copies:** `=` the other repo's folder is byte-identical, `≠` it has drifted.
+**Kinds:** `Core` / `Domain` are this repo's tiers. `portable` = a repo's `skills/` (travels; installable elsewhere). `wired` = `.claude/skills/` (loads only inside that repo; `+ .agents` = also mirrored for Codex and Antigravity). `bundled` = shipped inside app source. **Copies:** `=` the other repo's folder is byte-identical, `≠` it has drifted, `≈` a third-party skill each repo vendors on its own (not drift).
 
-**84 skills** (87 folders) in **9 of 19 repos**. Drifted copies: **2** (`humanizer`, `recipe-validator`).
+**84 skills** (86 folders) in **9 of 20 repos**. Drifted copies: **0**.
 
 ## agent-skills (public)
 
@@ -15,14 +15,13 @@ Every `SKILL.md` in every public, non-archived repo of [`ai-automation-tools`](h
 | [**html-email-templates**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/core/automation/html-email-templates) | Core | — | Three reusable HTML email templates for automated systems, built to survive the email clients that strip your CSS |
 | [**task-router**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/core/automation/task-router) | Core | — | Decide how much machinery a request deserves before starting it |
 | [**business-plan-builder**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/core/business/business-plan-builder) | Core | — | Take a business idea — a one-line hunch, a napkin pitch, or a finished proposal — and run the whole business-analysis pipeline over it, writing the… |
-| [**recipe-validator**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/core/cooking/recipe-validator) | Core | ≠ `ai-automation-recipes` | Validate food recipes for quality and safety. |
+| [**recipe-validator**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/core/cooking/recipe-validator) | Core | = `ai-automation-recipes` | Validate food recipes for quality and safety. |
 | [**repo-docs-builder**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/core/documentation/repo-docs-builder) | Core | — | Build or restructure an entire git repo, project folder, doc library, or Obsidian vault so it is professional and navigable top to bottom |
 | [**debugging-methodology**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/core/engineering/debugging-methodology) | Core | — | Debug systematically instead of by guessing |
 | [**full-stack-feature**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/core/engineering/full-stack-feature) | Core | — | Use when delivering a feature that crosses layers |
 | [**performance-optimization**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/core/engineering/performance-optimization) | Core | — | Make a slow app faster without guessing where the time goes |
 | [**testing-strategy**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/core/engineering/testing-strategy) | Core | — | Decide what to test and at which level so the suite catches real regressions without becoming slow and brittle |
 | [**news-images**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/core/image-gen/news-images) | Core | — | Generate cartoon-editorial news imagery |
-| [**project-hub-scaffold**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/core/web/project-hub-scaffold) | Core | = `project-hub` | Stand up a browsable HTML console over a folder of project documents |
 | [**web-house-style**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/core/web/web-house-style) | Core | — | For ai-automation-tools org pages, or pages meant to match them |
 | [**api-client-resilience**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/domain/api/api-client-resilience) | Domain | — | Write HTTP clients for third-party APIs that fail predictably instead of hanging |
 | [**api-integration-testing**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/domain/api/api-integration-testing) | Domain | — | Test code that calls third-party APIs without hammering live services or writing tests that pass against a fantasy |
@@ -53,11 +52,11 @@ Every `SKILL.md` in every public, non-archived repo of [`ai-automation-tools`](h
 | [**creative-writing-craft**](https://github.com/ai-automation-tools/ai-automation-recipes/tree/main/.claude/skills/creative-writing-craft) | wired | — | Craft references for writing fiction well |
 | [**creative-writing-modes**](https://github.com/ai-automation-tools/ai-automation-recipes/tree/main/.claude/skills/creative-writing-modes) | wired | — | Creative-writing addendum to /llm-writing. |
 | [**game-design**](https://github.com/ai-automation-tools/ai-automation-recipes/tree/main/.claude/skills/game-design) | wired | — | Design the game itself — the core loop, the moment-to-moment verbs, how difficulty and reward ramp over a session, and how to pitch it in a brief. |
-| [**humanizer**](https://github.com/ai-automation-tools/ai-automation-recipes/tree/main/.claude/skills/humanizer) | wired | ≠ `roundtable` | Remove signs of AI-generated writing from text. |
+| [**humanizer**](https://github.com/ai-automation-tools/ai-automation-recipes/tree/main/.claude/skills/humanizer) | wired | ≈ `roundtable` | Remove signs of AI-generated writing from text. |
 | [**image-prompt-craft**](https://github.com/ai-automation-tools/ai-automation-recipes/tree/main/.claude/skills/image-prompt-craft) | wired | — | Write image-generation prompts that produce the picture you actually asked for. |
 | [**llm-writing**](https://github.com/ai-automation-tools/ai-automation-recipes/tree/main/.claude/skills/llm-writing) | wired | — | Load before writing or revising human-facing text. |
 | [**reader-sim**](https://github.com/ai-automation-tools/ai-automation-recipes/tree/main/.claude/skills/reader-sim) | wired | — | Read as a specified first-time reader persona and report the felt experience. |
-| [**recipe-validator**](https://github.com/ai-automation-tools/ai-automation-recipes/tree/main/.claude/skills/recipe-validator) | wired | ≠ `agent-skills` | Validate food recipes for quality and safety. |
+| [**recipe-validator**](https://github.com/ai-automation-tools/ai-automation-recipes/tree/main/.claude/skills/recipe-validator) | wired | = `agent-skills` | Validate food recipes for quality and safety. |
 | [**single-file-game-dev**](https://github.com/ai-automation-tools/ai-automation-recipes/tree/main/.claude/skills/single-file-game-dev) | wired | — | Build a playable game as ONE self-contained `index.html` |
 | [**songwriting-craft**](https://github.com/ai-automation-tools/ai-automation-recipes/tree/main/.claude/skills/songwriting-craft) | wired | — | Lyric craft for AI-generated songs |
 | [**story-planning**](https://github.com/ai-automation-tools/ai-automation-recipes/tree/main/.claude/skills/story-planning) | wired | — | Planning work before prose |
@@ -114,7 +113,7 @@ Every `SKILL.md` in every public, non-archived repo of [`ai-automation-tools`](h
 
 | Skill | Kind | Copies | What it does |
 |:---|:---|:---|:---|
-| [**project-hub-scaffold**](https://github.com/ai-automation-tools/project-hub/tree/main/skills/project-hub-scaffold) | portable | = `agent-skills` | Stand up a browsable HTML console over a folder of project documents |
+| [**project-hub-scaffold**](https://github.com/ai-automation-tools/project-hub/tree/main/skills/project-hub-scaffold) | portable | — | Stand up a browsable HTML console over a folder of project documents |
 | [**project-hub-client**](https://github.com/ai-automation-tools/project-hub/tree/main/.claude/skills/project-hub-client) | wired | — | Work on Project Hub's interface |
 | [**project-hub-demo**](https://github.com/ai-automation-tools/project-hub/tree/main/.claude/skills/project-hub-demo) | wired | — | Work on Project Hub's hosted demo at project-hub-demo.ai-automation-tools.dev |
 | [**project-hub-scan**](https://github.com/ai-automation-tools/project-hub/tree/main/.claude/skills/project-hub-scan) | wired | — | Change what Project Hub's scanner walks, indexes or serves |
@@ -127,7 +126,7 @@ Every `SKILL.md` in every public, non-archived repo of [`ai-automation-tools`](h
 | [**battleground**](https://github.com/ai-automation-tools/roundtable/tree/main/skills/battleground) | portable | — | Use when the operator asks you to argue in AgentBattleground |
 | [**collaborate-mode**](https://github.com/ai-automation-tools/roundtable/tree/main/skills/collaborate-mode) | portable | — | Use when joining a conversation whose kickoff reports conversation_type "collaborate" |
 | [**debate-mode**](https://github.com/ai-automation-tools/roundtable/tree/main/skills/debate-mode) | portable | — | Use when joining a conversation framed as a debate, being asked to argue a position or defend a stance, being assigned a side, or when the kickoff… |
-| [**humanizer**](https://github.com/ai-automation-tools/roundtable/tree/main/skills/humanizer) | portable | ≠ `ai-automation-recipes` | Remove signs of AI-generated writing from text. |
+| [**humanizer**](https://github.com/ai-automation-tools/roundtable/tree/main/skills/humanizer) | portable | ≈ `ai-automation-recipes` | Remove signs of AI-generated writing from text. |
 | [**podcast-mode**](https://github.com/ai-automation-tools/roundtable/tree/main/skills/podcast-mode) | portable | — | Use when joining a conversation whose kickoff reports conversation_type "podcast" |
 | [**start-debate**](https://github.com/ai-automation-tools/roundtable/tree/main/skills/start-debate) | portable | — | Use when the operator asks you to KICK OFF / launch / start / run a new multi-agent debate (as opposed to participating in one). |
 | [**agent-chat-add-cli**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/agent-chat-add-cli) | wired | — | Add support for a new CLI agent (Claude Code / Codex / OpenCode style) to Roundtable from a pasted repo URL. |
