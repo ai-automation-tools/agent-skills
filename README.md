@@ -40,6 +40,7 @@ A collection of reusable skills for Claude Code and compatible AI agents. Each s
 | [**🧩 Core**](./skills/core/README.md) | Reusable skills that work across repositories and install into your agent's user-level skills directory. |
 | [**🧭 Domain**](./skills/domain/README.md) | Field-specific skills (security, business, media, API, science, religion) mirrored from the org's agent workspaces. Portable, installed on request. |
 | [**🗂️ Projects**](./skills/projects/README.md) | Additional skills for specific repositories, installed into the project they belong to. |
+| [**📇 Org catalog**](./docs/CATALOG.md) | Every skill in every public org repo, not only this one, with where it lives and which copies have drifted. Generated weekly. |
 | [**🖥️ Showcase site**](./site/README.md) | A static page that presents every Core skill as a card, with screenshots and install commands. Published at [agent-skills.ai-automation-tools.dev](https://agent-skills.ai-automation-tools.dev). |
 
 ## 📦 Core skills

@@ -23,3 +23,10 @@ jobs:
       - run: python scripts/check-copies.py
         env:
           GH_TOKEN: ${{ github.token }}
+      # Every same-named skill folder across the org's public repos, not only the copies listed
+      # in copies.json. Fails when two copies differ (install markers ignored). The catalog it
+      # writes is thrown away here; it's committed when the scan runs locally.
+      - if: always()
+        run: python scripts/scan-org-skills.py --check
+        env:
+          GH_TOKEN: ${{ github.token }}
