@@ -24,6 +24,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 `business-plan-builder`, `email-template-mfs` → `html-email-templates`,
 `project-hub-scaffold-mfs` → `project-hub-scaffold`.
 
+## 2026-11-26
+
+**Added**
+- Evals for `agent-workspace-builder`, `automated-dev-pipeline` and `web-house-style`, six cases each in the `recipe-validator` format. Each set includes a request the skill must push back on: an upkeep job that installs tools, a session that flips a repo public, a page told to follow the OS theme; `web-house-style` also has a bakery page it must leave alone. Ten Core skills now ship evals. *Phase 3*
+
 ## 2026-11-23
 
 **Fixed**

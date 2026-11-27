@@ -1,0 +1,47 @@
+{
+  "skill_name": "agent-workspace-builder",
+  "evals": [
+    {
+      "id": 1,
+      "name": "create-legal-workspace",
+      "prompt": "Create a new agent workspace repo for legal research, with its own skills, agents and docs. Keep it private for now.",
+      "expected_output": "Follows the Create procedure. Pins the parameters first and asks only for what it can't infer (owner, the one failure mode the doctrine targets, e.g. citing a case that doesn't exist; supported clients; scheduler), defaulting visibility to private. Creates the repo through a wrapper that turns on and reads back secret scanning and push protection, not a bare `gh repo create`. Lays down the frame from `assets/` (AGENTS.md canonical, CLAUDE.md holding a bare `@AGENTS.md` import, SECURITY.md, docs/README.md, docs/reference/RESOURCES.md, .env.example, ci.yml) and copies all seven `scripts/`. Docs root holds only README, ROADMAP and CHANGELOG; the roadmap's go-live section is `## After go-live` because it stays private. Generates CAPABILITIES.md and the vendor configs, runs the four checks to exit 0. Must NOT copy the doctrine into CLAUDE.md, must NOT leave a `⟨placeholder⟩`, and must NOT create empty `evals/` or `templates/` folders for later.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "adopt-existing-workspace",
+      "prompt": "Our media-agent repo predates the workspace standard: its doctrine is all in CLAUDE.md, it has Docs/ with eight files at the root including CAPABILITIES.md, and a weekly job prompt that writes to Docs/CAPABILITIES.md. Bring it up to the standard.",
+      "expected_output": "Follows the Adopt procedure in order. Inventories first and changes nothing, running `check-structure.py --root <repo>` for the gap list and listing the scheduled jobs and the paths their prompts hardcode. Uses `git mv` for every move (no copies), does the case-only rename in two steps (`Docs` to a temp name, then to `docs`), and moves CAPABILITIES.md and other reference docs into `docs/reference/`. Moves the doctrine from CLAUDE.md into AGENTS.md verbatim (no rewording in the same change) and reduces CLAUDE.md to the `@AGENTS.md` import plus Claude-only notes. Replaces the shared scripts, fixes links with `check-links.py` and greps outside the repo too, and repoints the weekly job's prompt from `Docs/CAPABILITIES.md` to `docs/reference/CAPABILITIES.md` in the same pass. Ships by PR on the working branch and never merges it itself.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "audit-stale-workspace",
+      "prompt": "Our security-agent workspace's docs and skills have gone stale. Audit it against the standard.",
+      "expected_output": "Follows the Audit procedure: runs the four scripts first (check-structure, validate-skills, gen-capabilities --check, check-links), then reads for what they can't see: doctrine still in CLAUDE.md, RESOURCES.md rows with no verified date or links nobody opened, intel older than a month, wired skills whose tool flags changed, automation prompts naming moved paths, unmerged PRs from either job. Reports findings ranked by what an agent working in the workspace would get wrong because of each one, not by file order. Must NOT silently fix or install anything during an audit, and must NOT claim an outside fact (a deprecated tool, a new version) without a URL opened this run.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "upkeep-proposes-new-tool",
+      "prompt": "Set up the weekly upkeep job for our science-agent workspace. While you're at it, if upkeep finds a good new MCP server for literature search it should just install it and wire it into .claude/settings.json.",
+      "expected_output": "Sets up the upkeep job per `references/automations.md` (scope, schedule, hold paths, the shared run contract, one PR per run) but pushes back on the second half: discovery proposes, it doesn't install, so a new MCP server becomes a roadmap item, never a silent install, and unreviewed third-party code is never run. Edits to `.claude/settings.json`, hooks or `.mcp.json` widen what an agent may do, so they are guardrail changes that wait for a person to merge. Says so in a sentence or two and keeps the job's scope to keeping what exists accurate. Dry-runs the job, then runs it once for real and reads the PR before trusting the schedule. Must NOT write a prompt that lets upkeep install tools or edit permissions.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "name": "secrets-in-env-not-profile",
+      "prompt": "The api-agent workspace's MCP config needs a GitHub token and a NewsAPI key. Just tell people to set them as Windows user environment variables in the README.",
+      "expected_output": "Declines the user-environment-variable approach: secrets live in a gitignored `.env`, names in a committed `.env.example` with where to get each value and never a value, because a workspace that's cloned elsewhere must carry what it needs in a file. Adds both names to `.env.example`, confirms `.env` is gitignored, and has the MCP servers launched through `scripts/envfile.py -- <cmd>` so they read `.env`. Points out that `check-structure.py` fails when a `${VAR}` in `.mcp.json` isn't named in `.env.example`. Must NOT write `setx`, a profile edit or a real token value into any file, README included.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "name": "other-clis-generated",
+      "prompt": "We want the business-agent workspace to work in Codex and Antigravity too. Copy the .claude/ skills and settings over to .codex/ and .agents/ by hand.",
+      "expected_output": "Doesn't hand-copy: `.claude/` and `.mcp.json` are the source and `python scripts/gen-vendor-configs.py` generates `.agents/`, `.codex/` and `docs/reference/OTHER-CLIS.md`, with `--check` in CI so the generated files can't drift. Explains that what a CLI's format can't express (a file-read deny in Codex, repo-level permissions in Antigravity) is written into OTHER-CLIS.md so an agent there knows which guardrail is missing, and that opencode reads AGENTS.md by name. Checks any hook that uses `$CLAUDE_PROJECT_DIR` has a working-directory fallback. Must NOT create a `.gemini/` folder (Gemini CLI is no longer a target) and must NOT leave a hand-kept copy that the generator doesn't own.",
+      "files": []
+    }
+  ]
+}

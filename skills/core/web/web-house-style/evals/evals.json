@@ -1,0 +1,47 @@
+{
+  "skill_name": "web-house-style",
+  "evals": [
+    {
+      "id": 1,
+      "name": "new-landing-page",
+      "prompt": "Build a landing page for our new tool, Tidepool, that matches the look of our other ai-automation-tools sites. Its repo is public.",
+      "expected_output": "Picks `assets/page.html` (one scrolling page of sections is a top-bar site, no sidebar) and starts from it. The page has the 34px source bar as the first element in `<body>` linking the public repo, the sticky blurred top bar with the Light | Dark segmented switch as its last control, a pre-paint script in `<head>` before any stylesheet that reads `localStorage['tidepool.theme']` in a `try` and defaults to dark regardless of `prefers-color-scheme`. Picks one accent not already used by another site (per the design system's accent notes) and derives tints with `color-mix()`, using the 700 shade in light mode. Self-hosts Inter and JetBrains Mono from `assets/fonts/` with `@font-face`; no Google Fonts. Every colour is a token. Does the phone pass at 390px and runs the Verify checklist. Must NOT add Tailwind, a framework or a bundler, or a second repo link beside the source bar.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "add-theme-switch-and-phone",
+      "prompt": "Add a Light | Dark switch and a phone layout to this dashboard page, like our other apps. It has four sections a user moves between all session.",
+      "expected_output": "Reads the page's existing stylesheet first and maps its literal colours onto the token names rather than adding a second system. Since it's an app with 3+ destinations, uses the app-shell layout: fixed icon sidebar that becomes a 56px icon rail below 720px with its toggle hidden, fixed source bar with the shell offset by `--srcbar-h`, and no hamburger. Adds the segmented switch (sun, moon) with `aria-pressed`, `aria-label` and `title`, the no-flash pre-paint script with `THEME_DEFAULT` equal to the pre-paint default, and the `theme-color` meta flip. Phone rules sit only inside `max-width: 600px`, `hover: none` or `pointer: coarse` queries: 16px fields, 36 to 40px tap targets, `100dvh` with the `vh` fallback first, no sideways scroll. Checks 1400px is unchanged. Must NOT build the switch as a single toggle button that flips on click.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "audit-for-drift",
+      "prompt": "Audit site/index.html for drift from our house style and list what's wrong.",
+      "expected_output": "Runs the Verify checklist against the page and reports concrete findings with the rule each breaks: hard-coded hex or `rgba()` below the token blocks (found with the grep the checklist gives; the black GitHub button is the one allowed exception), a theme that follows the OS by default, a switch not at the top-right, a missing or misplaced source bar, a Google Fonts link, missing skip link, focus rings or `prefers-reduced-motion` block, fields under 16px or controls under 32px at 390px, more than one glow, and a favicon that isn't the shared dark-tile icon. Ranks what a user would notice first. An audit reports; it must NOT rewrite the page unasked.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "own-brand-bakery",
+      "prompt": "Design a bold, playful landing page for a neighborhood bakery. Pick whatever visual style you think fits it.",
+      "expected_output": "Does not apply the house style: the skill is for ai-automation-tools org pages or pages meant to match them, and its description excludes a page with its own brand or a freshly invented look. Designs the bakery page on its own terms (warm palette, its own type), without the near-black ground, dot grid, org source bar or the org favicon. If the skill was loaded, it says in a line that the house style doesn't fit this brief and sets it aside.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "name": "react-vite-app",
+      "prompt": "Our Cronsole React + Vite app uses Tailwind. Restyle it like our other apps, with the theme switch.",
+      "expected_output": "Matches the stack: keeps Tailwind as the styling layer and maps the same token names onto it (CSS custom properties on `:root`, redefined under `html.light`), adds a `useTheme` hook using the `cronsole.theme` storage key, and puts the same pre-paint script in `index.html` so there's no flash. Uses Cronsole's accent from the design system's per-site table (violet `#a78bfa`, `#6d28d9` in light) rather than inventing one. Light theme is a real token set, never `filter: invert()`. Runs the modern-web-guidance skill for each primitive (dialog, drawer, switch) when it's installed. Must NOT add a second component framework or swap out Tailwind.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "name": "follow-os-theme-pushback",
+      "prompt": "Make our Edge-Radar project page follow the visitor's OS light/dark setting automatically, and put a little sun/moon button in the footer to flip it.",
+      "expected_output": "Pushes back on both parts with the reason: dark is the default whatever the OS says, because every org site is designed dark-first and following a light OS shows a first paint nobody designed; and the control is a two-segment Light | Dark switch that shows both options, placed as the last control at the right end of the top bar, not a toggle button in the footer. Offers the compliant version: the segmented switch top-right, dark default, and optionally a deliberate 'system' option if the user wants one, picked on purpose. Keeps Edge-Radar's emerald accent (`#34d399`, `#047857` in light). Must NOT ship `prefers-color-scheme` as the default or a footer toggle without saying they break the house style.",
+      "files": []
+    }
+  ]
+}
