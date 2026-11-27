@@ -1,8 +1,11 @@
 {
   "_comment": "Skills for USING an org tool from any repo, sourced from that tool's own repo (org skills landscape audit, decision D2). install-skills.ps1 installs them with Core: a shallow sparse clone of `path` at `ref`, then the same install as a repo skill, with a marker naming the tool repo and commit. Optional `url` overrides https://github.com/<repo>.git (tests use a local repo). bot-arena is not here: `npx skills` installs and updates it from its repo already. AI Tools Sync reads this list too, so it doesn't treat these as third-party skills.",
   "skills": [
-    { "name": "project-hub-scaffold",     "repo": "ai-automation-tools/project-hub", "path": "skills/project-hub-scaffold",    "ref": "main" },
+    { "name": "project-hub-scaffold",     "repo": "ai-automation-tools/project-hub", "path": "skills/project-hub-scaffold",     "ref": "main" },
     { "name": "cronsole-claude-routines", "repo": "ai-automation-tools/cronsole",    "path": "skills/cronsole-claude-routines", "ref": "main" },
-    { "name": "cronsole-windows-jobs",    "repo": "ai-automation-tools/cronsole",    "path": "skills/cronsole-windows-jobs",    "ref": "main" }
+    { "name": "cronsole-windows-jobs",    "repo": "ai-automation-tools/cronsole",    "path": "skills/cronsole-windows-jobs",    "ref": "main" },
+    { "name": "cloakscan",                "repo": "ai-automation-tools/cloakscan",   "path": "skills/cloakscan",                "ref": "main" },
+    { "name": "diff-carve",               "repo": "ai-automation-tools/diff-carve",  "path": "skills/diff-carve",               "ref": "main" },
+    { "name": "ghost-grant",              "repo": "ai-automation-tools/ghost-grant", "path": "skills/ghost-grant",              "ref": "main" }
   ]
 }

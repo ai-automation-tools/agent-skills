@@ -1,7 +1,7 @@
 # Skill harvest ledger
 
-The org's agent workspaces each grow their own `skills/` folder. Once a week the
-**Skill Harvest** job copies the portable ones into `skills/domain/<domain>/` here, and this file is
+The org's agent workspaces each grow their own `skills/` folder, and keep wired skills in
+`.claude/skills/`. Once a week the **Skill Harvest** job judges both and copies the portable ones into `skills/domain/<domain>/` here, and this file is
 its ledger: one row per workspace skill it has decided on.
 
 > [!IMPORTANT]
@@ -13,6 +13,8 @@ its ledger: one row per workspace skill it has decided on.
 - **`mirrored`:** copied into `skills/domain/` at the source SHA shown.
 - **`declined`:** judged at that SHA and not promoted, for the reason in the note. It's
   judged again if the source changes.
+- A note starting `wired:` means the source is the workspace's `.claude/skills/<name>/`, not
+  `skills/<name>/` (judged since 2026-11-27, audit R3).
 `scripts/validate-skills.py` fails CI when a `skills/domain/` skill has no `mirrored` row here,
 or has more than one. The four `fullstack-agent` skills (`debugging-methodology`,
 `full-stack-feature`, `performance-optimization`, `testing-strategy`) left this ledger on

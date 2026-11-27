@@ -68,6 +68,34 @@
         "Our security-agent workspace's docs and skills have gone stale. Audit it against the standard."
       ],
       "skip": ["Create a new Python package repo with a src layout and pytest."]
+    },
+    "testing-strategy": {
+      "load": [
+        "Our test suite takes 25 minutes and fails randomly about one run in five. Help me decide what to keep end to end and what to push down a level.",
+        "This project has no tests at all. Where should we start, and at what level should each part be tested?"
+      ],
+      "skip": ["Generate Jest and React Testing Library tests for the Button component in src/components/Button.tsx."]
+    },
+    "debugging-methodology": {
+      "load": [
+        "This endpoint returns a 500 about one request in fifty, and I've changed four things trying to fix it. Help me actually pin it down.",
+        "The fix I pushed yesterday for the duplicate-order bug didn't hold; it's happening again. How do I find the real cause?"
+      ],
+      "skip": ["What does a NullPointerException mean in Java?"]
+    },
+    "performance-optimization": {
+      "load": [
+        "Our /orders endpoint went from 200 ms to 3 seconds after the last release and the database CPU is pegged. Find out why.",
+        "A teammate wants to add Redis caching to speed up the dashboard, but nobody has measured anything yet. How should we approach it?"
+      ],
+      "skip": ["Rewrite this for loop in utils.py as a list comprehension."]
+    },
+    "full-stack-feature": {
+      "load": [
+        "Add a favorite button to the product cards that saves to the database and still shows as filled after a reload.",
+        "The signup endpoint exists but the form doesn't call it yet. Wire it up so a new account actually gets created."
+      ],
+      "skip": ["Change the primary button color from blue to green in the CSS."]
     }
   }
 }
