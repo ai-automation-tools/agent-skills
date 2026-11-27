@@ -8,7 +8,7 @@ too: a new install target, CI action or third-party asset is a new row.
 **Not in scope here:**
 
 - Whether each skill's *advice* is still current in its field. The monthly **Agent-Skills
-  Monthly Skill Review** owns that, for `skills/core` and `skills/projects`.
+  Monthly Skill Review** owns that, for `skills/core`.
 - `skills/domain/`. Those are byte-identical mirrors of the org agent workspaces, refreshed by the
   weekly **Skill Harvest**; fix them at the source.
 - The showcase site. Its cards, lists and counts are generated from the `skills/` tree by

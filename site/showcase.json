@@ -208,27 +208,5 @@
       "name": "Media",
       "glyph": "🎬"
     }
-  ],
-  "projects": [
-    {
-      "name": "roundtable",
-      "glyph": "💬"
-    },
-    {
-      "name": "cronsole",
-      "glyph": "⏱️"
-    },
-    {
-      "name": "edge-radar",
-      "glyph": "📡"
-    },
-    {
-      "name": "edge-spectrum",
-      "glyph": "📉"
-    },
-    {
-      "name": "project-hub",
-      "glyph": "🌐"
-    }
   ]
 }

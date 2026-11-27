@@ -2,11 +2,10 @@
   "schema": 1,
   "source": "https://github.com/ai-automation-tools/agent-skills",
   "url": "https://agent-skills.ai-automation-tools.dev/catalog.json",
-  "install": "pwsh scripts/install-skills.ps1 [-Core | -Domain | -Project <repo>] [-Skill <name>]",
+  "install": "pwsh scripts/install-skills.ps1 [-Core | -Domain] [-Skill <name>]",
   "counts": {
     "core": 14,
-    "domain": 20,
-    "projects": 14
+    "domain": 20
   },
   "skills": [
     {
@@ -348,146 +347,6 @@
       "has_scripts": false,
       "has_evals": false,
       "has_references": false
-    },
-    {
-      "name": "cronsole-claude-routines",
-      "tier": "projects",
-      "group": "cronsole",
-      "description": "Design, create and track a Claude Code cloud routine (now called a scheduled task) — a scheduled agent run on Anthropic's infrastructure that opens a pull request — and connect it to Cronsole's CLAUDE_CODE source. Use whenever the user wants a recurring cloud agent, a scheduled Claude routine, a weekly drift check, or a docs/catalog refresh that runs by itself; whenever they want to list, pause, edit, retire or debug an existing routine; whenever a routine \"ran\" but opened nothing, or Cronsole shows no Claude routines, cannot pause one, or reports them all UNKNOWN. Also use to decide whether a scheduled agent job belongs in the cloud or on a local machine before building it.",
-      "path": "skills/projects/cronsole/cronsole-claude-routines",
-      "has_scripts": false,
-      "has_evals": false,
-      "has_references": true
-    },
-    {
-      "name": "cronsole-windows-jobs",
-      "tier": "projects",
-      "group": "cronsole",
-      "description": "Design, register and verify a Windows Task Scheduler job by picking one of four proven archetypes — an unattended AI-agent CLI run, a wrapped maintenance script, a service watchdog or lifecycle task, or a plain command — then tracking it in Cronsole. Ships a runnable wrapper and registrar. Use whenever the user wants a new scheduled job, cron job, recurring task, nightly or weekly automation, watchdog, healthcheck, drive cleanup, doc refresh, or \"run Claude Code on a schedule\" on Windows; whenever an existing scheduled task needs re-scheduling, parking or debugging; and whenever a scheduled task reports success while doing nothing, stops notifying, or \"ran\" with no effect.",
-      "path": "skills/projects/cronsole/cronsole-windows-jobs",
-      "has_scripts": true,
-      "has_evals": false,
-      "has_references": true
-    },
-    {
-      "name": "edge-radar-strategy-evidence",
-      "tier": "projects",
-      "group": "edge-radar",
-      "description": "Decide whether an Edge-Radar betting strategy, sport, parameter or claimed edge is actually supported by outcomes — pick the right tool in scripts/backtest/ for the question, report the model-vs-market Brier pair rather than a bare \"Brier\", collect zero-risk shadow rows when a freeze or gate blocks its own evidence, and say what the sample can and cannot carry. Use for \"is this strategy working\", \"should we unfreeze X\", \"is the edge real\", \"what does the settled book say about Y\", \"fit this parameter\", \"before/after a risk-gate change\", \"how many bets until we know\", any claim about ROI, win rate, calibration, CLV or correlation, and any proposal to raise sizing or loosen a gate.",
-      "path": "skills/projects/edge-radar/edge-radar-strategy-evidence",
-      "has_scripts": false,
-      "has_evals": false,
-      "has_references": true
-    },
-    {
-      "name": "edge-radar-strategy-profiles",
-      "tier": "projects",
-      "group": "edge-radar",
-      "description": "Design, launch, compare and retire an Edge-Radar betting strategy as a `.env.<name>` profile overlay rather than a fork — pick the knob that actually moves the price band you mean, isolate the bankroll with a Kalshi subaccount, and run the dry-run → pilot → live ladder with the exit rule written before any money is at stake. Use whenever the user wants a new betting strategy, a second book, a longshot/favourites/spread-only/underdog angle, \"a separate account to try X\", different sizing or a different price floor for one slice of markets; whenever an existing profile needs comparing, promoting to live, or killing; and whenever someone proposes cloning the repo, adding a second API key, or hand-editing `.env` to test an idea.",
-      "path": "skills/projects/edge-radar/edge-radar-strategy-profiles",
-      "has_scripts": false,
-      "has_evals": false,
-      "has_references": true
-    },
-    {
-      "name": "edge-spectrum-dataset",
-      "tier": "projects",
-      "group": "edge-spectrum",
-      "description": "Change, audit or debug the Edge Spectrum dataset — the canonical edge records in site/src/data/edges.ts, the five artifacts `npm run gen:edges` writes from it (the inlined RAW block in public/spectrum/index.html, edges.json, the published edges.csv and its datapackage.json, data/edge_dataset.md), and the guards that hold them: check:edges (count, categories, basis, the per-category citation ratchet and the dataset freeze) and check:spectrum (the three measures, read live out of the HTML). Use for \"add/edit an edge record\", \"add a category\", \"update a return figure\", \"cite a source\", \"the dataset is frozen\", \"gen:edges --check failed in CI\", \"the artifact reverted my edit\", \"record count mismatch\", \"check:spectrum is failing\", \"ruin point\", \"return on capital vs expected turnover cost\", \"the chart is squashed flat\", and any question about where this data actually lives.",
-      "path": "skills/projects/edge-spectrum/edge-spectrum-dataset",
-      "has_scripts": false,
-      "has_evals": false,
-      "has_references": true
-    },
-    {
-      "name": "edge-spectrum-endpoint",
-      "tier": "projects",
-      "group": "edge-spectrum",
-      "description": "Add, change or debug an Edge Spectrum API endpoint across its two entry points — the local Express server (site/server.ts) and the Vercel serverless functions (site/api/*) — which must both be thin adapters over shared logic in site/src/server/. Covers Zod validation at the trust boundary, the strategySchema / strategyBounds split that keeps Zod out of the client bundle, and the demo-mode + passcode gate that makes the Gemini advisor fail closed. Use for \"add an API route\", \"the endpoint works locally but 404s/500s on Vercel\", \"validate this request body\", \"the advisor returns 503 / 403 / 401\", \"ADVISOR_PASSCODE\", \"EDGE_SPECTRUM_MODE\", \"demo mode\", \"check:deployment failed\", and any work under site/api/, site/server.ts or site/src/server/.",
-      "path": "skills/projects/edge-spectrum/edge-spectrum-endpoint",
-      "has_scripts": false,
-      "has_evals": false,
-      "has_references": true
-    },
-    {
-      "name": "edge-spectrum-hub-tool",
-      "tier": "projects",
-      "group": "edge-spectrum",
-      "description": "Add, change, retire or debug a tool on the Edge Spectrum hub — the `TOOLS` registry in site/src/tools.ts, the three `kind` branches (route / static / external) and what each one obliges you to wire, the accent colour tokens a tile and page share, and the calculator page pattern built on src/odds.ts and components/CalcUi.tsx. Use for \"add a tool to the hub\", \"new calculator page\", \"new tile\", \"the tile links nowhere\", \"the accent colour renders unstyled\", \"the static page 404s in dev but works on Vercel\", \"deep link reloads to the home page\", \"mark a tool as WIP / soon\", \"remove a tool\", and any work on Home.tsx, App.tsx, the hub nav, or a page under site/src/pages/.",
-      "path": "skills/projects/edge-spectrum/edge-spectrum-hub-tool",
-      "has_scripts": false,
-      "has_evals": false,
-      "has_references": true
-    },
-    {
-      "name": "edge-spectrum-registry",
-      "tier": "projects",
-      "group": "edge-spectrum",
-      "description": "Add, change or debug Edge Spectrum's Cronsole templates and the line-archive scripts they run — the TEMPLATES and PACKS in site/scripts/build-registry.mjs, the generated catalog in site/public/registry/, the ESPN line collector (capture-lines.ts), the daily digest (digest-lines.ts), the Tiingo market-close collector (capture-closes.ts), and the daily registry-drift check. These files are held for the owner because a merge turns them into commands on other people's machines. Use for \"add or change a Cronsole template\", \"build:registry --check failed\", \"registry drift failed\", \"the gallery doesn't show our template\", \"check:lines failed\", \"a game has no closing line in the digest\", and any edit to build-registry.mjs, capture-lines.ts, digest-lines.ts, capture-closes.ts, site/public/registry/ or .github/workflows/registry-drift.yml.",
-      "path": "skills/projects/edge-spectrum/edge-spectrum-registry",
-      "has_scripts": false,
-      "has_evals": false,
-      "has_references": false
-    },
-    {
-      "name": "project-hub-client",
-      "tier": "projects",
-      "group": "project-hub",
-      "description": "Work on Project Hub's interface — the single-file client in `hub/index.html`: the `renderPage()` kind→view dispatch, the nine `data-theme` blocks and the CSS-variable contract every surface colour comes from, the `S` state object and `reindex()`, hash routes via `navigation.mjs`, the localStorage keys, and the `%TITLE%`/`%FAVICON%`/ `%PORT%`/`%NONCE%` placeholders the server fills per request. Use for \"add a view / a page / a panel\", \"add a colour scheme or theme\", \"restyle the explorer\", \"the page is blank / stuck on scanning\", \"deep links or the back button are broken\", \"bookmarks and recents\", \"the activity bar, Settings, Favorites or hub tabs\", \"the reader, outline or view-source toggle\", \"a button does nothing after a rescan\", \"CSP blocked my script\", and any edit to index.html, navigation.mjs or favorites.mjs.",
-      "path": "skills/projects/project-hub/project-hub-client",
-      "has_scripts": false,
-      "has_evals": false,
-      "has_references": true
-    },
-    {
-      "name": "project-hub-demo",
-      "tier": "projects",
-      "group": "project-hub",
-      "description": "Work on Project Hub's hosted demo at project-hub-demo.ai-automation-tools.dev — the capture build in `demo/build-demo.mjs` that stands the real hub up against the `demo/Workspace` fixture, crawls every response and writes flat files into `demo/site`, plus the `demo/static/demo.js` fetch shim, the `sub()` literal assertions against `hub/index.html`, and the Pages workflow. Use for \"the demo build failed with expected 1x … found 0\", \"add a workspace / repo / document to the fixture\", \"the demo shows a stale tree\", \"an image or PDF 404s on the demo but works locally\", \"slug collision\", \"the demo deploy / CNAME / GitHub Pages\", \"captured N API responses is too low in CI\", and any edit to demo/ or .github/workflows/demo.yml.",
-      "path": "skills/projects/project-hub/project-hub-demo",
-      "has_scripts": false,
-      "has_evals": false,
-      "has_references": true
-    },
-    {
-      "name": "project-hub-scan",
-      "tier": "projects",
-      "group": "project-hub",
-      "description": "Change what Project Hub's scanner walks, indexes or serves — the filter chain in `hub/scan.mjs` (SKIP_DIRS / DOT_OK / DOC_FILE / SECRET_DIRS), the node `kind` vocabulary, the `BUCKETS` and `USER_RUNTIMES` tables behind the CLI pages, and the second deny gate in `resolveId()` that every `/api/*` path check goes through. Use for \"a folder is missing from the tree\", \"my new agent runtime doesn't show up\", \"add a file type to the scan\", \"add a node kind\", \"the scan is slow / the payload is huge\", \"the page won't refresh after I edit a file\", \"repoScope / hub.config.json\", \"a repo is missing from the overview table\", and anything touching scanTree, scan(), the watcher, /api/scan, /api/file, /api/stat or /api/health.",
-      "path": "skills/projects/project-hub/project-hub-scan",
-      "has_scripts": false,
-      "has_evals": false,
-      "has_references": true
-    },
-    {
-      "name": "agent-chat-conv-types",
-      "tier": "projects",
-      "group": "roundtable",
-      "description": "Add or change a conversation format in the Roundtable repo — a new conv_type (debate / podcast / collaborate / yours), a sub-type preset, a seat role, an extra role like the skeptic, or a type that produces a deliverable. Decides first whether the thing asked for is a TYPE or merely a PRESET, then walks the full multi-file ritual: CONV_TYPES, _ROLE_BRIEFS, the runtime skill, the guide, the tests. Use for \"add a new conversation type\", \"add an interview/standup/retro mode\", \"add a preset\", \"add a role to a conversation\", \"make this type produce an artifact\", \"the lead is getting its own seat and shouldn't\", \"change who speaks first\", \"seat counts are wrong\", \"signal='result' never lands\", or any edit to src/orchestrator/conv_types.py or src/presets.py.",
-      "path": "skills/projects/roundtable/agent-chat-conv-types",
-      "has_scripts": false,
-      "has_evals": false,
-      "has_references": true
-    },
-    {
-      "name": "agent-chat-delivery",
-      "tier": "projects",
-      "group": "roundtable",
-      "description": "Work on Roundtable's push half — delivery sinks (folder / webhook / command), the Notifications settings tab, the opt-in list, and the stall watchdog. Covers config/delivery.json's shape, the four events (started / result / complete / stalled), the scope + opt-in rule, the four call sites that end a conversation, and why a sink may never raise. Use for \"set up notifications\", \"get a push when a debate finishes\", \"ntfy / Discord / Slack / Gotify webhook\", \"deliver the transcript to a folder\", \"run a command after a conversation\", \"add a delivery event\", \"the watchdog isn't firing\", \"delivered folder doesn't match the zip\", \"my hand-written sink got overwritten\", or any edit to src/orchestrator/delivery.py, watchdog.py, or src/web/api/notifications.py / delivery_settings.py.",
-      "path": "skills/projects/roundtable/agent-chat-delivery",
-      "has_scripts": false,
-      "has_evals": false,
-      "has_references": true
-    },
-    {
-      "name": "agent-chat-run-triage",
-      "tier": "projects",
-      "group": "roundtable",
-      "description": "Diagnose a live Roundtable conversation that is stuck, silent, ending early, or behaving wrong — a run that will not advance, a seat that is never handed a turn, \"not your turn\" rejections, a room that closed before the deliverable landed, an agent window that never joined, a database that is locked, or a conversation missing from the web UI or the hosted mirror. Works from the DB outward: read the row, read the rotation, then look at a CLI window. Use for \"the debate is stuck\", \"conversation 57 isn't moving\", \"the agent isn't taking its turn\", \"why did this end at max_turns\", \"it says it's not my turn\", \"nothing shows in the UI\", \"database is locked\", \"the watchdog fired\", or any Roundtable run that is not doing what it should.",
-      "path": "skills/projects/roundtable/agent-chat-run-triage",
-      "has_scripts": false,
-      "has_evals": false,
-      "has_references": true
     }
   ]
 }

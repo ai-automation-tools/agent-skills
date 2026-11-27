@@ -7,7 +7,7 @@
     1. Installs every tier (-All) into a temporary directory and asserts the flat
        layout: exactly one <dir>/<name>/SKILL.md per leaf skill in the repo, nothing
        else at the top level, and no reports/ folder carried along.
-    2. Installs a bare run (Core only) and asserts no Domain or Projects skill leaks in.
+    2. Installs a bare run (Core only) and asserts no Domain skill leaks in.
     3. Copies skills/ and the installer into a scratch repo, duplicates one skill
        under a second category, and asserts the install throws on the collision.
     4. Runs -AllAgents with HOME pointed at a fake home in the temp directory and
@@ -213,7 +213,7 @@ try {
         Assert ($LASTEXITCODE -ne 0 -and -not (Test-Path (Join-Path $noRef $one))) 'an unknown -Ref fails and installs nothing'
     } else { Write-Host 'skip -Ref case (no git)' }
 
-    # 9. -All would put project skills in user scope.
+    # 9. -All would put every Domain skill in user scope.
     $threw = $null
     try { & $Installer -All -AllAgents *> $null } catch { $threw = $_.Exception.Message }
     Assert ($threw -match 'never belongs in user scope') '-All with -AllAgents is rejected'

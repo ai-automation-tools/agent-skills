@@ -49,14 +49,12 @@ jobs:
       # Core-only bare run, and that a duplicated skill name throws.
       - run: pwsh -NoProfile -File scripts/test-install-skills.ps1
       # The deterministic helpers that ship inside skills (recipe-validator's scanner,
-      # project-hub-scaffold's scaffolder, cronsole-windows-jobs' job wrapper) run
-      # against fixture inputs in a temp directory. The Windows-only helpers are
-      # tested only when the script runs on Windows.
+      # project-hub-scaffold's scaffolder) run against fixture inputs in a temp directory.
       - run: python scripts/test-skill-scripts.py
       - run: pwsh -NoProfile -File scripts/test-skill-scripts.ps1
 
-  # The Windows-only helpers (Register-ScheduledJob.ps1, run-hidden.vbs) and the installer's
-  # Windows paths are skipped on ubuntu. This job runs the same PowerShell tests where they apply.
+  # The installer's Windows paths (the locked-file case) are skipped on ubuntu. This job runs the
+  # same PowerShell tests where they apply.
   windows:
     runs-on: windows-latest
     steps:

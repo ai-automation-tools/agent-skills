@@ -5,7 +5,8 @@ Standard library only, so it runs the same on Windows and in CI:
 
     python scripts/check-links.py
 
-Scans every README.md in the repo, every Markdown file in docs/, and
+Scans every README.md in the repo, every Markdown file in docs/ except the generated
+CATALOG.md, and
 site/index.html. For each link it checks that the target file or folder exists:
   - Markdown links and images: [text](path), ![alt](path)
   - HTML attributes: href="path", src="path"
@@ -44,7 +45,10 @@ def files_to_check():
         for f in filenames:
             if f == "README.md":
                 yield Path(dirpath) / f
-    yield from sorted((ROOT / "docs").glob("*.md"))
+    # docs/CATALOG.md is generated from GitHub's own trees (scan-org-skills.py), so its links are
+    # right for the commit it was scanned at, not for this working tree: a PR that moves a skill
+    # would fail here until the next scan.
+    yield from sorted(f for f in (ROOT / "docs").glob("*.md") if f.name != "CATALOG.md")
     yield ROOT / "site" / "index.html"
 
 
