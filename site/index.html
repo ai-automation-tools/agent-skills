@@ -656,66 +656,24 @@
   <section id="projects">
     <div class="sec-head reveal">
       <p class="eyebrow"><b>03</b> · Projects</p>
-      <h2>Project skills</h2>
+      <h2>Skills in other repos</h2>
       <p class="sub">
-        A second tier that installs into one repository instead of user scope, so a
-        repo-specific skill never follows you into an unrelated session. Each group below
-        links to its folder in the repo.
+        A skill for working on one repository lives in that repository, so it loads only
+        there and has one copy to edit. The org catalog lists every one, with where it
+        lives and whether any copy has drifted.
       </p>
     </div>
     <ul class="proj-list reveal">
-      <!-- gen:projects -->
         <li>
-          <a class="proj" href="https://github.com/ai-automation-tools/agent-skills/tree/main/skills/projects/roundtable" target="_blank" rel="noopener">
-            <span class="proj-glyph" aria-hidden="true">💬</span>
+          <a class="proj" href="https://github.com/ai-automation-tools/agent-skills/blob/main/docs/CATALOG.md" target="_blank" rel="noopener">
+            <span class="proj-glyph" aria-hidden="true">📇</span>
             <span class="proj-main">
-              <span class="proj-name">roundtable</span>
-              <span class="proj-skills"><code>agent-chat-conv-types</code><code>agent-chat-delivery</code><code>agent-chat-run-triage</code></span>
+              <span class="proj-name">Org skill catalog</span>
+              <span class="proj-skills"><code>roundtable</code><code>cronsole</code><code>edge-radar</code><code>edge-spectrum</code><code>project-hub</code></span>
             </span>
             <span class="proj-go" aria-hidden="true">↗</span>
           </a>
         </li>
-        <li>
-          <a class="proj" href="https://github.com/ai-automation-tools/agent-skills/tree/main/skills/projects/cronsole" target="_blank" rel="noopener">
-            <span class="proj-glyph" aria-hidden="true">⏱️</span>
-            <span class="proj-main">
-              <span class="proj-name">cronsole</span>
-              <span class="proj-skills"><code>cronsole-claude-routines</code><code>cronsole-windows-jobs</code></span>
-            </span>
-            <span class="proj-go" aria-hidden="true">↗</span>
-          </a>
-        </li>
-        <li>
-          <a class="proj" href="https://github.com/ai-automation-tools/agent-skills/tree/main/skills/projects/edge-radar" target="_blank" rel="noopener">
-            <span class="proj-glyph" aria-hidden="true">📡</span>
-            <span class="proj-main">
-              <span class="proj-name">edge-radar</span>
-              <span class="proj-skills"><code>edge-radar-strategy-evidence</code><code>edge-radar-strategy-profiles</code></span>
-            </span>
-            <span class="proj-go" aria-hidden="true">↗</span>
-          </a>
-        </li>
-        <li>
-          <a class="proj" href="https://github.com/ai-automation-tools/agent-skills/tree/main/skills/projects/edge-spectrum" target="_blank" rel="noopener">
-            <span class="proj-glyph" aria-hidden="true">📉</span>
-            <span class="proj-main">
-              <span class="proj-name">edge-spectrum</span>
-              <span class="proj-skills"><code>edge-spectrum-dataset</code><code>edge-spectrum-endpoint</code><code>edge-spectrum-hub-tool</code><code>edge-spectrum-registry</code></span>
-            </span>
-            <span class="proj-go" aria-hidden="true">↗</span>
-          </a>
-        </li>
-        <li>
-          <a class="proj" href="https://github.com/ai-automation-tools/agent-skills/tree/main/skills/projects/project-hub" target="_blank" rel="noopener">
-            <span class="proj-glyph" aria-hidden="true">🌐</span>
-            <span class="proj-main">
-              <span class="proj-name">project-hub</span>
-              <span class="proj-skills"><code>project-hub-client</code><code>project-hub-demo</code><code>project-hub-scan</code></span>
-            </span>
-            <span class="proj-go" aria-hidden="true">↗</span>
-          </a>
-        </li>
-      <!-- /gen:projects -->
     </ul>
   </section>
 
@@ -745,10 +703,6 @@
         <div class="codeblock">
           <div class="codeblock-head"><span>Domain: opt in</span><button class="copy" type="button" data-copy="pwsh scripts/install-skills.ps1 -Domain" aria-label="Copy command">copy</button></div>
           <pre><code><span class="p">pwsh</span> scripts/install-skills.ps1 <span class="f">-Domain</span></code></pre>
-        </div>
-        <div class="codeblock">
-          <div class="codeblock-head"><span>Into a project</span><button class="copy" type="button" data-copy="pwsh scripts/install-skills.ps1 -Project cronsole -Destination <clone>/.claude/skills" aria-label="Copy command">copy</button></div>
-          <pre><code><span class="p">pwsh</span> scripts/install-skills.ps1 <span class="f">-Project</span> cronsole <span class="f">-Destination</span> &lt;clone&gt;/.claude/skills</code></pre>
         </div>
       </div>
     </div>

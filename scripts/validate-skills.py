@@ -26,7 +26,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 SKILLS = ROOT / "skills"
 SKILL_DATA = ROOT / "resources" / "skill-data"
-TIERS = ("core", "domain", "projects")
+TIERS = ("core", "domain")  # skills for one org repo live in that repo since 2026-11-27
 LEDGER_STATUSES = ("mirrored", "declined")
 BADGE = re.compile(r"badge/skills-(\d+)-")
 
@@ -115,7 +115,7 @@ def main():
         rel = leaf.relative_to(ROOT).as_posix()
         parts = leaf.relative_to(SKILLS).parts
         if len(parts) != 3 or parts[0] not in TIERS:
-            fail(rel, "expected skills/<core|domain|projects>/<group>/<skill-name>/SKILL.md")
+            fail(rel, "expected skills/<core|domain>/<group>/<skill-name>/SKILL.md")
             continue
         tier, group, folder = parts
 
@@ -170,7 +170,7 @@ def main():
         elif not mentions(readme_rows, token):
             fail(rel, f"README.md has no table row naming {token!r}")
 
-        tier_readme = SKILLS / tier / ("README.md" if tier != "projects" else f"{group}/README.md")
+        tier_readme = SKILLS / tier / "README.md"
         rows = table_rows(tier_readme)
         tier_rel = tier_readme.relative_to(ROOT).as_posix()
         if rows is None:

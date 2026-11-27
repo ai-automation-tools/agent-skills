@@ -25,16 +25,15 @@
     is given. A folder that is a link (junction or symlink) is never replaced or
     removed: the installer won't delete through a link.
 
-    Skills come in two tiers and they do NOT install to the same place:
+    Skills come in two tiers, both installed to user scope:
 
       skills/core/<category>/<name>/   portable      -> user scope (~/.claude/skills)
       skills/domain/<domain>/<name>/   portable,     -> user scope, only with -Domain
                                        mirrored from the org's agent workspaces
-      skills/projects/<repo>/<name>/   additional,   -> that repo's .claude/skills
-                                       per org repo    (an OVERLAY — the repo keeps its own)
 
-    A bare run installs the Core tier only, so a project skill can never leak into
-    user scope by accident and clutter the catalog of every unrelated session.
+    A bare run installs the Core tier only, so field skills never land in every
+    session's catalog unasked. Skills for one org repo live in that repo (since
+    2026-11-27; docs/CATALOG.md lists them), so there is nothing to install per repo.
 
     The agent CLIs read overlapping global skills directories, so three folders
     reach all of them. -AllAgents installs to each one whose CLIs exist here:
@@ -63,25 +62,18 @@
     present on this machine (Claude Code, Codex, Kimi, agy, Antigravity IDE,
     opencode, Kilo) instead of a single -Destination, and remove the copies older
     runs left in the folders it no longer writes.
-    Core and Domain tiers only: -Project and -All are rejected here, since project
-    skills belong in one repo.
+    -All is rejected here: it exists for tests and -List.
 
 .PARAMETER Core
-    Install the Core tier (skills/core/**). This is the default when neither -Core
-    nor -Project is given.
+    Install the Core tier (skills/core/**). This is the default when no tier is given.
 
 .PARAMETER Domain
     Install the Domain tier (skills/domain/**): field skills mirrored from the org's
     agent workspaces. User scope like Core, but never part of a bare run.
 
-.PARAMETER Project
-    Install the project skills for one org repo (skills/projects/<name>/**).
-    Point -Destination at that repo's .claude/skills — several org repos track
-    that folder in git, so the install lands in a commit other contributors get.
-
 .PARAMETER All
     Every tier at once. For tests (scripts/test-install-skills.ps1) and -List only:
-    it puts project skills next to Core, so it needs an explicit -Destination and
+    it puts every Domain skill next to Core, so it needs an explicit -Destination and
     is rejected with -AllAgents.
 
 .PARAMETER Skill
@@ -122,10 +114,6 @@
     Push one updated skill to every agent CLI at once.
 
 .EXAMPLE
-    pwsh scripts/install-skills.ps1 -Project cronsole -Destination D:/repos/cronsole/.claude/skills
-    Publish cronsole's project skills into the cronsole clone.
-
-.EXAMPLE
     pwsh scripts/install-skills.ps1 -List
     Show every skill in the repo with its tier, and exit.
 
@@ -138,7 +126,6 @@ param(
     [string]   $Destination = (Join-Path $HOME '.claude/skills'),
     [Parameter(ParameterSetName = 'Core')]    [switch] $Core,
     [Parameter(ParameterSetName = 'Domain')]  [switch] $Domain,
-    [Parameter(ParameterSetName = 'Project')] [string] $Project,
     [Parameter(ParameterSetName = 'All')]     [switch] $All,
     [string[]] $Skill,
     [string]   $Ref,
@@ -161,11 +148,8 @@ if (-not (Test-Path $SkillsRoot)) {
     throw "skills/ folder not found at '$SkillsRoot'. Run this from within the repo."
 }
 
-if ($AllAgents -and $PSCmdlet.ParameterSetName -eq 'Project') {
-    throw "-AllAgents installs to user scope, and project skills belong in one repo's .claude/skills. Use -Project with -Destination instead."
-}
 if ($AllAgents -and $PSCmdlet.ParameterSetName -eq 'All') {
-    throw "-All includes every project skill, which never belongs in user scope. Use -AllAgents with -Core or -Domain."
+    throw "-All is for tests and -List; it never belongs in user scope. Use -AllAgents with -Core or -Domain."
 }
 if ($AllAgents -and $PSBoundParameters.ContainsKey('Destination')) {
     throw "-AllAgents picks its own destinations. Drop -Destination, or drop -AllAgents."
@@ -204,15 +188,6 @@ try {
 
     # Which tier are we installing? -List with no tier means "show everything".
     $SearchRoot = switch ($PSCmdlet.ParameterSetName) {
-        'Project' {
-            $p = Join-Path $SkillsRoot "projects/$Project"
-            if (-not (Test-Path $p)) {
-                $known = (Get-ChildItem (Join-Path $SkillsRoot 'projects') -Directory |
-                          Select-Object -ExpandProperty Name) -join ', '
-                throw "No project '$Project' under skills/projects. Known projects: $known"
-            }
-            $p
-        }
         'Domain'  { Join-Path $SkillsRoot 'domain' }
         'All'     { $SkillsRoot }
         default   { if ($List) { $SkillsRoot } else { Join-Path $SkillsRoot 'core' } }

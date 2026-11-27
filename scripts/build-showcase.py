@@ -10,7 +10,7 @@ Everything generated sits between marker comments in index.html:
 
     <!-- gen:KEY -->...<!-- /gen:KEY -->
 
-Block keys (cards, chips, domains, projects) hold whole lines; inline keys hold one value,
+Block keys (cards, chips, domains) hold whole lines; inline keys hold one value,
 such as a count. Anything outside the markers is hand-edited as before.
 
     python scripts/build-showcase.py           # rewrite site/index.html
@@ -244,7 +244,6 @@ def build() -> tuple[dict[str, str], list[str]]:
         "cards": "\n\n".join(cards),
         "chips": "\n".join(chips),
         "domains": group_list("domain", tree("domain"), data.get("domains", []), label),
-        "projects": group_list("projects", tree("projects"), data.get("projects", [])),
         "core-count": f"{total:02d}",
         "core-count-word": word(total),
         "core-count-Word": word(total).capitalize(),
@@ -280,7 +279,7 @@ def catalog() -> str:
     file instead of scraping this page or the tree. No commit SHA: it would change on every
     commit and make --check fail on unrelated PRs; the deploy's own commit is the version."""
     skills = []
-    for tier in ("core", "domain", "projects"):
+    for tier in ("core", "domain"):
         for group, items in tree(tier).items():
             for skill, fm in items:
                 leaf = SKILLS / tier / group / skill
@@ -298,8 +297,8 @@ def catalog() -> str:
         "schema": 1,
         "source": "https://github.com/ai-automation-tools/agent-skills",
         "url": CATALOG_URL,
-        "install": "pwsh scripts/install-skills.ps1 [-Core | -Domain | -Project <repo>] [-Skill <name>]",
-        "counts": {t: sum(1 for s in skills if s["tier"] == t) for t in ("core", "domain", "projects")},
+        "install": "pwsh scripts/install-skills.ps1 [-Core | -Domain] [-Skill <name>]",
+        "counts": {t: sum(1 for s in skills if s["tier"] == t) for t in ("core", "domain")},
         "skills": skills,
     }
     return json.dumps(doc, indent=2, ensure_ascii=False) + "\n"

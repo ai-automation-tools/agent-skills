@@ -39,7 +39,6 @@ A collection of reusable skills for Claude Code and compatible AI agents. Each s
 |:---|:---|
 | [**🧩 Core**](./skills/core/README.md) | Reusable skills that work across repositories and install into your agent's user-level skills directory. |
 | [**🧭 Domain**](./skills/domain/README.md) | Field-specific skills (security, business, media, API, science, religion) mirrored from the org's agent workspaces. Portable, installed on request. |
-| [**🗂️ Projects**](./skills/projects/README.md) | Additional skills for specific repositories, installed into the project they belong to. |
 | [**📇 Org catalog**](./docs/CATALOG.md) | Every skill in every public org repo, not only this one, with where it lives and which copies have drifted. Generated weekly. |
 | [**🖥️ Showcase site**](./site/README.md) | A static page that presents every Core skill as a card, with screenshots and install commands. Published at [agent-skills.ai-automation-tools.dev](https://agent-skills.ai-automation-tools.dev). |
 
@@ -78,17 +77,12 @@ when you ask: `install-skills.ps1 -Domain`. Edit them in their workspace repo; t
 | [**🔬 Science**](./skills/domain/science/) | Doing and judging research: appraising a paper's design, bias and statistics, managing research data so it stays findable and reusable, and making figures that show the data honestly. From `science-agent`. |
 | [**📜 Religion**](./skills/domain/religion/) | Studying and writing about religion: analyzing myths and motifs across cultures, stating religious dates and calendars correctly, and writing fairly about faiths for a general audience. From `religion-agent`. |
 
-## 🗂️ Project skills
+## 🗂️ Skills in other repos
 
-Each folder lists the project's existing skills and any additional skills provided here.
-
-| Project folder | Additional skills in this repo |
-|:---|:---|
-| [**💬 roundtable**](./skills/projects/roundtable/README.md) | `agent-chat-conv-types`, `agent-chat-delivery` and `agent-chat-run-triage`. |
-| [**⏱️ cronsole**](./skills/projects/cronsole/README.md) | `cronsole-windows-jobs` and `cronsole-claude-routines`. |
-| [**📡 edge-radar**](./skills/projects/edge-radar/README.md) | `edge-radar-strategy-profiles` and `edge-radar-strategy-evidence`. |
-| [**📉 edge-spectrum**](./skills/projects/edge-spectrum/README.md) | `edge-spectrum-hub-tool`, `edge-spectrum-dataset`, `edge-spectrum-endpoint` and `edge-spectrum-registry`. |
-| [**🌐 project-hub**](./skills/projects/project-hub/README.md) | `project-hub-scan`, `project-hub-client` and `project-hub-demo`. (`project-hub-scaffold` is listed under Core.) |
+A skill for working on one org repo lives in that repo, so it loads only there and has one copy to
+edit. Until 2026-11-27 this repo kept copies for roundtable, cronsole, edge-radar, edge-spectrum and
+project-hub; each repo owns them now. The [org catalog](./docs/CATALOG.md) lists every skill in every
+public org repo, with where it lives and whether any copy has drifted.
 
 <a id="-using-a-skill"></a>
 

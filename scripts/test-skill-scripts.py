@@ -7,7 +7,7 @@ and table metadata parsing, servings, nutrition thresholds, the allergen
 cross-check (including its false-friend masking), the raw-protein doneness check,
 the danger patterns, and the CLI end to end over a temp folder of fixture recipes.
 
-The PowerShell helpers (project-hub-scaffold, cronsole-windows-jobs) are covered by
+The PowerShell helper (project-hub-scaffold) is covered by
 scripts/test-skill-scripts.ps1. Standard library only; exits 1 on any failure.
 CI runs it in validate.yml.
 

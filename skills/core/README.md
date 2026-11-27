@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/badge/tier-core-2ea44f?style=for-the-badge" alt="Core tier">
   <img src="https://img.shields.io/badge/skills-14-0078D4?style=for-the-badge" alt="14 skills">
   <img src="https://img.shields.io/badge/scope-user-8B5CF6?style=for-the-badge" alt="User scope">
-  <a href="../projects/README.md"><img src="https://img.shields.io/badge/↔-Project_skills-6B7280?style=for-the-badge" alt="Project skills"></a>
+  <a href="../../docs/CATALOG.md"><img src="https://img.shields.io/badge/↔-Org_catalog-6B7280?style=for-the-badge" alt="Org catalog"></a>
 </p>
 
 ---
@@ -22,8 +22,8 @@ If yes, it belongs here. Core skills name no repo's files, no repo's schema, no 
 `recipe-validator` takes the recipe folder as a parameter. `task-router` takes the cost policy as
 a parameter. That parameterisation is what makes a skill core — not the subject matter.
 
-A skill that fails the test goes to [`skills/projects/<repo>/`](../projects/README.md) and installs
-into that repo instead, so it doesn't clutter the catalog of every unrelated session.
+A skill that fails the test lives in the repo it's for (since 2026-11-27; the
+[org catalog](../../docs/CATALOG.md) lists them), so it doesn't clutter the catalog of every unrelated session.
 
 Portable **field** skills (pricing, vulnerability disclosure and the like) go to
 [`skills/domain/`](../domain/README.md) instead. They're mirrored from the org's agent
@@ -57,8 +57,8 @@ pwsh scripts/install-skills.ps1 -Core          # all of the above -> ~/.claude/s
 pwsh scripts/install-skills.ps1 -Core -Skill task-router
 ```
 
-`-Core` is the default when neither `-Core` nor `-Project` is given, so a bare run installs
-exactly this tier and never leaks a project skill into user scope.
+`-Core` is the default when no tier is given, so a bare run installs exactly this tier and never
+puts a Domain skill in user scope unasked.
 
 ## 🗃️ Categories
 
@@ -72,7 +72,7 @@ share it; until then use the closest existing one.
 <p align="center">
   <a href="../../README.md">← Repo home</a>
   ·
-  <a href="../projects/README.md">Project skills</a>
+  <a href="../../docs/CATALOG.md">Org catalog</a>
   ·
   <a href="../../docs/USING-SKILLS.md">Authoring guide</a>
 </p>
