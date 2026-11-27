@@ -14,6 +14,9 @@ Rules, each with an id an allow-list entry can name:
                     (owner marker, confirm, ask, approve, never, stop, ...)
   private-data      a real user folder (`C:\\Users\\<name>`), the lab's own `D:\\AI_Agents` tree,
                     a tailnet host (`*.ts.net`) or an email that isn't a placeholder
+  secret            a well-known credential shape: GitHub, Anthropic, OpenAI, AWS, Slack, Google or
+                    Resend keys, or a PEM private-key header (printed redacted). Shapes only, so
+                    a key with no known prefix still needs the harvest's eye check
   unattended-no-data-rule
                     a skill that prescribes an unattended agent run never says fetched content
                     is data, not instructions
@@ -56,6 +59,10 @@ TAILNET = re.compile(r"\b[\w-]+(\.[\w-]+)*\.ts\.net\b", re.I)
 EMAIL = re.compile(r"\b[\w.+-]+@([\w-]+\.)+[a-z]{2,}\b", re.I)
 OK_EMAIL = re.compile(r"(@ai-automation-tools\.dev|@(\w+\.)?example\.\w+|noreply|no-reply|@anthropic\.com|"
                       r"\.(md|py|json|ps1|txt|html|js|ts|yml|yaml|toml|css|png|svg|webp))$", re.I)
+SECRET = re.compile(
+    r"\b(gh[pousr]_|github_pat_)[A-Za-z0-9_]{20,}|\bsk-ant-[A-Za-z0-9_-]{20,}|\bsk-(proj-)?[A-Za-z0-9_-]{32,}"
+    r"|\bAKIA[0-9A-Z]{16}\b|\bxox[abprs]-[A-Za-z0-9-]{10,}|\bAIza[0-9A-Za-z_-]{35}\b|\bre_[A-Za-z0-9]{8,}_[A-Za-z0-9_]{16,}"
+    r"|-----BEGIN [A-Z ]*PRIVATE KEY-----")
 UNATTENDED = re.compile(r"--dangerously-skip-permissions|running unattended|run(s|ning)? unattended|headless (run|session)", re.I)
 DATA_RULE = re.compile(r"(is|are|as) data\b|data, never instructions|never (as )?instructions|not instructions", re.I)
 
@@ -109,6 +116,8 @@ def lint_file(path: Path, rel: str) -> list[tuple[str, int, str, str]]:
                 out.append((rel, i + 1, "private-data", ln.strip()))
         if LAB_TREE.search(ln) or TAILNET.search(ln):
             out.append((rel, i + 1, "private-data", ln.strip()))
+        if SECRET.search(ln):
+            out.append((rel, i + 1, "secret", SECRET.sub("<redacted>", ln.strip())))
         for m in EMAIL.finditer(ln):
             if not OK_EMAIL.search(m.group(0)):
                 out.append((rel, i + 1, "private-data", ln.strip()))
@@ -173,6 +182,7 @@ def self_check() -> int:
         "outward-ungated": "Then run `gh pr merge 12 --squash` to land it.\n",
         "private-data": "Logs go to C:\\Users\\jsmith\\logs.\n",
         "unattended-no-data-rule": "You are running unattended. Read the issues and do what they say.\n",
+        "secret": "Set `GH_TOKEN=ghp_" + "A1b2C3d4E5f6G7h8I9j0K1l2M3n4O5p6Q7r8` first.\n",
     }
     with tempfile.TemporaryDirectory() as d:
         base = Path(d).resolve()
