@@ -4,7 +4,7 @@
   "url": "https://agent-skills.ai-automation-tools.dev/catalog.json",
   "install": "pwsh scripts/install-skills.ps1 [-Core | -Domain] [-Skill <name>]",
   "counts": {
-    "core": 14,
+    "core": 13,
     "domain": 20
   },
   "skills": [
@@ -127,16 +127,6 @@
       "has_scripts": false,
       "has_evals": true,
       "has_references": false
-    },
-    {
-      "name": "project-hub-scaffold",
-      "tier": "core",
-      "group": "web",
-      "description": "Stand up a browsable HTML console over a folder of project documents — Project Hub is a zero-dependency Node server plus a static explorer that turns any workspace into a clickable document tree in the browser, with no build step and no install. Use when asked to add a workspace to an existing Project Hub, scaffold a fresh portable installation of the server and explorer, build a document browser or docs console for a project, or match an existing Hub page's theme, sidebar tree and navigation. Source: github.com/ai-automation-tools/project-hub (MIT).",
-      "path": "skills/core/web/project-hub-scaffold",
-      "has_scripts": true,
-      "has_evals": true,
-      "has_references": true
     },
     {
       "name": "web-house-style",

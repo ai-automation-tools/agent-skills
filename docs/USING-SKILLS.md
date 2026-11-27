@@ -23,8 +23,11 @@ skills/
 One question decides the tier: **would you invoke this from a repo other than the one it was
 written for?** Yes → [`Core`](../skills/core/README.md). No → the repo it's for, not this one: since
 2026-11-27 each org repo owns its own skills, and [`CATALOG.md`](CATALOG.md) lists them all.
-The test is about where you invoke it, not what it is about — `project-hub-scaffold` is Core
-despite being named for an org product, because you run it from whatever repo is *getting* a hub.
+The test is about where you invoke it, not what it is about — `project-hub-scaffold` is named for
+an org product but you run it from whatever repo is *getting* a hub, so it installs at user scope.
+It lives in that product's repo, though, as a **tool skill**: since 2026-11-27 a skill for using an
+org tool sits with the tool, and [`scripts/tool-skills.json`](../scripts/tool-skills.json) tells the
+installer to fetch it from there along with Core.
 
 Categories inside `core/` just group related skills. Add one when a skill fits none of them.
 
@@ -68,9 +71,14 @@ Skills are picked up from an agent's skills directory. Three options:
    # what main holds, not your working tree: tracked files at one commit (for scheduled syncs)
    git fetch origin; pwsh scripts/install-skills.ps1 -AllAgents -Ref origin/main
 
+   # what's installed where: current, differs (older or edited), missing, not ours, orphan
+   pwsh scripts/install-skills.ps1 -AllAgents -Ref origin/main -Status
    ```
 
-   A bare run installs **Core only**, so field skills never land in user scope unasked.
+   A bare run installs **Core only**, so field skills never land in user scope unasked. Core
+   includes the **tool skills** in `scripts/tool-skills.json` (`project-hub-scaffold`, the two
+   cronsole job skills): each is fetched from its own tool's repo with a shallow sparse clone of
+   just its folder, so those need git and network, and their marker names the tool repo.
    Re-run it after editing any skill. Restart the Claude Code session to reload the catalog.
 
    Each installed folder carries a `.installed-from-agent-skills` marker (source, ref, commit, time).

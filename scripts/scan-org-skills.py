@@ -126,8 +126,13 @@ def copies(skills: list[dict]) -> dict[str, list[dict]]:
     return {n: v for n, v in by.items() if len({s["repo"] for s in v}) > 1}
 
 
+# Third-party skills each repo vendors on its own, with its own README: copies may differ, so they
+# never count as drift. Name -> upstream.
+VENDORED = {"humanizer": "blader/humanizer"}
+
+
 def drifted(group: list[dict]) -> bool:
-    return len({s["sha"] for s in group}) > 1
+    return group[0]["name"] not in VENDORED and len({s["sha"] for s in group}) > 1
 
 
 def render(skills: list[dict], repos: list[dict], include_private: bool, today: str) -> str:
@@ -145,7 +150,8 @@ def render(skills: list[dict], repos: list[dict], include_private: bool, today: 
         "**Kinds:** `Core` / `Domain` are this repo's tiers. `portable` = a repo's `skills/` "
         "(travels; installable elsewhere). `wired` = `.claude/skills/` (loads only inside that repo; "
         "`+ .agents` = also mirrored for Codex and Antigravity). `bundled` = shipped inside app source. "
-        "**Copies:** `=` the other repo's folder is byte-identical, `≠` it has drifted.", "",
+        "**Copies:** `=` the other repo's folder is byte-identical, `≠` it has drifted, `≈` a third-party "
+        "skill each repo vendors on its own (not drift).", "",
         f"**{len({s['name'] for s in skills})} skills** ({len(skills)} folders) in **{len(by_repo)} of "
         f"{len(repos)} repos**. Drifted copies: **{len(bad)}**" + (f" ({', '.join(f'`{n}`' for n in bad)})." if bad else "."), "",
     ]
@@ -156,7 +162,7 @@ def render(skills: list[dict], repos: list[dict], include_private: bool, today: 
         lines += [f"## {name} ({vis[name]})", "", "| Skill | Kind | Copies | What it does |", "|:---|:---|:---|:---|"]
         for s in rows:
             k = s["kind"] + (" + `.agents`" + ("" if s["mirror_same"] else " ≠") if s["mirrored"] else "")
-            other = sorted({("=" if o["sha"] == s["sha"] else "≠") + f" `{o['repo']}`"
+            other = sorted({("=" if o["sha"] == s["sha"] else "≈" if s["name"] in VENDORED else "≠") + f" `{o['repo']}`"
                             for o in dup.get(s["name"], []) if o["repo"] != name})
             link = f"https://github.com/{ORG}/{name}/tree/{branch}/{s['folder']}"
             lines.append(f"| [**{s['name']}**]({link}) | {k} | {', '.join(other) or '—'} | {s['desc']} |")
@@ -207,6 +213,7 @@ def self_check() -> int:
             {"name": "d", "repo": "r1", "sha": "T4"}, {"name": "d", "repo": "r1", "sha": "T5"}]
     dup = copies(rows)
     assert set(dup) == {"a"} and drifted(dup["a"])  # same name twice in one repo isn't a cross-repo copy
+    assert not drifted([{"name": "humanizer", "repo": "r1", "sha": "T1"}, {"name": "humanizer", "repo": "r2", "sha": "T2"}])  # vendored
     print("self-check ok")
     return 0
 
