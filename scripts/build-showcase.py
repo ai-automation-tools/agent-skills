@@ -13,8 +13,14 @@ Everything generated sits between marker comments in index.html:
 Block keys (cards, chips, domains) hold whole lines; inline keys hold one value,
 such as a count. Anything outside the markers is hand-edited as before.
 
-    python scripts/build-showcase.py           # rewrite site/index.html
-    python scripts/build-showcase.py --check   # exit 1 if it is out of date (CI runs this)
+    python scripts/build-showcase.py             # rewrite site/index.html and site/catalog.json
+    python scripts/build-showcase.py --offline   # same, without fetching tool-skill descriptions
+    python scripts/build-showcase.py --check     # exit 1 if either is out of date (CI runs this)
+
+Tool skills (scripts/tool-skills.json) live in their tools' repos, so a normal run reads each
+one's SKILL.md from GitHub and keeps the description in site/catalog.json. --check and
+--offline reuse those cached descriptions, so CI never touches the network; the weekly Skill
+Harvest run refreshes them.
 
 Stdlib only, like validate-skills.py.
 """
@@ -24,10 +30,12 @@ import html
 import json
 import re
 import sys
+import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SKILLS = ROOT / "skills"
+TOOLS = ROOT / "scripts" / "tool-skills.json"
 INDEX = ROOT / "site" / "index.html"
 SHOWCASE = ROOT / "site" / "showcase.json"
 IMG = ROOT / "site" / "assets" / "img"
@@ -42,7 +50,11 @@ MARKER = re.compile(r"(<!-- gen:([\w-]+) -->)(.*?)(<!-- /gen:\2 -->)", re.S)
 
 def frontmatter(path: Path) -> dict[str, str]:
     """`name` and `description` from a SKILL.md, including folded (`>-`) block scalars."""
-    lines = path.read_text(encoding="utf-8-sig").replace("\r\n", "\n").split("\n")
+    return parse_frontmatter(path.read_text(encoding="utf-8-sig"))
+
+
+def parse_frontmatter(text: str) -> dict[str, str]:
+    lines = text.lstrip("﻿").replace("\r\n", "\n").split("\n")
     if not lines or lines[0].strip() != "---":
         return {}
     end = next(i for i in range(1, len(lines)) if lines[i].strip() == "---")
@@ -225,7 +237,54 @@ def group_list(tier: str, groups: dict, meta: list[dict], name=lambda g: g) -> s
     return "\n".join(items)
 
 
-def build() -> tuple[dict[str, str], list[str]]:
+def tool_skills(refresh: bool) -> tuple[list[dict], list[str]]:
+    """One entry per scripts/tool-skills.json skill, with its description. `refresh` reads it from
+    the tool repo's SKILL.md on GitHub; otherwise (or when that fails) the copy already in
+    site/catalog.json is reused, so --check stays offline and deterministic."""
+    listed = json.loads(TOOLS.read_text(encoding="utf-8"))["skills"]
+    try:
+        cached = {s["name"]: s.get("description", "") for s in json.loads(CATALOG.read_text(encoding="utf-8"))["skills"]
+                  if s.get("tier") == "tool"}
+    except (OSError, ValueError, KeyError):
+        cached = {}
+    out, warnings = [], []
+    for t in listed:
+        desc = cached.get(t["name"], "")
+        if refresh:
+            url = f"https://raw.githubusercontent.com/{t['repo']}/{t['ref']}/{t['path']}/SKILL.md"
+            try:
+                with urllib.request.urlopen(url, timeout=20) as r:
+                    desc = parse_frontmatter(r.read().decode("utf-8")).get("description", "") or desc
+            except OSError as e:
+                warnings.append(f"WARN: couldn't read {url} ({e}); kept the cached description")
+        out.append({"name": t["name"], "repo": t["repo"], "ref": t["ref"], "path": t["path"], "description": desc})
+    return out, warnings
+
+
+def tool_list(tools: list[dict], meta: list[dict]) -> str:
+    """`meta` is showcase.json's "tools": a glyph and a short hand-written line per skill. A tool
+    skill with no line falls back to its description's first clause."""
+    glyphs = {g["name"]: g.get("glyph", "🧰") for g in meta}
+    lines = {g["name"]: g["line"] for g in meta if g.get("line")}
+    items = []
+    for t in tools:
+        repo = t["repo"].split("/")[-1]
+        items.append("\n".join([
+            "        <li>",
+            f'          <a class="proj" href="https://github.com/{t["repo"]}/tree/{t["ref"]}/{t["path"]}" target="_blank" rel="noopener">',
+            f'            <span class="proj-glyph" aria-hidden="true">{glyphs.get(t["name"], "🧰")}</span>',
+            '            <span class="proj-main">',
+            f'              <span class="proj-name">{t["name"]}</span>',
+            f'              <span class="proj-skills"><code>{repo}</code><span>{html.escape(lines.get(t["name"]) or re.split(r" — |: ", first_sentence(t["description"]))[0])}</span></span>',
+            "            </span>",
+            '            <span class="proj-go" aria-hidden="true">↗</span>',
+            "          </a>",
+            "        </li>",
+        ]))
+    return "\n".join(items)
+
+
+def build(tools: list[dict]) -> tuple[dict[str, str], list[str]]:
     """The generated value for every marker key, plus any problems worth failing on."""
     data = json.loads(SHOWCASE.read_text(encoding="utf-8"))
     core = tree("core")
@@ -233,6 +292,9 @@ def build() -> tuple[dict[str, str], list[str]]:
     by_skill = {s: (cat, fm) for cat, skills in core.items() for s, fm in skills}
 
     problems = [f"showcase.json has copy for '{n}', which is not a Core skill" for n in copy if n not in by_skill]
+    problems += [f"showcase.json has a glyph for tool skill '{g['name']}', which tool-skills.json doesn't list"
+                 for g in data.get("tools", []) if g["name"] not in {t["name"] for t in tools}]
+    problems += [f"tool skill '{t['name']}' has no description; run build-showcase.py online once" for t in tools if not t["description"]]
     order = [n for n in copy if n in by_skill] + sorted(s for s in by_skill if s not in copy)
     cards = [card(i, by_skill[s][0], s, by_skill[s][1], copy.get(s, {})) for i, s in enumerate(order, 1)]
 
@@ -244,6 +306,8 @@ def build() -> tuple[dict[str, str], list[str]]:
         "cards": "\n\n".join(cards),
         "chips": "\n".join(chips),
         "domains": group_list("domain", tree("domain"), data.get("domains", []), label),
+        "tools": tool_list(tools, data.get("tools", [])),
+        "tool-count-word": word(len(tools)),
         "core-count": f"{total:02d}",
         "core-count-word": word(total),
         "core-count-Word": word(total).capitalize(),
@@ -274,10 +338,12 @@ CATALOG = ROOT / "site" / "catalog.json"
 CATALOG_URL = "https://agent-skills.ai-automation-tools.dev/catalog.json"
 
 
-def catalog() -> str:
+def catalog(tools: list[dict]) -> str:
     """site/catalog.json: every skill, so the landing page, Promptbook and registries read one
     file instead of scraping this page or the tree. No commit SHA: it would change on every
-    commit and make --check fail on unrelated PRs; the deploy's own commit is the version."""
+    commit and make --check fail on unrelated PRs; the deploy's own commit is the version.
+    Tool skills (tier "tool") carry `repo` and a full GitHub URL as `path`, and no has_* flags:
+    their folder lives in the tool's repo."""
     skills = []
     for tier in ("core", "domain"):
         for group, items in tree(tier).items():
@@ -293,12 +359,14 @@ def catalog() -> str:
                     "has_evals": (leaf / "evals").is_dir(),
                     "has_references": (leaf / "references").is_dir(),
                 })
+    skills += [{"name": t["name"], "tier": "tool", "group": t["repo"].split("/")[-1], "description": t["description"],
+                "repo": t["repo"], "path": f"https://github.com/{t['repo']}/tree/{t['ref']}/{t['path']}"} for t in tools]
     doc = {
         "schema": 1,
         "source": "https://github.com/ai-automation-tools/agent-skills",
         "url": CATALOG_URL,
-        "install": "pwsh scripts/install-skills.ps1 [-Core | -Domain] [-Skill <name>]",
-        "counts": {t: sum(1 for s in skills if s["tier"] == t) for t in ("core", "domain")},
+        "install": "pwsh scripts/install-skills.ps1 [-Core | -Domain] [-Skill <name>]  (-Core includes the tool skills)",
+        "counts": {t: sum(1 for s in skills if s["tier"] == t) for t in ("core", "domain", "tool")},
         "skills": skills,
     }
     return json.dumps(doc, indent=2, ensure_ascii=False) + "\n"
@@ -306,7 +374,10 @@ def catalog() -> str:
 
 def main() -> int:
     check = "--check" in sys.argv[1:]
-    cat_new = catalog()
+    tools, warnings = tool_skills(refresh=not check and "--offline" not in sys.argv[1:])
+    for w in warnings:
+        print(w)
+    cat_new = catalog(tools)
     cat_old = CATALOG.read_text(encoding="utf-8").replace("\r\n", "\n") if CATALOG.is_file() else ""
     if cat_new != cat_old:
         if check:
@@ -317,7 +388,7 @@ def main() -> int:
     raw = INDEX.read_bytes().decode("utf-8")
     crlf = "\r\n" in raw
     page = raw.replace("\r\n", "\n")
-    values, problems = build()
+    values, problems = build(tools)
     new, unknown = render(page, values)
     problems += [f"index.html has a marker for unknown key '{k}'" for k in unknown]
     problems += [f"index.html is missing the marker '{k}'" for k in values if f"<!-- gen:{k} -->" not in page]

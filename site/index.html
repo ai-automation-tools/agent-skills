@@ -630,12 +630,76 @@
       <p class="eyebrow"><b>03</b> · Projects</p>
       <h2>Skills in other repos</h2>
       <p class="sub">
-        A skill for working on one repository lives in that repository, so it loads only
-        there and has one copy to edit. The org catalog lists every one, with where it
-        lives and whether any copy has drifted.
+        A skill for <em>using</em> an org tool lives in that tool's repository, and the
+        <!-- gen:tool-count-word -->six<!-- /gen:tool-count-word --> below install with Core, straight from each tool's
+        <code>main</code>. A skill for working on one repository lives in that repository, so it
+        loads only there and has one copy to edit. The org catalog lists every one, with where
+        it lives and whether any copy has drifted.
       </p>
     </div>
     <ul class="proj-list reveal">
+      <!-- gen:tools -->
+        <li>
+          <a class="proj" href="https://github.com/ai-automation-tools/project-hub/tree/main/skills/project-hub-scaffold" target="_blank" rel="noopener">
+            <span class="proj-glyph" aria-hidden="true">🌐</span>
+            <span class="proj-main">
+              <span class="proj-name">project-hub-scaffold</span>
+              <span class="proj-skills"><code>project-hub</code><span>Stands up a browsable HTML console over a folder of project documents.</span></span>
+            </span>
+            <span class="proj-go" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li>
+          <a class="proj" href="https://github.com/ai-automation-tools/cronsole/tree/main/skills/cronsole-claude-routines" target="_blank" rel="noopener">
+            <span class="proj-glyph" aria-hidden="true">☁️</span>
+            <span class="proj-main">
+              <span class="proj-name">cronsole-claude-routines</span>
+              <span class="proj-skills"><code>cronsole</code><span>Designs, creates and tracks a Claude Code scheduled task.</span></span>
+            </span>
+            <span class="proj-go" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li>
+          <a class="proj" href="https://github.com/ai-automation-tools/cronsole/tree/main/skills/cronsole-windows-jobs" target="_blank" rel="noopener">
+            <span class="proj-glyph" aria-hidden="true">🗓️</span>
+            <span class="proj-main">
+              <span class="proj-name">cronsole-windows-jobs</span>
+              <span class="proj-skills"><code>cronsole</code><span>Designs, registers and verifies a Windows Task Scheduler job from one of four proven archetypes.</span></span>
+            </span>
+            <span class="proj-go" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li>
+          <a class="proj" href="https://github.com/ai-automation-tools/cloakscan/tree/main/skills/cloakscan" target="_blank" rel="noopener">
+            <span class="proj-glyph" aria-hidden="true">🕵️</span>
+            <span class="proj-main">
+              <span class="proj-name">cloakscan</span>
+              <span class="proj-skills"><code>cloakscan</code><span>Checks a web page for text a person can&#x27;t see but an AI agent reading the page can.</span></span>
+            </span>
+            <span class="proj-go" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li>
+          <a class="proj" href="https://github.com/ai-automation-tools/diff-carve/tree/main/skills/diff-carve" target="_blank" rel="noopener">
+            <span class="proj-glyph" aria-hidden="true">🔪</span>
+            <span class="proj-main">
+              <span class="proj-name">diff-carve</span>
+              <span class="proj-skills"><code>diff-carve</code><span>Cuts an oversized pull request into a stack of smaller layers and scores each for reviewability.</span></span>
+            </span>
+            <span class="proj-go" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li>
+          <a class="proj" href="https://github.com/ai-automation-tools/ghost-grant/tree/main/skills/ghost-grant" target="_blank" rel="noopener">
+            <span class="proj-glyph" aria-hidden="true">👻</span>
+            <span class="proj-main">
+              <span class="proj-name">ghost-grant</span>
+              <span class="proj-skills"><code>ghost-grant</code><span>Checks that the credentials a retired AI agent held have actually stopped working.</span></span>
+            </span>
+            <span class="proj-go" aria-hidden="true">↗</span>
+          </a>
+        </li>
+      <!-- /gen:tools -->
         <li>
           <a class="proj" href="https://github.com/ai-automation-tools/agent-skills/blob/main/docs/CATALOG.md" target="_blank" rel="noopener">
             <span class="proj-glyph" aria-hidden="true">📇</span>
@@ -654,12 +718,13 @@
     <div class="install-grid">
       <div class="sec-head reveal">
         <p class="eyebrow"><b>04</b> · Install</p>
-        <h2>Three tiers, two scopes</h2>
+        <h2>Core, tools, and Domain on request</h2>
         <p class="sub">
-          <strong>Core</strong> installs at user scope and every session can reach it.
-          <strong>Domain</strong> skills install there too, but only when you ask.
-          <strong>Projects</strong> install into the repo they belong to. A bare run covers
-          Core only, so nothing else leaks into your global catalog.
+          <strong>Core</strong> installs at user scope and every session can reach it, along
+          with the <strong>tool skills</strong>, fetched from each tool's own repository.
+          <strong>Domain</strong> skills install there too, but only when you ask. A repo's own
+          skills stay in that repo. A bare run covers Core and the tool skills only, so nothing
+          else leaks into your global catalog.
         </p>
         <p class="sub"><a class="link-arrow" href="https://github.com/ai-automation-tools/agent-skills/blob/main/docs/USING-SKILLS.md" target="_blank" rel="noopener">Full install &amp; authoring guide <span aria-hidden="true">↗</span></a></p>
       </div>

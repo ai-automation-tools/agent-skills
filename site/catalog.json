@@ -2,10 +2,11 @@
   "schema": 1,
   "source": "https://github.com/ai-automation-tools/agent-skills",
   "url": "https://agent-skills.ai-automation-tools.dev/catalog.json",
-  "install": "pwsh scripts/install-skills.ps1 [-Core | -Domain] [-Skill <name>]",
+  "install": "pwsh scripts/install-skills.ps1 [-Core | -Domain] [-Skill <name>]  (-Core includes the tool skills)",
   "counts": {
     "core": 13,
-    "domain": 20
+    "domain": 20,
+    "tool": 6
   },
   "skills": [
     {
@@ -337,6 +338,54 @@
       "has_scripts": false,
       "has_evals": false,
       "has_references": false
+    },
+    {
+      "name": "project-hub-scaffold",
+      "tier": "tool",
+      "group": "project-hub",
+      "description": "Stand up a browsable HTML console over a folder of project documents — Project Hub is a zero-dependency Node server plus a static explorer that turns any workspace into a clickable document tree in the browser, with no build step and no install. Use when asked to add a workspace to an existing Project Hub, scaffold a fresh portable installation of the server and explorer, build a document browser or docs console for a project, or match an existing Hub page's theme, sidebar tree and navigation. Source: github.com/ai-automation-tools/project-hub (MIT).",
+      "repo": "ai-automation-tools/project-hub",
+      "path": "https://github.com/ai-automation-tools/project-hub/tree/main/skills/project-hub-scaffold"
+    },
+    {
+      "name": "cronsole-claude-routines",
+      "tier": "tool",
+      "group": "cronsole",
+      "description": "Design, create and track a Claude Code scheduled task (formerly a cloud routine) — a scheduled agent run on Anthropic's infrastructure that opens a pull request — and connect it to Cronsole's CLAUDE_CODE source. Use whenever the user wants a recurring cloud agent, a scheduled Claude routine, a weekly drift check, or a docs/catalog refresh that runs by itself; whenever they want to list, pause, edit, retire or debug an existing routine; whenever a routine \"ran\" but opened nothing, or Cronsole shows no Claude routines, cannot pause one, or reports them all UNKNOWN. Also use to decide whether a scheduled agent job belongs in the cloud or on a local machine before building it.",
+      "repo": "ai-automation-tools/cronsole",
+      "path": "https://github.com/ai-automation-tools/cronsole/tree/main/skills/cronsole-claude-routines"
+    },
+    {
+      "name": "cronsole-windows-jobs",
+      "tier": "tool",
+      "group": "cronsole",
+      "description": "Design, register and verify a Windows Task Scheduler job by picking one of four proven archetypes — an unattended AI-agent CLI run, a wrapped maintenance script, a service watchdog or lifecycle task, or a plain command — then tracking it in Cronsole. Ships a runnable wrapper and registrar. Use whenever the user wants a new scheduled job, cron job, recurring task, nightly or weekly automation, watchdog, healthcheck, drive cleanup, doc refresh, or \"run Claude Code on a schedule\" on Windows; whenever an existing scheduled task needs re-scheduling, parking or debugging; and whenever a scheduled task reports success while doing nothing, stops notifying, or \"ran\" with no effect.",
+      "repo": "ai-automation-tools/cronsole",
+      "path": "https://github.com/ai-automation-tools/cronsole/tree/main/skills/cronsole-windows-jobs"
+    },
+    {
+      "name": "cloakscan",
+      "tier": "tool",
+      "group": "cloakscan",
+      "description": "Check a web page for text a human can't see but an AI agent reading the page can: color-matched text, off-screen positioning, 1px fonts, aria-hidden or HTML-comment instructions addressed to a model, and zero-width characters. CloakScan is a Chrome extension (Manifest V3) whose detector also runs in headless Chromium through Playwright, so an agent can scan a page from a script and read the findings as JSON. Use when a user wants to know whether a page hides instructions for an AI, asks to \"scan this page for hidden text\", \"check for prompt injection on this site\", \"is this page safe to hand my agent\", \"find invisible text\", \"audit my site before an agent reads it\", or names CloakScan, or when you need to install, build, run or read the output of CloakScan. Defensive use only: pages you read or own. Source: github.com/ai-automation-tools/cloakscan (MIT).",
+      "repo": "ai-automation-tools/cloakscan",
+      "path": "https://github.com/ai-automation-tools/cloakscan/tree/main/skills/cloakscan"
+    },
+    {
+      "name": "diff-carve",
+      "tier": "tool",
+      "group": "diff-carve",
+      "description": "Run DiffCarve, a CLI and GitHub Action that cuts an oversized pull request into a dependency-ordered stack of smaller layers using a static TypeScript/JavaScript import graph, and scores each layer 0 to 100 for reviewability. Use when a branch or PR is too big to review, before opening a PR an agent wrote that runs past a few hundred lines, or when the user says \"carve this PR\", \"split this PR into a stack\", \"this diff is too big\", \"which order should these files be reviewed in\", \"run diffcarve\", \"score this branch\", \"add DiffCarve to CI\" or \"set up diffcarve.yml\". Covers install from source, `diffcarve analyze`, reading the text and `--dry-run` output, exit codes, the score, `diffcarve.yml`, the Action and its traps. Source: github.com/ai-automation-tools/diff-carve (MIT).",
+      "repo": "ai-automation-tools/diff-carve",
+      "path": "https://github.com/ai-automation-tools/diff-carve/tree/main/skills/diff-carve"
+    },
+    {
+      "name": "ghost-grant",
+      "tier": "tool",
+      "group": "ghost-grant",
+      "description": "Verify that the credentials a retired AI agent held have actually stopped working, and keep verifying. GhostGrant is a local, read-only CLI: you record a YAML manifest of the agent's credentials (identifiers only, never secrets), then `check` asks each provider's own whoami endpoint (GitHub `GET /user`, Slack `auth.test`) whether each one is dead, at decommission and again at 24h, 7d, 30d and 90d, and alerts when one flips from dead back to alive. Use when the user says \"we retired/decommissioned/shut down an agent, are its tokens really dead\", \"check the old bot's GitHub/Slack token is revoked\", \"ghost credentials\", \"verify revocation\", \"schedule re-checks of a retired agent\", \"read a GhostGrant report or verdict\", or wants to import/export an Agent Security Suite inventory. Defensive use only, on credentials the user owns. Source: github.com/ai-automation-tools/ghost-grant (MIT).",
+      "repo": "ai-automation-tools/ghost-grant",
+      "path": "https://github.com/ai-automation-tools/ghost-grant/tree/main/skills/ghost-grant"
     }
   ]
 }
