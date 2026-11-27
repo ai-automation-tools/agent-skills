@@ -73,7 +73,7 @@ def list_repos(tok: str | None, include_private: bool) -> list[dict]:
 def kind(repo: str, folder: str) -> str:
     """Where a skill folder sits, in the words docs/CATALOG.md uses."""
     if repo == "agent-skills" and folder.startswith("skills/"):
-        return folder.split("/")[1].capitalize()  # Core / Domain / Projects
+        return folder.split("/")[1].capitalize()  # Core / Domain
     if folder.startswith(".claude/skills/"):
         return "wired"
     if folder.startswith("skills/"):
@@ -142,14 +142,14 @@ def render(skills: list[dict], repos: list[dict], include_private: bool, today: 
         "# Org skill catalog", "",
         f"Every `SKILL.md` in {scope} of [`{ORG}`](https://github.com/{ORG}), generated "
         f"{today} by [`scripts/scan-org-skills.py`](../scripts/scan-org-skills.py). Don't edit by hand: rerun it.", "",
-        "**Kinds:** `Core` / `Domain` / `Projects` are this repo's tiers. `portable` = a repo's `skills/` "
+        "**Kinds:** `Core` / `Domain` are this repo's tiers. `portable` = a repo's `skills/` "
         "(travels; installable elsewhere). `wired` = `.claude/skills/` (loads only inside that repo; "
         "`+ .agents` = also mirrored for Codex and Antigravity). `bundled` = shipped inside app source. "
         "**Copies:** `=` the other repo's folder is byte-identical, `≠` it has drifted.", "",
         f"**{len({s['name'] for s in skills})} skills** ({len(skills)} folders) in **{len(by_repo)} of "
         f"{len(repos)} repos**. Drifted copies: **{len(bad)}**" + (f" ({', '.join(f'`{n}`' for n in bad)})." if bad else "."), "",
     ]
-    order = {"Core": 0, "Domain": 1, "Projects": 2, "portable": 3, "wired": 4, "bundled": 5}
+    order = {"Core": 0, "Domain": 1, "portable": 2, "wired": 3, "bundled": 4}
     for name in sorted(by_repo, key=lambda n: (n != "agent-skills", n)):
         rows = sorted(by_repo[name], key=lambda s: (order[s["kind"]], s["folder"]))
         branch = rows[0]["branch"]
