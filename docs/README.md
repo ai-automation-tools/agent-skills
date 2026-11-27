@@ -16,6 +16,7 @@
 |:---|:---|
 | [**USING-SKILLS.md**](USING-SKILLS.md) | Install, invoke and author a skill: the three tiers, the installer's flags, where each agent CLI reads skills, and how to test one, including the auto-load check. |
 | [**SKILL-IDEAS.md**](SKILL-IDEAS.md) | The backlog of candidate skills; an idea moves to the Skills table once it ships. |
+| [**CATALOG.md**](CATALOG.md) | Generated: every skill in every public org repo, its kind (tier, portable, wired, bundled) and whether its copies in other repos match. Rebuilt by `scripts/scan-org-skills.py`. |
 | [**HARVEST.md**](HARVEST.md) | The ledger of field skills the weekly harvest mirrors from the org's agent workspaces into `skills/domain/`. |
 | [**UPSTREAMS.md**](UPSTREAMS.md) | Every external standard, tool and platform the library depends on, and when each was last checked. |
 | [**ROADMAP.md**](ROADMAP.md) | The repo's work queue, worked weekly by the roadmap routine. |
