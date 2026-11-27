@@ -239,7 +239,7 @@ try {
         git -C $toolRepo add -A 2>$null
         git -C $toolRepo -c user.name=test -c user.email=test@example.com commit -q -m init 2>$null
         $toolSha = (git -C $toolRepo rev-parse HEAD).Trim()
-        $toolUrl = ([Uri](Resolve-Path $toolRepo).Path).AbsoluteUri
+        $toolUrl = (Resolve-Path $toolRepo).Path   # a plain path: [Uri] gives an empty AbsoluteUri for /tmp paths on Linux
         $toolList = Join-Path $Tmp 'tools.json'
         @{ skills = @(
             @{ name = 'demo-tool'; repo = 'example/demo-tool'; path = 'skills/demo-tool'; ref = 'main'; url = $toolUrl }
