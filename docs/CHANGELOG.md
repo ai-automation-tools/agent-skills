@@ -30,6 +30,7 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 - The Projects tier, `skills/projects/`: 14 skills for roundtable, cronsole, edge-radar, edge-spectrum and project-hub now live only in those repos (edge-spectrum #151, edge-radar #425, cronsole #495, roundtable #330, project-hub #103). Two editable copies of a repo's skill drifted (`agent-chat-run-triage`) and 8 skills were never in the repo they served (org skills landscape audit, decisions D1 and D2). Gone with it: `install-skills.ps1 -Project`, the `projects` tier in `validate-skills.py`, `build-showcase.py`, `site/showcase.json` and `site/catalog.json`, `resources/skill-data/projects/`, the three project-hub rows in `copies.json`, and the `cronsole-windows-jobs` helper tests (moved to cronsole with the skill). The showcase's Projects section and the README now point at `docs/CATALOG.md`. The open roadmap item to rename the "Claude Code routines" headings went with the skill and was done in cronsole #495.
 
 **Changed**
+- `docs/CATALOG.md` regenerated after the five repo PRs and the Projects tier removal merged: 84 skills in 9 repos, the Projects rows gone, edge-spectrum listed for the first time, and `agent-chat-run-triage` no longer drifted (one copy now). `scan-org-skills.py` stops naming a Projects tier
 - `check-links.py` skips the generated `docs/CATALOG.md`: its links are right for the GitHub trees it was scanned from, not for a working tree that moves a skill.
 
 **Added**

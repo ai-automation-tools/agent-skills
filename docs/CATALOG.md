@@ -2,9 +2,9 @@
 
 Every `SKILL.md` in every public, non-archived repo of [`ai-automation-tools`](https://github.com/ai-automation-tools), generated 2026-11-27 by [`scripts/scan-org-skills.py`](../scripts/scan-org-skills.py). Don't edit by hand: rerun it.
 
-**Kinds:** `Core` / `Domain` / `Projects` are this repo's tiers. `portable` = a repo's `skills/` (travels; installable elsewhere). `wired` = `.claude/skills/` (loads only inside that repo; `+ .agents` = also mirrored for Codex and Antigravity). `bundled` = shipped inside app source. **Copies:** `=` the other repo's folder is byte-identical, `≠` it has drifted.
+**Kinds:** `Core` / `Domain` are this repo's tiers. `portable` = a repo's `skills/` (travels; installable elsewhere). `wired` = `.claude/skills/` (loads only inside that repo; `+ .agents` = also mirrored for Codex and Antigravity). `bundled` = shipped inside app source. **Copies:** `=` the other repo's folder is byte-identical, `≠` it has drifted.
 
-**84 skills** (93 folders) in **8 of 19 repos**. Drifted copies: **3** (`agent-chat-run-triage`, `humanizer`, `recipe-validator`).
+**84 skills** (87 folders) in **9 of 19 repos**. Drifted copies: **2** (`humanizer`, `recipe-validator`).
 
 ## agent-skills (public)
 
@@ -44,20 +44,6 @@ Every `SKILL.md` in every public, non-archived repo of [`ai-automation-tools`](h
 | [**security-metrics-and-posture**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/domain/security/security-metrics-and-posture) | Domain | — | Measure a security program over time instead of one point in it |
 | [**security-report-writing**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/domain/security/security-report-writing) | Domain | — | Turn verified findings into a client-ready security report that gets read and acted on |
 | [**vulnerability-disclosure**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/domain/security/vulnerability-disclosure) | Domain | — | Run a coordinated vulnerability disclosure the right way |
-| [**cronsole-claude-routines**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/projects/cronsole/cronsole-claude-routines) | Projects | — | Design, create and track a Claude Code cloud routine (now called a scheduled task) |
-| [**cronsole-windows-jobs**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/projects/cronsole/cronsole-windows-jobs) | Projects | — | Design, register and verify a Windows Task Scheduler job by picking one of four proven archetypes |
-| [**edge-radar-strategy-evidence**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/projects/edge-radar/edge-radar-strategy-evidence) | Projects | — | Decide whether an Edge-Radar betting strategy, sport, parameter or claimed edge is actually supported by outcomes |
-| [**edge-radar-strategy-profiles**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/projects/edge-radar/edge-radar-strategy-profiles) | Projects | — | Design, launch, compare and retire an Edge-Radar betting strategy as a `.env.<name>` profile overlay rather than a fork |
-| [**edge-spectrum-dataset**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/projects/edge-spectrum/edge-spectrum-dataset) | Projects | — | Change, audit or debug the Edge Spectrum dataset |
-| [**edge-spectrum-endpoint**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/projects/edge-spectrum/edge-spectrum-endpoint) | Projects | — | Add, change or debug an Edge Spectrum API endpoint across its two entry points |
-| [**edge-spectrum-hub-tool**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/projects/edge-spectrum/edge-spectrum-hub-tool) | Projects | — | Add, change, retire or debug a tool on the Edge Spectrum hub |
-| [**edge-spectrum-registry**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/projects/edge-spectrum/edge-spectrum-registry) | Projects | — | Add, change or debug Edge Spectrum's Cronsole templates and the line-archive scripts they run |
-| [**project-hub-client**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/projects/project-hub/project-hub-client) | Projects | = `project-hub` | Work on Project Hub's interface |
-| [**project-hub-demo**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/projects/project-hub/project-hub-demo) | Projects | = `project-hub` | Work on Project Hub's hosted demo at project-hub-demo.ai-automation-tools.dev |
-| [**project-hub-scan**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/projects/project-hub/project-hub-scan) | Projects | = `project-hub` | Change what Project Hub's scanner walks, indexes or serves |
-| [**agent-chat-conv-types**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/projects/roundtable/agent-chat-conv-types) | Projects | = `roundtable` | Add or change a conversation format in the Roundtable repo |
-| [**agent-chat-delivery**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/projects/roundtable/agent-chat-delivery) | Projects | = `roundtable` | Work on Roundtable's push half |
-| [**agent-chat-run-triage**](https://github.com/ai-automation-tools/agent-skills/tree/main/skills/projects/roundtable/agent-chat-run-triage) | Projects | ≠ `roundtable` | Diagnose a live Roundtable conversation that is stuck, silent, ending early, or behaving wrong |
 
 ## ai-automation-recipes (public)
 
@@ -98,6 +84,8 @@ Every `SKILL.md` in every public, non-archived repo of [`ai-automation-tools`](h
 | Skill | Kind | Copies | What it does |
 |:---|:---|:---|:---|
 | [**cronsole**](https://github.com/ai-automation-tools/cronsole/tree/main/skills/cronsole) | portable | — | Expert knowledge of Cronsole, the unified scheduled-task management system |
+| [**cronsole-claude-routines**](https://github.com/ai-automation-tools/cronsole/tree/main/skills/cronsole-claude-routines) | portable | — | Design, create and track a Claude Code scheduled task (formerly a cloud routine) |
+| [**cronsole-windows-jobs**](https://github.com/ai-automation-tools/cronsole/tree/main/skills/cronsole-windows-jobs) | portable | — | Design, register and verify a Windows Task Scheduler job by picking one of four proven archetypes |
 | [**source-doctor**](https://github.com/ai-automation-tools/cronsole/tree/main/skills/source-doctor) | portable | — | Run a full test-and-fix session across every Cronsole source (Windows, Cronsole-native, Claude Code, Gemini Triggers, n8n, GitHub Actions, Vercel… |
 | [**api-architect**](https://github.com/ai-automation-tools/cronsole/tree/main/.claude/skills/api-architect) | wired | — | Design RESTful and GraphQL APIs with proper resource modeling, versioning, pagination, error handling, and OpenAPI documentation. |
 | [**release-engineering**](https://github.com/ai-automation-tools/cronsole/tree/main/.claude/skills/release-engineering) | wired | — | Cut a Cronsole release — semantic versioning across four independently-versioned components on three release trains, prefixed tags, the agent wire… |
@@ -110,15 +98,26 @@ Every `SKILL.md` in every public, non-archived repo of [`ai-automation-tools`](h
 | [**betting-logic-review**](https://github.com/ai-automation-tools/edge-radar/tree/master/skills/betting-logic-review) | portable | — | Audit Edge-Radar's betting math, risk gates, sizing, sport-specific models, and market-data handling for errors that can lose money, then save a… |
 | [**edge-radar**](https://github.com/ai-automation-tools/edge-radar/tree/master/skills/edge-radar) | portable | — | Unified Edge-Radar skill for scanning markets, placing wagers, managing portfolio, settling bets, and researching edge across Kalshi sports and… |
 | [**edge-radar-analysis**](https://github.com/ai-automation-tools/edge-radar/tree/master/skills/edge-radar-analysis) | portable | — | Generate a comprehensive post-hoc betting performance report from local Kalshi settlement data. |
+| [**edge-radar-strategy-evidence**](https://github.com/ai-automation-tools/edge-radar/tree/master/skills/edge-radar-strategy-evidence) | portable | — | Decide whether an Edge-Radar betting strategy, sport, parameter or claimed edge is actually supported by outcomes |
+| [**edge-radar-strategy-profiles**](https://github.com/ai-automation-tools/edge-radar/tree/master/skills/edge-radar-strategy-profiles) | portable | — | Design, launch, compare and retire an Edge-Radar betting strategy as a `.env.<name>` profile overlay rather than a fork |
+
+## edge-spectrum (public)
+
+| Skill | Kind | Copies | What it does |
+|:---|:---|:---|:---|
+| [**edge-spectrum-dataset**](https://github.com/ai-automation-tools/edge-spectrum/tree/main/skills/edge-spectrum-dataset) | portable | — | Change, audit or debug the Edge Spectrum dataset |
+| [**edge-spectrum-endpoint**](https://github.com/ai-automation-tools/edge-spectrum/tree/main/skills/edge-spectrum-endpoint) | portable | — | Add, change or debug an Edge Spectrum API endpoint across its two entry points |
+| [**edge-spectrum-hub-tool**](https://github.com/ai-automation-tools/edge-spectrum/tree/main/skills/edge-spectrum-hub-tool) | portable | — | Add, change, retire or debug a tool on the Edge Spectrum hub |
+| [**edge-spectrum-registry**](https://github.com/ai-automation-tools/edge-spectrum/tree/main/skills/edge-spectrum-registry) | portable | — | Add, change or debug Edge Spectrum's Cronsole templates and the line-archive scripts they run |
 
 ## project-hub (public)
 
 | Skill | Kind | Copies | What it does |
 |:---|:---|:---|:---|
 | [**project-hub-scaffold**](https://github.com/ai-automation-tools/project-hub/tree/main/skills/project-hub-scaffold) | portable | = `agent-skills` | Stand up a browsable HTML console over a folder of project documents |
-| [**project-hub-client**](https://github.com/ai-automation-tools/project-hub/tree/main/.claude/skills/project-hub-client) | wired | = `agent-skills` | Work on Project Hub's interface |
-| [**project-hub-demo**](https://github.com/ai-automation-tools/project-hub/tree/main/.claude/skills/project-hub-demo) | wired | = `agent-skills` | Work on Project Hub's hosted demo at project-hub-demo.ai-automation-tools.dev |
-| [**project-hub-scan**](https://github.com/ai-automation-tools/project-hub/tree/main/.claude/skills/project-hub-scan) | wired | = `agent-skills` | Change what Project Hub's scanner walks, indexes or serves |
+| [**project-hub-client**](https://github.com/ai-automation-tools/project-hub/tree/main/.claude/skills/project-hub-client) | wired | — | Work on Project Hub's interface |
+| [**project-hub-demo**](https://github.com/ai-automation-tools/project-hub/tree/main/.claude/skills/project-hub-demo) | wired | — | Work on Project Hub's hosted demo at project-hub-demo.ai-automation-tools.dev |
+| [**project-hub-scan**](https://github.com/ai-automation-tools/project-hub/tree/main/.claude/skills/project-hub-scan) | wired | — | Change what Project Hub's scanner walks, indexes or serves |
 
 ## roundtable (public)
 
@@ -132,10 +131,10 @@ Every `SKILL.md` in every public, non-archived repo of [`ai-automation-tools`](h
 | [**podcast-mode**](https://github.com/ai-automation-tools/roundtable/tree/main/skills/podcast-mode) | portable | — | Use when joining a conversation whose kickoff reports conversation_type "podcast" |
 | [**start-debate**](https://github.com/ai-automation-tools/roundtable/tree/main/skills/start-debate) | portable | — | Use when the operator asks you to KICK OFF / launch / start / run a new multi-agent debate (as opposed to participating in one). |
 | [**agent-chat-add-cli**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/agent-chat-add-cli) | wired | — | Add support for a new CLI agent (Claude Code / Codex / OpenCode style) to Roundtable from a pasted repo URL. |
-| [**agent-chat-conv-types**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/agent-chat-conv-types) | wired | = `agent-skills` | Add or change a conversation format in the Roundtable repo |
-| [**agent-chat-delivery**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/agent-chat-delivery) | wired | = `agent-skills` | Work on Roundtable's push half |
+| [**agent-chat-conv-types**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/agent-chat-conv-types) | wired | — | Add or change a conversation format in the Roundtable repo |
+| [**agent-chat-delivery**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/agent-chat-delivery) | wired | — | Work on Roundtable's push half |
 | [**agent-chat-export-contract**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/agent-chat-export-contract) | wired | — | Use before changing anything about the Roundtable export bundle |
-| [**agent-chat-run-triage**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/agent-chat-run-triage) | wired | ≠ `agent-skills` | Diagnose a live Roundtable conversation that is stuck, silent, ending early, or behaving wrong |
+| [**agent-chat-run-triage**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/agent-chat-run-triage) | wired | — | Diagnose a live Roundtable conversation that is stuck, silent, ending early, or behaving wrong |
 | [**agent-chat-schema**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/agent-chat-schema) | wired | — | Use when changing the Roundtable SQLite schema |
 | [**agent-chat-web-ui**](https://github.com/ai-automation-tools/roundtable/tree/main/.claude/skills/agent-chat-web-ui) | wired | — | Use when editing the Roundtable web UI |
 
