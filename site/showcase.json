@@ -194,5 +194,13 @@
       "name": "Media",
       "glyph": "🎬"
     }
+  ],
+  "tools": [
+    { "name": "project-hub-scaffold", "glyph": "🌐", "line": "Stands up a browsable HTML console over a folder of project documents." },
+    { "name": "cronsole-windows-jobs", "glyph": "🗓️", "line": "Designs, registers and verifies a Windows Task Scheduler job from one of four proven archetypes." },
+    { "name": "cronsole-claude-routines", "glyph": "☁️", "line": "Designs, creates and tracks a Claude Code scheduled task." },
+    { "name": "cloakscan", "glyph": "🕵️", "line": "Checks a web page for text a person can't see but an AI agent reading the page can." },
+    { "name": "diff-carve", "glyph": "🔪", "line": "Cuts an oversized pull request into a stack of smaller layers and scores each for reviewability." },
+    { "name": "ghost-grant", "glyph": "👻", "line": "Checks that the credentials a retired AI agent held have actually stopped working." }
   ]
 }
