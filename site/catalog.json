@@ -16,7 +16,7 @@
       "description": "Create, adopt, or audit a specialized agent workspace repo, a GitHub repo that gives an AI or CLI agent one field's skills, agents, commands, rules, hooks and docs (security, business, full-stack dev, media, API research, science), and set up the weekly roadmap and upkeep jobs that keep it alive. Lays down the standard layout (AGENTS.md the one agent doc every CLI reads, no CLAUDE.md, only README, ROADMAP and CHANGELOG at the docs root, a generated capability reference, a curated RESOURCES.md, portable skills apart from the wired .claude/ ones), CI checks, and generated config for Codex and Antigravity. Use whenever the user wants a new agent workspace or agent repo, wants one brought up to the standard or several standardized, wants a roadmap or upkeep routine for one, wants one taken public by a gated release job, wants it to work under other agent CLIs, or asks why its docs, skills or resources went stale.",
       "path": "skills/core/automation/agent-workspace-builder",
       "has_scripts": true,
-      "has_evals": false,
+      "has_evals": true,
       "has_references": true
     },
     {
@@ -26,7 +26,7 @@
       "description": "Design, stand up, audit, or operate scheduled AI agents that do development work unattended. They turn ideas into plans, build them one roadmap item at a time through PRs that a single sweep reviews and merges, publish only through scripted gates plus a human approval, and keep every repo current. Covers both repo-per-project pipelines and the single-repo variant, where stages are folders and a merge that deploys a site is the publish step. Use whenever the user wants to automate building, publishing or maintaining repos; add or change a scheduled coding routine or pipeline stage; set up where ideas come from; keep repos from going stale; audit scheduled Claude jobs for cost, overlap or safety; decide what to script versus leave to a model; or put an approval step in front of anything irreversible. Also use when they mention incubate or graduate, PIPELINE.md, release gates, a roadmap routine, a PR sweep, or ask \"why didn't the pipeline do X\".",
       "path": "skills/core/automation/automated-dev-pipeline",
       "has_scripts": false,
-      "has_evals": false,
+      "has_evals": true,
       "has_references": true
     },
     {
@@ -136,7 +136,7 @@
       "description": "For ai-automation-tools org pages, or pages meant to match them: give a new or existing web page the org sites' shared look, feel and navigation: the near-black #060606 ground with a dot grid and zinc surfaces, one accent per site, Inter + JetBrains Mono, a Light | Dark switch in the top-right corner that defaults to dark and never flashes, a sticky blurred top bar or a fixed icon sidebar, the \"View source\" bar across the very top, the shared dark-tile favicon, and a phone pass (16px fields, 36px+ tap targets, dvh heights, drawer or icon-rail nav). Use when building a landing page, project page, demo, dashboard or app shell that should match the org's other sites, when adding a light/dark theme switch, a sidebar or a mobile layout to one, when restyling a page \"like our other apps\", or when auditing a page for drift from the house style. Works for single-file static HTML, server-rendered pages and React/Vite apps. Not for a page with its own brand or a freshly invented look.",
       "path": "skills/core/web/web-house-style",
       "has_scripts": false,
-      "has_evals": false,
+      "has_evals": true,
       "has_references": true
     },
     {

@@ -32,3 +32,4 @@ It was written to standardize the five agent workspaces in the [ai-automation-to
 | [`references/automations.md`](../../../../../skills/core/automation/agent-workspace-builder/references/automations.md) | The roadmap and upkeep jobs: scope, hold paths, scheduling, setup |
 | [`assets/`](../../../../../skills/core/automation/agent-workspace-builder/assets/) | Templates to copy and fill, including both job prompts |
 | [`scripts/`](../../../../../skills/core/automation/agent-workspace-builder/scripts/) | The four checks, each with `--self-check` |
+| [`evals/evals.json`](../../../../../skills/core/automation/agent-workspace-builder/evals/evals.json) | Six graded cases: create, adopt, audit, upkeep that must propose rather than install, secrets in `.env`, generated configs for other CLIs |

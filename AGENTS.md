@@ -221,7 +221,7 @@ When asked to validate / review / audit skills, check:
 
 **If you changed a Core skill's `description`, reinstall it and run `python scripts/check-triggers.py --skill <name>`.** It sends each request in `scripts/trigger-cases.json` to a fresh headless `claude -p` session in an empty folder and checks which skill loads. It tests the installed copy and spends tokens, so it's a local check, not CI. A new Core skill gets its cases added to the JSON.
 
-Beyond that there is no test runner. Skill-specific `evals/` (e.g. `recipe-validator/evals/evals.json`) define that skill's test cases — use them when validating that skill. Six Core skills ship them: `recipe-validator`, `task-router`, `html-email-templates`, `repo-docs-builder`, `business-plan-builder` and `news-images` (`project-hub-scaffold`'s went to project-hub with it).
+Beyond that there is no test runner. Skill-specific `evals/` (e.g. `recipe-validator/evals/evals.json`) define that skill's test cases — use them when validating that skill. Nine Core skills ship them: `recipe-validator`, `task-router`, `html-email-templates`, `repo-docs-builder`, `business-plan-builder`, `news-images`, `agent-workspace-builder`, `automated-dev-pipeline` and `web-house-style` (`project-hub-scaffold`'s went to project-hub with it).
 
 ---
 

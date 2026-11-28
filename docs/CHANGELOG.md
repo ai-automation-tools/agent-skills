@@ -55,6 +55,11 @@ Skills named here keep the name they had at the time. The four `-mfs` skills wer
 **Removed**
 - The Projects tier, `skills/projects/`: 14 skills for roundtable, cronsole, edge-radar, edge-spectrum and project-hub now live only in those repos (edge-spectrum #151, edge-radar #425, cronsole #495, roundtable #330, project-hub #103). Two editable copies of a repo's skill drifted (`agent-chat-run-triage`) and 8 skills were never in the repo they served (org skills landscape audit, decisions D1 and D2). Gone with it: `install-skills.ps1 -Project`, the `projects` tier in `validate-skills.py`, `build-showcase.py`, `site/showcase.json` and `site/catalog.json`, `resources/skill-data/projects/`, the three project-hub rows in `copies.json`, and the `cronsole-windows-jobs` helper tests (moved to cronsole with the skill). The showcase's Projects section and the README now point at `docs/CATALOG.md`. The open roadmap item to rename the "Claude Code routines" headings went with the skill and was done in cronsole #495.
 
+## 2026-11-26
+
+**Added**
+- Evals for `agent-workspace-builder`, `automated-dev-pipeline` and `web-house-style`, six cases each in the `recipe-validator` format. Each set includes a request the skill must push back on: an upkeep job that installs tools, a session that flips a repo public, a page told to follow the OS theme; `web-house-style` also has a bakery page it must leave alone. Ten Core skills now ship evals. *Phase 3*
+
 ## 2026-11-23
 
 **Fixed**
