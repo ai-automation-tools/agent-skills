@@ -39,7 +39,7 @@ same; the fix lands in the source workspace and the next harvest carries it over
 
 `scripts/lint-skill-safety.py` checks the tree for the first and fourth kinds on every PR (a
 permission bypass without a deny file, an ungated merge, visibility change, force-push,
-`DRY_RUN=false` or money move, private paths and emails); a report is still welcome for
+`DRY_RUN=false` or money move, private paths and emails, well-known key and token shapes); a report is still welcome for
 anything it misses.
 
 Out of scope: what an agent does once you've told it to ignore a skill, and problems in the

@@ -23,7 +23,6 @@
 | [**html-email-templates**](../../../skills/core/automation/html-email-templates/SKILL.md) | `html-email-templates.png` | `-2`, `-3`, `-4` |
 | [**task-router**](../../../skills/core/automation/task-router/SKILL.md) | `task-router.png` | `-2`, `-3`, `-4` |
 | [**news-images**](../../../skills/core/image-gen/news-images/SKILL.md) | `news-images.png` | `-2`, `-3`, `-4` |
-| [**project-hub-scaffold**](../../../skills/core/web/project-hub-scaffold/SKILL.md) | `project-hub-scaffold.png` | `-2`, `-3`, `-4` |
 | [**automated-dev-pipeline**](../../../skills/core/automation/automated-dev-pipeline/SKILL.md) | `automated-dev-pipeline.png` | `-2`, `-3`, `-4` |
 
 `-2` means the gallery name, so `task-router-2.webp` is the second image on the `task-router` card.
@@ -44,7 +43,6 @@ Every card has an image:
 - **`repo-docs-builder`** ships with four captures copied from
   `resources/skill-data/core/documentation/repo-docs-builder/images/screenshots/`, so the gallery
   and lightbox have something real to show.
-- **`project-hub-scaffold`** has two: the workspace dashboard and the markdown viewer.
 - **`business-plan-builder`** has three: the expanded output tree for one idea, plus the collapsed
   top level for two others.
 - **`news-images`** has three, converted from PNG to WebP at quality 85 to keep them out of the

@@ -25,16 +25,28 @@
     is given. A folder that is a link (junction or symlink) is never replaced or
     removed: the installer won't delete through a link.
 
-    Skills come in two tiers and they do NOT install to the same place:
+    Skills come in two tiers, both installed to user scope:
 
       skills/core/<category>/<name>/   portable      -> user scope (~/.claude/skills)
       skills/domain/<domain>/<name>/   portable,     -> user scope, only with -Domain
                                        mirrored from the org's agent workspaces
-      skills/projects/<repo>/<name>/   additional,   -> that repo's .claude/skills
-                                       per org repo    (an OVERLAY — the repo keeps its own)
 
-    A bare run installs the Core tier only, so a project skill can never leak into
-    user scope by accident and clutter the catalog of every unrelated session.
+    A bare run installs the Core tier only, so field skills never land in every
+    session's catalog unasked. Skills for one org repo live in that repo (since
+    2026-11-27; docs/CATALOG.md lists them), so there is nothing to install per repo.
+
+    Tool skills ride along with Core. A skill for *using* an org tool from any repo
+    (project-hub-scaffold, the cronsole job skills) lives in that tool's
+    repo, and scripts/tool-skills.json names where: {name, repo, path, ref}. Each one
+    is fetched with a shallow sparse clone of just that folder (git and network
+    needed) and installed like a Core skill; the marker names the tool repo and its
+    commit. A fetch that fails is a warning and a non-zero exit, and leaves any
+    installed copy as it was.
+
+    -Status reports instead of installing: for every selected skill in every
+    destination, whether it is current, differs (older, or edited in place), missing,
+    someone else's folder, or a link, plus any marked install this repo no longer
+    ships (an orphan).
 
     The agent CLIs read overlapping global skills directories, so three folders
     reach all of them. -AllAgents installs to each one whose CLIs exist here:
@@ -63,25 +75,18 @@
     present on this machine (Claude Code, Codex, Kimi, agy, Antigravity IDE,
     opencode, Kilo) instead of a single -Destination, and remove the copies older
     runs left in the folders it no longer writes.
-    Core and Domain tiers only: -Project and -All are rejected here, since project
-    skills belong in one repo.
+    -All is rejected here: it exists for tests and -List.
 
 .PARAMETER Core
-    Install the Core tier (skills/core/**). This is the default when neither -Core
-    nor -Project is given.
+    Install the Core tier (skills/core/**). This is the default when no tier is given.
 
 .PARAMETER Domain
     Install the Domain tier (skills/domain/**): field skills mirrored from the org's
     agent workspaces. User scope like Core, but never part of a bare run.
 
-.PARAMETER Project
-    Install the project skills for one org repo (skills/projects/<name>/**).
-    Point -Destination at that repo's .claude/skills — several org repos track
-    that folder in git, so the install lands in a commit other contributors get.
-
 .PARAMETER All
     Every tier at once. For tests (scripts/test-install-skills.ps1) and -List only:
-    it puts project skills next to Core, so it needs an explicit -Destination and
+    it puts every Domain skill next to Core, so it needs an explicit -Destination and
     is rejected with -AllAgents.
 
 .PARAMETER Skill
@@ -99,7 +104,16 @@
     from this repo. Links are still never replaced.
 
 .PARAMETER List
-    List the skills that would be installed and exit (no copying).
+    List the skills that would be installed and exit (no copying). Tool skills are
+    listed from tool-skills.json without fetching.
+
+.PARAMETER Status
+    Compare each selected skill with its installed copy in every destination and exit
+    without changing anything. Combine with -AllAgents, -Ref, -Domain or -Skill.
+
+.PARAMETER ToolList
+    The tool-skill list. Defaults to scripts/tool-skills.json; a missing file means no
+    tool skills. Tests point it at a local list.
 
 .EXAMPLE
     pwsh scripts/install-skills.ps1
@@ -122,12 +136,12 @@
     Push one updated skill to every agent CLI at once.
 
 .EXAMPLE
-    pwsh scripts/install-skills.ps1 -Project cronsole -Destination D:/repos/cronsole/.claude/skills
-    Publish cronsole's project skills into the cronsole clone.
-
-.EXAMPLE
     pwsh scripts/install-skills.ps1 -List
     Show every skill in the repo with its tier, and exit.
+
+.EXAMPLE
+    git fetch origin; pwsh scripts/install-skills.ps1 -AllAgents -Ref origin/main -Status
+    Show which installed skills are current, behind or edited, in every agent CLI.
 
 .EXAMPLE
     pwsh scripts/install-skills.ps1 -WhatIf
@@ -138,13 +152,14 @@ param(
     [string]   $Destination = (Join-Path $HOME '.claude/skills'),
     [Parameter(ParameterSetName = 'Core')]    [switch] $Core,
     [Parameter(ParameterSetName = 'Domain')]  [switch] $Domain,
-    [Parameter(ParameterSetName = 'Project')] [string] $Project,
     [Parameter(ParameterSetName = 'All')]     [switch] $All,
     [string[]] $Skill,
     [string]   $Ref,
     [switch]   $AllAgents,
     [switch]   $Force,
-    [switch]   $List
+    [switch]   $List,
+    [switch]   $Status,
+    [string]   $ToolList = (Join-Path $PSScriptRoot 'tool-skills.json')
 )
 
 $ErrorActionPreference = 'Stop'
@@ -161,11 +176,8 @@ if (-not (Test-Path $SkillsRoot)) {
     throw "skills/ folder not found at '$SkillsRoot'. Run this from within the repo."
 }
 
-if ($AllAgents -and $PSCmdlet.ParameterSetName -eq 'Project') {
-    throw "-AllAgents installs to user scope, and project skills belong in one repo's .claude/skills. Use -Project with -Destination instead."
-}
 if ($AllAgents -and $PSCmdlet.ParameterSetName -eq 'All') {
-    throw "-All includes every project skill, which never belongs in user scope. Use -AllAgents with -Core or -Domain."
+    throw "-All is for tests and -List; it never belongs in user scope. Use -AllAgents with -Core or -Domain."
 }
 if ($AllAgents -and $PSBoundParameters.ContainsKey('Destination')) {
     throw "-AllAgents picks its own destinations. Drop -Destination, or drop -AllAgents."
@@ -182,6 +194,8 @@ $HaveGit = [bool](Get-Command git -ErrorAction SilentlyContinue) -and [bool](Inv
 $SourceLabel = 'working tree'
 $Commit      = if ($HaveGit) { Invoke-Git rev-parse HEAD } else { $null }
 $Export      = $null
+$ToolTemp    = $null
+$LeafSource  = @{}   # leaf FullName -> where a tool skill came from, for its marker
 $StageRoots  = [Collections.Generic.HashSet[string]]::new()
 $failures    = 0
 
@@ -204,15 +218,6 @@ try {
 
     # Which tier are we installing? -List with no tier means "show everything".
     $SearchRoot = switch ($PSCmdlet.ParameterSetName) {
-        'Project' {
-            $p = Join-Path $SkillsRoot "projects/$Project"
-            if (-not (Test-Path $p)) {
-                $known = (Get-ChildItem (Join-Path $SkillsRoot 'projects') -Directory |
-                          Select-Object -ExpandProperty Name) -join ', '
-                throw "No project '$Project' under skills/projects. Known projects: $known"
-            }
-            $p
-        }
         'Domain'  { Join-Path $SkillsRoot 'domain' }
         'All'     { $SkillsRoot }
         default   { if ($List) { $SkillsRoot } else { Join-Path $SkillsRoot 'core' } }
@@ -223,26 +228,35 @@ try {
         ForEach-Object { $_.Directory } |
         Sort-Object FullName
 
-    # Names install flat, so a collision silently overwrites. Catch it here instead.
-    $dupes = $leaves | Group-Object Name | Where-Object Count -gt 1
-    if ($dupes) {
-        $detail = $dupes | ForEach-Object {
-            "  {0}: {1}" -f $_.Name, (($_.Group.FullName |
-                ForEach-Object { $_.Substring($SkillsRoot.Length).TrimStart('\','/') }) -join ' , ')
+    # Tool skills come with Core (and -All), never with -Domain alone.
+    $tools = @()
+    if ($PSCmdlet.ParameterSetName -in 'Core', 'All' -and (Test-Path -LiteralPath $ToolList)) {
+        $tools = @((Get-Content -Raw -LiteralPath $ToolList | ConvertFrom-Json).skills)
+        foreach ($t in $tools) {
+            if (-not ($t.name -and $t.repo -and $t.path -and $t.ref)) { throw "$ToolList entry needs name, repo, path and ref: $($t | ConvertTo-Json -Compress)" }
         }
+    }
+
+    # Names install flat, so a collision silently overwrites. Catch it here instead.
+    $named = @($leaves | ForEach-Object { [pscustomobject]@{ Name = $_.Name; Where = $_.FullName.Substring($SkillsRoot.Length).TrimStart('\','/') } }) +
+             @($tools | ForEach-Object { [pscustomobject]@{ Name = $_.name; Where = "$($_.repo):$($_.path)" } })
+    $dupes = $named | Group-Object Name | Where-Object Count -gt 1
+    if ($dupes) {
+        $detail = $dupes | ForEach-Object { "  {0}: {1}" -f $_.Name, ($_.Group.Where -join ' , ') }
         throw "Duplicate skill name(s) — they would overwrite each other on install:`n$($detail -join "`n")"
     }
 
     if ($Skill) {
         $leaves = $leaves | Where-Object { $_.Name -in $Skill }
-        $missing = $Skill | Where-Object { $_ -notin ($leaves.Name) }
+        $tools  = @($tools | Where-Object { $_.name -in $Skill })
+        $missing = $Skill | Where-Object { $_ -notin @($leaves.Name) + @($tools.name) }
         if ($missing) { Write-Warning "No skill folder matched: $($missing -join ', ')" }
     }
 
-    if (-not $leaves) { Write-Warning 'No skills found to install.'; return }
+    if (-not $leaves -and -not $tools) { Write-Warning 'No skills found to install.'; return }
 
     if ($List) {
-        $leaves | ForEach-Object {
+        @($leaves | ForEach-Object {
             $rel   = $_.FullName.Substring($SkillsRoot.Length).TrimStart('\','/') -replace '\\','/'
             $parts = $rel -split '/'
             [pscustomobject]@{
@@ -251,13 +265,39 @@ try {
                 Group = if ($parts.Count -ge 3) { $parts[1] } else { '-' }
                 Path  = "skills/$rel"
             }
-        } | Format-Table -AutoSize
+        }) + @($tools | ForEach-Object {
+            [pscustomobject]@{ Skill = $_.name; Tier = 'tool'; Group = $_.repo; Path = "$($_.repo):$($_.path)@$($_.ref)" }
+        }) | Format-Table -AutoSize
         return
+    }
+
+    # Fetch each tool skill's folder alone: a shallow, blob-less, sparse clone of its repo.
+    if ($tools) {
+        if (-not (Get-Command git -ErrorAction SilentlyContinue)) { throw "Tool skills ($($tools.name -join ', ')) need git. Install git, or pass -Skill to install others." }
+        $ToolTemp = Join-Path ([IO.Path]::GetTempPath()) "agent-skills-tools-$([guid]::NewGuid().ToString('N').Substring(0, 8))"
+        foreach ($t in $tools) {
+            $url = if ($t.url) { $t.url } else { "https://github.com/$($t.repo).git" }
+            $dir = Join-Path $ToolTemp $t.name
+            & git clone --quiet --depth 1 --filter=blob:none --sparse --branch $t.ref $url $dir 2>$null
+            if ($LASTEXITCODE -eq 0) { & git -C $dir sparse-checkout set $t.path 2>$null }
+            $leafPath = Join-Path $dir $t.path
+            if ($LASTEXITCODE -ne 0 -or -not (Test-Path -LiteralPath (Join-Path $leafPath 'SKILL.md'))) {
+                $failures++
+                Write-Warning "Couldn't fetch tool skill $($t.name) from $url ($($t.path) at $($t.ref)); any installed copy is unchanged."
+                continue
+            }
+            $leaf = Get-Item -LiteralPath $leafPath
+            if ($leaf.Name -ne $t.name) { throw "$ToolList`: $($t.name) points at a folder named $($leaf.Name)." }
+            $LeafSource[$leaf.FullName] = [ordered]@{ source = $t.repo; path = $t.path; ref = $t.ref; commit = "$(& git -C $dir rev-parse HEAD)".Trim() }
+            $leaves = @($leaves) + $leaf
+        }
+        if (-not $leaves) { Write-Warning 'No skills could be fetched.'; exit 1 }
     }
 
     # ---------------------------------------------------------------- helpers
 
     function Get-RepoPath([IO.DirectoryInfo] $Leaf) {
+        if ($LeafSource.ContainsKey($Leaf.FullName)) { return $LeafSource[$Leaf.FullName].path }
         'skills/' + ($Leaf.FullName.Substring($SkillsRoot.Length).TrimStart('\','/') -replace '\\','/')
     }
 
@@ -304,13 +344,34 @@ try {
         'foreign'
     }
 
-    function Copy-SkillTree([string] $From, [string] $To) {
-        New-Item -ItemType Directory -Path $To -Force | Out-Null
+    # The files an install carries (or carried): build litter and the marker never count.
+    function Get-ShippedFiles([string] $From) {
         foreach ($f in Get-ChildItem -LiteralPath $From -Recurse -File -Force) {
             $rel = [IO.Path]::GetRelativePath($From, $f.FullName)
             $parts = $rel -split '[\\/]'
             if ($parts.Count -gt 1 -and ($parts[0..($parts.Count - 2)] | Where-Object { $_ -in $SkipDirs })) { continue }
             if ($SkipFiles | Where-Object { $f.Name -like $_ }) { continue }
+            if ($f.Name -eq $MarkerName) { continue }
+            [pscustomobject]@{ Rel = $rel -replace '\\', '/'; File = $f }
+        }
+    }
+
+    # One hash per skill folder: relative paths plus contents, with CR dropped so a checkout's
+    # line endings don't read as a change.
+    function Get-TreeHash([string] $Dir) {
+        $sha = [Security.Cryptography.IncrementalHash]::CreateHash('SHA256')
+        foreach ($s in Get-ShippedFiles $Dir | Sort-Object Rel) {
+            $sha.AppendData([Text.Encoding]::UTF8.GetBytes("$($s.Rel)`n"))
+            $latin1 = [Text.Encoding]::Latin1   # one char per byte, so this drops CR bytes and nothing else
+            $sha.AppendData($latin1.GetBytes($latin1.GetString([IO.File]::ReadAllBytes($s.File.FullName)).Replace("`r", '')))
+        }
+        [Convert]::ToHexString($sha.GetHashAndReset())
+    }
+
+    function Copy-SkillTree([string] $From, [string] $To) {
+        New-Item -ItemType Directory -Path $To -Force | Out-Null
+        foreach ($s in Get-ShippedFiles $From) {
+            $f, $rel = $s.File, $s.Rel
             $dest = Join-Path $To $rel
             $dir = Split-Path $dest -Parent
             if (-not (Test-Path -LiteralPath $dir)) { New-Item -ItemType Directory -Path $dir -Force | Out-Null }
@@ -329,11 +390,16 @@ try {
         $old   = Join-Path $stageRoot "$($Leaf.Name).old-$id"
         try {
             Copy-SkillTree $Leaf.FullName $stage
+            $src = $LeafSource[$Leaf.FullName]
             @(
-                'source: ai-automation-tools/agent-skills'
-                "path: $(Get-RepoPath $Leaf)"
-                "ref: $SourceLabel"
-                "commit: $(if ($Commit) { $Commit } else { 'unknown (not a git clone)' })"
+                if ($src) {
+                    "source: $($src.source)"; "path: $($src.path)"; "ref: $($src.ref)"; "commit: $($src.commit)"
+                } else {
+                    'source: ai-automation-tools/agent-skills'
+                    "path: $(Get-RepoPath $Leaf)"
+                    "ref: $SourceLabel"
+                    "commit: $(if ($Commit) { $Commit } else { 'unknown (not a git clone)' })"
+                }
                 "installed: $([DateTime]::UtcNow.ToString('yyyy-MM-ddTHH:mm:ssZ'))"
             ) | Set-Content -LiteralPath (Join-Path $stage $MarkerName) -Encoding utf8NoBOM
             if (Test-Path -LiteralPath $Target) { Move-Item -LiteralPath $Target -Destination $old }
@@ -375,7 +441,39 @@ try {
         $destinations[''] = $Destination
     }
 
-    Write-Host "Source: $SourceLabel$(if ($Commit) { " at $($Commit.Substring(0, 12))" })" -ForegroundColor Cyan
+    Write-Host "Source: $SourceLabel$(if ($Commit) { " at $($Commit.Substring(0, 12))" })$(if ($LeafSource.Count) { ", plus $($LeafSource.Count) tool skill(s) from their repos" })" -ForegroundColor Cyan
+
+    if ($Status) {
+        # Every name this repo or the tool list ships, whatever tier was selected: a marked
+        # folder with none of these names is an orphan, not just "not selected".
+        $known = @(Get-ChildItem -Path $SkillsRoot -Recurse -File -Filter 'SKILL.md' | ForEach-Object { $_.Directory.Name })
+        if (Test-Path -LiteralPath $ToolList) { $known += @((Get-Content -Raw -LiteralPath $ToolList | ConvertFrom-Json).skills.name) }
+        foreach ($dest in $destinations.GetEnumerator()) {
+            $rows = foreach ($leaf in $leaves) {
+                $target = Join-Path $dest.Value $leaf.Name
+                $marker = Join-Path $target $MarkerName
+                $state = if (-not (Test-Path -LiteralPath $target)) { 'missing' }
+                    else {
+                        switch (Get-Ownership $target $leaf.Name (Get-RepoPath $leaf)) {
+                            'link'    { 'link' }
+                            'foreign' { 'not ours' }
+                            default   { if ((Get-TreeHash $target) -eq (Get-TreeHash $leaf.FullName)) { 'current' } else { 'differs' } }
+                        }
+                    }
+                $at = if (Test-Path -LiteralPath $marker) { (Select-String -LiteralPath $marker -Pattern '^commit: (\S{1,12})').Matches.Groups[1].Value }
+                [pscustomobject]@{ Skill = $leaf.Name; State = $state; Installed = $at; Target = $target }
+            }
+            if (Test-Path -LiteralPath $dest.Value) {
+                $rows = @($rows) + @(Get-ChildItem -LiteralPath $dest.Value -Directory | Where-Object {
+                    $_.Name -notin $known -and (Test-Path -LiteralPath (Join-Path $_.FullName $MarkerName))
+                } | ForEach-Object { [pscustomobject]@{ Skill = $_.Name; State = 'orphan'; Installed = ''; Target = $_.FullName } })
+            }
+            Write-Host "Status $(if ($dest.Key) { "$($dest.Key)  " })$($dest.Value)" -ForegroundColor Cyan
+            $rows | Sort-Object State, Skill | Format-Table -AutoSize
+        }
+        Write-Host 'differs = older than the source, or edited in place. orphan = a marked install no longer shipped. Nothing was changed.' -ForegroundColor DarkGray
+        return
+    }
 
     foreach ($dest in $destinations.GetEnumerator()) {
         $DestPath = $dest.Value
@@ -452,6 +550,7 @@ try {
 }
 finally {
     if ($Export -and (Test-Path $Export)) { Remove-Item $Export -Recurse -Force -ErrorAction SilentlyContinue }
+    if ($ToolTemp -and (Test-Path $ToolTemp)) { Remove-Item $ToolTemp -Recurse -Force -ErrorAction SilentlyContinue }
     foreach ($s in $StageRoots) {
         if ((Test-Path $s) -and -not (Get-ChildItem -LiteralPath $s -Force)) { Remove-Item -LiteralPath $s -Force -ErrorAction SilentlyContinue }
     }

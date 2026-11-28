@@ -48,7 +48,7 @@ contract (caps, definition of done, ledger) in the repo, where the stages can re
 Filled in from a template at incubation. Every placeholder has to be replaced from the real
 repo, because a generic "done" is where weak runs start. It must:
 
-- read `CLAUDE.md`, the ROADMAP, the spec and build plan, then the code
+- read `AGENTS.md`, the ROADMAP, the spec and build plan, then the code
 - treat the ROADMAP as `repo-docs-builder`'s `references/roadmap-standard.md` defines it:
   items are checkbox lines, gates sit above the go-live heading, a tick carries a
   `— done YYYY-MM-DD` note

@@ -14,7 +14,7 @@
 
 ## The standard, briefly
 
-- `AGENTS.md` is the doctrine every agent CLI reads; `CLAUDE.md` is a bare `@AGENTS.md` import plus Claude-only notes.
+- `AGENTS.md` is the doctrine every agent CLI reads, Claude Code included; there is no `CLAUDE.md`. Claude-only notes go in its closing *Claude Code only* section.
 - `docs/` holds only `README.md`, `ROADMAP.md` and `CHANGELOG.md` at its root. `docs/reference/` has the generated `CAPABILITIES.md` and the curated, link-verified `RESOURCES.md`; `docs/intel/` has the dated, sourced field log; everything else sits in a topic folder.
 - `skills/` holds portable skills, kept apart from the wired `.claude/skills/`.
 - Four stdlib Python checks (`check-structure.py`, `validate-skills.py`, `gen-capabilities.py`, `check-links.py`) run in CI, so the layout is an exit code rather than a request.

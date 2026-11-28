@@ -21,7 +21,7 @@
 
 <p align="center">
   <a href="https://agent-skills.ai-automation-tools.dev"><img src="https://img.shields.io/badge/live-agent--skills.ai--automation--tools.dev-F2B34B?style=for-the-badge" alt="Live at agent-skills.ai-automation-tools.dev"></a>
-  <img src="https://img.shields.io/badge/skills-14-2ea44f?style=for-the-badge" alt="14 skills">
+  <img src="https://img.shields.io/badge/skills-13-2ea44f?style=for-the-badge" alt="13 skills">
   <img src="https://img.shields.io/badge/format-SKILL.md-8B5CF6?style=for-the-badge" alt="SKILL.md format">
   <img src="https://img.shields.io/badge/agent-Claude%20Code-D97757?style=for-the-badge" alt="Built for Claude Code">
   <a href="https://github.com/ai-automation-tools"><img src="https://img.shields.io/badge/org-ai--automation--tools-0078D4?style=for-the-badge&logo=github&logoColor=white" alt="ai-automation-tools"></a>
@@ -39,7 +39,7 @@ A collection of reusable skills for Claude Code and compatible AI agents. Each s
 |:---|:---|
 | [**🧩 Core**](./skills/core/README.md) | Reusable skills that work across repositories and install into your agent's user-level skills directory. |
 | [**🧭 Domain**](./skills/domain/README.md) | Field-specific skills (security, business, media, API, science, religion) mirrored from the org's agent workspaces. Portable, installed on request. |
-| [**🗂️ Projects**](./skills/projects/README.md) | Additional skills for specific repositories, installed into the project they belong to. |
+| [**📇 Org catalog**](./docs/CATALOG.md) | Every skill in every public org repo, not only this one, with where it lives and which copies have drifted. Generated weekly. |
 | [**🖥️ Showcase site**](./site/README.md) | A static page that presents every Core skill as a card, with screenshots and install commands. Published at [agent-skills.ai-automation-tools.dev](https://agent-skills.ai-automation-tools.dev). |
 
 ## 📦 Core skills
@@ -58,8 +58,22 @@ A collection of reusable skills for Claude Code and compatible AI agents. Each s
 | [**⚡ performance-optimization**](./skills/core/engineering/performance-optimization/SKILL.md) | Engineering | Profiles first, then fixes the biggest bottleneck. |
 | [**🧪 testing-strategy**](./skills/core/engineering/testing-strategy/SKILL.md) | Engineering | Decides what to test and at which level. |
 | [**🖼️ news-images**](./resources/skill-data/core/image-gen/news-images/README.md) | Image-Gen | Generates illustrated news collages and montages. |
-| [**🌐 project-hub-scaffold**](./resources/skill-data/core/web/project-hub-scaffold/README.md) | Web | Builds a local web interface for browsing project documents. |
 | [**🎨 web-house-style**](./resources/skill-data/core/web/web-house-style/README.md) | Web | Gives a page the org sites' shared look: dark-first tokens, a Light / Dark switch top right, the source bar, a top bar or icon sidebar, and the phone pass. |
+
+## 🧰 Tool skills
+
+Skills for *using* an org tool from any repo live in that tool's repo and install with Core, straight
+from its `main` ([`scripts/tool-skills.json`](./scripts/tool-skills.json) lists them). `bot-arena`
+belongs here too; `npx skills` already installs it from its repo.
+
+| Skill | Lives in | What it does |
+|:---|:---|:---|
+| [**🌐 project-hub-scaffold**](https://github.com/ai-automation-tools/project-hub/tree/main/skills/project-hub-scaffold) | `project-hub` | Builds a local web interface for browsing project documents. |
+| [**🗓️ cronsole-windows-jobs**](https://github.com/ai-automation-tools/cronsole/tree/main/skills/cronsole-windows-jobs) | `cronsole` | Designs, registers and verifies a Windows Task Scheduler job from one of four proven archetypes. |
+| [**☁️ cronsole-claude-routines**](https://github.com/ai-automation-tools/cronsole/tree/main/skills/cronsole-claude-routines) | `cronsole` | Designs, creates and tracks a Claude Code scheduled task. |
+| [**🕵️ cloakscan**](https://github.com/ai-automation-tools/cloakscan/tree/main/skills/cloakscan) | `cloakscan` | Checks a web page for text a person can't see but an AI agent reading the page can. |
+| [**🔪 diff-carve**](https://github.com/ai-automation-tools/diff-carve/tree/main/skills/diff-carve) | `diff-carve` | Runs DiffCarve to cut an oversized pull request into reviewable slices. |
+| [**👻 ghost-grant**](https://github.com/ai-automation-tools/ghost-grant/tree/main/skills/ghost-grant) | `ghost-grant` | Checks that the credentials a retired AI agent held have actually stopped working. |
 
 ## 🧭 Domain skills
 
@@ -77,17 +91,12 @@ when you ask: `install-skills.ps1 -Domain`. Edit them in their workspace repo; t
 | [**🔬 Science**](./skills/domain/science/) | Doing and judging research: appraising a paper's design, bias and statistics, managing research data so it stays findable and reusable, and making figures that show the data honestly. From `science-agent`. |
 | [**📜 Religion**](./skills/domain/religion/) | Studying and writing about religion: analyzing myths and motifs across cultures, stating religious dates and calendars correctly, and writing fairly about faiths for a general audience. From `religion-agent`. |
 
-## 🗂️ Project skills
+## 🗂️ Skills in other repos
 
-Each folder lists the project's existing skills and any additional skills provided here.
-
-| Project folder | Additional skills in this repo |
-|:---|:---|
-| [**💬 roundtable**](./skills/projects/roundtable/README.md) | `agent-chat-conv-types`, `agent-chat-delivery` and `agent-chat-run-triage`. |
-| [**⏱️ cronsole**](./skills/projects/cronsole/README.md) | `cronsole-windows-jobs` and `cronsole-claude-routines`. |
-| [**📡 edge-radar**](./skills/projects/edge-radar/README.md) | `edge-radar-strategy-profiles` and `edge-radar-strategy-evidence`. |
-| [**📉 edge-spectrum**](./skills/projects/edge-spectrum/README.md) | `edge-spectrum-hub-tool`, `edge-spectrum-dataset`, `edge-spectrum-endpoint` and `edge-spectrum-registry`. |
-| [**🌐 project-hub**](./skills/projects/project-hub/README.md) | `project-hub-scan`, `project-hub-client` and `project-hub-demo`. (`project-hub-scaffold` is listed under Core.) |
+A skill for working on one org repo lives in that repo, so it loads only there and has one copy to
+edit. Until 2026-11-27 this repo kept copies for roundtable, cronsole, edge-radar, edge-spectrum and
+project-hub; each repo owns them now. The [org catalog](./docs/CATALOG.md) lists every skill in every
+public org repo, with where it lives and whether any copy has drifted.
 
 <a id="-using-a-skill"></a>
 

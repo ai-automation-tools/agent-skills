@@ -1,7 +1,7 @@
 # Skill harvest ledger
 
-The org's agent workspaces each grow their own `skills/` folder. Once a week the
-**Skill Harvest** job copies the portable ones into `skills/domain/<domain>/` here, and this file is
+The org's agent workspaces each grow their own `skills/` folder, and keep wired skills in
+`.claude/skills/`. Once a week the **Skill Harvest** job judges both and copies the portable ones into `skills/domain/<domain>/` here, and this file is
 its ledger: one row per workspace skill it has decided on.
 
 > [!IMPORTANT]
@@ -13,6 +13,8 @@ its ledger: one row per workspace skill it has decided on.
 - **`mirrored`:** copied into `skills/domain/` at the source SHA shown.
 - **`declined`:** judged at that SHA and not promoted, for the reason in the note. It's
   judged again if the source changes.
+- A note starting `wired:` means the source is the workspace's `.claude/skills/<name>/`, not
+  `skills/<name>/` (judged since 2026-11-27, audit R3).
 `scripts/validate-skills.py` fails CI when a `skills/domain/` skill has no `mirrored` row here,
 or has more than one. The four `fullstack-agent` skills (`debugging-methodology`,
 `full-stack-feature`, `performance-optimization`, `testing-strategy`) left this ledger on
@@ -31,9 +33,9 @@ It never pushes to `main`. Each run's changes arrive as one `harvest/auto-<date>
 | customer-discovery | business-agent | mirrored | `skills/domain/business/customer-discovery` | `d0a3ca3` | 2026-09-27 | first harvest promotion, new Domain |
 | go-to-market | business-agent | mirrored | `skills/domain/business/go-to-market` | `99b6686` | 2026-11-01 | passes tier test — no workspace layout assumed |
 | pricing-strategy | business-agent | mirrored | `skills/domain/business/pricing-strategy` | `2a71fbd` | 2026-11-08 | passes tier test — no workspace layout assumed |
-| captions-and-accessibility | media-agent | mirrored | `skills/domain/media/captions-and-accessibility` | `5698b35` | 2026-09-27 | first harvest promotion, new Domain |
-| media-rights-and-licensing | media-agent | mirrored | `skills/domain/media/media-rights-and-licensing` | `5698b35` | 2026-10-04 | passes tier test — no workspace layout assumed |
-| post-publish-analytics | media-agent | mirrored | `skills/domain/media/post-publish-analytics` | `5698b35` | 2026-10-11 | passes tier test — no workspace layout assumed |
+| captions-and-accessibility | media-agent | mirrored | `skills/domain/media/captions-and-accessibility` | `7f2448d` | 2026-11-27 | first harvest promotion, new Domain; SHA moved from `5698b35` (media-agent's pre-rewrite history), content unchanged |
+| media-rights-and-licensing | media-agent | mirrored | `skills/domain/media/media-rights-and-licensing` | `db9349e` | 2026-11-27 | passes tier test — no workspace layout assumed; re-synced by hand 2026-11-27 (source +4 lines on watermarks vs licences; mirror matched the old source, not hand-edited) |
+| post-publish-analytics | media-agent | mirrored | `skills/domain/media/post-publish-analytics` | `7f2448d` | 2026-11-27 | passes tier test — no workspace layout assumed; SHA moved from `5698b35` (pre-rewrite history), content unchanged |
 | myth-and-motif-analysis | religion-agent | mirrored | `skills/domain/religion/myth-and-motif-analysis` | `9a4d799` | 2026-11-01 | passes tier test, new Domain |
 | religious-calendars | religion-agent | mirrored | `skills/domain/religion/religious-calendars` | `9a4d799` | 2026-11-01 | passes tier test, new Domain |
 | writing-about-religion | religion-agent | mirrored | `skills/domain/religion/writing-about-religion` | `9a4d799` | 2026-11-01 | passes tier test, new Domain |

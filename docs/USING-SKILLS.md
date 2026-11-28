@@ -6,7 +6,7 @@ How to install, invoke, and author the custom Agent Skills in this repo.
 
 A **Skill** is a reusable, model-invocable capability packaged as a single `SKILL.md` file. It teaches an agent (Claude Code and compatible CLIs) how to perform a specific task well. The agent loads the skill's instructions only when the skill is invoked, so skills keep specialized knowledge out of the base context until it's needed.
 
-Skills sit in **three tiers** under [`../skills/`](../skills), and they do not install to the same place:
+Skills sit in **two tiers** under [`../skills/`](../skills), both installed to user scope:
 
 ```
 skills/
@@ -14,20 +14,20 @@ skills/
 │   └── <category>/          # e.g. business, documentation, image-gen
 │       └── <skill-name>/
 │           └── SKILL.md     # YAML frontmatter (name, description) + instructions
-├── domain/                  # portable FIELD skills mirrored from the org's agent workspaces —
-│   └── <domain>/            # installs to ~/.claude/skills only with -Domain
-│       └── <skill-name>/
-└── projects/                # ADDITIONAL skills for one org repo — installs into THAT repo,
-    │                        # on top of the skills it already owns
-    └── <repo-slug>/         # roundtable · cronsole · edge-radar · …
+└── domain/                  # portable FIELD skills mirrored from the org's agent workspaces —
+    └── <domain>/            # installs to ~/.claude/skills only with -Domain
         └── <skill-name>/
             └── SKILL.md
 ```
 
 One question decides the tier: **would you invoke this from a repo other than the one it was
-written for?** Yes → [`Core`](../skills/core/README.md). No → [`Projects`](../skills/projects/README.md).
-The test is about where you invoke it, not what it is about — `project-hub-scaffold` is Core
-despite being named for an org product, because you run it from whatever repo is *getting* a hub.
+written for?** Yes → [`Core`](../skills/core/README.md). No → the repo it's for, not this one: since
+2026-11-27 each org repo owns its own skills, and [`CATALOG.md`](CATALOG.md) lists them all.
+The test is about where you invoke it, not what it is about — `project-hub-scaffold` is named for
+an org product but you run it from whatever repo is *getting* a hub, so it installs at user scope.
+It lives in that product's repo, though, as a **tool skill**: since 2026-11-27 a skill for using an
+org tool sits with the tool, and [`scripts/tool-skills.json`](../scripts/tool-skills.json) tells the
+installer to fetch it from there along with Core.
 
 Categories inside `core/` just group related skills. Add one when a skill fits none of them.
 
@@ -71,11 +71,14 @@ Skills are picked up from an agent's skills directory. Three options:
    # what main holds, not your working tree: tracked files at one commit (for scheduled syncs)
    git fetch origin; pwsh scripts/install-skills.ps1 -AllAgents -Ref origin/main
 
-   # project tier goes into the repo it belongs to, never user scope
-   pwsh scripts/install-skills.ps1 -Project cronsole -Destination D:/repos/cronsole/.claude/skills
+   # what's installed where: current, differs (older or edited), missing, not ours, orphan
+   pwsh scripts/install-skills.ps1 -AllAgents -Ref origin/main -Status
    ```
 
-   A bare run installs **Core only**, so a project skill cannot leak into user scope by accident.
+   A bare run installs **Core only**, so field skills never land in user scope unasked. Core
+   includes the **tool skills** in `scripts/tool-skills.json` (`project-hub-scaffold`, the two
+   cronsole job skills): each is fetched from its own tool's repo with a shallow sparse clone of
+   just its folder, so those need git and network, and their marker names the tool repo.
    Re-run it after editing any skill. Restart the Claude Code session to reload the catalog.
 
    Each installed folder carries a `.installed-from-agent-skills` marker (source, ref, commit, time).
@@ -145,7 +148,7 @@ What follows from the table:
 
 ## Authoring a new skill
 
-1. Pick the tier with the invoke-it-anywhere test, then create `skills/core/<category>/<skill-name>/SKILL.md` (in the category that fits, or a new one) or `skills/projects/<repo-slug>/<skill-name>/SKILL.md`.
+1. Apply the invoke-it-anywhere test (a skill for one repo goes in that repo), then create `skills/core/<category>/<skill-name>/SKILL.md` (in the category that fits, or a new one).
 2. Write the frontmatter — a unique `name` and a description that leads with the capability and names the trigger conditions.
 3. Write the body: purpose, when-to-use, principles, a concrete execution checklist, and explicit anti-patterns. Concrete examples beat abstract advice.
 4. Keep it self-contained — the agent won't have your surrounding conversation when the skill loads.
